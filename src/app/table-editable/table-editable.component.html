@@ -1,0 +1,121 @@
+<!-- Editable table -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mx-auto text-center mt-5">
+      <h4 class="text-center">Basic example</h4>
+
+      <div class="card">
+        <h3
+          class="card-header text-center font-weight-bold text-uppercase py-4"
+        >
+          Editable table
+          <input type="button" value="+" (click)="zoomIn()" />
+          <input type="button" value="-" (click)="zoomOut()" />
+        </h3>
+
+        <div class="card-body">
+          <div id="table" class="table-editable">
+            <span class="table-add float-right mb-3 mr-2">
+              <a class="text-success" (click)="add()">
+                <!-- <mdb-icon fas icon="plus" size="2x"></mdb-icon> -->
+              </a>
+            </span>
+            <table
+              contenteditable="false"
+              class="table table-bordered table-responsive-md table-striped text-center"
+            >
+              <tr>
+                <th class="text-center">Article Name</th>
+                <th class="text-center">-</th>
+                <th class="text-center">+</th>
+                <th class="text-center">Starts</th>
+                <th class="text-center">Ends</th>
+                <th class="text-center">Diff</th>
+                <th class="text-center">Qty</th>
+                <th class="text-center">Cash</th>
+              </tr>
+              <tr *ngFor="let item of revList; let id = index">
+                <td>
+                  <span contenteditable="false">{{ item.name }}</span>
+                </td>
+                <td
+                  tabIndex="{{ id }}+0"
+                  (keyup)="keyUp(item, 'minus', $event)"
+                  (keydown)="keyDown(item, 'minus', $event)"
+                  (blur)="onBlur(item, 'minus', $event)"
+                  (focus)="(selectText)"
+                >
+                  {{ item.minus }}
+                </td>
+                <td
+                  tabIndex="{{ id }}+1"
+                  (keyup)="keyUp(item, 'mplus', $event)"
+                  (keydown)="keyDown(item, 'mplus', $event)"
+                  (blur)="updateList(item, 'mplus', $event)"
+                  (focus)="(selectText)"
+                >
+                  {{ item.mplus }}
+                </td>
+                <td>
+                  <span contenteditable="false">{{ item.starts }}</span>
+                </td>
+                <td
+                  tabIndex="{{ id }}+2"
+                  (keyup)="keyUp(item, 'ends', $event)"
+                  (keydown)="keyDown(item, 'ends', $event)"
+                  (blur)="updateList(item, 'ends', $event)"
+                  (focus)="(selectText)"
+                >
+                  {{ item.ends }}
+                </td>
+                <td>
+                  <span contenteditable="false">{{
+                    item.starts * 1 -
+                      item.ends * 1 +
+                      item.mplus * 1 +
+                      item.minus * 1
+                  }}</span>
+                </td>
+                <td>
+                  <span contenteditable="false">{{
+                    (item.starts * 1 -
+                      item.ends * 1 +
+                      item.mplus * 1 +
+                      item.minus * 1) /
+                      50
+                  }}</span>
+                </td>
+                <td>
+                  <span contenteditable="false">{{
+                    ((item.starts * 1 -
+                      item.ends * 1 +
+                      item.mplus * 1 +
+                      item.minus * 1) /
+                      50) *
+                      5
+                  }}</span>
+                </td>
+                <!-- <td>
+            <span class="table-remove">
+              <button
+                type="button"
+                mdbBtn
+                color="danger"
+                rounded="true"
+                size="sm"
+                class="my-0"
+                (click)="remove(id)"
+              >
+                Remove
+              </button>
+            </span>
+          </td> -->
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Editable table -->
+    </div>
+  </div>
+</div>
