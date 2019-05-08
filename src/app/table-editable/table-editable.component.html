@@ -29,7 +29,8 @@
                 <th class="text-center">Starts</th>
                 <th class="text-center">Ends</th>
                 <th class="text-center">Diff</th>
-                <th class="text-center">Qty</th>
+                <th class="text-center">Sold</th>
+                <th class="text-center">pos</th>
                 <th class="text-center">Cash</th>
               </tr>
               <tr *ngFor="let item of dataList; let id = index">
@@ -81,18 +82,31 @@
                   {{ item.ends | hideZero }}
                 </td>
                 <td style="min-width: 80px;" class="textRight">
-                  <span contenteditable="false">{{
-                    item.diff | hideZero
-                  }}</span>
+                  <span
+                    contenteditable="false"
+                    [ngClass]="{ negative: item.diff < 0 }"
+                    >{{ item.diff | hideZero }}</span
+                  >
                 </td>
                 <td style="min-width: 80px;" class="textRight">
-                  <span contenteditable="false">{{
-                    item.roundSold | hideZero
-                  }}</span>
+                  <span
+                    contenteditable="false"
+                    [ngClass]="{ negative: item.diff < 0 }"
+                    >{{ item.roundSold | hideZero }}</span
+                  >
+                </td>
+                <td style="min-width: 80px;" class="textRight">
+                  <span
+                    contenteditable="false"
+                    [ngClass]="{ negative: item.diff < 0 }"
+                  >
+                  </span>
                 </td>
                 <!-- | Round: item -->
                 <td style="min-width: 80px;" class="textRight">
-                  <span contenteditable="false"
+                  <span
+                    contenteditable="false"
+                    [ngClass]="{ negative: item.diff < 0 }"
                     >{{ item.sum | hideZero | currency }}
                   </span>
                 </td>

@@ -33,7 +33,7 @@ export class TableEditableComponent {
       name: "Водка",
       minus: 0,
       mplus: 0,
-      starts: 1240,
+      starts: 1.4,
       ends: 0
     },
     {
@@ -46,18 +46,18 @@ export class TableEditableComponent {
     },
     {
       id: 4,
-      name: "",
+      name: "Уиски",
       minus: 0,
       mplus: 0,
-      starts: 0,
+      starts: 1440,
       ends: 0
     },
     {
       id: 5,
-      name: "",
+      name: "Вино",
       minus: 0,
       mplus: 0,
-      starts: 2240,
+      starts: 22,
       ends: 0
     }
   ];
@@ -75,7 +75,7 @@ export class TableEditableComponent {
     {
       id: 2,
       name: "Водка",
-      qty: 50,
+      qty: 0.05,
       price: 3,
       round: 0.5,
       f: ""
@@ -90,18 +90,18 @@ export class TableEditableComponent {
     },
     {
       id: 4,
-      name: "Сок",
-      qty: 0.2,
-      price: 2,
+      name: "Уиски",
+      qty: 45,
+      price: 6,
       round: 0.5,
       f: ""
     },
     {
       id: 5,
-      name: "Сок",
-      qty: 0.2,
-      price: 2,
-      round: 0.5,
+      name: "Вино",
+      qty: 0.15,
+      price: 5,
+      round: 1,
       f: ""
     }
   ];
