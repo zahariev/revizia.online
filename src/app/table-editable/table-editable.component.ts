@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { Statement } from "@angular/compiler";
+
+import { RevService } from "../shared/services/rev.service";
 
 @Component({
   selector: "table-editable",
@@ -7,92 +10,231 @@ import { Component } from "@angular/core";
 })
 export class TableEditableComponent {
   editField: string;
+
   itemList: Array<any> = [
     {
       id: 0,
-      name: "Aurelia Vega",
-      minus: 30,
-      mplus: 30,
-      starts: "2110",
+      name: "Кафе",
+      minus: 0,
+      mplus: 0,
+      starts: 2.1,
       ends: 0
     },
     {
       id: 1,
-      name: "Aurelia Vega",
-      minus: 30,
-      mplus: 30,
-      starts: "2110",
+      name: "Кола",
+      minus: 0,
+      mplus: 0,
+      starts: 45,
       ends: 0
     },
     {
       id: 2,
-      name: "Aurelia Vega",
-      minus: 30,
-      mplus: 30,
-      starts: "1240",
+      name: "Водка",
+      minus: 0,
+      mplus: 0,
+      starts: 1240,
       ends: 0
     },
     {
       id: 3,
-      name: "Aurelia Vega",
-      minus: 30,
-      mplus: 30,
-      starts: "4030",
+      name: "Сок",
+      minus: 0,
+      mplus: 0,
+      starts: 4.1,
       ends: 0
     },
     {
       id: 4,
-      name: "Aurelia Vega",
-      minus: 30,
-      mplus: 30,
-      starts: "1212",
+      name: "",
+      minus: 0,
+      mplus: 0,
+      starts: 0,
       ends: 0
     },
     {
       id: 5,
-      name: "Aurelia Vega",
-      minus: 30,
-      mplus: 30,
-      starts: "2240",
+      name: "",
+      minus: 0,
+      mplus: 0,
+      starts: 2240,
       ends: 0
     }
   ];
+
+  menuList: Array<any> = [
+    {
+      id: 0,
+      name: "Кафе",
+      qty: 0.007,
+      price: 2.2,
+      round: 1,
+      f: ""
+    },
+    { id: 1, name: "Кола", qty: 1, price: 2, round: 0.5, f: "" },
+    {
+      id: 2,
+      name: "Водка",
+      qty: 50,
+      price: 3,
+      round: 0.5,
+      f: ""
+    },
+    {
+      id: 3,
+      name: "Сок",
+      qty: 0.2,
+      price: 2,
+      round: 0.5,
+      f: ""
+    },
+    {
+      id: 4,
+      name: "Сок",
+      qty: 0.2,
+      price: 2,
+      round: 0.5,
+      f: ""
+    },
+    {
+      id: 5,
+      name: "Сок",
+      qty: 0.2,
+      price: 2,
+      round: 0.5,
+      f: ""
+    }
+  ];
+
   nextFocus: any;
-  revList: Array<any> = [];
+  dataList: Array<any> = [];
+
   focussableElements: any;
 
-  fontSize: number;
+  fontSize: number = 1;
   focus: any;
+  activeEl: any;
+
   constructor() {
-    this.revList = localStorage.revList
-      ? JSON.parse(localStorage.revList)
+    this.dataList = localStorage.dataList
+      ? JSON.parse(localStorage.dataList)
       : this.itemList;
+
+    this.dataList.forEach((item, id) => {
+      this.dataList[id] = this.calcItemProperties(item);
+    });
   }
 
   ngAfterViewInit() {
     this.fontSize = parseFloat(localStorage.getItem("zoom")) || this.fontSize;
-    // console.log(this.fontSize);
     document.body.style.fontSize = this.fontSize.toString() + "rem";
   }
 
-  updateList(item, property: string, event: any) {
-    const editValue = event.target.textContent;
-    console.log(editValue);
-    this.revList[item.id][property] = editValue;
-    localStorage.revList = JSON.stringify(this.revList);
+  calcItemProperties(item) {
+    var menuItem = this.menuList[item.id];
+    item.diff =
+      Math.round(
+        (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
+          1000
+      ) / 1000;
+    item.qtySold = item.diff / menuItem.qty;
+    item.price = menuItem.price;
+    item.roundSold =
+      Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
+    item.sum = item.roundSold * menuItem.price;
+
+    // console.log(menuItem.round);
+    return item;
   }
 
-  onBlur(item, elName, event) {}
+  updateList(item, property: string, num: any) {
+    // const editValue = el.textContent;
+    var newItem = this.dataList[item.id];
+    var menuItem = this.menuList[item.id];
 
-  onFocus(item, event) {
-    this.focus = event.target;
+    newItem[property] = Number(num);
+    // calculating sum fields
+    this.calcItemProperties(item);
+    localStorage.dataList = JSON.stringify(this.dataList);
   }
 
-  onEdit() {
-    window.setTimeout(
-      () => document.activeElement.execCommand("selectAll", false, null),
-      1
-    );
+  onBlur(item, elName, event) {
+    var el = event.target;
+    el.contentEditable = "false";
+    this.updateList(item, elName, el.textContent);
+  }
+
+  onMdown(item: any, elName: string, el: any) {
+    // var el = event.target;
+    if (this.activeEl == el) {
+      // console.log("md");
+      this.activeEl = "select";
+      // this.selectText(document.activeElement);
+    } else {
+      this.activeEl = el;
+    }
+  }
+
+  onClick(item: any, elName: string, event: any) {
+    // console.log("md");
+    if (this.activeEl == "select") {
+      this.selectText(document.activeElement);
+    }
+  }
+
+  onDoubleClick(item: any, elName: string, event: any) {
+    //this.makeEditable(event.target);
+  }
+
+  keyDown(item, property: string, event: any) {
+    // console.log(event);
+    var el = event.target;
+    // this.log(event);
+    switch (event.key) {
+      case "Enter":
+        if (this.activeEl == "editable") {
+          this.focusNextElement(el, 3);
+
+          event.preventDefault();
+        } else {
+          this.selectText(el);
+          this.makeEditable(el);
+
+          event.preventDefault();
+        }
+
+        break;
+
+      case "ArrowUp":
+        this.focusNextElement(el, -3);
+        break;
+      case "ArrowDown":
+        this.focusNextElement(el, 3);
+        break;
+      case "ArrowLeft":
+        if (this.activeEl != "editable") this.focusNextElement(el, -1);
+        break;
+      case "ArrowRight":
+        if (this.activeEl != "editable") this.focusNextElement(el, 1);
+        break;
+      default:
+        if (this.activeEl != "editable") this.selectText();
+        this.makeEditable(el);
+        setTimeout(el.focus(), 100);
+    }
+  }
+
+  selectText(cell = document.activeElement) {
+    var range, selection;
+    if (this.activeEl == "select") this.activeEl = "editable";
+    const input = window.document;
+    if (window.getSelection) {
+      selection = window.getSelection();
+      range = document.createRange();
+      range.selectNodeContents(cell);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
   }
 
   keyUp(item, property: string, event: any) {
@@ -104,32 +246,9 @@ export class TableEditableComponent {
     }
   }
 
-  beforeInput(event) {
-    console.log(event);
-  }
-
-  keyDown(item, property: string, event: any) {
-    // console.log(event);
-    //this.editField = event.target.textContent;
-
-    switch (event.key) {
-      case "Enter":
-        this.focusNextElement(event.target, 3);
-        event.preventDefault();
-        break;
-      case "ArrowLeft":
-        this.focusNextElement(event.target, -1);
-        break;
-      case "ArrowUp":
-        this.focusNextElement(event.target, -3);
-        break;
-      case "ArrowDown":
-        this.focusNextElement(event.target, 3);
-        break;
-      case "ArrowRight":
-        this.focusNextElement(event.target, 1);
-        break;
-    }
+  makeEditable(el) {
+    el.contentEditable = "true";
+    this.activeEl = "editable";
   }
 
   zoomIn() {
@@ -143,14 +262,19 @@ export class TableEditableComponent {
     localStorage.setItem("zoom", this.fontSize.toString());
   }
 
-  focusNextElement(el, i = 1) {
+  focusNextElement(el, step = 1) {
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
-    console.log(index);
+
     if (index > -1) {
+      window.getSelection().removeAllRanges();
       var nextElement =
-        this.focussableElements[index + i] || this.focussableElements[index];
+        this.focussableElements[index + step] || this.focussableElements[index];
+
+      if (index) el.contentEditable = "false";
+
       nextElement.focus();
+      this.activeEl = nextElement;
     }
   }
 }

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TableEditableComponent } from './table-editable.component';
+import { TableEditableComponent } from "./table-editable.component";
 
-describe('TableEditableComponent', () => {
+describe("TableEditableComponent", () => {
   let component: TableEditableComponent;
   let fixture: ComponentFixture<TableEditableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableEditableComponent ]
-    })
-    .compileComponents();
+      declarations: [TableEditableComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('TableEditableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

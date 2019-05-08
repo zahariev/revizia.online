@@ -9,23 +9,21 @@
           class="card-header text-center font-weight-bold text-uppercase py-4"
         >
           Editable table
-          <input type="button" value="+" (click)="zoomIn()" />
-          <input type="button" value="-" (click)="zoomOut()" />
+          <div id="tabbed">
+            <input type="button" value="+" (click)="zoomIn()" />
+            <input type="button" value="-" (click)="zoomOut()" />
+          </div>
         </h3>
 
         <div class="card-body">
           <div id="table" class="table-editable">
-            <span class="table-add float-right mb-3 mr-2">
-              <a class="text-success" (click)="add()">
-                <!-- <mdb-icon fas icon="plus" size="2x"></mdb-icon> -->
-              </a>
-            </span>
             <table
               contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
             >
               <tr>
                 <th class="text-center">Article Name</th>
+                <th class="text-center">price</th>
                 <th class="text-center">-</th>
                 <th class="text-center">+</th>
                 <th class="text-center">Starts</th>
@@ -34,66 +32,69 @@
                 <th class="text-center">Qty</th>
                 <th class="text-center">Cash</th>
               </tr>
-              <tr *ngFor="let item of revList; let id = index">
-                <td>
+              <tr *ngFor="let item of dataList; let id = index">
+                <td style="min-width: 110px;" class="textLeft">
                   <span contenteditable="false">{{ item.name }}</span>
                 </td>
+                <td>
+                  <span class="itemPrice" contenteditable="false">{{
+                    item.price | currency
+                  }}</span>
+                </td>
                 <td
-                  tabIndex="{{ id }}+0"
+                  style="min-width: 70px;"
+                  tabIndex="{{ 3 * id }}"
                   (keyup)="keyUp(item, 'minus', $event)"
                   (keydown)="keyDown(item, 'minus', $event)"
+                  (mousedown)="onMdown(item, 'minus', $event)"
+                  (click)="onClick(item, 'minus', $event)"
                   (blur)="onBlur(item, 'minus', $event)"
-                  (focus)="(selectText)"
                 >
-                  {{ item.minus }}
+                  {{ item.minus | hideZero }}
                 </td>
                 <td
-                  tabIndex="{{ id }}+1"
+                  style="min-width: 80px;"
+                  tabIndex="{{ 3 * id + 1 }}"
                   (keyup)="keyUp(item, 'mplus', $event)"
                   (keydown)="keyDown(item, 'mplus', $event)"
-                  (blur)="updateList(item, 'mplus', $event)"
-                  (focus)="(selectText)"
+                  (mousedown)="onMdown(item, 'mlus', $event)"
+                  (click)="onClick(item, 'mplus', $event)"
+                  (blur)="onBlur(item, 'mplus', $event)"
                 >
-                  {{ item.mplus }}
+                  <!-- (blur)="updateList(item, 'mplus', $event)" -->
+                  {{ item.mplus | hideZero }}
                 </td>
-                <td>
-                  <span contenteditable="false">{{ item.starts }}</span>
+                <td style="min-width: 80px;">
+                  <span contenteditable="false">{{
+                    item.starts | hideZero
+                  }}</span>
                 </td>
                 <td
-                  tabIndex="{{ id }}+2"
+                  style="min-width: 80px;"
+                  tabIndex="{{ 3 * id + 2 }}"
                   (keyup)="keyUp(item, 'ends', $event)"
                   (keydown)="keyDown(item, 'ends', $event)"
-                  (blur)="updateList(item, 'ends', $event)"
-                  (focus)="(selectText)"
+                  (mousedown)="onMdown(item, 'ends', $event)"
+                  (click)="onClick(item, 'ends', $event)"
+                  (blur)="onBlur(item, 'ends', $event)"
                 >
-                  {{ item.ends }}
+                  {{ item.ends | hideZero }}
                 </td>
-                <td>
+                <td style="min-width: 80px;" class="textRight">
                   <span contenteditable="false">{{
-                    item.starts * 1 -
-                      item.ends * 1 +
-                      item.mplus * 1 +
-                      item.minus * 1
+                    item.diff | hideZero
                   }}</span>
                 </td>
-                <td>
+                <td style="min-width: 80px;" class="textRight">
                   <span contenteditable="false">{{
-                    (item.starts * 1 -
-                      item.ends * 1 +
-                      item.mplus * 1 +
-                      item.minus * 1) /
-                      50
+                    item.roundSold | hideZero
                   }}</span>
                 </td>
-                <td>
-                  <span contenteditable="false">{{
-                    ((item.starts * 1 -
-                      item.ends * 1 +
-                      item.mplus * 1 +
-                      item.minus * 1) /
-                      50) *
-                      5
-                  }}</span>
+                <!-- | Round: item -->
+                <td style="min-width: 80px;" class="textRight">
+                  <span contenteditable="false"
+                    >{{ item.sum | hideZero | currency }}
+                  </span>
                 </td>
                 <!-- <td>
             <span class="table-remove">

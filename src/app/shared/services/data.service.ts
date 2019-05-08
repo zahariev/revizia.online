@@ -1,0 +1,36 @@
+import { Injectable } from "@angular/core";
+
+import { HttpService } from "./http.service";
+import { BehaviorSubject } from "rxjs";
+
+@Injectable()
+export class DataService {
+  private tabsSource = new BehaviorSubject(new Array());
+  tabs = this.tabsSource.asObservable();
+
+  private menuSource = new BehaviorSubject(new Array());
+  menu = this.menuSource.asObservable();
+
+  // private usersSource = new BehaviorSubject(new Array());
+  // users = this.usersSource.asObservable();
+
+  constructor(private http: HttpService) {
+    this.getRevItems();
+    this.getMenuData();
+    // this.getUsers();
+  }
+
+  getRevItems() {
+    this.http.getHtmlRevData().subscribe(data => {
+      // Read the result field from the JSON response.
+      this.tabsSource.next(data);
+    });
+  }
+
+  getMenuData() {
+    this.http.getMenuData().subscribe(data => {
+      // Read the result field from the JSON response.
+      this.menuSource.next(data);
+    });
+  }
+}

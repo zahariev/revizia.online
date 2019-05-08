@@ -53,6 +53,16 @@ table.table th {
   background-color: rgba(198, 198, 198, 0.756);
 }
 
+#tabbed {
+  position: absolute;
+  right: 55px;
+  top: 25px;
+}
+
+.itemPrice {
+  font-size: 0.7em;
+}
+
 .table-bordered,
 .table-bordered td,
 .table-bordered th {
@@ -72,4 +82,12 @@ tr td:nth-child(7) {
 
 tr span:not([class]) {
   padding: 1rem;
+}
+
+td.textRight {
+  text-align: right;
+}
+
+td.textLeft {
+  text-align: left;
 }
