@@ -11,54 +11,88 @@ import { RevService } from "../shared/services/rev.service";
 export class TableEditableComponent {
   editField: string;
 
-  itemList: Array<any> = [
+  dataList: Array<any> = [
     {
       id: 0,
-      name: "Кафе",
       minus: 0,
       mplus: 0,
-      starts: 2.1,
+      starts: 0,
       ends: 0
     },
     {
       id: 1,
-      name: "Кола",
       minus: 0,
       mplus: 0,
-      starts: 45,
+      starts: 0,
       ends: 0
     },
     {
       id: 2,
-      name: "Водка",
       minus: 0,
       mplus: 0,
-      starts: 1.4,
+      starts: 0,
       ends: 0
     },
     {
       id: 3,
-      name: "Сок",
       minus: 0,
       mplus: 0,
-      starts: 4.1,
+      starts: 0,
       ends: 0
     },
     {
       id: 4,
-      name: "Уиски",
       minus: 0,
       mplus: 0,
-      starts: 1440,
+      starts: 0,
       ends: 0
     },
     {
       id: 5,
-      name: "Вино",
       minus: 0,
       mplus: 0,
-      starts: 22,
+      starts: 0,
       ends: 0
+    }
+  ];
+
+  prevList: Array<any> = [
+    {
+      id: 0,
+
+      minus: 0,
+      mplus: 0,
+      ends: 2.1
+    },
+    {
+      id: 1,
+      minus: 0,
+      mplus: 0,
+      ends: 45
+    },
+    {
+      id: 2,
+      minus: 0,
+      mplus: 0,
+      ends: 2.1
+    },
+    {
+      id: 3,
+      minus: 0,
+      mplus: 0,
+      ends: 45
+    },
+    {
+      id: 4,
+      minus: 0,
+      mplus: 0,
+      ends: 1440
+    },
+    {
+      id: 5,
+      minus: 0,
+      mplus: 0,
+      ends: 11
     }
   ];
 
@@ -107,8 +141,8 @@ export class TableEditableComponent {
   ];
 
   nextFocus: any;
-  dataList: Array<any> = [];
-
+  // dataList: Array<any> = [];
+  viewList: Array<any> = [];
   focussableElements: any;
 
   fontSize: number = 1;
@@ -118,10 +152,15 @@ export class TableEditableComponent {
   constructor() {
     this.dataList = localStorage.dataList
       ? JSON.parse(localStorage.dataList)
-      : this.itemList;
+      : this.dataList;
 
-    this.dataList.forEach((item, id) => {
-      this.dataList[id] = this.calcItemProperties(item);
+    this.menuList.forEach((item, id) => {
+      this.viewList[id] = this.viewItemCalc(
+        this.dataList.filter(i => {
+          return i.id == item.id;
+        })[0],
+        item
+      );
     });
   }
 
@@ -130,20 +169,27 @@ export class TableEditableComponent {
     document.body.style.fontSize = this.fontSize.toString() + "rem";
   }
 
-  calcItemProperties(item) {
-    var menuItem = this.menuList[item.id];
+  viewItemCalc(item, menuItem) {
+    item.starts = Number(
+      this.prevList.filter(i => {
+        return i.id == menuItem.id;
+      })[0].ends
+    );
+    console.log(item);
     item.diff =
       Math.round(
         (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
           1000
       ) / 1000;
+
     item.qtySold = item.diff / menuItem.qty;
     item.price = menuItem.price;
+    item.name = menuItem.name;
+    item.id = menuItem.id;
     item.roundSold =
       Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
     item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
-
-    // console.log(menuItem.round);
+    // console.log(item);
     return item;
   }
 
@@ -153,14 +199,13 @@ export class TableEditableComponent {
     }, 0);
   }
 
-  updateList(item, property: string, num: any) {
-    // const editValue = el.textContent;
+  updateList(item, property: string, value: any) {
     var newItem = this.dataList[item.id];
     var menuItem = this.menuList[item.id];
 
-    newItem[property] = Number(num);
-    // calculating sum fields
-    this.calcItemProperties(item);
+    newItem[property] = Number(value);
+
+    this.viewItemCalc(newItem, menuItem);
     localStorage.dataList = JSON.stringify(this.dataList);
   }
 
@@ -171,11 +216,8 @@ export class TableEditableComponent {
   }
 
   onMdown(item: any, elName: string, el: any) {
-    // var el = event.target;
     if (this.activeEl == el) {
-      // console.log("md");
       this.activeEl = "select";
-      // this.selectText(document.activeElement);
     } else {
       this.activeEl = el;
     }
