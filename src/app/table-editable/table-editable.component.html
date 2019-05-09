@@ -9,9 +9,13 @@
           class="card-header text-center font-weight-bold text-uppercase py-4"
         >
           Editable table
+
           <div id="tabbed">
             <input type="button" value="+" (click)="zoomIn()" />
             <input type="button" value="-" (click)="zoomOut()" />
+          </div>
+          <div class="total">
+            $ <span id="total"> {{ totalSalesSum() }}</span>
           </div>
         </h3>
 

@@ -55,8 +55,9 @@ table.table th {
 
 #tabbed {
   position: absolute;
-  right: 55px;
-  top: 25px;
+  /* font-size: 0.7px; */
+  left: 55px;
+  top: 20px;
 }
 
 .itemPrice {
@@ -100,4 +101,11 @@ td.textLeft {
 
 span.negative {
   color: red;
+}
+
+.total {
+  position: absolute;
+  right: 31px;
+  top: 30px;
+  /* margin-left: 200px; */
 }

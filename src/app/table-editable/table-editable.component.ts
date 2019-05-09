@@ -141,10 +141,16 @@ export class TableEditableComponent {
     item.price = menuItem.price;
     item.roundSold =
       Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
-    item.sum = item.roundSold * menuItem.price;
+    item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
 
     // console.log(menuItem.round);
     return item;
+  }
+
+  totalSalesSum() {
+    return this.dataList.reduce((total, item) => {
+      return +(total * 1) + +item.sum || 0 * 1;
+    }, 0);
   }
 
   updateList(item, property: string, num: any) {
