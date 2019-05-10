@@ -148,6 +148,7 @@ export class TableEditableComponent {
   fontSize: number = 1;
   focus: any;
   activeEl: any;
+  contentChange: Boolean = false;
 
   constructor() {
     this.dataList = localStorage.dataList
@@ -175,7 +176,7 @@ export class TableEditableComponent {
         return i.id == menuItem.id;
       })[0].ends
     );
-    console.log(item);
+    // console.log(item);
     item.diff =
       Math.round(
         (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
@@ -199,20 +200,28 @@ export class TableEditableComponent {
     }, 0);
   }
 
-  updateList(item, property: string, value: any) {
+  updateList(item, property: string, el: any) {
+    var value = el.innerText;
+    value = value.replace(/\r?\n|\r\s/g, "");
+    // value = value.replace(" ", "");
+
     var newItem = this.dataList[item.id];
     var menuItem = this.menuList[item.id];
-
-    newItem[property] = Number(value);
-
+    if (this.contentChange) newItem[property] = Number(value);
+    else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);
     localStorage.dataList = JSON.stringify(this.dataList);
+    this.contentChange = false;
   }
 
+  onInput(ev) {
+    this.contentChange = true;
+  }
   onBlur(item, elName, event) {
     var el = event.target;
     el.contentEditable = "false";
-    this.updateList(item, elName, el.textContent);
+    // console.log(el.innerText);
+    this.updateList(item, elName, el);
   }
 
   onMdown(item: any, elName: string, el: any) {
