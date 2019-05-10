@@ -215,13 +215,26 @@ export class TableEditableComponent {
     var newItem = this.dataList[item.id];
     var menuItem = this.menuList[item.id];
 
-    this.history.push(newItem);
-
-    if (this.contentChange) newItem[property] = Number(value);
-    else el.innerHTML = newItem[property] || "";
+    if (this.contentChange) {
+      newItem[property] = Number(value);
+      this.history.push(JSON.parse(localStorage.dataList)[item.id]);
+      // console.log(this.history);
+    } else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);
     localStorage.dataList = JSON.stringify(this.dataList);
     this.contentChange = false;
+  }
+
+  undoValue() {
+    var item = this.history.pop();
+    console.log(item);
+    if (!item) return;
+    console.log(this.dataList[item.id]);
+
+    this.dataList[item.id] = item;
+    localStorage.dataList = JSON.stringify(this.dataList);
+    this.viewList[item.id] = item;
+    // this.gridInit();
   }
 
   onInput(ev) {
@@ -285,7 +298,7 @@ export class TableEditableComponent {
         if (this.activeEl != "editable") this.focusNextElement(el, 1);
         break;
       case "z":
-        if (event.ctrlKey || event.metaKey) console.log("undo");
+        if (event.ctrlKey || event.metaKey) this.undoValue();
         break;
       case "Meta":
       case "Control":
