@@ -36,14 +36,14 @@ export class RevService {
     this.menu = this.getS("menu");
     this.data.menu.subscribe(data => {
       if (data["users"]) {
-        this.menu = CopyO(data);
+        // this.menu = CopyO(data);
         this.store("menu", data);
       } else {
         // MESSAGE - " Not Correct Data Loaded. Continue WITH last Data!"
       }
       // developer mode auto login
       setTimeout(() => {
-        this.userLogin(123);
+        // this.userLogin(123);
         // db.database.ref("bilkova");
         // log(this.menu.items.customers);
         // CryptoJS.AES.encrypt(json, "secret key 123").toString();
@@ -51,17 +51,16 @@ export class RevService {
       }, 1500);
     });
 
-    this.user = new User();
+    // this.user = new User();
     this.sales = Array.from(this.getS("sales")) || [];
   }
 
   public itemSale(item, mixList) {
-    let itm = new Item(item.id, item.name, item.qty, item.price, item.comm);
-    itm.mixHeader = item.mixHeader;
-    itm.sales_qty = item.sales_qty;
-    if (mixList) itm.mixList = item.mixList;
-
-    return itm;
+    // let itm = new Item(item.id, item.name, item.qty, item.price, item.comm);
+    // itm.mixHeader = item.mixHeader;
+    // itm.sales_qty = item.sales_qty;
+    // if (mixList) itm.mixList = item.mixList;
+    // return itm;
   }
 
   public store(name, obj) {

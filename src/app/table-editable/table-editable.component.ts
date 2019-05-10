@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Statement } from "@angular/compiler";
 
-import { RevService } from "../shared/services/rev.service";
+// import { RevService } from "../shared/services/rev.service";
 
 @Component({
   selector: "table-editable",
