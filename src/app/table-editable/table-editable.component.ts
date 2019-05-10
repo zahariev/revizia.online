@@ -149,20 +149,27 @@ export class TableEditableComponent {
   focus: any;
   activeEl: any;
   contentChange: Boolean = false;
+  history: Array<any> = [];
 
   constructor() {
     this.dataList = localStorage.dataList
       ? JSON.parse(localStorage.dataList)
       : this.dataList;
+    this.gridInit();
+  }
 
+  gridInit() {
+    var tempList: Array<any> = [];
     this.menuList.forEach((item, id) => {
-      this.viewList[id] = this.viewItemCalc(
+      tempList[id] = this.viewItemCalc(
         this.dataList.filter(i => {
           return i.id == item.id;
         })[0],
         item
       );
     });
+
+    this.viewList = tempList;
   }
 
   ngAfterViewInit() {
@@ -207,6 +214,9 @@ export class TableEditableComponent {
 
     var newItem = this.dataList[item.id];
     var menuItem = this.menuList[item.id];
+
+    this.history.push(newItem);
+
     if (this.contentChange) newItem[property] = Number(value);
     else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);
@@ -246,7 +256,7 @@ export class TableEditableComponent {
   keyDown(item, property: string, event: any) {
     // console.log(event);
     var el = event.target;
-    // this.log(event);
+    // console.log(event);
     switch (event.key) {
       case "Enter":
         if (this.activeEl == "editable") {
@@ -274,9 +284,18 @@ export class TableEditableComponent {
       case "ArrowRight":
         if (this.activeEl != "editable") this.focusNextElement(el, 1);
         break;
+      case "z":
+        if (event.ctrlKey || event.metaKey) console.log("undo");
+        break;
+      case "Meta":
+      case "Control":
+      case "Shift":
+      case " ":
+        break;
       default:
         if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
+        // console.log("default");
         setTimeout(el.focus(), 100);
     }
   }
