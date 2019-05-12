@@ -4,11 +4,11 @@ import { Statement } from "@angular/compiler";
 // import { RevService } from "../shared/services/rev.service";
 
 @Component({
-  selector: "table-editable",
-  templateUrl: "./table-editable.component.html",
-  styleUrls: ["./table-editable.component.css"]
+  selector: "table-nonEditable",
+  templateUrl: "./table-nonEditable.component.html",
+  styleUrls: ["../table-editable/table-editable.component.css"]
 })
-export class TableEditableComponent {
+export class TableNonEditableComponent {
   editField: string;
 
   dataList: Array<any> = [

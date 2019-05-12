@@ -1,12 +1,12 @@
 <!-- Editable table -->
 <div class="container">
   <div class="row">
-    <div class="col-md-12 mx-auto text-center ">
+    <div class="col-md-12 mx-auto text-center">
       <div class="total">
         <span id="date">Дата:</span>
-        <span id="total"> Сума: {{ totalSalesSum() }} лв.</span>
+        <span id="total"> Сума {{ totalSalesSum() }}</span>
       </div>
-      <div class="card">
+      <div class="card" contenteditable="false">
         <div class="card-body">
           <div id="table" class="table-editable">
             <table
@@ -34,28 +34,10 @@
                     item.price | currency
                   }}</span>
                 </td>
-                <td
-                  style="min-width: 70px;"
-                  tabIndex="{{ 3 * id }}"
-                  (keyup)="keyUp(item, 'minus', $event)"
-                  (keydown)="keyDown(item, 'minus', $event)"
-                  (mousedown)="onMdown(item, 'minus', $event)"
-                  (click)="onClick(item, 'minus', $event)"
-                  (blur)="onBlur(item, 'minus', $event)"
-                  (input)="onInput($event)"
-                >
+                <td>
                   {{ item.minus | hideZero }}
                 </td>
-                <td
-                  style="min-width: 80px;"
-                  tabIndex="{{ 3 * id + 1 }}"
-                  (keyup)="keyUp(item, 'mplus', $event)"
-                  (keydown)="keyDown(item, 'mplus', $event)"
-                  (mousedown)="onMdown(item, 'mlus', $event)"
-                  (click)="onClick(item, 'mplus', $event)"
-                  (blur)="onBlur(item, 'mplus', $event)"
-                  (input)="onInput($event)"
-                >
+                <td>
                   <!-- (blur)="updateList(item, 'mplus', $event)" -->
                   {{ item.mplus | hideZero }}
                 </td>
@@ -64,16 +46,7 @@
                     item.starts | hideZero
                   }}</span>
                 </td>
-                <td
-                  style="min-width: 80px;"
-                  tabIndex="{{ 3 * id + 2 }}"
-                  (keyup)="keyUp(item, 'ends', $event)"
-                  (keydown)="keyDown(item, 'ends', $event)"
-                  (mousedown)="onMdown(item, 'ends', $event)"
-                  (click)="onClick(item, 'ends', $event)"
-                  (blur)="onBlur(item, 'ends', $event)"
-                  (input)="onInput($event)"
-                >
+                <td>
                   {{ item.ends | hideZero }}
                 </td>
                 <td style="min-width: 80px;" class="textRight">

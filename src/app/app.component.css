@@ -1,12 +1,23 @@
 @media all and (min-width: 768px) {
-  tr {
-    td {
-      vertical-align: middle !important;
-    }
-    span {
+  tr td {
+    vertical-align: middle !important;
+  }
+  /* span {
       &:not([class]) {
         padding: 1rem 1rem;
-      }
-    }
-  }
+      } */
+}
+
+#tabbed {
+  z-index: 1000;
+  position: absolute;
+  font-size: 34x !important;
+  line-height: 37px !important;
+  right: 55px;
+  top: 20px;
+}
+
+.button {
+  width: 50px;
+  height: 50px;
 }

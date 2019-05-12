@@ -9,7 +9,6 @@
   background-color: #fff;
   background-clip: border-box;
   border-radius: 0.25rem;
-  top: 20px;
 }
 
 .card .card-body {
@@ -98,16 +97,8 @@ span.negative {
 }
 
 .total {
-  text-align: left;
-  top: 10px;
-  position: relative;
-}
-
-#total {
   position: absolute;
-  right: 100px;
-}
-
-#date {
-  text-align: left;
+  right: 31px;
+  top: 30px;
+  /* margin-left: 200px; */
 }
