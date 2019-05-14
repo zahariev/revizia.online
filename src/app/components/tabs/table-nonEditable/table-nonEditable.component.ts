@@ -10,7 +10,7 @@ import { Statement } from "@angular/compiler";
 })
 export class TableNonEditableComponent {
   @Input() date;
-  @Input() editableCells;
+  @Input() editable;
 
   editField: string;
 

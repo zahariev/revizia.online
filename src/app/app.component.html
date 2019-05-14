@@ -18,7 +18,7 @@
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <table-nonEditable date="{{ date }}"></table-nonEditable>
+        <sheet-editable date="{{ date }}" editable="false"></sheet-editable>
       </div>
       <!-- <ng-template mat-tab-label>
               <mat-icon aria-label="Side nav toggle icon">view_carousel</mat-icon>
@@ -28,7 +28,7 @@
     </mat-tab>
 
     <mat-tab label="Днес">
-      <sheet-editable date="{{ date }}"></sheet-editable>
+      <sheet-editable date="{{ date }}" editable="true"></sheet-editable>
     </mat-tab>
 
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">

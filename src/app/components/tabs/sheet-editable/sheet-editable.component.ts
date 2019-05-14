@@ -11,7 +11,7 @@ import { Item } from "../../../shared/models/item.model";
 })
 export class TableEditableComponent {
   @Input() date;
-  @Input() editableCells;
+  @Input() editable;
 
   editField: string;
 
@@ -307,6 +307,7 @@ export class TableEditableComponent {
   }
 
   selectText(cell = document.activeElement) {
+    if (!this.editable) return;
     var range, selection;
     if (this.activeEl == "select") this.activeEl = "editable";
     const input = window.document;
@@ -329,6 +330,7 @@ export class TableEditableComponent {
   }
 
   makeEditable(el) {
+    if (!this.editable) return;
     el.contentEditable = "true";
     this.activeEl = "editable";
   }
