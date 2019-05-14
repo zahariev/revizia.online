@@ -18,7 +18,7 @@
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <table-nonEditable></table-nonEditable>
+        <table-nonEditable date="{{ date }}"></table-nonEditable>
       </div>
       <!-- <ng-template mat-tab-label>
               <mat-icon aria-label="Side nav toggle icon">view_carousel</mat-icon>
@@ -28,31 +28,11 @@
     </mat-tab>
 
     <mat-tab label="Днес">
-      <table-editable></table-editable>
+      <sheet-editable date="{{ date }}"></sheet-editable>
     </mat-tab>
 
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">
-            <div cdkScrollable class="md-no-animation">
-              <div *ngFor="let tab of tabz.content">
-                <br clear="left" />
-                <div clear="left" class="groupDevider">
-                  <span class="groupName">{{ tab.name }}</span>
-                </div>
-      
-                <div *ngFor="let item of tab.items">
-                  <div
-                    *ngIf="item.name.length > 0"
-                    class="resize button Item"
-                    [class.Group]="item.is_group > 0"
-                    attr.data-id="-{{ item.id }}"
-                  >
-                    <span class="center3">{{ item.name }}</span>
-                  </div>
-      
-                  <br *ngIf="item.name.length == 0" clear="left" />
-                </div>
-              </div>
-            </div>
+             <table-editable date="{{ date }}"></table-editable>
           </mat-tab> -->
   </mat-tab-group>
 </mat-sidenav-container>

@@ -1,14 +1,18 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Statement } from "@angular/compiler";
+import { Item } from "../../../shared/models/item.model";
 
 // import { RevService } from "../shared/services/rev.service";
 
 @Component({
-  selector: "table-nonEditable",
-  templateUrl: "./table-nonEditable.component.html",
-  styleUrls: ["../table-editable/table-editable.component.css"]
+  selector: "sheet-editable",
+  templateUrl: "./sheet-editable.component.html",
+  styleUrls: ["./sheet-editable.component.css"]
 })
-export class TableNonEditableComponent {
+export class TableEditableComponent {
+  @Input() date;
+  @Input() editableCells;
+
   editField: string;
 
   dataList: Array<any> = [
@@ -96,47 +100,42 @@ export class TableNonEditableComponent {
     }
   ];
 
-  menuList: Array<any> = [
+  menuList: Array<Item> = [
     {
       id: 0,
       name: "Кафе",
       qty: 0.007,
       price: 2.2,
-      round: 1,
-      f: ""
+      round: 1
     },
-    { id: 1, name: "Кола", qty: 1, price: 2, round: 0.5, f: "" },
+    { id: 1, name: "Кола", qty: 1, price: 2, round: 0.5 },
     {
       id: 2,
       name: "Водка",
       qty: 0.05,
       price: 3,
-      round: 0.5,
-      f: ""
+      round: 0.5
     },
     {
       id: 3,
       name: "Сок",
       qty: 0.2,
       price: 2,
-      round: 0.5,
-      f: ""
+      round: 0.5
     },
     {
       id: 4,
       name: "Уиски",
       qty: 45,
       price: 6,
-      round: 0.5,
-      f: ""
+      round: 0.5
     },
     {
       id: 5,
       name: "Вино",
       qty: 0.15,
       price: 5,
-      round: 1,
-      f: ""
+      round: 1
     }
   ];
 
@@ -338,6 +337,7 @@ export class TableNonEditableComponent {
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 
+    if (index + step < 2) return;
     if (index > -1) {
       window.getSelection().removeAllRanges();
       var nextElement =

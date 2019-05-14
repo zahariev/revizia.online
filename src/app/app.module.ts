@@ -7,12 +7,15 @@ import { HttpService } from "./shared/services/http.service";
 import { DataService } from "./shared/services/data.service";
 // import { RevService } from "./shared/services/rev.service";
 
-import { CashPipe, RoundPipe } from "./table-editable/cash.pipe";
+import {
+  CashPipe,
+  RoundPipe
+} from "./components/tabs/sheet-editable/cash.pipe";
 
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { TableEditableComponent } from "./table-editable/table-editable.component";
-import { TableNonEditableComponent } from "./table-nonEditable/table-nonEditable.component";
+import { TableEditableComponent } from "./components/tabs/sheet-editable/sheet-editable.component";
+import { TableNonEditableComponent } from "./components/tabs/table-nonEditable/table-nonEditable.component";
 
 @NgModule({
   declarations: [
