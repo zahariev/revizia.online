@@ -1,8 +1,8 @@
 import { Component, Input } from "@angular/core";
 import { Statement } from "@angular/compiler";
-import { Item } from "../../../shared/models/item.model";
+import { Item } from "app/shared/models/item.model";
 
-// import { RevService } from "../shared/services/rev.service";
+import { RevService } from "app/shared/services/rev.service";
 
 @Component({
   selector: "table-sheet",
