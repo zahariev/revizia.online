@@ -5,11 +5,11 @@ import { Item } from "../../../shared/models/item.model";
 // import { RevService } from "../shared/services/rev.service";
 
 @Component({
-  selector: "sheet-editable",
-  templateUrl: "./sheet-editable.component.html",
-  styleUrls: ["./sheet-editable.component.css"]
+  selector: "table-sheet",
+  templateUrl: "./table-sheet.component.html",
+  styleUrls: ["./table-sheet.component.css"]
 })
-export class TableEditableComponent {
+export class TableSheetComponent {
   @Input() date;
   @Input() editable: Boolean;
 

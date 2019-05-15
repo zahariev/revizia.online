@@ -9,16 +9,16 @@
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <sheet-editable date="{{ date }}"></sheet-editable>
+        <table-sheet date="{{ date }}"></table-sheet>
       </div>
     </mat-tab>
 
     <mat-tab label="Днес">
-      <sheet-editable date="{{ date }}" editable="true"></sheet-editable>
+      <table-sheet date="{{ date }}" editable="true"></table-sheet>
     </mat-tab>
 
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">
-             <table-editable date="{{ date }}"></table-editable>
+             <table-sheet date="{{ date }}"></table-sheet>
           </mat-tab> -->
   </mat-tab-group>
 </mat-sidenav-container>
