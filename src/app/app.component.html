@@ -3,28 +3,14 @@
     <input type="button" value=" + " (click)="zoomIn()" />
     <input type="button" value=" - " (click)="zoomOut()" />
   </div>
-  <!-- <app-numpad *ngIf="!order.user.id"></app-numpad> -->
+
   <!-- TABS    -->
-  <!-- [@.disabled]="exp"
-        [(selectedIndex)]="selectedIndex"
-        (swipeleft)="swipeTab(1)"
-        (swiperight)="swipeTab(-1)"
-        mat-swipe-content="1"
-        *ngIf="order"
-        hidden="order.user.id"
-        (click)="clickedItem($event); (false)"
-        (contextmenu)="subClick($event); (false)" -->
 
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <sheet-editable date="{{ date }}" editable="false"></sheet-editable>
+        <sheet-editable date="{{ date }}"></sheet-editable>
       </div>
-      <!-- <ng-template mat-tab-label>
-              <mat-icon aria-label="Side nav toggle icon">view_carousel</mat-icon>
-              <span class="iconText">plan</span>
-            </ng-template>
-       -->
     </mat-tab>
 
     <mat-tab label="Днес">

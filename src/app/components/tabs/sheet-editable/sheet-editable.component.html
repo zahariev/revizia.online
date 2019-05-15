@@ -35,10 +35,14 @@
                   }}</span>
                 </td>
 
-                <td *ngIf="!editable; else editTemplate">
-                  {{ item.minus | hideZero }}
-                </td>
-
+                <ng-container *ngIf="!editable; else editTemplate">
+                  <td>
+                    {{ item.minus | hideZero }}
+                  </td>
+                  <td>
+                    {{ item.mplus | hideZero }}
+                  </td>
+                </ng-container>
                 <ng-template #editTemplate>
                   <td
                     style="min-width: 70px;"
@@ -73,18 +77,25 @@
                     item.starts | hideZero
                   }}</span>
                 </td>
-                <td
-                  style="min-width: 80px;"
-                  tabIndex="{{ 30 * id + 2 }}"
-                  (keyup)="keyUp(item, 'ends', $event)"
-                  (keydown)="keyDown(item, 'ends', $event)"
-                  (mousedown)="onMdown(item, 'ends', $event)"
-                  (click)="onClick(item, 'ends', $event)"
-                  (blur)="onBlur(item, 'ends', $event)"
-                  (input)="onInput($event)"
-                >
+
+                <td *ngIf="!editable; else editTemplate2">
                   {{ item.ends | hideZero }}
                 </td>
+
+                <ng-template #editTemplate2>
+                  <td
+                    style="min-width: 80px;"
+                    tabIndex="{{ 30 * id + 2 }}"
+                    (keyup)="keyUp(item, 'ends', $event)"
+                    (keydown)="keyDown(item, 'ends', $event)"
+                    (mousedown)="onMdown(item, 'ends', $event)"
+                    (click)="onClick(item, 'ends', $event)"
+                    (blur)="onBlur(item, 'ends', $event)"
+                    (input)="onInput($event)"
+                  >
+                    {{ item.ends | hideZero }}
+                  </td>
+                </ng-template>
                 <td style="min-width: 80px;" class="textRight">
                   <span
                     contenteditable="false"

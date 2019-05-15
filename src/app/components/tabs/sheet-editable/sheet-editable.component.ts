@@ -11,7 +11,7 @@ import { Item } from "../../../shared/models/item.model";
 })
 export class TableEditableComponent {
   @Input() date;
-  @Input() editable;
+  @Input() editable: Boolean;
 
   editField: string;
 
