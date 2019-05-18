@@ -14,13 +14,15 @@ export class CashPipe implements PipeTransform {
   }
 }
 
-@Pipe({ name: "Round" })
+@Pipe({ name: "BGN" })
 export class RoundPipe implements PipeTransform {
   transform(value: string, item: any): string {
     if (!value) return "";
-    let exp =
-      Math.round(parseFloat(value) / (item.qty * item.round * 1)) * item.round;
-    // console.log(exp);
-    return exp.toString();
+
+    return (
+      Number(value)
+        .toFixed(2)
+        .toString() + " лв."
+    );
   }
 }

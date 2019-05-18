@@ -217,6 +217,7 @@ export class TableSheetComponent {
       // console.log(this.history);
     } else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);
+    // this.gridInit();
     localStorage.dataList = JSON.stringify(this.dataList);
     this.contentChange = false;
   }
@@ -236,10 +237,12 @@ export class TableSheetComponent {
   onInput(ev) {
     this.contentChange = true;
   }
+
   onBlur(item, elName, event) {
     var el = event.target;
     el.contentEditable = "false";
-    // console.log(el.innerText);
+    console.log(el.innerText);
+
     this.updateList(item, elName, el);
   }
 

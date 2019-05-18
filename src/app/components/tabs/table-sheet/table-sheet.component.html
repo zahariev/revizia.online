@@ -4,7 +4,7 @@
     <div class="col-md-12 mx-auto text-center ">
       <div class="total">
         <span id="date">Дата:</span>
-        <span id="total"> Сума: {{ totalSalesSum() }} лв.</span>
+        <span id="total"> Сума: {{ totalSalesSum() | BGN }}</span>
       </div>
       <div class="card">
         <div class="card-body">
@@ -31,7 +31,7 @@
                 </td>
                 <td>
                   <span class="itemPrice" contenteditable="false">{{
-                    item.price | currency
+                    item.price | hideZero | BGN
                   }}</span>
                 </td>
 
@@ -122,7 +122,7 @@
                   <span
                     contenteditable="false"
                     [ngClass]="{ negative: item.diff < 0 }"
-                    >{{ item.sum | hideZero | currency }}
+                    >{{ item.sum | hideZero | BGN }}
                   </span>
                 </td>
                 <!-- <td>
