@@ -25,7 +25,7 @@ body {
 
 body {
   font-family: Roboto, sans-serif;
-  font-weight: 300;
+  font-weight: 200;
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -40,4 +40,9 @@ button {
   background-color: rgb(226, 215, 215) !important;
   width: 50px;
   height: 50px;
+}
+
+.mat-tab-label .mat-tab-label-content {
+  font-weight: 200;
+  font-size: 1.1em;
 }
