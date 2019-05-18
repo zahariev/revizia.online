@@ -13,13 +13,7 @@ export class RevService {
   // items: Item[] = [];
   itemsList = [];
   lastOrders = [];
-  startMixItem;
-  mixOpen;
-  // @LocalStorage(true)
-  sales = [];
-  salesFB;
-  state = "Нова Поръчка";
-  wait;
+  sales;
   menu;
   Data;
   areaID = 98;
@@ -53,14 +47,6 @@ export class RevService {
 
     // this.user = new User();
     this.sales = Array.from(this.getS("sales")) || [];
-  }
-
-  public itemSale(item, mixList) {
-    // let itm = new Item(item.id, item.name, item.qty, item.price, item.comm);
-    // itm.mixHeader = item.mixHeader;
-    // itm.sales_qty = item.sales_qty;
-    // if (mixList) itm.mixList = item.mixList;
-    // return itm;
   }
 
   public store(name, obj) {
