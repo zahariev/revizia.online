@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Statement } from "@angular/compiler";
 import { Item } from "app/shared/models/item.model";
 
-import { RevService } from "app/shared/services/rev.service";
+// import { RevService } from "app/shared/services/rev.service";
 
 @Component({
   selector: "table-sheet",
@@ -210,7 +210,10 @@ export class TableSheetComponent {
 
     if (this.contentChange) {
       newItem[property] = Number(value);
-      this.history.push(JSON.parse(localStorage.dataList)[item.id]);
+      this.history.push(
+        JSON.parse(localStorage.dataList || "{}")[item.id] ||
+          this.dataList[item.id]
+      );
       // console.log(this.history);
     } else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);

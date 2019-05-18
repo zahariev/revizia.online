@@ -7,7 +7,7 @@ import { Component, Input, HostBinding } from "@angular/core";
 })
 export class AppComponent {
   title = "rev";
-
+  date;
   fontSize: number = 1;
   ngAfterViewInit() {
     this.fontSize = parseFloat(localStorage.getItem("zoom")) || this.fontSize;

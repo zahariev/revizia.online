@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+html {
+  margin: 0px;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0px;
+  min-height: 100%;
+  width: 100%;
+}
+
 body {
   /* background-image: url("bg1.jpg"); */
   font-family: LatoWebLight;
