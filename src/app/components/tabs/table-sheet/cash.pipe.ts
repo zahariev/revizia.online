@@ -15,7 +15,7 @@ export class CashPipe implements PipeTransform {
 }
 
 @Pipe({ name: "BGN" })
-export class RoundPipe implements PipeTransform {
+export class BGNPipe implements PipeTransform {
   transform(value: string, item: any): string {
     if (!value) return "";
 

@@ -224,9 +224,9 @@ export class TableSheetComponent {
 
   undoValue() {
     var item = this.history.pop();
-    console.log(item);
+    // console.log(item);
     if (!item) return;
-    console.log(this.dataList[item.id]);
+    // console.log(this.dataList[item.id]);
 
     this.dataList[item.id] = item;
     localStorage.dataList = JSON.stringify(this.dataList);
@@ -241,7 +241,7 @@ export class TableSheetComponent {
   onBlur(item, elName, event) {
     var el = event.target;
     el.contentEditable = "false";
-    console.log(el.innerText);
+    // console.log(el.innerText);
 
     this.updateList(item, elName, el);
   }

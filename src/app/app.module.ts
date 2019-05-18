@@ -12,9 +12,16 @@ import { CashPipe, RoundPipe } from "./components/tabs/table-sheet/cash.pipe";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TableSheetComponent } from "./components/tabs/table-sheet/table-sheet.component";
+import { CashComponent } from "./components/tabs/cash-tab/cash.component";
 
 @NgModule({
-  declarations: [AppComponent, TableSheetComponent, CashPipe, RoundPipe],
+  declarations: [
+    AppComponent,
+    TableSheetComponent,
+    CashPipe,
+    BGNPipe,
+    CashComponent
+  ],
   imports: [BrowserModule, BrowserAnimationsModule, AppMaterialModule],
   providers: [DataService, HttpService, RevService],
   bootstrap: [AppComponent]
