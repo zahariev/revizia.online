@@ -1,19 +1,19 @@
 <mat-sidenav-container class="sidenav-container2">
   <!-- TABS    -->
   <div>.</div>
-  <mat-tab-group id="itemTabs" [@.disabled]="true">
+  <mat-tab-group id="cashTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="за Стоки">
       <div cdkScrollable class="md-no-animation">
-        <table-sheet date="{{ date }}"></table-sheet>
+        <cash-sheet></cash-sheet>
       </div>
     </mat-tab>
 
     <mat-tab label="Други">
-      <table-sheet date="{{ date }}" editable="true"></table-sheet>
+      <cash-sheet></cash-sheet>
     </mat-tab>
 
     <mat-tab label="Заплати">
-      заплати
+      <cash-sheet></cash-sheet>
       <!-- <cash-tab editable="true"></cash-tab> -->
     </mat-tab>
 

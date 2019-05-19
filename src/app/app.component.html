@@ -9,11 +9,13 @@
     </mat-tab>
 
     <mat-tab label="Днес">
-      <table-sheet date="{{ date }}" editable="true"></table-sheet>
-    </mat-tab>
-
-    <mat-tab label="Разходи">
-      <cash-tab editable="true"></cash-tab>
+      <button mat-button (click)="toggleCashSheet()">Cash</button>
+      <table-sheet
+        [hidden]="showCash"
+        date="{{ date }}"
+        editable="true"
+      ></table-sheet>
+      <cash-tab [hidden]="!showCash"></cash-tab>
     </mat-tab>
 
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">

@@ -9,6 +9,8 @@ export class AppComponent {
   title = "rev";
   date;
   fontSize: number = 1;
+  showCash = 0;
+
   ngAfterViewInit() {
     this.fontSize = parseFloat(localStorage.getItem("zoom")) || this.fontSize;
     document.body.style.fontSize = this.fontSize.toString() + "rem";
@@ -27,5 +29,9 @@ export class AppComponent {
     document.body.style.fontSize = this.fontSize + "em";
     document.body.style.lineHeight = this.fontSize - 0.5 + "em";
     localStorage.setItem("zoom", this.fontSize.toString());
+  }
+
+  toggleCashSheet() {
+    this.showCash = !this.showCash;
   }
 }
