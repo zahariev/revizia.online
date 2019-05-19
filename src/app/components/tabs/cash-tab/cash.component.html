@@ -4,21 +4,16 @@
   <mat-tab-group id="cashTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="за Стоки">
       <div cdkScrollable class="md-no-animation">
-        <cash-sheet></cash-sheet>
+        <cash-sheet data="{{ data.deliveries }}"></cash-sheet>
       </div>
     </mat-tab>
 
     <mat-tab label="Други">
-      <cash-sheet></cash-sheet>
+      <cash-sheet data="{{ data.others }}"></cash-sheet>
     </mat-tab>
 
     <mat-tab label="Заплати">
-      <cash-sheet></cash-sheet>
-      <!-- <cash-tab editable="true"></cash-tab> -->
+      <cash-sheet data="{{ data.wages }}"></cash-sheet>
     </mat-tab>
-
-    <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">
-               <table-sheet date="{{ date }}"></table-sheet>
-            </mat-tab> -->
   </mat-tab-group>
 </mat-sidenav-container>
