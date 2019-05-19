@@ -4,17 +4,17 @@
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <table-sheet date="{{ date }}"></table-sheet>
+        <revizia-sheet date="{{ date }}"></revizia-sheet>
       </div>
     </mat-tab>
 
     <mat-tab label="Днес">
-      <button mat-button (click)="toggleCashSheet()">Cash</button>
-      <table-sheet
+      <button mat-button (click)="toggleCashSheet()">{{ buttonName }}</button>
+      <revizia-sheet
         [hidden]="showCash"
         date="{{ date }}"
         editable="true"
-      ></table-sheet>
+      ></revizia-sheet>
       <cash-tab [hidden]="!showCash"></cash-tab>
     </mat-tab>
 

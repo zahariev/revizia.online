@@ -7,22 +7,24 @@ import { HttpService } from "./shared/services/http.service";
 import { DataService } from "./shared/services/data.service";
 import { RevService } from "./shared/services/rev.service";
 
-import { CashPipe, BGNPipe } from "./components/tabs/table-sheet/cash.pipe";
+import { CashPipe, BGNPipe } from "./shared/cash.pipe";
 
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { TableSheetComponent } from "./components/tabs/table-sheet/table-sheet.component";
+import { ReviziaSheetComponent } from "./components/tabs/revizia-sheet/revizia-sheet.component";
 import { CashComponent } from "./components/tabs/cash-tab/cash.component";
 import { CashSheetComponent } from "./components/tabs/cash-sheet/cash-sheet.component";
+import { UserSheetComponent } from "./components/tabs/user-sheet/user-sheet.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableSheetComponent,
+    ReviziaSheetComponent,
     CashPipe,
     BGNPipe,
     CashComponent,
-    CashSheetComponent
+    CashSheetComponent,
+    UserSheetComponent
   ],
   imports: [BrowserModule, BrowserAnimationsModule, AppMaterialModule],
   providers: [DataService, HttpService, RevService],

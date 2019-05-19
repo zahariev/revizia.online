@@ -8,30 +8,13 @@ import { Component, Input, HostBinding } from "@angular/core";
 export class AppComponent {
   title = "rev";
   date;
-  fontSize: number = 1;
-  showCash = 0;
+  showCash = false;
+  buttonName = "CashOut";
 
-  ngAfterViewInit() {
-    this.fontSize = parseFloat(localStorage.getItem("zoom")) || this.fontSize;
-    document.body.style.fontSize = this.fontSize.toString() + "rem";
-    document.body.style.lineHeight = (this.fontSize - 0.5).toString() + "rem";
-  }
-
-  zoomIn() {
-    console.log("+");
-    this.fontSize += 0.1;
-    document.body.style.fontSize = this.fontSize + "em";
-    document.body.style.lineHeight = this.fontSize - 0.5 + "em";
-    localStorage.setItem("zoom", this.fontSize.toString());
-  }
-  zoomOut() {
-    this.fontSize -= 0.1;
-    document.body.style.fontSize = this.fontSize + "em";
-    document.body.style.lineHeight = this.fontSize - 0.5 + "em";
-    localStorage.setItem("zoom", this.fontSize.toString());
-  }
+  ngAfterViewInit() {}
 
   toggleCashSheet() {
     this.showCash = !this.showCash;
+    this.buttonName = this.showCash ? "Revizia" : "CashOut";
   }
 }

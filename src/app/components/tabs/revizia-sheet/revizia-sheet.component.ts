@@ -5,11 +5,11 @@ import { Item } from "app/shared/models/item.model";
 // import { RevService } from "app/shared/services/rev.service";
 
 @Component({
-  selector: "table-sheet",
-  templateUrl: "./table-sheet.component.html",
-  styleUrls: ["./table-sheet.component.css"]
+  selector: "revizia-sheet",
+  templateUrl: "./revizia-sheet.component.html",
+  styleUrls: ["./revizia-sheet.component.css"]
 })
-export class TableSheetComponent {
+export class ReviziaSheetComponent {
   @Input() date;
   @Input() editable: Boolean;
 
