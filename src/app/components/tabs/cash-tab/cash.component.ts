@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 
 @Component({
   selector: "cash-tab",
@@ -6,6 +6,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./cash.component.css"]
 })
 export class CashComponent implements OnInit {
+  data = {
+    deliveries: {},
+    wages: {},
+    others: {}
+  };
   constructor() {}
 
   ngOnInit() {}
