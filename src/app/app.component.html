@@ -1,11 +1,9 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- TABS    -->
 
-  <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
+  <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="0">
     <mat-tab label="меню">
-      <div>
-        <menu-sheet editable="true"></menu-sheet>
-      </div>
+      <menu-sheet editable="true"></menu-sheet>
     </mat-tab>
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">

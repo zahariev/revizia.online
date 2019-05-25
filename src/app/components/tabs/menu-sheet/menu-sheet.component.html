@@ -6,7 +6,7 @@
         <div class="card-body">
           <div id="table" class="table-editable">
             <table
-              contenteditable="true"
+              contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
             >
               <tr>
@@ -19,21 +19,21 @@
                   remove
                 </th>
               </tr>
-              <tr *ngFor="let item of dataList; let id = index">
-                <td
-                  *ngFor="let col of columnList; let idx = index"
-                  class="textLeft"
-                  style="min-width: 70px;"
-                  tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
-                  (keyup)="keyUp(item, col.name, $event)"
-                  (keydown)="keyDown(item, col.name, $event)"
-                  (mousedown)="onMdown(item, col.name, $event)"
-                  (click)="onClick(item, col.name, $event)"
-                  (blur)="onBlur(item, col.name, $event)"
-                  (input)="onInput($event)"
-                >
-                  {{ item[col.name] }}
-                </td>
+              <tr *ngFor="let item of viewList; let id = index">
+                <ng-container *ngFor="let col of columnList; let idx = index">
+                  <td
+                    style="min-width: 70px;"
+                    tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
+                    (keyup)="keyUp(item, col.name, $event)"
+                    (keydown)="keyDown(item, col.name, $event)"
+                    (mousedown)="onMdown(item, col.name, $event)"
+                    (click)="onClick(item, col.name, $event)"
+                    (blur)="onBlur(item, col.name, $event)"
+                    (input)="onInput($event)"
+                  >
+                    {{ item[col.name] }}
+                  </td>
+                </ng-container>
 
                 <td>
                   <span class="table-remove" contenteditable="false">
@@ -44,11 +44,10 @@
                       rounded="true"
                       size="sm"
                       class="my-0 btn btn-danger btn-rounded btn-sm"
+                      (click)="remove(item.id)"
                     >
                       Remove
                     </button>
-
-                    <!-- (click)="remove({item.id})" -->
                   </span>
                 </td>
               </tr>

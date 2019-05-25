@@ -217,7 +217,7 @@ export class ReviziaSheetComponent {
       // console.log(this.history);
     } else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);
-    // this.gridInit();
+    this.gridInit();
     localStorage.dataList = JSON.stringify(this.dataList);
     this.contentChange = false;
   }
@@ -247,10 +247,10 @@ export class ReviziaSheetComponent {
   }
 
   onMdown(item: any, elName: string, el: any) {
-    if (this.activeEl == el) {
+    if (this.activeEl == el.target) {
       this.activeEl = "select";
     } else {
-      this.activeEl = el;
+      this.activeEl = el.target;
     }
   }
 
@@ -307,7 +307,7 @@ export class ReviziaSheetComponent {
       default:
         if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
-        // console.log("default");
+        // el.focus();
         setTimeout(el.focus(), 100);
     }
   }
@@ -319,11 +319,8 @@ export class ReviziaSheetComponent {
     const input = window.document;
     if (window.getSelection) {
       selection = window.getSelection();
-      console.log(selection);
       range = document.createRange();
-      console.log(range);
       range.selectNodeContents(cell);
-      console.log(range);
       selection.removeAllRanges();
       selection.addRange(range);
     }

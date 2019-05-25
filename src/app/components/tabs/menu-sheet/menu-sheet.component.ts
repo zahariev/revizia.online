@@ -21,7 +21,7 @@ export class MenuSheetComponent implements OnInit {
       editable: true
     },
     {
-      name: "salesQty",
+      name: "cost",
       format: "number",
       editable: true
     },
@@ -42,19 +42,21 @@ export class MenuSheetComponent implements OnInit {
     }
   ];
 
-  dataList: Array<Item> = [
+  menuList: Array<Item> = [
     {
       id: 0,
       name: "Кафе",
+      cost: 0,
       qty: 0.007,
       price: 2.2,
       round: 1
     },
-    { id: 1, name: "Кола", qty: 1, price: 2, round: 0.5 },
+    { id: 1, name: "Кола", cost: 0, qty: 1, price: 2, round: 0.5 },
     {
       id: 2,
       name: "Водка",
       qty: 0.05,
+      cost: 0,
       price: 3,
       round: 0.5
     },
@@ -62,6 +64,7 @@ export class MenuSheetComponent implements OnInit {
       id: 3,
       name: "Сок",
       qty: 0.2,
+      cost: 0,
       price: 2,
       round: 0.5
     },
@@ -69,6 +72,7 @@ export class MenuSheetComponent implements OnInit {
       id: 4,
       name: "Уиски",
       qty: 45,
+      cost: 0,
       price: 6,
       round: 0.5
     },
@@ -76,11 +80,13 @@ export class MenuSheetComponent implements OnInit {
       id: 5,
       name: "Вино",
       qty: 0.15,
+      cost: 0,
       price: 5,
       round: 1
     }
   ];
 
+  dataList = [];
   nextFocus: any;
   // dataList: Array<any> = [];
   viewList: Array<any> = [];
@@ -92,25 +98,18 @@ export class MenuSheetComponent implements OnInit {
   history: Array<any> = [];
 
   constructor() {
-    // this.dataList = localStorage.dataList
-    //   ? JSON.parse(localStorage.dataList)
-    //   : this.dataList;
+    this.dataList = localStorage.menuList
+      ? JSON.parse(localStorage.menuList)
+      : this.menuList;
     this.gridInit();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.gridInit();
+  }
 
   gridInit() {
-    // var tempList: Array<any> = [];
-    // this.menuList.forEach((item, id) => {
-    //   tempList[id] = this.viewItemCalc(
-    //     this.dataList.filter(i => {
-    //       return i.id == item.id;
-    //     })[0],
-    //     item
-    //   );
-    // });
-    // this.viewList = tempList;
+    this.viewList = [...this.dataList];
   }
 
   updateList(item, property: string, el: any) {
@@ -119,32 +118,30 @@ export class MenuSheetComponent implements OnInit {
     // value = value.replace(" ", "");
 
     var newItem = this.dataList[item.id];
-    // var menuItem = this.menuList[item.id];
 
     if (this.contentChange) {
-      newItem[property] = Number(value);
+      newItem[property] = Number(value) || value;
       this.history.push(
-        JSON.parse(localStorage.dataList || "{}")[item.id] ||
+        JSON.parse(localStorage.menuList || "{}")[item.id] ||
           this.dataList[item.id]
       );
       // console.log(this.history);
     } else el.innerHTML = newItem[property] || "";
-    // this.viewItemCalc(newItem, menuItem);
-    // this.gridInit();
-    localStorage.dataList = JSON.stringify(this.dataList);
+
+    this.gridInit();
+    localStorage.menuList = JSON.stringify(this.dataList);
     this.contentChange = false;
   }
 
   undoValue() {
     var item = this.history.pop();
-    // console.log(item);
+
     if (!item) return;
-    // console.log(this.dataList[item.id]);
 
     this.dataList[item.id] = item;
-    localStorage.dataList = JSON.stringify(this.dataList);
+    localStorage.menuList = JSON.stringify(this.dataList);
     this.viewList[item.id] = item;
-    // this.gridInit();
+    this.gridInit();
   }
 
   onInput(ev) {
@@ -160,11 +157,12 @@ export class MenuSheetComponent implements OnInit {
   }
 
   onMdown(item: any, elName: string, el: any) {
-    if (this.activeEl == el) {
+    if (this.activeEl == el.target) {
       this.activeEl = "select";
     } else {
-      this.activeEl = el;
+      this.activeEl = el.target;
     }
+    // console.log(this.activeEl);
   }
 
   onClick(item: any, elName: string, event: any) {
@@ -181,11 +179,12 @@ export class MenuSheetComponent implements OnInit {
   keyDown(item, property: string, event: any) {
     // console.log(event);
     var el = event.target;
+    var row = this.columnList.length;
     // console.log(event);
     switch (event.key) {
       case "Enter":
         if (this.activeEl == "editable") {
-          this.focusNextElement(el, 3);
+          this.focusNextElement(el, row); //colummnList.length
 
           event.preventDefault();
         } else {
@@ -198,10 +197,10 @@ export class MenuSheetComponent implements OnInit {
         break;
 
       case "ArrowUp":
-        this.focusNextElement(el, -6);
+        this.focusNextElement(el, -row);
         break;
       case "ArrowDown":
-        this.focusNextElement(el, 6);
+        this.focusNextElement(el, row);
         break;
       case "ArrowLeft":
         if (this.activeEl != "editable") this.focusNextElement(el, -1);
@@ -220,22 +219,19 @@ export class MenuSheetComponent implements OnInit {
       default:
         if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
-        // console.log("default");
-        setTimeout(el.focus(), 100);
+        setTimeout(el.focus(), 10);
     }
   }
 
   selectText(cell = document.activeElement) {
     if (!this.editable) return;
     var range, selection;
-    // console.log(cell);
     if (this.activeEl == "select") this.activeEl = "editable";
-    const input = window.document;
     if (window.getSelection) {
       selection = window.getSelection();
-      console.log(selection);
       range = document.createRange();
       range.selectNodeContents(cell);
+
       selection.removeAllRanges();
       selection.addRange(range);
     }
@@ -257,7 +253,7 @@ export class MenuSheetComponent implements OnInit {
   }
 
   focusNextElement(el, step = 1) {
-    console.log(el);
+    // console.log(el);
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 
@@ -273,4 +269,6 @@ export class MenuSheetComponent implements OnInit {
       this.activeEl = nextElement;
     }
   }
+
+  remove() {}
 }
