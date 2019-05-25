@@ -27,7 +27,7 @@ export class MenuSheetComponent implements OnInit {
     },
     {
       name: "price",
-      format: "number",
+      format: "BGN",
       editable: true
     },
     {
@@ -138,8 +138,6 @@ export class MenuSheetComponent implements OnInit {
 
   undoValue() {
     var item = this.history.pop();
-    console.log(this.history);
-    console.log(item);
 
     if (!item) return;
     if (item.del) {
@@ -159,7 +157,6 @@ export class MenuSheetComponent implements OnInit {
   onBlur(item, elName, event) {
     var el = event.target;
     el.contentEditable = "false";
-    // console.log(el.innerText);
 
     this.updateList(item, elName, el);
   }
