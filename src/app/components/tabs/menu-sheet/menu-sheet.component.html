@@ -1,0 +1,62 @@
+<!-- Editable table -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mx-auto text-center ">
+      <div class="card">
+        <div class="card-body">
+          <div id="table" class="table-editable">
+            <table
+              contenteditable="true"
+              class="table table-bordered table-responsive-md table-striped text-center"
+            >
+              <tr>
+                <ng-container *ngFor="let col1 of columnList">
+                  <th class="text-center">
+                    {{ col1.name }}
+                  </th>
+                </ng-container>
+                <th class="text-center">
+                  remove
+                </th>
+              </tr>
+              <tr *ngFor="let item of dataList; let id = index">
+                <td
+                  *ngFor="let col of columnList; let idx = index"
+                  class="textLeft"
+                  style="min-width: 70px;"
+                  tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
+                  (keyup)="keyUp(item, col.name, $event)"
+                  (keydown)="keyDown(item, col.name, $event)"
+                  (mousedown)="onMdown(item, col.name, $event)"
+                  (click)="onClick(item, col.name, $event)"
+                  (blur)="onBlur(item, col.name, $event)"
+                  (input)="onInput($event)"
+                >
+                  {{ item[col.name] }}
+                </td>
+
+                <td>
+                  <span class="table-remove" contenteditable="false">
+                    <button
+                      type="button"
+                      mdbBtn
+                      color="danger"
+                      rounded="true"
+                      size="sm"
+                      class="my-0 btn btn-danger btn-rounded btn-sm"
+                    >
+                      Remove
+                    </button>
+
+                    <!-- (click)="remove({item.id})" -->
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Editable table -->
+    </div>
+  </div>
+</div>

@@ -46,7 +46,7 @@
                 <ng-template #editTemplate>
                   <td
                     style="min-width: 70px;"
-                    tabIndex="{{ 30 * id }}"
+                    tabIndex="{{ 30 * (id + 1) }}"
                     (keyup)="keyUp(item, 'minus', $event)"
                     (keydown)="keyDown(item, 'minus', $event)"
                     (mousedown)="onMdown(item, 'minus', $event)"
@@ -59,7 +59,7 @@
 
                   <td
                     style="min-width: 80px;"
-                    tabIndex="{{ 30 * id + 1 }}"
+                    tabIndex="{{ 30 * (id + 1) + 1 }}"
                     (keyup)="keyUp(item, 'mplus', $event)"
                     (keydown)="keyDown(item, 'mplus', $event)"
                     (mousedown)="onMdown(item, 'mlus', $event)"
@@ -85,7 +85,7 @@
                 <ng-template #editTemplate2>
                   <td
                     style="min-width: 80px;"
-                    tabIndex="{{ 30 * id + 2 }}"
+                    tabIndex="{{ 30 * (id + 1) + 2 }}"
                     (keyup)="keyUp(item, 'ends', $event)"
                     (keydown)="keyDown(item, 'ends', $event)"
                     (mousedown)="onMdown(item, 'ends', $event)"

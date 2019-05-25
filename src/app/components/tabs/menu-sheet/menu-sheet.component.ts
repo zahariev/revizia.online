@@ -1,106 +1,48 @@
-import { Component, Input } from "@angular/core";
-import { Statement } from "@angular/compiler";
+import { Component, OnInit, Input } from "@angular/core";
 import { Item } from "app/shared/models/item.model";
 
-// import { RevService } from "app/shared/services/rev.service";
-
 @Component({
-  selector: "revizia-sheet",
-  templateUrl: "./revizia-sheet.component.html",
-  styleUrls: ["./revizia-sheet.component.css"]
+  selector: "menu-sheet",
+  templateUrl: "./menu-sheet.component.html",
+  styleUrls: ["./menu-sheet.component.css"]
 })
-export class ReviziaSheetComponent {
-  @Input() date;
+export class MenuSheetComponent implements OnInit {
   @Input() editable: Boolean;
 
-  editField: string;
-
-  dataList: Array<any> = [
+  columnList = [
     {
-      id: 0,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
+      name: "id",
+      format: "number",
+      editable: true
     },
     {
-      id: 1,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
+      name: "name",
+      format: "string",
+      editable: true
     },
     {
-      id: 2,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
+      name: "salesQty",
+      format: "number",
+      editable: true
     },
     {
-      id: 3,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
+      name: "price",
+      format: "number",
+      editable: true
     },
     {
-      id: 4,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
+      name: "qty",
+      format: "number",
+      editable: true
     },
     {
-      id: 5,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
+      name: "round",
+      format: "number",
+      editable: true
     }
   ];
 
-  prevList: Array<any> = [
-    {
-      id: 0,
-
-      minus: 0,
-      mplus: 0,
-      ends: 2.1
-    },
-    {
-      id: 1,
-      minus: 0,
-      mplus: 0,
-      ends: 45
-    },
-    {
-      id: 2,
-      minus: 0,
-      mplus: 0,
-      ends: 2.1
-    },
-    {
-      id: 3,
-      minus: 0,
-      mplus: 0,
-      ends: 45
-    },
-    {
-      id: 4,
-      minus: 0,
-      mplus: 0,
-      ends: 1440
-    },
-    {
-      id: 5,
-      minus: 0,
-      mplus: 0,
-      ends: 11
-    }
-  ];
-
-  menuList: Array<Item> = [
+  dataList: Array<Item> = [
     {
       id: 0,
       name: "Кафе",
@@ -150,54 +92,25 @@ export class ReviziaSheetComponent {
   history: Array<any> = [];
 
   constructor() {
-    this.dataList = localStorage.dataList
-      ? JSON.parse(localStorage.dataList)
-      : this.dataList;
+    // this.dataList = localStorage.dataList
+    //   ? JSON.parse(localStorage.dataList)
+    //   : this.dataList;
     this.gridInit();
   }
 
+  ngOnInit() {}
+
   gridInit() {
-    var tempList: Array<any> = [];
-    this.menuList.forEach((item, id) => {
-      tempList[id] = this.viewItemCalc(
-        this.dataList.filter(i => {
-          return i.id == item.id;
-        })[0],
-        item
-      );
-    });
-
-    this.viewList = tempList;
-  }
-
-  viewItemCalc(item, menuItem) {
-    item.starts = Number(
-      this.prevList.filter(i => {
-        return i.id == menuItem.id;
-      })[0].ends
-    );
-    // console.log(item);
-    item.diff =
-      Math.round(
-        (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
-          1000
-      ) / 1000;
-
-    item.qtySold = item.diff / menuItem.qty;
-    item.price = menuItem.price;
-    item.name = menuItem.name;
-    item.id = menuItem.id;
-    item.roundSold =
-      Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
-    item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
-    // console.log(item);
-    return item;
-  }
-
-  totalSalesSum() {
-    return this.dataList.reduce((total, item) => {
-      return +(total * 1) + +item.sum || 0 * 1;
-    }, 0);
+    // var tempList: Array<any> = [];
+    // this.menuList.forEach((item, id) => {
+    //   tempList[id] = this.viewItemCalc(
+    //     this.dataList.filter(i => {
+    //       return i.id == item.id;
+    //     })[0],
+    //     item
+    //   );
+    // });
+    // this.viewList = tempList;
   }
 
   updateList(item, property: string, el: any) {
@@ -206,7 +119,7 @@ export class ReviziaSheetComponent {
     // value = value.replace(" ", "");
 
     var newItem = this.dataList[item.id];
-    var menuItem = this.menuList[item.id];
+    // var menuItem = this.menuList[item.id];
 
     if (this.contentChange) {
       newItem[property] = Number(value);
@@ -216,7 +129,7 @@ export class ReviziaSheetComponent {
       );
       // console.log(this.history);
     } else el.innerHTML = newItem[property] || "";
-    this.viewItemCalc(newItem, menuItem);
+    // this.viewItemCalc(newItem, menuItem);
     // this.gridInit();
     localStorage.dataList = JSON.stringify(this.dataList);
     this.contentChange = false;
@@ -255,7 +168,7 @@ export class ReviziaSheetComponent {
   }
 
   onClick(item: any, elName: string, event: any) {
-    // console.log("md");
+    // console.log(document.activeElement);
     if (this.activeEl == "select") {
       this.selectText(document.activeElement);
     }
@@ -285,10 +198,10 @@ export class ReviziaSheetComponent {
         break;
 
       case "ArrowUp":
-        this.focusNextElement(el, -3);
+        this.focusNextElement(el, -6);
         break;
       case "ArrowDown":
-        this.focusNextElement(el, 3);
+        this.focusNextElement(el, 6);
         break;
       case "ArrowLeft":
         if (this.activeEl != "editable") this.focusNextElement(el, -1);
@@ -315,15 +228,14 @@ export class ReviziaSheetComponent {
   selectText(cell = document.activeElement) {
     if (!this.editable) return;
     var range, selection;
+    // console.log(cell);
     if (this.activeEl == "select") this.activeEl = "editable";
     const input = window.document;
     if (window.getSelection) {
       selection = window.getSelection();
       console.log(selection);
       range = document.createRange();
-      console.log(range);
       range.selectNodeContents(cell);
-      console.log(range);
       selection.removeAllRanges();
       selection.addRange(range);
     }
@@ -345,6 +257,7 @@ export class ReviziaSheetComponent {
   }
 
   focusNextElement(el, step = 1) {
+    console.log(el);
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 

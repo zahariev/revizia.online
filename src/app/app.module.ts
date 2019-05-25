@@ -12,9 +12,10 @@ import { CashPipe, BGNPipe } from "./shared/cash.pipe";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReviziaSheetComponent } from "./components/tabs/revizia-sheet/revizia-sheet.component";
+import { MenuSheetComponent } from './components/tabs/menu-sheet/menu-sheet.component';
 
 @NgModule({
-  declarations: [AppComponent, ReviziaSheetComponent, CashPipe, BGNPipe],
+  declarations: [AppComponent, ReviziaSheetComponent, CashPipe, BGNPipe, MenuSheetComponent],
   imports: [BrowserModule, BrowserAnimationsModule, AppMaterialModule],
   providers: [DataService, HttpService, RevService],
   bootstrap: [AppComponent]

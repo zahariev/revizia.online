@@ -2,6 +2,11 @@
   <!-- TABS    -->
 
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="1">
+    <mat-tab label="меню">
+      <div>
+        <menu-sheet editable="true"></menu-sheet>
+      </div>
+    </mat-tab>
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
         <revizia-sheet date="{{ date }}"></revizia-sheet>
