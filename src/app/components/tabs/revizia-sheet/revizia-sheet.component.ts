@@ -104,15 +104,17 @@ export class ReviziaSheetComponent {
     {
       id: 0,
       name: "Кафе",
+      cost: 0,
       qty: 0.007,
       price: 2.2,
       round: 1
     },
-    { id: 1, name: "Кола", qty: 1, price: 2, round: 0.5 },
+    { id: 1, name: "Кола", cost: 0, qty: 1, price: 2, round: 0.5 },
     {
       id: 2,
       name: "Водка",
       qty: 0.05,
+      cost: 0,
       price: 3,
       round: 0.5
     },
@@ -120,6 +122,7 @@ export class ReviziaSheetComponent {
       id: 3,
       name: "Сок",
       qty: 0.2,
+      cost: 0,
       price: 2,
       round: 0.5
     },
@@ -127,6 +130,7 @@ export class ReviziaSheetComponent {
       id: 4,
       name: "Уиски",
       qty: 45,
+      cost: 0,
       price: 6,
       round: 0.5
     },
@@ -134,6 +138,7 @@ export class ReviziaSheetComponent {
       id: 5,
       name: "Вино",
       qty: 0.15,
+      cost: 0,
       price: 5,
       round: 1
     }
@@ -153,6 +158,10 @@ export class ReviziaSheetComponent {
     this.dataList = localStorage.dataList
       ? JSON.parse(localStorage.dataList)
       : this.dataList;
+
+    this.menuList = localStorage.menuList
+      ? JSON.parse(localStorage.menuList)
+      : this.menuList;
     this.gridInit();
   }
 
