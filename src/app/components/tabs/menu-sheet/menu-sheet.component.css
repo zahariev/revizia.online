@@ -149,11 +149,15 @@ html [type="button"] {
 
 .btn.btn-sm {
   padding: 0.5rem 0.6rem !important;
-  font-size: 0.64rem !important;
+  font-size: 0.74rem !important;
 }
 
 .table td,
 .table th {
   padding: 0.75rem;
   vertical-align: initial !important;
+}
+
+.fa-plus {
+  font-size: 2rem;
 }

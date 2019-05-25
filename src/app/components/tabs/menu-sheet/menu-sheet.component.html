@@ -5,6 +5,11 @@
       <div class="card">
         <div class="card-body">
           <div id="table" class="table-editable">
+            <span _ngcontent-c4="" class="table-add float-right mb-3 mr-2">
+              <a _ngcontent-c4="" class="text-success" (click)="addRow($event)">
+                <i class="fa-plus"> + </i>
+              </a>
+            </span>
             <table
               contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
@@ -35,7 +40,7 @@
                   </td>
                 </ng-container>
 
-                <td>
+                <td style="padding: 5px;">
                   <span class="table-remove" contenteditable="false">
                     <button
                       type="button"
@@ -44,7 +49,7 @@
                       rounded="true"
                       size="sm"
                       class="my-0 btn btn-danger btn-rounded btn-sm"
-                      (click)="remove(item.id)"
+                      (click)="removeRow(id, $event)"
                     >
                       Remove
                     </button>

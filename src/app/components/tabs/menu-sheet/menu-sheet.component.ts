@@ -118,14 +118,17 @@ export class MenuSheetComponent implements OnInit {
     // value = value.replace(" ", "");
 
     var newItem = this.dataList[item.id];
-
-    if (this.contentChange) {
+    if (property == "del") {
+      this.dataList[item].del = item;
+      this.history.push(this.dataList[item]);
+      console.log(this.history);
+      this.dataList.splice(item, 1);
+    } else if (this.contentChange) {
       newItem[property] = Number(value) || value;
       this.history.push(
         JSON.parse(localStorage.menuList || "{}")[item.id] ||
           this.dataList[item.id]
       );
-      // console.log(this.history);
     } else el.innerHTML = newItem[property] || "";
 
     this.gridInit();
@@ -135,12 +138,17 @@ export class MenuSheetComponent implements OnInit {
 
   undoValue() {
     var item = this.history.pop();
+    console.log(this.history);
+    console.log(item);
 
     if (!item) return;
-
-    this.dataList[item.id] = item;
+    if (item.del) {
+      var idx = item.del;
+      delete item.del;
+      this.dataList.splice(idx, 0, item);
+    } else this.dataList[item.id] = item;
     localStorage.menuList = JSON.stringify(this.dataList);
-    this.viewList[item.id] = item;
+    // this.viewList[item.id] = item;
     this.gridInit();
   }
 
@@ -270,5 +278,11 @@ export class MenuSheetComponent implements OnInit {
     }
   }
 
-  remove() {}
+  removeRow(itemId, ev) {
+    this.updateList(itemId, "del", ev.target);
+  }
+
+  addRow(ev) {
+    console.log(ev);
+  }
 }
