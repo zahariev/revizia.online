@@ -168,23 +168,32 @@ export class ReviziaSheetComponent {
   gridInit() {
     var tempList: Array<any> = [];
     this.menuList.forEach((item, id) => {
-      tempList[id] = this.viewItemCalc(
+      var itm = this.viewItemCalc(
         this.dataList.filter(i => {
           return i.id == item.id;
         })[0],
         item
       );
+      if (itm) tempList[id] = itm;
     });
 
     this.viewList = tempList;
   }
 
   viewItemCalc(item, menuItem) {
-    item.starts = Number(
-      this.prevList.filter(i => {
-        return i.id == menuItem.id;
-      })[0].ends
-    );
+    if (!item)
+      item = {
+        id: menuItem.id,
+
+        minus: 0,
+        mplus: 0,
+        ends: 0
+      };
+    var prevDay = this.prevList.filter(i => {
+      return i.id == menuItem.id;
+    })[0];
+
+    item.starts = Number(prevDay ? prevDay.ends : 0);
     // console.log(item);
     item.diff =
       Math.round(

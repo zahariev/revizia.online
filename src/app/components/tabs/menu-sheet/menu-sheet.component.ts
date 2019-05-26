@@ -10,11 +10,11 @@ export class MenuSheetComponent implements OnInit {
   @Input() editable: Boolean;
 
   columnList = [
-    {
-      name: "id",
-      format: "number",
-      editable: true
-    },
+    // {
+    //   name: "id",
+    //   format: "number",
+    //   editable: true
+    // },
     {
       name: "name",
       format: "string",
@@ -281,7 +281,7 @@ export class MenuSheetComponent implements OnInit {
   }
 
   addRow(ev) {
-    this.dataList.push(new Item(0, "new", 0, 0, 0, 0));
+    this.dataList.push(new Item(this.dataList.length, "new", 0, 0, 0, 0));
     this.gridInit();
   }
 }
