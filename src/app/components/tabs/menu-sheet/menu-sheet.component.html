@@ -5,9 +5,15 @@
       <div class="card">
         <div class="card-body">
           <div id="table" class="table-editable">
-            <span _ngcontent-c4="" class="table-add float-right mb-3 mr-2">
-              <a _ngcontent-c4="" class="text-success" (click)="addRow($event)">
-                <i class="fa-plus"> + </i>
+            <span class="table-add float-right mb-3 mr-2">
+              <a contenteditable="false" class="text-success">
+                <i
+                  (click)="addRow($event)"
+                  contenteditable="false"
+                  class="faPlus"
+                >
+                  + +
+                </i>
               </a>
             </span>
             <table

@@ -118,12 +118,7 @@ export class MenuSheetComponent implements OnInit {
     // value = value.replace(" ", "");
 
     var newItem = this.dataList[item.id];
-    if (property == "del") {
-      this.dataList[item].del = item;
-      this.history.push(this.dataList[item]);
-      console.log(this.history);
-      this.dataList.splice(item, 1);
-    } else if (this.contentChange) {
+    if (this.contentChange) {
       newItem[property] = Number(value) || value;
       this.history.push(
         JSON.parse(localStorage.menuList || "{}")[item.id] ||
@@ -276,10 +271,17 @@ export class MenuSheetComponent implements OnInit {
   }
 
   removeRow(itemId, ev) {
-    this.updateList(itemId, "del", ev.target);
+    this.dataList[itemId].delPosition = itemId;
+    this.history.push(this.dataList[itemId]);
+    // console.log(this.history);
+    this.dataList.splice(itemId, 1);
+    localStorage.menuList = JSON.stringify(this.dataList);
+    // this.viewList[item.id] = item;
+    this.gridInit();
   }
 
   addRow(ev) {
-    console.log(ev);
+    this.dataList.push(new Item(0, "new", 0, 0, 0, 0));
+    this.gridInit();
   }
 }
