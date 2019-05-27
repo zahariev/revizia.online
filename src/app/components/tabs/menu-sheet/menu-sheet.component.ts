@@ -180,7 +180,7 @@ export class MenuSheetComponent implements OnInit {
     // console.log(event);
     var el = event.target;
     var row = this.columnList.length;
-    // console.log(event);
+    // console.log(event.key);
     switch (event.key) {
       case "Enter":
         if (this.activeEl == "editable") {
@@ -207,6 +207,14 @@ export class MenuSheetComponent implements OnInit {
         break;
       case "ArrowRight":
         if (this.activeEl != "editable") this.focusNextElement(el, 1);
+        break;
+
+      case "Escape":
+        console.log(this.activeEl);
+        event.target.innerText = item[property];
+        event.preventDefault();
+        // this.activeEl = el;
+        this.focusNextElement(el, 0);
         break;
       case "z":
         if (event.ctrlKey || event.metaKey) this.undoValue();
