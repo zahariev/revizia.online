@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Item } from "app/shared/models/item.model";
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  CdkDragHandle
+} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: "menu-sheet",
@@ -16,26 +21,31 @@ export class MenuSheetComponent implements OnInit {
     //   editable: true
     // },
     {
+      columnName: "Име",
       name: "name",
       format: "string",
       editable: true
     },
     {
+      columnName: "дост.Цена",
       name: "cost",
       format: "number",
       editable: true
     },
     {
+      columnName: "цена",
       name: "price",
       format: "BGN",
       editable: true
     },
     {
+      columnName: "колич.",
       name: "qty",
       format: "number",
       editable: true
     },
     {
+      columnName: "закр.",
       name: "round",
       format: "number",
       editable: true
@@ -210,10 +220,8 @@ export class MenuSheetComponent implements OnInit {
         break;
 
       case "Escape":
-        console.log(this.activeEl);
         event.target.innerText = item[property];
         event.preventDefault();
-        // this.activeEl = el;
         this.focusNextElement(el, 0);
         break;
       case "z":
@@ -290,6 +298,14 @@ export class MenuSheetComponent implements OnInit {
 
   addRow(ev) {
     this.dataList.push(new Item(this.dataList.length, "new", 0, 0, 0, 0));
+    this.gridInit();
+  }
+
+  drop(event: CdkDragDrop<Item[]>) {
+    console.log(this.dataList);
+    moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
+    console.log(this.dataList);
+    localStorage.menuList = JSON.stringify(this.dataList);
     this.gridInit();
   }
 }

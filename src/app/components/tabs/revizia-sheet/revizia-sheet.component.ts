@@ -314,6 +314,11 @@ export class ReviziaSheetComponent {
       case "ArrowRight":
         if (this.activeEl != "editable") this.focusNextElement(el, 1);
         break;
+      case "Escape":
+        event.target.innerText = item[property];
+        event.preventDefault();
+        this.focusNextElement(el, 0);
+        break;
       case "z":
         if (event.ctrlKey || event.metaKey) this.undoValue();
         break;
