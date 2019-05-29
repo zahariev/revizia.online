@@ -376,7 +376,7 @@ export class ReviziaSheetComponent {
 
       if (index) el.contentEditable = "false";
       console.log(index + step);
-      // nextElement.focus();
+      nextElement.focus();
       this.activeEl = nextElement;
     }
   }
