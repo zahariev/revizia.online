@@ -114,9 +114,7 @@ export class MenuSheetComponent implements OnInit {
     this.gridInit();
   }
 
-  ngOnInit() {
-    // this.gridInit();
-  }
+  ngOnInit() {}
 
   gridInit() {
     this.viewList = [...this.dataList];
