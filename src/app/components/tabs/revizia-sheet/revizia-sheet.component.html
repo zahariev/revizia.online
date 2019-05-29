@@ -13,7 +13,7 @@
               contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
             >
-              <tr>
+              <tr class="headerRow">
                 <th class="text-center">Артикул</th>
                 <th class="text-center">ед.ц.</th>
                 <th class="text-center">-</th>
@@ -45,7 +45,6 @@
                 </ng-container>
                 <ng-template #editTemplate>
                   <td
-                    style="min-width: 70px;"
                     tabIndex="{{ 30 * (id + 1) }}"
                     (keyup)="keyUp(item, 'minus', $event)"
                     (keydown)="keyDown(item, 'minus', $event)"
@@ -58,7 +57,6 @@
                   </td>
 
                   <td
-                    style="min-width: 80px;"
                     tabIndex="{{ 30 * (id + 1) + 1 }}"
                     (keyup)="keyUp(item, 'mplus', $event)"
                     (keydown)="keyDown(item, 'mplus', $event)"

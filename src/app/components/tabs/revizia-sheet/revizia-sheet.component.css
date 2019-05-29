@@ -20,8 +20,11 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-left: 24px;
+}
+
+td {
+  min-width: 90px;
 }
 
 #table {
@@ -47,8 +50,8 @@ tbody {
 }
 
 table.table th {
-  padding-top: 1.1rem;
-  padding-bottom: 1rem;
+  /* padding-top: 1.1rem;
+  padding-bottom: 1rem; */
 
   font-weight: 400;
 }
@@ -95,13 +98,16 @@ td.textLeft {
   text-align: left;
 }
 
+.text-center {
+  text-align: center;
+}
+
 span.negative {
   color: red;
 }
 
 .total {
   text-align: left;
-  top: 10px;
   position: relative;
 }
 

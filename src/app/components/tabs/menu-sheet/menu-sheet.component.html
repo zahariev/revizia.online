@@ -5,41 +5,38 @@
       <div class="card">
         <div class="card-body">
           <div id="table" class="table-editable">
-            <span class="table-add float-right mb-3 mr-2">
-              <a contenteditable="false" class="text-success">
-                <i
-                  (click)="addRow($event)"
-                  contenteditable="false"
-                  class="faPlus"
-                >
-                  +
-                </i>
-              </a>
-            </span>
-
+            <div id="total">
+              <i
+                (click)="addRow($event)"
+                contenteditable="false"
+                class="faPlus"
+              >
+                +
+              </i>
+            </div>
             <table
               cdkDropList
               (cdkDropListDropped)="drop($event)"
               contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
             >
-              <tr>
+              <tr class="headerRow">
                 <ng-container *ngFor="let col1 of columnList">
-                  <th class="text-center">
+                  <th class="text-center {{ col1.name }}">
                     {{ col1.columnName }}
                   </th>
                 </ng-container>
                 <th class="text-center">
                   remove
                 </th>
-                <th style="width:40px; ">
-                  reorder
+                <th class="DragHandleTH text-center">
+                  pos
                 </th>
               </tr>
               <tr *ngFor="let item of viewList; let id = index" cdkDrag>
                 <td
+                  class="{{ col.name }}"
                   *ngFor="let col of columnList; let idx = index"
-                  style="min-width: 70px;"
                   tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
                   (keyup)="keyUp(item, col.name, $event)"
                   (keydown)="keyDown(item, col.name, $event)"
@@ -54,11 +51,6 @@
                 <td style="padding: 5px;">
                   <span class="table-remove" contenteditable="false">
                     <button
-                      type="button"
-                      mdbBtn
-                      color="danger"
-                      rounded="true"
-                      size="sm"
                       class="my-0 btn btn-danger btn-rounded btn-sm"
                       (click)="removeRow(id, $event)"
                     >
@@ -66,12 +58,8 @@
                     </button>
                   </span>
                 </td>
-                <td>
-                  <div
-                    class="example-handle"
-                    style="cursor: move;"
-                    cdkDragHandle
-                  >
+                <td class=" text-center">
+                  <div class="DragHandle" cdkDragHandle>
                     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                       <path
                         d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
