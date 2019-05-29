@@ -284,9 +284,9 @@ export class MenuSheetComponent implements OnInit {
       nextElement.focus();
       this.activeEl = nextElement;
     } else {
-      this.nextFocus = document.querySelectorAll("[tabindex]");
-      console.log(this.nextFocus);
-      this.nextFocus[3].focus();
+      this.focussableElements = document.querySelectorAll(".table td.name");
+      console.log(this.focussableElements);
+      this.focussableElements[0].focus();
     }
   }
 
