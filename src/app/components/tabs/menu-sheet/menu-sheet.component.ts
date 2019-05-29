@@ -6,6 +6,8 @@ import {
   CdkDragHandle
 } from "@angular/cdk/drag-drop";
 
+import { MatIcon } from "@angular/material";
+
 @Component({
   selector: "menu-sheet",
   templateUrl: "./menu-sheet.component.html",
@@ -121,16 +123,16 @@ export class MenuSheetComponent implements OnInit {
   }
 
   updateList(item, property: string, el: any) {
+    var idx = this.dataList.indexOf(item);
     var value = el.innerText;
     value = value.replace(/\r?\n|\r\s/g, "");
     // value = value.replace(" ", "");
 
-    var newItem = this.dataList[item.id];
+    var newItem = this.dataList[idx];
     if (this.contentChange) {
       newItem[property] = Number(value) || value;
       this.history.push(
-        JSON.parse(localStorage.menuList || "{}")[item.id] ||
-          this.dataList[item.id]
+        JSON.parse(localStorage.menuList || "{}")[idx] || this.dataList[idx]
       );
     } else el.innerHTML = newItem[property] || "";
 
@@ -141,13 +143,12 @@ export class MenuSheetComponent implements OnInit {
 
   undoValue() {
     var item = this.history.pop();
-
     if (!item) return;
-    if (item.del) {
-      var idx = item.del;
-      delete item.del;
+    if (item.delPosition) {
+      var idx = item.delPosition;
+      delete item.delPosition;
       this.dataList.splice(idx, 0, item);
-    } else this.dataList[item.id] = item;
+    } else this.dataList[idx] = item;
     localStorage.menuList = JSON.stringify(this.dataList);
     // this.viewList[item.id] = item;
     this.gridInit();
@@ -279,20 +280,27 @@ export class MenuSheetComponent implements OnInit {
 
       if (index) el.contentEditable = "false";
 
-      console.log(index + step);
+      console.log(nextElement);
       nextElement.focus();
       this.activeEl = nextElement;
+    } else {
+      this.nextFocus = document.querySelectorAll("[tabindex]");
+      console.log(this.nextFocus);
+      this.nextFocus[3].focus();
     }
   }
 
-  removeRow(itemId, ev) {
-    this.dataList[itemId].delPosition = itemId;
-    this.history.push(this.dataList[itemId]);
-    // console.log(this.history);
-    this.dataList.splice(itemId, 1);
+  removeRow(itemIdx, ev) {
+    this.dataList[itemIdx].delPosition = itemIdx;
+    this.history.push(this.dataList[itemIdx]);
+    console.log(ev);
+    this.dataList.splice(itemIdx, 1);
     localStorage.menuList = JSON.stringify(this.dataList);
     // this.viewList[item.id] = item;
+
     this.gridInit();
+
+    this.focusNextElement(ev.target, 300);
   }
 
   addRow(ev) {

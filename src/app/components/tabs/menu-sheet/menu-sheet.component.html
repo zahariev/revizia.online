@@ -6,14 +6,11 @@
         <div class="card-body">
           <div id="table" class="table-editable">
             <div id="total">
-              <i
-                (click)="addRow($event)"
-                contenteditable="false"
-                class="faPlus"
-              >
-                +
-              </i>
+              <button mat-raised-button color="accent" (click)="addRow($event)">
+                <mat-icon>plus</mat-icon>
+              </button>
             </div>
+
             <table
               cdkDropList
               (cdkDropListDropped)="drop($event)"
