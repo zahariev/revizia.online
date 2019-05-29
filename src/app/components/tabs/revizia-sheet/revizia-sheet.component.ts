@@ -368,14 +368,14 @@ export class ReviziaSheetComponent {
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 
-    if (index + step < 2) return;
+    if (index + step < 3) return;
     if (index > -1) {
       window.getSelection().removeAllRanges();
       var nextElement =
         this.focussableElements[index + step] || this.focussableElements[index];
 
       if (index) el.contentEditable = "false";
-
+      console.log(index + step);
       nextElement.focus();
       this.activeEl = nextElement;
     }

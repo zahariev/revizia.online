@@ -271,7 +271,7 @@ export class MenuSheetComponent implements OnInit {
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 
-    if (index + step < 2) return;
+    if (index + step < 3) return;
     if (index > -1) {
       window.getSelection().removeAllRanges();
       var nextElement =
@@ -279,6 +279,7 @@ export class MenuSheetComponent implements OnInit {
 
       if (index) el.contentEditable = "false";
 
+      console.log(index + step);
       nextElement.focus();
       this.activeEl = nextElement;
     }
