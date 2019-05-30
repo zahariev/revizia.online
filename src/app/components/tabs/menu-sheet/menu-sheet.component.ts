@@ -8,6 +8,8 @@ import {
 
 import { MatIcon } from "@angular/material";
 
+import { RevService } from "app/shared/services/rev.service";
+
 @Component({
   selector: "menu-sheet",
   templateUrl: "./menu-sheet.component.html",
@@ -54,53 +56,10 @@ export class MenuSheetComponent implements OnInit {
     }
   ];
 
-  menuList: Array<Item> = [
-    {
-      id: 0,
-      name: "Кафе",
-      cost: 0,
-      qty: 0.007,
-      price: 2.2,
-      round: 1
-    },
-    { id: 1, name: "Кола", cost: 0, qty: 1, price: 2, round: 0.5 },
-    {
-      id: 2,
-      name: "Водка",
-      qty: 0.05,
-      cost: 0,
-      price: 3,
-      round: 0.5
-    },
-    {
-      id: 3,
-      name: "Сок",
-      qty: 0.2,
-      cost: 0,
-      price: 2,
-      round: 0.5
-    },
-    {
-      id: 4,
-      name: "Уиски",
-      qty: 45,
-      cost: 0,
-      price: 6,
-      round: 0.5
-    },
-    {
-      id: 5,
-      name: "Вино",
-      qty: 0.15,
-      cost: 0,
-      price: 5,
-      round: 1
-    }
-  ];
+  menuList;
+  dataList;
 
-  dataList = [];
   nextFocus: any;
-  // dataList: Array<any> = [];
   viewList: Array<any> = [];
   focussableElements: any;
 
@@ -109,10 +68,8 @@ export class MenuSheetComponent implements OnInit {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor() {
-    this.dataList = localStorage.menuList
-      ? JSON.parse(localStorage.menuList)
-      : this.menuList;
+  constructor(private data: RevService) {
+    this.dataList = data.menuList;
     this.gridInit();
   }
 
@@ -137,7 +94,7 @@ export class MenuSheetComponent implements OnInit {
     } else el.innerHTML = newItem[property] || "";
 
     this.gridInit();
-    localStorage.menuList = JSON.stringify(this.dataList);
+    this.data.store("menuList", this.dataList);
     this.contentChange = false;
   }
 
@@ -311,7 +268,9 @@ export class MenuSheetComponent implements OnInit {
   }
 
   addRow(ev) {
-    this.dataList.push(new Item(this.dataList.length, "new", 0, 0, 0, 0));
+    this.dataList.push(
+      new Item(this.dataList.length.toString(), "new", 0, 0, 0, 0)
+    );
     this.gridInit();
   }
 
