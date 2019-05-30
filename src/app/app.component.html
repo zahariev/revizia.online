@@ -7,12 +7,12 @@
     </mat-tab>
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <revizia-sheet date="{{ date }}"></revizia-sheet>
+        <revizia-sheet [editable]="editable" [data]="data"></revizia-sheet>
       </div>
     </mat-tab>
 
     <mat-tab label="Днес">
-      <revizia-sheet date="{{ date }}" editable="true"></revizia-sheet>
+      <revizia-sheet [data]="data2" [editable]="editable"></revizia-sheet>
     </mat-tab>
 
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">

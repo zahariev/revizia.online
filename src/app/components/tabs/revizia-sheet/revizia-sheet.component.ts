@@ -10,7 +10,7 @@ import { Item } from "app/shared/models/item.model";
   styleUrls: ["./revizia-sheet.component.css"]
 })
 export class ReviziaSheetComponent {
-  @Input() date;
+  @Input() data: any;
   @Input() editable: Boolean;
 
   editField: string;
@@ -100,50 +100,7 @@ export class ReviziaSheetComponent {
     }
   ];
 
-  menuList: Array<Item> = [
-    {
-      id: 0,
-      name: "Кафе",
-      cost: 0,
-      qty: 0.007,
-      price: 2.2,
-      round: 1
-    },
-    { id: 1, name: "Кола", cost: 0, qty: 1, price: 2, round: 0.5 },
-    {
-      id: 2,
-      name: "Водка",
-      qty: 0.05,
-      cost: 0,
-      price: 3,
-      round: 0.5
-    },
-    {
-      id: 3,
-      name: "Сок",
-      qty: 0.2,
-      cost: 0,
-      price: 2,
-      round: 0.5
-    },
-    {
-      id: 4,
-      name: "Уиски",
-      qty: 45,
-      cost: 0,
-      price: 6,
-      round: 0.5
-    },
-    {
-      id: 5,
-      name: "Вино",
-      qty: 0.15,
-      cost: 0,
-      price: 5,
-      round: 1
-    }
-  ];
-
+  menuList;
   nextFocus: any;
   // dataList: Array<any> = [];
   viewList: Array<any> = [];
@@ -155,14 +112,15 @@ export class ReviziaSheetComponent {
   history: Array<any> = [];
 
   constructor() {
-    this.dataList = localStorage.dataList
-      ? JSON.parse(localStorage.dataList)
-      : this.dataList;
-
+    // console.log(this.data);
+    this.dataList = localStorage[this.data] ? localStorage[this.data] : [];
     this.menuList = localStorage.menuList
       ? JSON.parse(localStorage.menuList)
-      : this.menuList;
+      : [];
     this.gridInit();
+  }
+  ngAfterViewInit() {
+    console.log(this.data);
   }
 
   gridInit() {
@@ -189,11 +147,14 @@ export class ReviziaSheetComponent {
         mplus: 0,
         ends: 0
       };
-    var prevDay = this.prevList.filter(i => {
-      return i.id == menuItem.id;
-    })[0];
+    // console.log(menuItem);
+    var prevDay = this.prevList
+      ? this.prevList.filter(i => {
+          return i.id == menuItem.id;
+        })[0]
+      : {};
 
-    item.starts = Number(prevDay ? prevDay.ends : 0);
+    item.starts = item.starts || Number(prevDay ? prevDay.ends : 0);
     // console.log(item);
     item.diff =
       Math.round(
@@ -201,11 +162,12 @@ export class ReviziaSheetComponent {
           1000
       ) / 1000;
 
-    item.qtySold = item.diff / menuItem.qty;
-    item.price = menuItem.price;
-    item.name = menuItem.name;
-    item.id = menuItem.id;
+    item.qtySold = item.qtySold || item.diff / menuItem.qty;
+    item.price = item.price || menuItem.price;
+    item.name = item.name || menuItem.name;
+    item.id = item.id || menuItem.id;
     item.roundSold =
+      item.roundSold ||
       Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
     item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
     // console.log(item);
@@ -219,11 +181,35 @@ export class ReviziaSheetComponent {
   }
 
   updateList(item, property: string, el: any) {
+    var idx = this.dataList.indexOf(item);
     var value = el.innerText;
     value = value.replace(/\r?\n|\r\s/g, "");
     // value = value.replace(" ", "");
 
-    var newItem = this.dataList[item.id];
+    var newItem = this.dataList[idx] || {
+      id: item.id,
+      minus: 0,
+      mplus: 0,
+      ends: 0
+    };
+    if (this.contentChange) {
+      newItem[property] = Number(value) || value;
+      this.history.push(
+        JSON.parse(localStorage[this.data] || "{}")[idx] || this.dataList[idx]
+      );
+    } else el.innerHTML = newItem[property] || "";
+
+    this.gridInit();
+    localStorage[this.data] = JSON.stringify(this.dataList);
+    this.contentChange = false;
+  }
+
+  updateList2(item, property: string, el: any) {
+    var value = el.innerText;
+    value = value.replace(/\r?\n|\r\s/g, "");
+    // value = value.replace(" ", "");
+
+    var newItem = this.dataList[item.id] || {};
     var menuItem = this.menuList[item.id];
 
     if (this.contentChange) {
@@ -236,7 +222,7 @@ export class ReviziaSheetComponent {
     } else el.innerHTML = newItem[property] || "";
     this.viewItemCalc(newItem, menuItem);
     this.gridInit();
-    localStorage.dataList = JSON.stringify(this.dataList);
+    localStorage[this.data] = JSON.stringify(this.dataList);
     this.contentChange = false;
   }
 
@@ -375,7 +361,7 @@ export class ReviziaSheetComponent {
         this.focussableElements[index + step] || this.focussableElements[index];
 
       if (index) el.contentEditable = "false";
-      console.log(index + step);
+      // console.log(index + step);
       nextElement.focus();
       this.activeEl = nextElement;
     }

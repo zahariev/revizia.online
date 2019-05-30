@@ -1,6 +1,6 @@
 export class Item {
   constructor(
-    public id: number = 0,
+    public id: string = "",
     public name: string = "",
     public cost: number,
     public qty: number = 1,
