@@ -5,7 +5,6 @@ export class Item {
     public cost: number,
     public qty: number = 1,
     public price: number = 0,
-    public round: number = 0,
-    public position: number = 0
+    public round: number = 0
   ) {}
 }

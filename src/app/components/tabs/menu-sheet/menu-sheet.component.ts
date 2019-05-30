@@ -141,19 +141,6 @@ export class MenuSheetComponent implements OnInit {
     this.contentChange = false;
   }
 
-  undoValue() {
-    var item = this.history.pop();
-    if (!item) return;
-    if (item.delPosition) {
-      var idx = item.delPosition;
-      delete item.delPosition;
-      this.dataList.splice(idx, 0, item);
-    } else this.dataList[idx] = item;
-    localStorage.menuList = JSON.stringify(this.dataList);
-    // this.viewList[item.id] = item;
-    this.gridInit();
-  }
-
   onInput(ev) {
     this.contentChange = true;
   }
@@ -301,6 +288,26 @@ export class MenuSheetComponent implements OnInit {
     this.gridInit();
 
     this.focusNextElement(ev.target, 300);
+  }
+
+  undoValue() {
+    var item = this.history.pop();
+    var idx: any;
+    if (!item) return;
+    if (item.delPosition) {
+      var idx = item.delPosition;
+      delete item.delPosition;
+      this.dataList.splice(idx, 0, item);
+    } else {
+      idx = this.dataList.filter(itm => itm.id == item.id)[0];
+      idx = this.dataList.indexOf(idx);
+      this.dataList[idx] = item;
+      console.log(idx);
+      console.log(item);
+    }
+    localStorage.menuList = JSON.stringify(this.dataList);
+    // this.viewList[idx] = item;
+    this.gridInit();
   }
 
   addRow(ev) {
