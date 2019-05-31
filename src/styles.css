@@ -46,3 +46,15 @@ button {
   font-weight: 200;
   font-size: 1.1em;
 }
+
+.mat-tab-header {
+  position: fixed !important;
+  z-index: 99;
+  background-color: azure;
+  width: 100%;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  position: fixed !important;
+  margin-top: 45px;
+}
