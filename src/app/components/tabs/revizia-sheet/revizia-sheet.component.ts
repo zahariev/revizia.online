@@ -15,131 +15,9 @@ export class ReviziaSheetComponent {
 
   editField: string;
 
-  dataList: Array<any> = [
-    {
-      id: 0,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
-    },
-    {
-      id: 1,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
-    },
-    {
-      id: 2,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
-    },
-    {
-      id: 3,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
-    },
-    {
-      id: 4,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
-    },
-    {
-      id: 5,
-      minus: 0,
-      mplus: 0,
-      starts: 0,
-      ends: 0
-    }
-  ];
-
-  prevList: Array<any> = [
-    {
-      id: 0,
-
-      minus: 0,
-      mplus: 0,
-      ends: 2.1
-    },
-    {
-      id: 1,
-      minus: 0,
-      mplus: 0,
-      ends: 45
-    },
-    {
-      id: 2,
-      minus: 0,
-      mplus: 0,
-      ends: 2.1
-    },
-    {
-      id: 3,
-      minus: 0,
-      mplus: 0,
-      ends: 45
-    },
-    {
-      id: 4,
-      minus: 0,
-      mplus: 0,
-      ends: 1440
-    },
-    {
-      id: 5,
-      minus: 0,
-      mplus: 0,
-      ends: 11
-    }
-  ];
-
-  nextList: Array<any> = [
-    {
-      id: 0,
-
-      minus: 0,
-      mplus: 0,
-      ends: 2.1
-    },
-    {
-      id: 1,
-      minus: 0,
-      mplus: 0,
-      ends: 45
-    },
-    {
-      id: 2,
-      minus: 0,
-      mplus: 0,
-      ends: 2.1
-    },
-    {
-      id: 3,
-      minus: 0,
-      mplus: 0,
-      ends: 45
-    },
-    {
-      id: 4,
-      minus: 0,
-      mplus: 0,
-      ends: 1440
-    },
-    {
-      id: 5,
-      minus: 0,
-      mplus: 0,
-      ends: 11
-    }
-  ];
-
+  dataList;
+  prevList;
+  nextList;
   menuList;
   nextFocus: any;
   // dataList: Array<any> = [];
@@ -163,7 +41,7 @@ export class ReviziaSheetComponent {
 
   gridInit() {
     console.log("calc");
-    this.menuList = this.dat[this.date];
+    this.menuList = this.dat.menuList;
   }
 
   totalSalesSum() {
@@ -202,7 +80,7 @@ export class ReviziaSheetComponent {
     if (!item) return;
 
     this.dataList[item.id] = item;
-    this.rev.store(this.date);
+    this.dat.store(this.date);
   }
 
   onInput(ev) {

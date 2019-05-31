@@ -777,11 +777,11 @@ export class RevService {
       json
       // CryptoJS.AES.encrypt(json, "secret key 123").toString()
     );
-    if(name=="menuList"){
-      this.prevList = [...this.calculateSheet("prevList")];
-      this.nextList = [...this.calculateSheet("nextList")];
-      this.store("prevList");
-      this.store("nextList");
+    // if(name=="menuList")
+    {
+      this.prevList = this.calculateSheet("prevList");
+      this.nextList = this.calculateSheet("nextList");
+      
     }
   }
 
