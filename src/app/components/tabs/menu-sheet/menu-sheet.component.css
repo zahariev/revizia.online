@@ -4,13 +4,13 @@
   font-weight: 200;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-width: 105%;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border-radius: 0.25rem;
   position: relative;
-  top: 10px;
+  top: 5px;
 }
 
 .card .card-body {
@@ -31,10 +31,11 @@ th {
 }
 
 th.name {
-  min-width: 150px;
+  min-width: 167px;
 }
 
 td.name {
+  min-width: 167px;
   padding-left: 16px;
   text-align: left !important;
 }
@@ -48,11 +49,14 @@ td.name {
 table {
   border-collapse: collapse;
 
+  table-layout: fixed;
+
   border-spacing: 2px;
 }
 
 tbody {
-  display: table-row-group;
+  display: table-caption;
+  padding-top: 35px;
   vertical-align: middle;
   border-color: inherit;
 }
@@ -61,11 +65,34 @@ tr {
   line-height: 22px;
 }
 
+td {
+  min-width: 90px;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
 .headerRow {
   height: 35px;
+  /* padding-top: 10px; */
+  position: fixed;
+  background-color: linen;
+  top: 50px;
 }
+
+tr.headerRow th {
+  height: 35px;
+}
+
+/* height: 35px;
+padding-top: 10px;
+position: fixed;
+background-color: linen;
+top: 50px; */
+
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
 table.table th {
@@ -175,6 +202,11 @@ html [type="button"] {
   position: relative;
   text-align: right;
   line-height: 24px;
+  right: 10px;
+}
+#total img {
+  position: fixed;
+  padding-right: 30px;
 }
 
 th.DragHandleTH {
