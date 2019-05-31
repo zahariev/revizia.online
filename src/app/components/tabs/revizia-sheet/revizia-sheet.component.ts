@@ -40,7 +40,7 @@ export class ReviziaSheetComponent {
   }
 
   gridInit() {
-    console.log("calc");
+    // console.log("calc");
     this.menuList = this.dat.menuList;
   }
 
