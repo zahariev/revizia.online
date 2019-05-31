@@ -30,7 +30,7 @@ export class ReviziaSheetComponent {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor(private dat: RevService) {
+  constructor(public dat: RevService) {
     this.menuList = dat.menuList;
     this.dataList = dat[this.date];
   }

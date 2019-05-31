@@ -40,6 +40,10 @@ td.name {
   text-align: left !important;
 }
 
+td.cost {
+  font-size: 0.8em;
+}
+
 #table {
   width: 100%;
   margin-bottom: 1rem;
@@ -172,7 +176,7 @@ span.negative {
 }
 
 .btn-danger {
-  background-color: #ff3547 !important;
+  background-color: #ff3547d1 !important;
   color: #fff;
   height: 24px;
   width: 80px;
