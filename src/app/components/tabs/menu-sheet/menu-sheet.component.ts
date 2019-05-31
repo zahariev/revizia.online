@@ -70,13 +70,14 @@ export class MenuSheetComponent implements OnInit {
 
   constructor(private data: RevService) {
     this.dataList = data.menuList;
+  }
+
+  ngOnInit() {
     this.gridInit();
   }
 
-  ngOnInit() {}
-
   gridInit() {
-    this.viewList = [...this.dataList];
+    this.viewList = this.dataList;
   }
 
   updateList(item, property: string, el: any) {
@@ -94,7 +95,7 @@ export class MenuSheetComponent implements OnInit {
     } else el.innerHTML = newItem[property] || "";
 
     this.gridInit();
-    this.data.store("menuList", this.dataList);
+    this.data.store("menuList");
     this.contentChange = false;
   }
 
@@ -224,12 +225,12 @@ export class MenuSheetComponent implements OnInit {
 
       if (index) el.contentEditable = "false";
 
-      console.log(nextElement);
+      // console.log(nextElement);
       nextElement.focus();
       this.activeEl = nextElement;
     } else {
       this.focussableElements = document.querySelectorAll(".table td.name");
-      console.log(this.focussableElements);
+      // console.log(this.focussableElements);
       this.focussableElements[0].focus();
     }
   }
@@ -237,9 +238,11 @@ export class MenuSheetComponent implements OnInit {
   removeRow(itemIdx, ev) {
     this.dataList[itemIdx].delPosition = itemIdx;
     this.history.push(this.dataList[itemIdx]);
-    console.log(ev);
+    // console.log(ev);
     this.dataList.splice(itemIdx, 1);
-    localStorage.menuList = JSON.stringify(this.dataList);
+    // localStorage.menuList = JSON.stringify(this.dataList);
+
+    this.data.store("menuList");
     // this.viewList[item.id] = item;
 
     this.gridInit();
@@ -259,26 +262,36 @@ export class MenuSheetComponent implements OnInit {
       idx = this.dataList.filter(itm => itm.id == item.id)[0];
       idx = this.dataList.indexOf(idx);
       this.dataList[idx] = item;
-      console.log(idx);
-      console.log(item);
+      // console.log(idx);
+      // console.log(item);
     }
-    localStorage.menuList = JSON.stringify(this.dataList);
+    // localStorage.menuList = JSON.stringify(this.dataList);
+
+    this.data.store("menuList");
     // this.viewList[idx] = item;
     this.gridInit();
   }
 
   addRow(ev) {
-    this.dataList.push(
+    var rowIdx = this.data.menuList.push(
       new Item(this.dataList.length.toString(), "new", 0, 0, 0, 0)
     );
+
     this.gridInit();
+    return rowIdx;
   }
 
   drop(event: CdkDragDrop<Item[]>) {
-    console.log(this.dataList);
+    // console.log(this.dataList);
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-    console.log(this.dataList);
-    localStorage.menuList = JSON.stringify(this.dataList);
+
+    // this.data.menuList = [...this.dataList];
+
+    // this.data.menuList = this.dataList;
+    // console.log(this.dataList);
+    // localStorage.menuList = JSON.stringify(this.dataList);
+
+    this.data.store("menuList");
     this.gridInit();
   }
 }

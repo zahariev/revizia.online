@@ -17,19 +17,22 @@
               contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
             >
-              <tr class="headerRow">
-                <ng-container *ngFor="let col1 of columnList">
-                  <th class="text-center {{ col1.name }}">
-                    {{ col1.columnName }}
+              <thead>
+                <tr class="headerRow">
+                  <ng-container *ngFor="let col1 of columnList">
+                    <th class="text-center {{ col1.name }}">
+                      {{ col1.columnName }}
+                    </th>
+                  </ng-container>
+                  <th class="text-center">
+                    remove
                   </th>
-                </ng-container>
-                <th class="text-center">
-                  remove
-                </th>
-                <th class="DragHandleTH text-center">
-                  pos
-                </th>
-              </tr>
+                  <th class="DragHandleTH text-center">
+                    pos
+                  </th>
+                </tr>
+              </thead>
+
               <tr *ngFor="let item of viewList; let id = index" cdkDrag>
                 <td
                   class="{{ col.name }}"

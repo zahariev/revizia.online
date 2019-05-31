@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Statement } from "@angular/compiler";
 import { Item } from "app/shared/models/item.model";
 
-// import { RevService } from "app/shared/services/rev.service";
+import { RevService } from "app/shared/services/rev.service";
 
 @Component({
   selector: "revizia-sheet",
@@ -10,7 +10,7 @@ import { Item } from "app/shared/models/item.model";
   styleUrls: ["./revizia-sheet.component.css"]
 })
 export class ReviziaSheetComponent {
-  @Input() data: any;
+  @Input() date: any;
   @Input() editable: Boolean;
 
   editField: string;
@@ -100,78 +100,70 @@ export class ReviziaSheetComponent {
     }
   ];
 
+  nextList: Array<any> = [
+    {
+      id: 0,
+
+      minus: 0,
+      mplus: 0,
+      ends: 2.1
+    },
+    {
+      id: 1,
+      minus: 0,
+      mplus: 0,
+      ends: 45
+    },
+    {
+      id: 2,
+      minus: 0,
+      mplus: 0,
+      ends: 2.1
+    },
+    {
+      id: 3,
+      minus: 0,
+      mplus: 0,
+      ends: 45
+    },
+    {
+      id: 4,
+      minus: 0,
+      mplus: 0,
+      ends: 1440
+    },
+    {
+      id: 5,
+      minus: 0,
+      mplus: 0,
+      ends: 11
+    }
+  ];
+
   menuList;
   nextFocus: any;
   // dataList: Array<any> = [];
   viewList: Array<any> = [];
   focussableElements: any;
 
+  rev;
   focus: any;
   activeEl: any;
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor() {
-    // console.log(this.data);
-    this.dataList = localStorage[this.data] ? localStorage[this.data] : [];
-    this.menuList = localStorage.menuList
-      ? JSON.parse(localStorage.menuList)
-      : [];
-    this.gridInit();
+  constructor(private dat: RevService) {
+    this.menuList = dat.menuList;
+    this.dataList = dat[this.date];
   }
-  ngAfterViewInit() {
-    console.log(this.data);
+
+  ngOnInit() {
+    this.dataList = this.dat[this.date];
   }
 
   gridInit() {
-    var tempList: Array<any> = [];
-    this.menuList.forEach((item, id) => {
-      var itm = this.viewItemCalc(
-        this.dataList.filter(i => {
-          return i.id == item.id;
-        })[0],
-        item
-      );
-      if (itm) tempList[id] = itm;
-    });
-
-    this.viewList = tempList;
-  }
-
-  viewItemCalc(item, menuItem) {
-    if (!item)
-      item = {
-        id: menuItem.id,
-
-        minus: 0,
-        mplus: 0,
-        ends: 0
-      };
-    // console.log(menuItem);
-    var prevDay = this.prevList
-      ? this.prevList.filter(i => {
-          return i.id == menuItem.id;
-        })[0]
-      : {};
-
-    item.starts = item.starts || Number(prevDay ? prevDay.ends : 0);
-    // console.log(item);
-    item.diff =
-      Math.round(
-        (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
-          1000
-      ) / 1000;
-
-    item.qtySold = item.qtySold || item.diff / menuItem.qty;
-    item.price = item.price || menuItem.price;
-    item.name = item.name || menuItem.name;
-    item.id = item.id || menuItem.id;
-    item.roundSold =
-      item.roundSold ||
-      Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
-    item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
-    // console.log(item);
-    return item;
+    console.log("calc");
+    this.menuList = this.dat[this.date];
   }
 
   totalSalesSum() {
@@ -195,47 +187,22 @@ export class ReviziaSheetComponent {
     if (this.contentChange) {
       newItem[property] = Number(value) || value;
       this.history.push(
-        JSON.parse(localStorage[this.data] || "{}")[idx] || this.dataList[idx]
+        JSON.parse(localStorage[this.date] || "{}")[idx] || this.dataList[idx]
       );
     } else el.innerHTML = newItem[property] || "";
 
-    this.gridInit();
-    localStorage[this.data] = JSON.stringify(this.dataList);
-    this.contentChange = false;
-  }
+    this.dataList = this.dat.calculateSheet(this.date);
 
-  updateList2(item, property: string, el: any) {
-    var value = el.innerText;
-    value = value.replace(/\r?\n|\r\s/g, "");
-    // value = value.replace(" ", "");
-
-    var newItem = this.dataList[item.id] || {};
-    var menuItem = this.menuList[item.id];
-
-    if (this.contentChange) {
-      newItem[property] = Number(value);
-      this.history.push(
-        JSON.parse(localStorage.dataList || "{}")[item.id] ||
-          this.dataList[item.id]
-      );
-      // console.log(this.history);
-    } else el.innerHTML = newItem[property] || "";
-    this.viewItemCalc(newItem, menuItem);
-    this.gridInit();
-    localStorage[this.data] = JSON.stringify(this.dataList);
+    this.dat.store(this.date);
     this.contentChange = false;
   }
 
   undoValue() {
     var item = this.history.pop();
-    // console.log(item);
     if (!item) return;
-    // console.log(this.dataList[item.id]);
 
     this.dataList[item.id] = item;
-    localStorage.dataList = JSON.stringify(this.dataList);
-    this.viewList[item.id] = item;
-    // this.gridInit();
+    this.rev.store(this.date);
   }
 
   onInput(ev) {
