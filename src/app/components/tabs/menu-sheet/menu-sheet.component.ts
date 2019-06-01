@@ -123,16 +123,8 @@ export class MenuSheetComponent implements OnInit {
     if (this.activeEl == "select") {
       this.selectText(event.target);
       this.makeEditable(event.target);
-
       event.preventDefault();
     }
-  }
-
-  onDoubleClick(item: any, elName: string, event: any) {
-    event.preventDefault();
-    //this.makeEditable(event.target);
-    // this.selectText(event.target);
-    this.makeEditable(event.target);
   }
 
   keyDown(item, property: string, event: any) {
