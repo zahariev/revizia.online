@@ -45,25 +45,27 @@
                 </ng-container>
                 <ng-template #editTemplate>
                   <td
+                    :inner-text.prop="value"
                     tabIndex="{{ 30 + id }}"
                     (keyup)="keyUp(item, 'minus', $event)"
                     (keydown)="keyDown(item, 'minus', $event)"
                     (mousedown)="onMdown(item, 'minus', $event)"
                     (click)="onClick(item, 'minus', $event)"
                     (blur)="onBlur(item, 'minus', $event)"
-                    (input)="onInput($event)"
+                    (input)="onInput(item, 'minus', $event)"
                   >
                     {{ item.minus | hideZero }}
                   </td>
 
                   <td
+                    :inner-text.prop="value"
                     tabIndex="{{ 30 + id + 1 }}"
                     (keyup)="keyUp(item, 'mplus', $event)"
                     (keydown)="keyDown(item, 'mplus', $event)"
                     (mousedown)="onMdown(item, 'mlus', $event)"
                     (click)="onClick(item, 'mplus', $event)"
                     (blur)="onBlur(item, 'mplus', $event)"
-                    (input)="onInput($event)"
+                    (input)="onInput(item, 'mplus', $event)"
                   >
                     <!-- (blur)="updateList(item, 'mplus', $event)" -->
                     {{ item.mplus | hideZero }}
@@ -82,6 +84,7 @@
 
                 <ng-template #editTemplate2>
                   <td
+                    :inner-text.prop="value"
                     style="min-width: 80px;"
                     tabIndex="{{ 30 + id + 2 }}"
                     (keyup)="keyUp(item, 'ends', $event)"
@@ -89,7 +92,7 @@
                     (mousedown)="onMdown(item, 'ends', $event)"
                     (click)="onClick(item, 'ends', $event)"
                     (blur)="onBlur(item, 'ends', $event)"
-                    (input)="onInput($event)"
+                    (input)="onInput(item, 'ends', $event)"
                   >
                     {{ item.ends | hideZero }}
                   </td>

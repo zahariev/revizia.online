@@ -35,6 +35,7 @@
 
               <tr *ngFor="let item of viewList; let id = index" cdkDrag>
                 <td
+                  :inner-text.prop="value"
                   class="{{ col.name }}"
                   *ngFor="let col of columnList; let idx = index"
                   tabIndex="{{ 30 * (id + 1) + idx + 1 }}"

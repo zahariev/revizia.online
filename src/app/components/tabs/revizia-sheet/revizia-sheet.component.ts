@@ -51,9 +51,12 @@ export class ReviziaSheetComponent {
   }
 
   updateList(item, property: string, el: any) {
+    // return;
     var idx = this.dataList.indexOf(item);
-    var value = el.innerText;
+    var value = el.innerText + "";
+    el.innerText = "";
     value = value.replace(/\r?\n|\r\s/g, "");
+
     // value = value.replace(" ", "");
 
     var newItem = this.dataList[idx] || {
@@ -63,36 +66,54 @@ export class ReviziaSheetComponent {
       ends: 0
     };
     if (this.contentChange) {
-      newItem[property] = Number(value) || value;
       this.history.push(
         JSON.parse(localStorage[this.date] || "{}")[idx] || this.dataList[idx]
       );
+
+      // console.log(JSON.parse(localStorage[this.date])[idx]);
+
+      newItem[property] = Number(value) || value;
+      el.innerText = value;
     } else el.innerHTML = newItem[property] || "";
-
-    this.dataList = this.dat.calculateSheet(this.date);
-
+    this.dat[this.date] = this.dat.calculateSheet(this.date);
     this.dat.store(this.date);
     this.contentChange = false;
   }
 
   undoValue() {
     var item = this.history.pop();
+    var idx: any;
     if (!item) return;
+    if (item.delPosition) {
+      var idx = item.delPosition;
+      delete item.delPosition;
+      this.dataList.splice(idx, 0, item);
+    } else {
+      idx = this.dataList.filter(itm => itm.id == item.id)[0];
+      idx = this.dataList.indexOf(idx);
+      this.dat[this.date][idx] = item;
+      // console.log(idx);
+      // console.log(item);
+    }
 
-    this.dataList[item.id] = item;
     this.dat.store(this.date);
   }
 
-  onInput(ev) {
+  onInput(item, elName, event) {
+    var el = event.target;
     this.contentChange = true;
+    // // el.contentEditable = "false";
+    // this.updateList(item, elName, el);
   }
 
   onBlur(item, elName, event) {
     var el = event.target;
-    el.contentEditable = "false";
     // console.log(el.innerText);
 
     this.updateList(item, elName, el);
+
+    el.contentEditable = "false";
+    event.preventDefault();
   }
 
   onMdown(item: any, elName: string, el: any) {
@@ -184,9 +205,11 @@ export class ReviziaSheetComponent {
     switch (event.key) {
       case "Enter":
         event.preventDefault();
-        return;
+        return true;
         break;
     }
+
+    return true;
   }
 
   makeEditable(el) {
