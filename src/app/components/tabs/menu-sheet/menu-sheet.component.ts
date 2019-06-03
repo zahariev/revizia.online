@@ -244,7 +244,7 @@ export class MenuSheetComponent implements OnInit {
 
     this.gridInit();
 
-    this.focusNextElement(ev.target, 300);
+    // this.focusNextElement(ev.target, 300);
   }
 
   undoValue() {
