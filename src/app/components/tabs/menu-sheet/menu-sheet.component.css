@@ -200,6 +200,7 @@ html [type="button"] {
 .total {
   text-align: left;
   position: relative;
+  z-index: 9;
 }
 
 #total {
@@ -209,7 +210,7 @@ html [type="button"] {
   right: 10px;
 }
 #total img {
-  position: fixed;
+  /* position: fixed; */
   padding-right: 30px;
 }
 
