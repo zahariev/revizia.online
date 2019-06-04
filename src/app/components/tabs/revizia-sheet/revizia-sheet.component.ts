@@ -23,7 +23,6 @@ export class ReviziaSheetComponent {
   // dataList: Array<any> = [];
   // viewList: Array<any> = [];
   focussableElements: any;
-  totalSalesSum;
   rev;
   focus: any;
   activeEl: any;
@@ -37,23 +36,9 @@ export class ReviziaSheetComponent {
 
   ngOnInit() {
     this.dataList = this.dat[this.date];
-
-    this.totalSalesSum = this.getTotalSum();
-  }
-
-  gridInit() {
-    // console.log("calc");
-    // this.menuList = this.dat.menuList;
-  }
-
-  getTotalSum() {
-    return this.dat[this.date].reduce((total, item) => {
-      return +(total * 1) + +item.sum || 0 * 1;
-    }, 0);
   }
 
   updateList(item, property: string, el: any) {
-    // return;
     var idx = this.dataList.indexOf(item);
     var value = el.innerText + "";
     el.innerText = "";
@@ -72,15 +57,11 @@ export class ReviziaSheetComponent {
         JSON.parse(localStorage[this.date] || "{}")[idx] || this.dataList[idx]
       );
 
-      // console.log(JSON.parse(localStorage[this.date])[idx]);
-
       newItem[property] = Number(value) || value;
       el.innerText = value;
     } else el.innerHTML = newItem[property] || "";
-    this.dat[this.date] = this.dat.calculateSheet(this.date);
     this.dat.store(this.date);
     this.contentChange = false;
-    this.totalSalesSum = this.getTotalSum();
   }
 
   undoValue() {
@@ -95,8 +76,6 @@ export class ReviziaSheetComponent {
       idx = this.dataList.filter(itm => itm.id == item.id)[0];
       idx = this.dataList.indexOf(idx);
       this.dat[this.date][idx] = item;
-      // console.log(idx);
-      // console.log(item);
     }
 
     this.dat.store(this.date);
@@ -105,8 +84,6 @@ export class ReviziaSheetComponent {
   onInput(item, elName, event) {
     var el = event.target;
     this.contentChange = true;
-    // // el.contentEditable = "false";
-    // this.updateList(item, elName, el);
   }
 
   onBlur(item, elName, event) {
