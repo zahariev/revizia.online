@@ -780,8 +780,7 @@ export class RevService {
     // if(name=="menuList")
     {
       this.prevList = this.calculateSheet("prevList");
-      this.nextList = this.calculateSheet("nextList");
-      
+      this.nextList = this.calculateSheet("nextList");    
     }
   }
 
@@ -797,6 +796,7 @@ export class RevService {
   }
 
   public calculateSheet(date) {
+    this[date+"Sum"] =0;
     var tempList: Array<any> = [];
     this.menuList.forEach((item, id) => {
       var itm = this.revListCalculator(
@@ -806,12 +806,19 @@ export class RevService {
         item,
         this.prevList
       );
-      if (itm) tempList[id] = itm;
+      if (itm) {
+        tempList[id] = itm;
+        this[date+"Sum"] += Number(itm.sum)||0;
+        // console.log(Number(itm.sum))
+        
+      }
     });
+    // this
+    console.log(this[date+"Sum"])
     return tempList;
   }
 
-  revListCalculator(item, menuItem, prevDate) {
+  public revListCalculator(item, menuItem, prevDate) {
     if (!item)
       item = {
         id: menuItem.id,
@@ -820,14 +827,11 @@ export class RevService {
         starts: 0,
         ends: 0
       };
-    // console.log(menuItem);
     var prevDay =
       this.prevList.filter(i => {
         return i.id == menuItem.id;
       })[0] || {};
-    // console.log(prevDay.ends);
     item.starts = prevDay.ends || 0;
-    // console.log(item);
     item.diff =
       Math.round(
         (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
@@ -842,6 +846,8 @@ export class RevService {
       Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
     item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
     // console.log(item);
+
+    
     return item;
   }
 

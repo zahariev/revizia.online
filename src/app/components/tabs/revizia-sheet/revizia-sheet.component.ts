@@ -21,9 +21,9 @@ export class ReviziaSheetComponent {
   menuList;
   nextFocus: any;
   // dataList: Array<any> = [];
-  viewList: Array<any> = [];
+  // viewList: Array<any> = [];
   focussableElements: any;
-
+  totalSalesSum;
   rev;
   focus: any;
   activeEl: any;
@@ -37,15 +37,17 @@ export class ReviziaSheetComponent {
 
   ngOnInit() {
     this.dataList = this.dat[this.date];
+
+    this.totalSalesSum = this.getTotalSum();
   }
 
   gridInit() {
     // console.log("calc");
-    this.menuList = this.dat.menuList;
+    // this.menuList = this.dat.menuList;
   }
 
-  totalSalesSum() {
-    return this.dataList.reduce((total, item) => {
+  getTotalSum() {
+    return this.dat[this.date].reduce((total, item) => {
       return +(total * 1) + +item.sum || 0 * 1;
     }, 0);
   }
@@ -78,6 +80,7 @@ export class ReviziaSheetComponent {
     this.dat[this.date] = this.dat.calculateSheet(this.date);
     this.dat.store(this.date);
     this.contentChange = false;
+    this.totalSalesSum = this.getTotalSum();
   }
 
   undoValue() {
