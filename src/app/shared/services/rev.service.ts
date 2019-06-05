@@ -771,7 +771,7 @@ export class RevService {
 
   public store(name) {
     // log(obj);
-this[name] = this.calculateSheet(name);
+    //if(name!="menu") this.calculateSheet(name);
 
     let json = JSON.stringify(this[name]);
     localStorage.setItem(
@@ -781,8 +781,8 @@ this[name] = this.calculateSheet(name);
     );
     // if(name=="menuList")
     {
-      // this.prevList = this.calculateSheet("prevList");
-      // this.nextList = this.calculateSheet("nextList");    
+       this.prevList = this.calculateSheet("prevList");
+       this.nextList = this.calculateSheet("nextList");    
     }
   }
 
@@ -818,6 +818,7 @@ this[name] = this.calculateSheet(name);
     // this
     // console.log(this[date+"Sum"])
     this[date] = tempList;
+    return  tempList;
   }
 
   public revListCalculator(item, menuItem, prevDate) {
