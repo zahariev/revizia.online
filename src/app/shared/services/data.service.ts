@@ -15,13 +15,13 @@ export class DataService {
   // users = this.usersSource.asObservable();
 
   constructor(private http: HttpService) {
-    this.getRevItems();
+    // this.getRevItems();
     this.getMenuData();
     // this.getUsers();
   }
 
   getRevItems() {
-    this.http.getHtmlRevData().subscribe(data => {
+    this.http.getRevData().subscribe(data => {
       // Read the result field from the JSON response.
       this.tabsSource.next(data);
     });
@@ -30,6 +30,7 @@ export class DataService {
   getMenuData() {
     this.http.getMenuData().subscribe(data => {
       // Read the result field from the JSON response.
+      // console.log(data);
       this.menuSource.next(data);
     });
   }
