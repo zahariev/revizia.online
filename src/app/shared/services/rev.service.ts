@@ -761,7 +761,7 @@ export class RevService {
 
     data.menu.subscribe(data => {
       if (data["menu"]) {
-        console.log(data)
+        // console.log(data)
         this.menuList = (data["menu"]); //copyO
         this.store("menuList");
       } else {
