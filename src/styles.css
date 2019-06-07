@@ -44,12 +44,19 @@ button {
 
 .mat-tab-label .mat-tab-label-content {
   font-weight: 200;
+
   font-size: 1.1em;
+}
+
+.mat-tab-label {
+  align-items: end !important;
 }
 
 .mat-tab-header {
   position: fixed !important;
   z-index: 99;
+  bottom: 0px;
+  height: 35px;
   background-color: azure;
   width: 100%;
 }
