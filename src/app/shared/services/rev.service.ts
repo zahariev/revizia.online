@@ -5,7 +5,7 @@ import { interval } from "rxjs";
 // import * as CryptoJS from "crypto-js";
 import { _localeFactory } from "@angular/core/src/application_module";
 import { DataService } from "./data.service";
-
+// const MENU;
 // let log = console.log;
 @Injectable()
 export class RevService {
@@ -762,7 +762,8 @@ export class RevService {
     data.menu.subscribe(data => {
       if (data["menu"]) {
         // console.log(data)
-        this.menuList = (data["menu"]); //copyO
+        menuList = (data["menu"]); //copyO
+const MENU = (menuList);
         this.store("menuList");
       } else {
         // MESSAGE - " Not Correct Data Loaded. Continue WITH last Data!"
