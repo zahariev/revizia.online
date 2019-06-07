@@ -1,6 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- TABS    -->
-
+  <div id="saveBtn">
+    <button class="btn-danger" btn-rounded btn-sm>
+      Save changes
+    </button>
+  </div>
   <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="0">
     <mat-tab label="меню">
       <menu-sheet [editable]="editable"></menu-sheet>

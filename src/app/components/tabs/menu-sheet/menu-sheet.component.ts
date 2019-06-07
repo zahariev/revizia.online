@@ -271,7 +271,7 @@ export class MenuSheetComponent implements OnInit {
   }
 
   addRow(ev) {
-    console.log("add");
+    // console.log("add");
     var rowIdx = this.dataList.push(
       new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
     );
