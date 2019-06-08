@@ -82,11 +82,12 @@ td {
   /* padding-top: 10px; */
   position: fixed;
   background-color: linen;
+  /* top: 25px; */
   top: 40px;
   margin-left: -1px;
 }
 
-tr.headerRow th {
+thead tr th {
   height: 35px;
 }
 
