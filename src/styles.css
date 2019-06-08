@@ -61,7 +61,17 @@ button {
   width: 100%;
 }
 
+#menuTabs .mat-tab-header {
+  position: fixed !important;
+  z-index: 99;
+  top: 10px;
+  left: 24px;
+  height: 35px;
+  background-color: azure;
+  width: 786px;
+}
+
 .mat-tab-body.mat-tab-body-active {
   position: fixed !important;
-  margin-top: 45px;
+  margin-top: 10px;
 }

@@ -10,8 +10,9 @@ import { DataService } from "./data.service";
 @Injectable()
 export class RevService {
  
-  menuList = {
-    "tab1":[
+  menuList = [
+   {"name": "tab",
+   "data":[
     { id: "21209..", name: "Кафе", cost: 56, qty: 0.007, price: 2.2, round: 1 },
     { id: "21210", name: "Безкофеин", cost: 0.5, qty: 1, price: 2.4, round: 1 },
     { id: "21216..", name: "Нес кафе", cost: 50, qty: 2, price: 1.2, round: 1 },
@@ -254,9 +255,10 @@ export class RevService {
     },
     { id: "24569", name: "Bulldog", cost: 32, qty: 44, price: 6, round: 0.5 },
     { id: "1", name: "Просеко", cost: 9, qty: 0.05, price: 1, round: 1 }
-  ],
+  ]},
 
-  "tab2": [
+  {name: "tab1",
+  data: [
     {
       id: "21305",
       name: "Famouse Grouse",
@@ -745,13 +747,13 @@ export class RevService {
       price: 65,
       round: 1
     }
-  ]
-};
+  ]}
+  ];
   prevList: Array<any> =[{"id":"21209..","minus":0,"mplus":0.5,"ends":1,"starts":1,"diff":0.5,"qtySold":71.42857142857143,"price":2.2,"name":"Кафе","roundSold":71,"sum":156.2},{"id":"21210","minus":0,"mplus":"","ends":9,"starts":9,"diff":0,"qtySold":0,"price":2.4,"name":"Безкофеин","roundSold":0,"sum":0},{"id":"21216..","minus":0,"mplus":0,"ends":0.2,"starts":0.2,"diff":0,"qtySold":0,"price":1.2,"name":"Нес кафе","roundSold":0,"sum":0},{"id":"21219","minus":0,"mplus":0,"ends":1,"starts":1,"diff":0,"qtySold":0,"price":1.2,"name":"Какао","roundSold":0,"sum":0},{"id":"21197..","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":1.2,"name":"Мляко","roundSold":0,"sum":0},{"id":"21201","minus":0,"mplus":0,"ends":3,"starts":3,"diff":0,"qtySold":0,"price":2.5,"name":"LaFesta","roundSold":0,"sum":0},{"id":"21205..","minus":0,"mplus":20,"ends":2,"starts":2,"diff":20,"qtySold":20,"price":2,"name":"Чай","roundSold":20,"sum":40},{"id":"21203","minus":0,"mplus":10,"ends":3,"starts":3,"diff":10,"qtySold":10,"price":0.5,"name":"Мед","roundSold":10,"sum":5},{"id":"21202","minus":0,"mplus":0,"ends":3,"starts":3,"diff":0,"qtySold":0,"price":0.5,"name":"Сметана","roundSold":0,"sum":0},{"id":"21232","minus":0,"mplus":0,"ends":23,"starts":23,"diff":0,"qtySold":0,"price":1.8,"name":"Мин. Вода 0.5","roundSold":0,"sum":0},{"id":"21225","minus":0,"mplus":0,"ends":14,"starts":14,"diff":0,"qtySold":0,"price":1.8,"name":"Сода 0.5","roundSold":0,"sum":0},{"id":"21221..","minus":0,"mplus":0,"ends":8,"starts":8,"diff":0,"qtySold":0,"price":3.5,"name":"Студен чай","roundSold":0,"sum":0},{"id":"21236..","minus":0,"mplus":4,"ends":44,"starts":44,"diff":4,"qtySold":20,"price":2,"name":"Сок","roundSold":20,"sum":40},{"id":"21228..","minus":0,"mplus":12,"ends":67,"starts":67,"diff":12,"qtySold":12,"price":2.2,"name":"Кутийка","roundSold":12,"sum":26.4},{"id":"21235","minus":0,"mplus":24,"ends":0,"starts":0,"diff":24,"qtySold":24,"price":4.5,"name":"Shark","roundSold":24,"sum":108},{"id":"21234","minus":0,"mplus":0,"ends":9,"starts":9,"diff":0,"qtySold":0,"price":5,"name":"Red Bull","roundSold":0,"sum":0},{"id":"6","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4,"name":"Ginger beer","roundSold":0,"sum":0},{"id":"21257, 22724","minus":0,"mplus":40,"ends":54,"starts":54,"diff":40,"qtySold":40,"price":3.5,"name":"Staropramen","roundSold":40,"sum":140},{"id":"21256","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":3,"name":"Stela artois","roundSold":0,"sum":0},{"id":"22041","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":9,"name":"Primator ALL","roundSold":0,"sum":0},{"id":"5","minus":0,"mplus":0,"ends":2,"starts":2,"diff":0,"qtySold":0,"price":6,"name":"Приматор ТЪЩА","roundSold":0,"sum":0},{"id":"21265","minus":0,"mplus":0,"ends":2,"starts":2,"diff":0,"qtySold":0,"price":6,"name":"Bernard Swing","roundSold":0,"sum":0},{"id":"21268","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":6,"name":"Диво пиво","roundSold":0,"sum":0},{"id":"21258, 21262","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":3.8,"name":"Heinecken; Leffe","roundSold":0,"sum":0},{"id":"21266, 22152","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5,"name":"Regent; Bernard svetlo","roundSold":0,"sum":0},{"id":"21264","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5,"name":"Corona","roundSold":0,"sum":0},{"id":"21255","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4,"name":"Столично","roundSold":0,"sum":0},{"id":"21260, 21270","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5,"name":"G 330; Kilkenny","roundSold":0,"sum":0},{"id":"21261","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":6,"name":"G 440","roundSold":0,"sum":0},{"id":"21772","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4,"name":"Schoeffer grapefruit","roundSold":0,"sum":0},{"id":"21267","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":3.5,"name":"Claustaller","roundSold":0,"sum":0},{"id":"21271","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.8,"name":"Schoefferhofer","roundSold":0,"sum":0},{"id":"21361, 21875, 21866","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5,"name":"Вино бут.","roundSold":0,"sum":0},{"id":"21885, 21364, 21874","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5,"name":"Вино чаши","roundSold":0,"sum":0},{"id":"4","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":6.5,"name":"Вино бокс чаша","roundSold":0,"sum":0},{"id":"24567","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":2.2,"name":"Savoy джин","roundSold":0,"sum":0},{"id":"21354, 21344","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":3.5,"name":"Коняк; Ракия БГ","roundSold":0,"sum":0},{"id":"3","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":3.5,"name":"Ракия Грапа","roundSold":0,"sum":0},{"id":"21294","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":2.2,"name":"Мента","roundSold":0,"sum":0},{"id":"21275..","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.4,"name":"Smirnoff","roundSold":0,"sum":0},{"id":"21278..","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.4,"name":"Absolut","roundSold":0,"sum":0},{"id":"21277","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.4,"name":"Finlandia","roundSold":0,"sum":0},{"id":"21283..","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":3.8,"name":"Sobieski","roundSold":0,"sum":0},{"id":"21285","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.4,"name":"Руски Стандарт","roundSold":0,"sum":0},{"id":"2","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5.5,"name":"Reyka","roundSold":0,"sum":0},{"id":"21414","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":2.7,"name":"Житная","roundSold":0,"sum":0},{"id":"24553","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.5,"name":"Gordon's","roundSold":0,"sum":0},{"id":"24554","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":5.2,"name":"Tanquery","roundSold":0,"sum":0},{"id":"24551","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":4.5,"name":"Beefeater","roundSold":0,"sum":0},{"id":"24552","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":6,"name":"Bombay Sapphire","roundSold":0,"sum":0},{"id":"24556","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":7,"name":"Hendrick's","roundSold":0,"sum":0},{"id":"24569","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":6,"name":"Bulldog","roundSold":0,"sum":0},{"id":"1","minus":0,"mplus":0,"ends":0,"starts":0,"diff":0,"qtySold":0,"price":1,"name":"Просеко","roundSold":0,"sum":0}];
   nextList: Array<any> =[{"id":"21209..","minus":0,"mplus":0,"starts":1,"ends":0.95,"diff":0.05,"qtySold":7.142857142857143,"price":2.2,"name":"Кафе","roundSold":7,"sum":15.4},{"id":"21210","minus":0,"mplus":0,"starts":9,"ends":7,"diff":2,"qtySold":2,"price":2.4,"name":"Безкофеин","roundSold":2,"sum":4.8},{"id":"21216..","minus":0,"mplus":0,"starts":0.2,"ends":0.18,"diff":0.02,"qtySold":10,"price":1.2,"name":"Нес кафе","roundSold":10,"sum":12},{"id":"21219","minus":0,"mplus":"","starts":1,"ends":1,"diff":0,"qtySold":0,"price":1.2,"name":"Какао","roundSold":0,"sum":0},{"id":"21197..","minus":0,"mplus":1,"starts":0,"ends":0,"diff":1,"qtySold":5,"price":1.2,"name":"Мляко","roundSold":5,"sum":6},{"id":"21201","minus":0,"mplus":1,"starts":3,"ends":3,"diff":1,"qtySold":1,"price":2.5,"name":"LaFesta","roundSold":1,"sum":2.5},{"id":"21205..","minus":0,"mplus":1,"starts":2,"ends":1,"diff":2,"qtySold":2,"price":2,"name":"Чай","roundSold":2,"sum":4},{"id":"21203","minus":0,"mplus":1,"starts":3,"ends":3,"diff":1,"qtySold":1,"price":0.5,"name":"Мед","roundSold":1,"sum":0.5},{"id":"21202","minus":0,"mplus":1,"starts":3,"ends":1,"diff":3,"qtySold":3,"price":0.5,"name":"Сметана","roundSold":3,"sum":1.5},{"id":"21232","minus":0,"mplus":"","starts":23,"ends":11,"diff":12,"qtySold":12,"price":1.8,"name":"Мин. Вода 0.5","roundSold":12,"sum":21.6},{"id":"21225","minus":0,"mplus":"","starts":14,"ends":11,"diff":3,"qtySold":3,"price":1.8,"name":"Сода 0.5","roundSold":3,"sum":5.4},{"id":"21221..","minus":0,"mplus":1,"starts":8,"ends":7,"diff":2,"qtySold":2,"price":3.5,"name":"Студен чай","roundSold":2,"sum":7},{"id":"21236..","minus":0,"mplus":1,"starts":44,"ends":41.2,"diff":3.8,"qtySold":18.999999999999996,"price":2,"name":"Сок","roundSold":19,"sum":38},{"id":"21228..","minus":0,"mplus":0,"starts":67,"ends":45,"diff":22,"qtySold":22,"price":2.2,"name":"Кутийка","roundSold":22,"sum":48.4},{"id":"21235","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.5,"name":"Shark","roundSold":0,"sum":0},{"id":"21234","minus":0,"mplus":1,"starts":9,"ends":8,"diff":2,"qtySold":2,"price":5,"name":"Red Bull","roundSold":2,"sum":10},{"id":"6","minus":0,"mplus":1,"starts":0,"ends":0,"diff":1,"qtySold":1,"price":4,"name":"Ginger beer","roundSold":1,"sum":4},{"id":"21257, 22724","minus":0,"mplus":1,"starts":54,"ends":24,"diff":31,"qtySold":31,"price":3.5,"name":"Staropramen","roundSold":31,"sum":108.5},{"id":"21256","minus":0,"mplus":1,"starts":0,"ends":0,"diff":1,"qtySold":1,"price":3,"name":"Stela artois","roundSold":1,"sum":3},{"id":"22041","minus":0,"mplus":1,"starts":0,"ends":0,"diff":1,"qtySold":1,"price":9,"name":"Primator ALL","roundSold":1,"sum":9},{"id":"5","minus":0,"mplus":1,"starts":2,"ends":0,"diff":3,"qtySold":3,"price":6,"name":"Приматор ТЪЩА","roundSold":3,"sum":18},{"id":"21265","minus":0,"mplus":1,"starts":2,"ends":0,"diff":3,"qtySold":3,"price":6,"name":"Bernard Swing","roundSold":3,"sum":18},{"id":"21268","minus":0,"mplus":1,"starts":0,"ends":0,"diff":1,"qtySold":1,"price":6,"name":"Диво пиво","roundSold":1,"sum":6},{"id":"21258, 21262","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":3.8,"name":"Heinecken; Leffe","roundSold":0,"sum":0},{"id":"21266, 22152","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5,"name":"Regent; Bernard svetlo","roundSold":0,"sum":0},{"id":"21264","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5,"name":"Corona","roundSold":0,"sum":0},{"id":"21255","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4,"name":"Столично","roundSold":0,"sum":0},{"id":"21260, 21270","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5,"name":"G 330; Kilkenny","roundSold":0,"sum":0},{"id":"21261","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":6,"name":"G 440","roundSold":0,"sum":0},{"id":"21772","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4,"name":"Schoeffer grapefruit","roundSold":0,"sum":0},{"id":"21267","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":3.5,"name":"Claustaller","roundSold":0,"sum":0},{"id":"21271","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.8,"name":"Schoefferhofer","roundSold":0,"sum":0},{"id":"21361, 21875, 21866","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5,"name":"Вино бут.","roundSold":0,"sum":0},{"id":"21885, 21364, 21874","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5,"name":"Вино чаши","roundSold":0,"sum":0},{"id":"4","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":6.5,"name":"Вино бокс чаша","roundSold":0,"sum":0},{"id":"24567","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":2.2,"name":"Savoy джин","roundSold":0,"sum":0},{"id":"21354, 21344","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":3.5,"name":"Коняк; Ракия БГ","roundSold":0,"sum":0},{"id":"3","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":3.5,"name":"Ракия Грапа","roundSold":0,"sum":0},{"id":"21294","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":2.2,"name":"Мента","roundSold":0,"sum":0},{"id":"21275..","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.4,"name":"Smirnoff","roundSold":0,"sum":0},{"id":"21278..","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.4,"name":"Absolut","roundSold":0,"sum":0},{"id":"21277","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.4,"name":"Finlandia","roundSold":0,"sum":0},{"id":"21283..","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":3.8,"name":"Sobieski","roundSold":0,"sum":0},{"id":"21285","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.4,"name":"Руски Стандарт","roundSold":0,"sum":0},{"id":"2","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5.5,"name":"Reyka","roundSold":0,"sum":0},{"id":"21414","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":2.7,"name":"Житная","roundSold":0,"sum":0},{"id":"24553","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.5,"name":"Gordon's","roundSold":0,"sum":0},{"id":"24554","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":5.2,"name":"Tanquery","roundSold":0,"sum":0},{"id":"24551","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":4.5,"name":"Beefeater","roundSold":0,"sum":0},{"id":"24552","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":6,"name":"Bombay Sapphire","roundSold":0,"sum":0},{"id":"24556","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":7,"name":"Hendrick's","roundSold":0,"sum":0},{"id":"24569","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":6,"name":"Bulldog","roundSold":0,"sum":0},{"id":"1","minus":0,"mplus":0,"starts":0,"ends":0,"diff":0,"qtySold":0,"price":1,"name":"Просеко","roundSold":0,"sum":0}];
 
   constructor(data:DataService) { //data:DataService    
-    this.menuList = this.getLocal("menuList") || this.menuList;
+    // this.menuList = this.getLocal("menuList") || this.menuList;
 
     this.prevList = this.getLocal("prevList") || this.prevList;
 
@@ -764,8 +766,8 @@ export class RevService {
     data.menu.subscribe(data => {
       if (data["menu"]) {
         // console.log(data)
-        menuList = (data["menu"]); //copyO
-const MENU = (menuList);
+        this.menuList = (data["menu"]); //copyO
+const MENU = (this.menuList);
         this.store("menuList");
         // this.prevList = data["revs"][0];
         // this.store("prevList");
@@ -808,25 +810,28 @@ const MENU = (menuList);
   public calculateSheet(date) {
     this[date+"Sum"] =0;
     var tempList: Array<any> = [];
-    this.menuList.forEach((item, id) => {
+    this.menuList.forEach((tab)=>{
+      // console.log(tab)
+      //var tabName = Object.keys(tab)[0];
+      tab.data.forEach((item, id) => {
       var itm = this.revListCalculator(
         this[date].filter(i => {
           return i.id == item.id;
         })[0],
         item,
-        this.prevList
+        this.prevList[tab.name]
       );
       if (itm) {
         tempList[id] = itm;
         this[date+"Sum"] += Number(itm.sum)||0;
-        // console.log(Number(itm.sum))
-        
       }
     });
-    // this
-    // console.log(this[date+"Sum"])
-    this[date] = tempList;
-    return  tempList;
+
+    this[date][tab.name] = tempList;
+    // console.log(this[date])
+  });
+
+    return  this[date];
   }
 
   public revListCalculator(item, menuItem, prevDate) {

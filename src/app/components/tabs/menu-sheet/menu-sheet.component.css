@@ -60,7 +60,7 @@ table {
 
 tbody {
   display: table-caption;
-  padding-top: 35px;
+  padding-top: 60px;
   vertical-align: middle;
   border-color: inherit;
 }
@@ -82,7 +82,8 @@ td {
   /* padding-top: 10px; */
   position: fixed;
   background-color: linen;
-  top: 50px;
+  top: 40px;
+  margin-left: -1px;
 }
 
 tr.headerRow th {

@@ -17,6 +17,7 @@ import { RevService } from "app/shared/services/rev.service";
 })
 export class MenuSheetComponent implements OnInit {
   @Input() editable: Boolean;
+  @Input() data1: string;
 
   columnList = [
     // {
@@ -60,7 +61,7 @@ export class MenuSheetComponent implements OnInit {
   dataList;
 
   nextFocus: any;
-  viewList: Array<any> = [];
+  viewList;
   focussableElements: any;
 
   focus: any;
@@ -78,7 +79,8 @@ export class MenuSheetComponent implements OnInit {
 
   gridInit() {
     this.data.menuList = this.dataList;
-    this.viewList = this.dataList;
+    // console.log((Array.from(this.data1)));
+    this.viewList = Array.from(this.data1); //List;
   }
 
   updateList(item, property: string, el: any) {
@@ -86,7 +88,7 @@ export class MenuSheetComponent implements OnInit {
     var value = el.innerText;
     value = value.replace(/\r?\n|\r\s/g, "");
     // value = value.replace(" ", "");
-
+    console.log(this.dataList);
     var newItem = this.dataList[idx];
     if (this.contentChange) {
       newItem[property] = Number(value) || value;
