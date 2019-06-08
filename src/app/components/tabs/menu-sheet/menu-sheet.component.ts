@@ -78,7 +78,7 @@ export class MenuSheetComponent implements OnInit {
 
   gridInit() {
     this.data.menuList[this.tabIdx].data = this.dataList;
-    console.log(this.history);
+    // console.log(this.history);
     this.viewList = this.data.menuList[this.tabIdx].data;
   }
 
@@ -90,10 +90,10 @@ export class MenuSheetComponent implements OnInit {
     // console.log(this.dataList);
     var newItem = this.dataList[idx];
     if (this.contentChange) {
-      var oldItem =
-        (JSON.parse(localStorage.menuList) || {})[this.tabIdx][idx] ||
-        this.dataList[idx];
-      console.log(oldItem);
+      var oldItem = localStorage.menuList
+        ? JSON.parse(localStorage.menuList)[this.tabIdx][idx]
+        : this.dataList[idx];
+      // console.log(oldItem);
 
       this.history.push(JSON.parse(JSON.stringify(oldItem)));
       newItem[property] = Number(value) || value;

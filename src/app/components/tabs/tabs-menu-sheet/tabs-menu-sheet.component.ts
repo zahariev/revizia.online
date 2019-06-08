@@ -10,7 +10,7 @@ export class TabsMenuSheetComponent implements OnInit {
   viewList;
   editable: boolean;
 
-  constructor(private data: RevService) {
+  constructor(public data: RevService) {
     // console.log(data.menuList);
     this.viewList = data.menuList;
     this.editable = true;
