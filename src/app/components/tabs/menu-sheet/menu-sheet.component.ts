@@ -78,7 +78,7 @@ export class MenuSheetComponent implements OnInit {
 
   gridInit() {
     this.data.menuList[this.tabIdx].data = this.dataList;
-    // console.log(this.data.menuList);
+    console.log(this.history);
     this.viewList = this.data.menuList[this.tabIdx].data;
   }
 
@@ -90,10 +90,13 @@ export class MenuSheetComponent implements OnInit {
     // console.log(this.dataList);
     var newItem = this.dataList[idx];
     if (this.contentChange) {
+      var oldItem =
+        (JSON.parse(localStorage.menuList) || {})[this.tabIdx][idx] ||
+        this.dataList[idx];
+      console.log(oldItem);
+
+      this.history.push(JSON.parse(JSON.stringify(oldItem)));
       newItem[property] = Number(value) || value;
-      this.history.push(
-        JSON.parse(localStorage.menuList || "{}")[idx] || this.dataList[idx]
-      );
     } else el.innerHTML = newItem[property] || "";
 
     this.gridInit();
@@ -239,14 +242,11 @@ export class MenuSheetComponent implements OnInit {
     this.history.push(this.dataList[itemIdx]);
     // console.log(ev);
     this.dataList.splice(itemIdx, 1);
-    // localStorage.menuList = JSON.stringify(this.dataList);
 
     this.data.store("menuList");
     // this.viewList[item.id] = item;
 
     this.gridInit();
-
-    // this.focusNextElement(ev.target, 300);
   }
 
   undoValue() {
