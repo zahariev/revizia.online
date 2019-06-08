@@ -6,11 +6,14 @@
     </button>
   </div>
   <mat-tab-group id="menuTabs" [@.disabled]="true" [selectedIndex]="0">
-    <mat-tab *ngFor="let tab of data.menuList" [label]="tab.name">
+    <mat-tab
+      *ngFor="let tab of data.menuList; let idx = index"
+      [label]="tab.name"
+    >
       <menu-sheet
         class="menuTab"
         [editable]="editable"
-        [data1]="tab.data"
+        [tabIdx]="idx"
       ></menu-sheet>
     </mat-tab>
 

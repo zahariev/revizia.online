@@ -17,7 +17,7 @@ import { RevService } from "app/shared/services/rev.service";
 })
 export class MenuSheetComponent implements OnInit {
   @Input() editable: Boolean;
-  @Input() data1: string;
+  @Input() tabIdx: string;
 
   columnList = [
     // {
@@ -69,18 +69,17 @@ export class MenuSheetComponent implements OnInit {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor(private data: RevService) {
-    this.dataList = data.menuList;
-  }
+  constructor(private data: RevService) {}
 
   ngOnInit() {
+    this.dataList = this.data.menuList[this.tabIdx].data;
     this.gridInit();
   }
 
   gridInit() {
-    this.data.menuList = this.dataList;
-    // console.log((Array.from(this.data1)));
-    this.viewList = Array.from(this.data1); //List;
+    this.data.menuList[this.tabIdx].data = this.dataList;
+    // console.log(this.data.menuList);
+    this.viewList = this.data.menuList[this.tabIdx].data;
   }
 
   updateList(item, property: string, el: any) {
@@ -88,7 +87,7 @@ export class MenuSheetComponent implements OnInit {
     var value = el.innerText;
     value = value.replace(/\r?\n|\r\s/g, "");
     // value = value.replace(" ", "");
-    console.log(this.dataList);
+    // console.log(this.dataList);
     var newItem = this.dataList[idx];
     if (this.contentChange) {
       newItem[property] = Number(value) || value;
