@@ -211,7 +211,6 @@ export class MenuSheetComponent implements OnInit {
   }
 
   focusNextElement(el, step = 1) {
-    // console.log(el);
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 
