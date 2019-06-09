@@ -9,14 +9,15 @@
     <mat-tab label="меню">
       <tabs-menu-sheet></tabs-menu-sheet>
     </mat-tab>
+
     <mat-tab label="предишен ден">
       <div cdkScrollable class="md-no-animation">
-        <revizia-sheet [editable]="editable" [date]="data1"></revizia-sheet>
+        <tabs-rev-sheet [date]="data1"></tabs-rev-sheet>
       </div>
     </mat-tab>
 
     <mat-tab label="Днес">
-      <revizia-sheet [editable]="editable" [date]="data2"></revizia-sheet>
+      <tabs-rev-sheet [date]="data2"></tabs-rev-sheet>
     </mat-tab>
 
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">

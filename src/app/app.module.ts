@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReviziaSheetComponent } from "./components/tabs/revizia-sheet/revizia-sheet.component";
 import { MenuSheetComponent } from "./components/tabs/menu-sheet/menu-sheet.component";
 import { TabsMenuSheetComponent } from "./components/tabs/tabs-menu-sheet/tabs-menu-sheet.component";
+import { TabsRevSheetComponent } from './components/tabs/tabs-rev-sheet/tabs-rev-sheet.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TabsMenuSheetComponent } from "./components/tabs/tabs-menu-sheet/tabs-m
     BGNPipe,
     ReviziaSheetComponent,
     MenuSheetComponent,
-    TabsMenuSheetComponent
+    TabsMenuSheetComponent,
+    TabsRevSheetComponent
   ],
   imports: [
     BrowserModule,
