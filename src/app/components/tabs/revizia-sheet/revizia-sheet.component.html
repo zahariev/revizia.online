@@ -25,7 +25,12 @@
                 <th class="text-center">pos</th>
                 <th class="text-center">Сума</th>
               </tr>
-              <tr *ngFor="let item of dat[date]; let id = index">
+              <tr
+                *ngFor="
+                  let item of dat.viewSheet[date][tabName];
+                  let id = index
+                "
+              >
                 <td style="min-width: 110px;" class="textLeft">
                   <span contenteditable="false">{{ item.name }}</span>
                 </td>
@@ -46,7 +51,7 @@
                 <ng-template #editTemplate>
                   <td
                     :inner-text.prop="value"
-                    tabIndex="{{ 30 + id }}"
+                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
                     (keyup)="keyUp(item, 'minus', $event)"
                     (keydown)="keyDown(item, 'minus', $event)"
                     (mousedown)="onMdown(item, 'minus', $event)"
@@ -59,7 +64,7 @@
 
                   <td
                     :inner-text.prop="value"
-                    tabIndex="{{ 30 + id + 1 }}"
+                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 1 }}"
                     (keyup)="keyUp(item, 'mplus', $event)"
                     (keydown)="keyDown(item, 'mplus', $event)"
                     (mousedown)="onMdown(item, 'mlus', $event)"
@@ -86,7 +91,7 @@
                   <td
                     :inner-text.prop="value"
                     style="min-width: 80px;"
-                    tabIndex="{{ 30 + id + 2 }}"
+                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 2 }}"
                     (keyup)="keyUp(item, 'ends', $event)"
                     (keydown)="keyDown(item, 'ends', $event)"
                     (mousedown)="onMdown(item, 'ends', $event)"

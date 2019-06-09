@@ -31,34 +31,39 @@ export class ReviziaSheetComponent {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor(public dat: RevService) {
-    this.dataList = dat.viewRev[this.date][this.tabName];
-  }
+  constructor(public dat: RevService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataList = this.dat.revizia[this.date];
+  }
 
   updateList(item, property: string, el: any) {
     var idx = this.dataList.indexOf(item);
     var value = el.innerText + "";
     el.innerText = "";
     value = value.replace(/\r?\n|\r\s/g, "");
-
+    // console.log(idx);
     // value = value.replace(" ", "");
 
-    var newItem = this.dataList[idx] || {
+    var updateItem = this.dataList[idx] || {
       id: item.id,
       minus: 0,
       mplus: 0,
       ends: 0
     };
+    // console.log(value);
     if (this.contentChange) {
       var oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
 
-      newItem[property] = Number(value) || value;
+      updateItem[property] = Number(value) || value;
+      if (idx == -1) {
+        this.dataList.push(updateItem);
+      }
       el.innerText = value;
-    } else el.innerHTML = newItem[property] || "";
-    this.dat.store("view");
+    } else el.innerHTML = updateItem[property] || "";
+
+    this.dat.store(this.date);
     this.contentChange = false;
   }
 
@@ -207,9 +212,14 @@ export class ReviziaSheetComponent {
         this.focussableElements[index + step] || this.focussableElements[index];
 
       if (index) el.contentEditable = "false";
+
       // console.log(index + step);
       nextElement.focus();
       this.activeEl = nextElement;
+    } else {
+      this.focussableElements = document.querySelectorAll(".table td.name");
+      // console.log(this.focussableElements);
+      this.focussableElements[0].focus();
     }
   }
 }
