@@ -12,6 +12,8 @@ import { RevService } from "app/shared/services/rev.service";
 export class ReviziaSheetComponent {
   @Input() date: any;
   @Input() editable: Boolean;
+  @Input() tabIdx: string;
+  @Input() tabName: string;
 
   editField: string;
 
@@ -30,13 +32,10 @@ export class ReviziaSheetComponent {
   history: Array<any> = [];
 
   constructor(public dat: RevService) {
-    this.menuList = dat.menuList;
-    this.dataList = dat[this.date];
+    this.dataList = dat.viewRev[this.date][this.tabName];
   }
 
-  ngOnInit() {
-    this.dataList = this.dat[this.date];
-  }
+  ngOnInit() {}
 
   updateList(item, property: string, el: any) {
     var idx = this.dataList.indexOf(item);
@@ -53,14 +52,13 @@ export class ReviziaSheetComponent {
       ends: 0
     };
     if (this.contentChange) {
-      this.history.push(
-        JSON.parse(localStorage[this.date] || "{}")[idx] || this.dataList[idx]
-      );
+      var oldItem = JSON.parse(JSON.stringify(item));
+      this.history.push(oldItem);
 
       newItem[property] = Number(value) || value;
       el.innerText = value;
     } else el.innerHTML = newItem[property] || "";
-    this.dat.store(this.date);
+    this.dat.store("view");
     this.contentChange = false;
   }
 
