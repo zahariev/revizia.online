@@ -789,11 +789,11 @@ export class RevService {
       json
       // CryptoJS.AES.encrypt(json, "secret key 123").toString()
     );
-    // if(name=="menuList")
-    {
-        this.calculateRevSheet("prevList");
-       this.calculateRevSheet("nextList");    
-    }
+
+    
+      this.calculateRevSheet("prevList");
+      this.calculateRevSheet("nextList");    
+    
   }
 
   public getLocal(name) {
@@ -813,44 +813,54 @@ export class RevService {
     
     this.menuList.forEach((tab)=>{
       var tempList: Array<any> = [];
-      //  console.log(tab)
-      //var tabName = Object.keys(tab)[0];
       tab.data.forEach((item, id) => {
-      var itm = this.revListCalculator(
-        this.revizia[date].filter(i => {
+        var revItem = this.revizia[date].filter(i => {
           return i.id == item.id;
-        })[0],
-        item
+        })[0];
+       
+      var itm = this.revItemCalculator(
+        revItem,
+        item,
+        date
       );
-
-      if (itm) {
+       if (itm) {
         tempList[id] = itm;
         this[date+"Sum"] += Number(itm.sum)||0;
+        // this.revizia[date][this.revizia[date].indexOf(revItem)] = itm    
       }
-     
     });
     this.viewSheet[date][tab.name] = tempList;
-    
     //  console.log( tempList)
   });
   // console.log( this.viewSheet)
     return  this[date];
   }
 
-  public revListCalculator(item, menuItem) {
-    if (!item)
+  public revItemCalculator(item, menuItem,date) {
+    if (!item) {
       item = {
         id: menuItem.id,
         minus: 0,
         mplus: 0,
         starts: 0,
         ends: 0
-      };
+      };  
+        this.revizia[date].push(item);
+    }
     var prevDay =
       this.revizia.prevList.filter(i => {
         return i.id == menuItem.id;
       })[0] || {};
     item.starts = prevDay["ends"] || 0;
+
+    item = this.viewItemCalc(item,menuItem)
+    // console.log(item);
+
+    
+    return item;
+  }
+
+  viewItemCalc(item,menuItem){
     item.diff =
       Math.round(
         (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
@@ -864,9 +874,7 @@ export class RevService {
     item.roundSold =
       Math.round(item.diff / (menuItem.qty * menuItem.round)) * menuItem.round;
     item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
-    // console.log(item);
 
-    
     return item;
   }
 

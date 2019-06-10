@@ -55,13 +55,19 @@ export class ReviziaSheetComponent {
     if (this.contentChange) {
       var oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
-
+      console.log("change");
       updateItem[property] = Number(value) || value;
       if (idx == -1) {
         this.dataList.push(updateItem);
       }
+
       el.innerText = value;
     } else el.innerHTML = updateItem[property] || "";
+
+    // var menuItem = this.dat.menuList.filter(i => {
+    //   return i.id == item.id;
+    // })[0];
+    // item = this.dat.viewItemCalc(item, menuItem);
 
     this.dat.store(this.date);
     this.contentChange = false;
@@ -92,8 +98,7 @@ export class ReviziaSheetComponent {
   onBlur(item, elName, event) {
     var el = event.target;
     // console.log(el.innerText);
-
-    this.updateList(item, elName, el);
+    if (this.contentChange) this.updateList(item, elName, el);
 
     el.contentEditable = "false";
     event.preventDefault();
@@ -213,12 +218,10 @@ export class ReviziaSheetComponent {
 
       if (index) el.contentEditable = "false";
 
-      // console.log(index + step);
       nextElement.focus();
       this.activeEl = nextElement;
     } else {
       this.focussableElements = document.querySelectorAll(".table td.name");
-      // console.log(this.focussableElements);
       this.focussableElements[0].focus();
     }
   }
