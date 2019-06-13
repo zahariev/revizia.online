@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef } from "@angular/core";
 import { Item } from "app/shared/models/item.model";
+
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -69,7 +70,7 @@ export class MenuSheetComponent implements OnInit {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor(private data: RevService) {}
+  constructor(private data: RevService, public el: ElementRef) {}
 
   ngOnInit() {
     this.dataList = this.data.menuList[this.tabIdx].data;
@@ -256,13 +257,10 @@ export class MenuSheetComponent implements OnInit {
       idx = this.dataList.filter(itm => itm.id == item.id)[0];
       idx = this.dataList.indexOf(idx);
       this.dataList[idx] = item;
-      // console.log(idx);
-      // console.log(item);
     }
     // localStorage.menuList = JSON.stringify(this.dataList);
 
     this.data.store("menuList");
-    // this.viewList[idx] = item;
     this.gridInit();
   }
 
@@ -276,16 +274,14 @@ export class MenuSheetComponent implements OnInit {
     return rowIdx;
   }
 
+  mousewheel(ev: Event) {
+    // maintain scroll position by tab idx
+    var scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
+    this.data.tabScrollPos[this.tabIdx] = scrollPos;
+  }
   drop(event: CdkDragDrop<Item[]>) {
-    // console.log(this.dataList);
+    // reorder menu list Items
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-
-    // this.data.menuList = [...this.dataList];
-
-    // this.data.menuList = this.dataList;
-    // console.log(this.dataList);
-    // localStorage.menuList = JSON.stringify(this.dataList);
-
     this.data.store("menuList");
     this.gridInit();
   }

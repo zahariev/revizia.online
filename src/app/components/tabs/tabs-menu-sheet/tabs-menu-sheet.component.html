@@ -5,7 +5,15 @@
       Save changes
     </button>
   </div> -->
-  <mat-tab-group id="menuTabs" [@.disabled]="true" [selectedIndex]="0">
+
+  <mat-tab-group
+    style="min-height: 400px;"
+    id="menuTabs"
+    (selectedTabChange)="onSelectedTabChange($event)"
+    [@.disabled]="true"
+    [selectedIndex]="0"
+  >
+    >
     <mat-tab
       *ngFor="let tab of data.menuList; let idx = index"
       [label]="tab.name"
@@ -14,6 +22,7 @@
         class="menuTab"
         [editable]="editable"
         [tabIdx]="idx"
+        id="menuTab{{ idx }}"
       ></menu-sheet>
     </mat-tab>
 
