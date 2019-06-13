@@ -11,7 +11,7 @@
     id="menuTabs"
     (selectedTabChange)="onSelectedTabChange($event)"
     [@.disabled]="true"
-    [selectedIndex]="0"
+    [selectedIndex]="data.tabSelectedIdx"
   >
     >
     <mat-tab *ngFor="let tab of data.menuList; let idx = index">

@@ -759,6 +759,7 @@ export class RevService {
   viewSheet={};
   // store scroll offset for menu tab idx
   tabScrollPos = [];
+  tabSelectedIdx:number;
 
   constructor(data:DataService) {   
     this.menuList = this.getLocal("menuList") || this.menuList;

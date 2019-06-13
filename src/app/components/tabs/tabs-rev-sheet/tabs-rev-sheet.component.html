@@ -5,7 +5,12 @@
         Save changes
       </button>
     </div> -->
-  <mat-tab-group id="reviziaTabs" [@.disabled]="true" [selectedIndex]="0">
+  <mat-tab-group
+    id="reviziaTabs"
+    [@.disabled]="true"
+    (selectedTabChange)="onSelectedTabChange($event)"
+    [selectedIndex]="data.tabSelectedIdx"
+  >
     <mat-tab
       *ngFor="let tab of data.menuList; let idx = index"
       [label]="tab.name"
