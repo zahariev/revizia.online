@@ -279,6 +279,7 @@ export class MenuSheetComponent implements OnInit {
     var scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
     this.data.tabScrollPos[this.tabIdx] = scrollPos;
   }
+
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
