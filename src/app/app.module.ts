@@ -18,8 +18,6 @@ import { MenuSheetComponent } from "./components/tabs/menu-sheet/menu-sheet.comp
 import { TabsMenuSheetComponent } from "./components/tabs/tabs-menu-sheet/tabs-menu-sheet.component";
 import { TabsRevSheetComponent } from "./components/tabs/tabs-rev-sheet/tabs-rev-sheet.component";
 
-import { TrackScrollDirective } from "./shared/track-scroll.directive";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +26,7 @@ import { TrackScrollDirective } from "./shared/track-scroll.directive";
     ReviziaSheetComponent,
     MenuSheetComponent,
     TabsMenuSheetComponent,
-    TabsRevSheetComponent,
-    TrackScrollDirective
+    TabsRevSheetComponent
   ],
   imports: [
     BrowserModule,
