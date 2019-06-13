@@ -19,16 +19,11 @@ export class TabsMenuSheetComponent {
   }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
-    this.data.currentTabIndex = tabChange.index;
-
     // Maintain scroll position of the last scrolled tab idx
-    var mlist = document.getElementById("menuTab" + this.data.currentTabIndex);
+    var mlist = document.getElementById("menuTab" + tabChange.index);
 
     if (mlist) {
-      mlist.parentElement.scrollTo(
-        0,
-        this.data.tabScrollPos[this.data.currentTabIndex]
-      );
+      mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }
   }
 }
