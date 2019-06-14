@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from "@angular/core";
+import { Component, Input, HostBinding, ElementRef } from "@angular/core";
 
 import { RevService } from "app/shared/services/rev.service";
 import { MatTabChangeEvent } from "@angular/material";
@@ -11,42 +11,48 @@ import { MatTabChangeEvent } from "@angular/material";
 export class AppComponent {
   title = "rev";
   editable: Boolean;
+  el;
   data;
   data1;
   data2;
   buttonName = "CashOut";
 
-  constructor(data: RevService) {
+  constructor(data: RevService, el: ElementRef) {
+    this.el = el;
     this.data = data;
     this.data1 = "prevList";
     this.data2 = "nextList";
     this.editable = true;
   }
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    console.log(this.el);
+  }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
     // console.log("ewthgf");
     window.dispatchEvent(new Event("resize"));
+    var mlist;
 
     if (tabChange.index) {
       // revizia tabs
-      var mlist = document.getElementById("revTab" + this.data.tabSelectedIdx);
-      // console.log(mlist);
+      mlist = document.getElementById("revTab" + this.data.tabSelectedIdx);
+
       if (mlist) {
         mlist.parentElement.scrollTo(
           0,
-          this.data.tabScrollPos[this.data.tabSelectedIdx]
-        );
+          this.data.tabScrollPos[this.data.tabSelectedIdx] * (1 + 0.5 / 100)
+        ); // this fix % scroll disonanse
       }
     } else {
       //Menu tab
-      var mlist = document.getElementById("menuTab" + this.data.tabSelectedIdx);
-      // console.log(mlist);
+      mlist = document.getElementById("menuTab" + this.data.tabSelectedIdx);
+
       if (mlist) {
         mlist.parentElement.scrollTo(
           0,
           this.data.tabScrollPos[this.data.tabSelectedIdx]
         );
+      } else {
       }
     }
   }
