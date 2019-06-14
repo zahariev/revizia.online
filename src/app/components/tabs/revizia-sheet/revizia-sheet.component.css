@@ -4,17 +4,19 @@
   font-weight: 200;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-width: 105%;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border-radius: 0.25rem;
-  top: 20px;
+  position: relative;
+  top: 25px;
 }
 
 .card .card-body {
   flex: 1 1 auto;
   padding: 1.25rem;
+  padding-top: 0px;
 }
 
 .row {
@@ -23,8 +25,22 @@
   margin-left: 24px;
 }
 
+th {
+  min-width: 80px;
+}
+
 td {
   min-width: 80px;
+}
+
+th.name {
+  min-width: 167px;
+}
+
+td.name {
+  min-width: 167px;
+  padding-left: 16px;
+  text-align: left !important;
 }
 
 #table {
@@ -122,4 +138,61 @@ span.negative {
 
 #date {
   text-align: left;
+}
+
+.headerRow {
+  height: 35px;
+  position: fixed;
+  background-color: linen;
+  top: 40px;
+  margin-left: -1px;
+}
+
+thead tr th {
+  height: 35px;
+}
+
+.mat-ink-bar {
+  transition: none !important;
+  transform: none !important;
+}
+
+.name {
+  width: 240px;
+}
+
+.price {
+  width: 80px;
+}
+
+.minus {
+  width: 90px;
+}
+
+.plus {
+  width: 90px;
+}
+
+.starts {
+  width: 90px;
+}
+
+.ends {
+  width: 90px;
+}
+
+.diff {
+  width: 90px;
+}
+
+.roundSolad {
+  width: 90px;
+}
+
+.pos {
+  width: 90px;
+}
+
+.sum {
+  width: 95px;
 }
