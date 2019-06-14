@@ -65,7 +65,7 @@ tbody {
 }
 
 tr {
-  line-height: 22px;
+  line-height: 21px;
 }
 
 td {
@@ -137,6 +137,10 @@ tr td:nth-child(9) {
 tr span:not([class]) {
   padding: 1rem;
 }
+
+/* tr {
+  line-height: 32px;
+} */
 
 td.textRight {
   text-align: right;

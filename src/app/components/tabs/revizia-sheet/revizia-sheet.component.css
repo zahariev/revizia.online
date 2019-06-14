@@ -33,16 +33,6 @@ td {
   min-width: 80px;
 }
 
-/* th.name {
-  min-width: 167px;
-}
-
-td.name {
-  min-width: 167px;
-  padding-left: 16px;
-  text-align: left !important;
-} */
-
 #table {
   width: 100%;
   margin-bottom: 1rem;
@@ -60,10 +50,10 @@ table {
 }
 
 tbody {
-  display: table-caption;
+  display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
-  /* padding-top: 60px; */
+  padding-top: 60px;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -120,7 +110,7 @@ td.textLeft {
 }
 
 tr {
-  line-height: 31px;
+  line-height: 30px;
 }
 
 .text-center {

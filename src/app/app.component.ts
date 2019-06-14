@@ -35,7 +35,7 @@ export class AppComponent {
       if (mlist) {
         mlist.parentElement.scrollTo(
           0,
-          this.data.tabScrollPos[this.data.tabSelectedIdx] - 20
+          this.data.tabScrollPos[this.data.tabSelectedIdx]
         );
       }
     } else {
