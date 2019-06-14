@@ -6,6 +6,7 @@
       </button>
     </div> -->
   <mat-tab-group
+    animationDuration="0"
     id="reviziaTabs"
     [@.disabled]="true"
     (selectedTabChange)="onSelectedTabChange($event)"
@@ -21,6 +22,7 @@
         [editable]="editable"
         [tabIdx]="idx"
         [tabName]="tab.name"
+        id="revTab{{ idx }}"
       ></revizia-sheet>
     </mat-tab>
 

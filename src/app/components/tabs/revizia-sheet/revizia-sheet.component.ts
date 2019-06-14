@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ElementRef } from "@angular/core";
 import { Statement } from "@angular/compiler";
 import { Item } from "app/shared/models/item.model";
 
@@ -31,7 +31,7 @@ export class ReviziaSheetComponent {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor(public dat: RevService) {}
+  constructor(public dat: RevService, public el: ElementRef) {}
 
   ngOnInit() {
     this.dataList = this.dat.revizia[this.date];
@@ -224,5 +224,11 @@ export class ReviziaSheetComponent {
       this.focussableElements = document.querySelectorAll(".table td.name");
       this.focussableElements[0].focus();
     }
+  }
+
+  mousewheel(ev: Event) {
+    // maintain scroll position by tab idx
+    var scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
+    this.dat.tabScrollPos[this.tabIdx] = scrollPos;
   }
 }

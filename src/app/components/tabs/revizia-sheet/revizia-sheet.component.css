@@ -10,7 +10,7 @@
   background-clip: border-box;
   border-radius: 0.25rem;
   position: relative;
-  top: 25px;
+  top: 5px;
 }
 
 .card .card-body {
@@ -33,7 +33,7 @@ td {
   min-width: 80px;
 }
 
-th.name {
+/* th.name {
   min-width: 167px;
 }
 
@@ -41,7 +41,7 @@ td.name {
   min-width: 167px;
   padding-left: 16px;
   text-align: left !important;
-}
+} */
 
 #table {
   width: 100%;
@@ -51,7 +51,7 @@ td.name {
 
 table {
   border-collapse: collapse;
-
+  margin-top: 27px;
   border-spacing: 2px;
 }
 
@@ -60,9 +60,10 @@ table {
 }
 
 tbody {
-  display: table-row-group;
+  display: table-caption;
   vertical-align: middle;
   border-color: inherit;
+  /* padding-top: 60px; */
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -116,6 +117,10 @@ td.textRight {
 
 td.textLeft {
   text-align: left;
+}
+
+tr {
+  line-height: 31px;
 }
 
 .text-center {
@@ -195,4 +200,11 @@ thead tr th {
 
 .sum {
   width: 95px;
+}
+
+#total {
+  position: relative;
+  text-align: right;
+  line-height: 24px;
+  right: 10px;
 }

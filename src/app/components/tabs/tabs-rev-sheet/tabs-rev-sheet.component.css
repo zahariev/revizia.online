@@ -3,3 +3,8 @@
   padding-bottom: 200px;
   margin-bottom: -200px;
 }
+
+.mat-ink-bar {
+  transition: 0ms !important;
+  transform: 0ms !important;
+}

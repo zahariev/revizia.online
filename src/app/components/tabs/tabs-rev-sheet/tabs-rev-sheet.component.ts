@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { RevService } from "app/shared/services/rev.service";
 
 import { MatTabChangeEvent } from "@angular/material";
@@ -8,7 +8,7 @@ import { MatTabChangeEvent } from "@angular/material";
   templateUrl: "./tabs-rev-sheet.component.html",
   styleUrls: ["./tabs-rev-sheet.component.css"]
 })
-export class TabsRevSheetComponent implements OnInit {
+export class TabsRevSheetComponent {
   editable: boolean;
   @Input() date: any;
   selectedIndex: number;
@@ -25,7 +25,7 @@ export class TabsRevSheetComponent implements OnInit {
     // Maintain scroll position of the last scrolled tab idx
     this.data.tabSelectedIdx = tabChange.index;
 
-    var mlist = document.getElementById("menuTab" + tabChange.index);
+    var mlist = document.getElementById("revTab" + tabChange.index);
 
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);

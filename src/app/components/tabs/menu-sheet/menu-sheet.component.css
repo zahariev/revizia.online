@@ -16,7 +16,6 @@
 .card .card-body {
   flex: 1 1 auto;
   padding: 1.25rem;
-
   padding-top: 0px;
 }
 
@@ -72,17 +71,17 @@ tr {
 td {
   min-width: 90px;
 }
+
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
 }
+
 .headerRow {
   height: 35px;
-  /* padding-top: 10px; */
   position: fixed;
   background-color: linen;
-  /* top: 25px; */
   top: 40px;
   margin-left: -1px;
 }
@@ -102,9 +101,6 @@ top: 50px; */
 }
 
 table.table th {
-  /* padding-top: 1.1rem;
-  padding-bottom: 1rem; */
-
   font-weight: 400;
 }
 :focus {

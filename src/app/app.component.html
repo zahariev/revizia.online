@@ -5,7 +5,13 @@
       Save changes
     </button>
   </div>
-  <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="0">
+  <mat-tab-group
+    [animationDuration]="'0ms'"
+    id="itemTabs"
+    [@.disabled]="true"
+    selectedIndex="0"
+    (selectedTabChange)="onSelectedTabChange($event)"
+  >
     <mat-tab label="меню">
       <tabs-menu-sheet></tabs-menu-sheet>
     </mat-tab>
