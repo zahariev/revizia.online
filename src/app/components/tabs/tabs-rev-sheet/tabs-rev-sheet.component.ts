@@ -14,6 +14,7 @@ export class TabsRevSheetComponent {
   selectedIndex: number;
 
   constructor(public data: RevService) {
+    // this.data = data;
     // console.log(data.menuList);
     // this.viewList = data.menuList;
     this.editable = true;

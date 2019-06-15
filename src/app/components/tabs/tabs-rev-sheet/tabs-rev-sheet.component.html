@@ -12,10 +12,14 @@
     (selectedTabChange)="onSelectedTabChange($event)"
     [selectedIndex]="data.tabSelectedIdx"
   >
-    <mat-tab
-      *ngFor="let tab of data.menuList; let idx = index"
-      [label]="tab.name"
-    >
+    <mat-tab *ngFor="let tab of data.menuList; let idx = index">
+      <!-- [label]="tab.name" -->
+      <ng-template mat-tab-label>
+        <span> {{ tab.name }}</span>
+
+        <!-- <span class="smallSum"> 1{{ data[tab.name + "Sum"] | BGN }}</span> -->
+      </ng-template>
+
       <revizia-sheet
         class="menuTab"
         [date]="date"

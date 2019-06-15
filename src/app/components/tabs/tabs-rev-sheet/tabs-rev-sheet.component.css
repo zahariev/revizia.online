@@ -8,3 +8,7 @@
   transition: 0ms !important;
   transform: 0ms !important;
 }
+
+.smallSum {
+  font-size: 0.7em;
+}
