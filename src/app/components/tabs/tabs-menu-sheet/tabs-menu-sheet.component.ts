@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { RevService } from "app/shared/services/rev.service";
 
-import { MatTabChangeEvent } from "@angular/material";
+import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
   selector: "tabs-menu-sheet",

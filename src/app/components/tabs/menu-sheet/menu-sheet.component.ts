@@ -7,7 +7,7 @@ import {
   CdkDragHandle
 } from "@angular/cdk/drag-drop";
 
-import { MatIcon } from "@angular/material";
+import { MatIcon } from "@angular/material/icon";
 
 import { RevService } from "app/shared/services/rev.service";
 
