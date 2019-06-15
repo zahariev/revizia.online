@@ -3,7 +3,7 @@ import { interval } from "rxjs";
 // import { Item, User, Table } from "../models/item.model";
 // import { OpenTab, OpenTabs, Order, CopyA, CopyO } from "../models/tab.model";
 // import * as CryptoJS from "crypto-js";
-import { _localeFactory } from "@angular/core/src/application_module";
+// import { _localeFactory } from "@angular/core/src/application_module";
 import { DataService } from "./data.service";
 // const MENU;
 // let log = console.log;
