@@ -123,8 +123,10 @@ export class MenuSheetComponent implements OnInit {
 
   onClick(item: any, elName: string, event: any) {
     if (this.activeEl == "select") {
-      this.selectText(event.target);
       this.makeEditable(event.target);
+      event.preventDefault();
+    } else {
+      this.selectText(event.target);
       event.preventDefault();
     }
   }
