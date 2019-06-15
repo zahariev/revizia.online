@@ -238,7 +238,7 @@ export class MenuSheetComponent implements OnInit {
   removeRow(itemIdx, ev) {
     this.dataList[itemIdx].delPosition = itemIdx;
     this.history.push(this.dataList[itemIdx]);
-    // console.log(ev);
+    // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
 
     this.data.store("menuList");

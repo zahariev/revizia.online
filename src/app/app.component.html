@@ -16,13 +16,22 @@
       <tabs-menu-sheet></tabs-menu-sheet>
     </mat-tab>
 
-    <mat-tab label="предишен ден">
-      <div class="md-no-animation">
-        <tabs-rev-sheet [date]="data1"></tabs-rev-sheet>
-      </div>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Предишен ден
+
+        <span class="smallSum"> {{ data["prevRevSum"] | BGN }}</span>
+      </ng-template>
+
+      <tabs-rev-sheet [date]="data1"></tabs-rev-sheet>
     </mat-tab>
 
-    <mat-tab label="Днес">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Днес
+
+        <span class="smallSum"> {{ data["nextRevSum"] | BGN }}</span>
+      </ng-template>
       <tabs-rev-sheet [date]="data2"></tabs-rev-sheet>
     </mat-tab>
 
