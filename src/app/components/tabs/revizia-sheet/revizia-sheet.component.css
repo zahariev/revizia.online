@@ -122,16 +122,24 @@ span.negative {
 }
 
 .total {
-  text-align: left;
-  position: relative;
-}
-
-#total {
+  /* text-align: right; */
   position: absolute;
-  right: 100px;
+  background: azure;
+  height: 36px;
+  width: 30%;
+  bottom: 0px;
+  z-index: 999;
+  right: 0px;
 }
 
-#date {
+.totalSum {
+  position: relative;
+  text-align: right;
+  line-height: 24px;
+  z-index: 999;
+}
+
+.date {
   text-align: left;
 }
 
@@ -190,11 +198,4 @@ thead tr th {
 
 .sum {
   width: 95px;
-}
-
-#total {
-  position: relative;
-  text-align: right;
-  line-height: 24px;
-  right: 10px;
 }
