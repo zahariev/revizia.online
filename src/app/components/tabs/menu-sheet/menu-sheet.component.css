@@ -30,11 +30,11 @@ th {
 }
 
 th.name {
-  min-width: 167px;
+  min-width: 240px;
 }
 
 td.name {
-  min-width: 167px;
+  min-width: 240px;
   padding-left: 16px;
   text-align: left !important;
 }
@@ -65,7 +65,7 @@ tbody {
 }
 
 tr {
-  line-height: 21px;
+  line-height: 24px;
 }
 
 td {

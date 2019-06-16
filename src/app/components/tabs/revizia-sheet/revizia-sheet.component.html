@@ -27,116 +27,117 @@
                   <th class="text-center sum">Сума</th>
                 </tr>
               </thead>
-              <tr
-                *ngFor="
-                  let item of dat.viewSheet[date][tabName];
-                  let id = index
-                "
-              >
-                <td class="textLeft name">
-                  <span contenteditable="false">{{ item.name }}</span>
-                </td>
-                <td>
-                  <span class="itemPrice price" contenteditable="false">{{
-                    item.price | hideZero | BGN
-                  }}</span>
-                </td>
-
-                <ng-container *ngIf="!editable; else editTemplate">
-                  <td class="minus">
-                    {{ item.minus | hideZero }}
+              <tbody>
+                <tr
+                  *ngFor="
+                    let item of dat.viewSheet[date][tabName];
+                    let id = index
+                  "
+                >
+                  <td class="textLeft name">
+                    <span contenteditable="false">{{ item.name }}</span>
                   </td>
-                  <td class="mplus">
-                    {{ item.mplus | hideZero }}
-                  </td>
-                </ng-container>
-                <ng-template #editTemplate>
-                  <td
-                    class="minus"
-                    :inner-text.prop="value"
-                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
-                    (keyup)="keyUp(item, 'minus', $event)"
-                    (keydown)="keyDown(item, 'minus', $event)"
-                    (mousedown)="onMdown(item, 'minus', $event)"
-                    (click)="onClick(item, 'minus', $event)"
-                    (blur)="onBlur(item, 'minus', $event)"
-                    (input)="onInput(item, 'minus', $event)"
-                  >
-                    {{ item.minus | hideZero }}
+                  <td>
+                    <span class="itemPrice price" contenteditable="false">{{
+                      item.price | hideZero | BGN
+                    }}</span>
                   </td>
 
-                  <td
-                    class="mplus"
-                    :inner-text.prop="value"
-                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 1 }}"
-                    (keyup)="keyUp(item, 'mplus', $event)"
-                    (keydown)="keyDown(item, 'mplus', $event)"
-                    (mousedown)="onMdown(item, 'mlus', $event)"
-                    (click)="onClick(item, 'mplus', $event)"
-                    (blur)="onBlur(item, 'mplus', $event)"
-                    (input)="onInput(item, 'mplus', $event)"
-                  >
-                    <!-- (blur)="updateList(item, 'mplus', $event)" -->
-                    {{ item.mplus | hideZero }}
+                  <ng-container *ngIf="!editable; else editTemplate">
+                    <td class="minus">
+                      {{ item.minus | hideZero }}
+                    </td>
+                    <td class="mplus">
+                      {{ item.mplus | hideZero }}
+                    </td>
+                  </ng-container>
+                  <ng-template #editTemplate>
+                    <td
+                      class="minus"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'minus', $event)"
+                      (keydown)="keyDown(item, 'minus', $event)"
+                      (mousedown)="onMdown(item, 'minus', $event)"
+                      (click)="onClick(item, 'minus', $event)"
+                      (blur)="onBlur(item, 'minus', $event)"
+                      (input)="onInput(item, 'minus', $event)"
+                    >
+                      {{ item.minus | hideZero }}
+                    </td>
+
+                    <td
+                      class="mplus"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 1 }}"
+                      (keyup)="keyUp(item, 'mplus', $event)"
+                      (keydown)="keyDown(item, 'mplus', $event)"
+                      (mousedown)="onMdown(item, 'mlus', $event)"
+                      (click)="onClick(item, 'mplus', $event)"
+                      (blur)="onBlur(item, 'mplus', $event)"
+                      (input)="onInput(item, 'mplus', $event)"
+                    >
+                      <!-- (blur)="updateList(item, 'mplus', $event)" -->
+                      {{ item.mplus | hideZero }}
+                    </td>
+                  </ng-template>
+
+                  <td class="starts">
+                    <span contenteditable="false">{{
+                      item.starts | hideZero
+                    }}</span>
                   </td>
-                </ng-template>
 
-                <td class="starts">
-                  <span contenteditable="false">{{
-                    item.starts | hideZero
-                  }}</span>
-                </td>
-
-                <td class="ends" *ngIf="!editable; else editTemplate2">
-                  {{ item.ends | hideZero }}
-                </td>
-
-                <ng-template #editTemplate2>
-                  <td
-                    class="ends"
-                    :inner-text.prop="value"
-                    style="min-width: 80px;"
-                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 2 }}"
-                    (keyup)="keyUp(item, 'ends', $event)"
-                    (keydown)="keyDown(item, 'ends', $event)"
-                    (mousedown)="onMdown(item, 'ends', $event)"
-                    (click)="onClick(item, 'ends', $event)"
-                    (blur)="onBlur(item, 'ends', $event)"
-                    (input)="onInput(item, 'ends', $event)"
-                  >
+                  <td class="ends" *ngIf="!editable; else editTemplate2">
                     {{ item.ends | hideZero }}
                   </td>
-                </ng-template>
-                <td style="min-width: 80px;" class="textRight diff">
-                  <span
-                    contenteditable="false"
-                    [ngClass]="{ negative: item.diff < 0 }"
-                    >{{ item.diff | hideZero }}</span
-                  >
-                </td>
-                <td style="min-width: 80px;" class="textRight roundSold">
-                  <span
-                    contenteditable="false"
-                    [ngClass]="{ negative: item.diff < 0 }"
-                    >{{ item.roundSold | hideZero }}</span
-                  >
-                </td>
-                <td style="min-width: 80px;" class="textRight pos">
-                  <span
-                    contenteditable="false"
-                    [ngClass]="{ negative: item.diff < 0 }"
-                  >
-                  </span>
-                </td>
-                <!-- | Round: item -->
-                <td style="min-width: 95px;" class="textRight sum">
-                  <span
-                    contenteditable="false"
-                    [ngClass]="{ negative: item.diff < 0 }"
-                    >{{ item.sum | hideZero | BGN }}
-                  </span>
-                </td>
-                <!-- <td>
+
+                  <ng-template #editTemplate2>
+                    <td
+                      class="ends"
+                      :inner-text.prop="value"
+                      style="min-width: 80px;"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 2 }}"
+                      (keyup)="keyUp(item, 'ends', $event)"
+                      (keydown)="keyDown(item, 'ends', $event)"
+                      (mousedown)="onMdown(item, 'ends', $event)"
+                      (click)="onClick(item, 'ends', $event)"
+                      (blur)="onBlur(item, 'ends', $event)"
+                      (input)="onInput(item, 'ends', $event)"
+                    >
+                      {{ item.ends | hideZero }}
+                    </td>
+                  </ng-template>
+                  <td style="min-width: 80px;" class="textRight diff">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.diff | hideZero }}</span
+                    >
+                  </td>
+                  <td style="min-width: 80px;" class="textRight roundSold">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.roundSold | hideZero }}</span
+                    >
+                  </td>
+                  <td style="min-width: 80px;" class="textRight pos">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                    >
+                    </span>
+                  </td>
+                  <!-- | Round: item -->
+                  <td style="min-width: 95px;" class="textRight sum">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.sum | hideZero | BGN }}
+                    </span>
+                  </td>
+                  <!-- <td>
             <span class="table-remove">
               <button
                 type="button"
@@ -151,7 +152,8 @@
               </button>
             </span>
           </td> -->
-              </tr>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div id="total"></div>

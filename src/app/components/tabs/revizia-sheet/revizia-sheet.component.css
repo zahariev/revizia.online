@@ -41,7 +41,7 @@ td {
 
 table {
   border-collapse: collapse;
-  margin-top: 27px;
+  margin-top: 60px;
   border-spacing: 2px;
 }
 
@@ -53,7 +53,7 @@ tbody {
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
-  padding-top: 60px;
+  /* padding-top: 34px; */
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -110,7 +110,7 @@ td.textLeft {
 }
 
 tr {
-  line-height: 30px;
+  line-height: 32.3px;
 }
 
 .text-center {
