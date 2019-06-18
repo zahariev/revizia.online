@@ -13,15 +13,14 @@ export class AppComponent {
   editable: Boolean;
   el;
   data;
-  data1;
-  data2;
+  tabs = ["prevList", "nextList"];
   buttonName = "CashOut";
 
   constructor(data: RevService, el: ElementRef) {
     this.el = el;
     this.data = data;
-    this.data1 = "prevList";
-    this.data2 = "nextList";
+    // this.data1 = "prevList";
+    // this.data2 = "nextList";
     this.editable = true;
   }
   ngAfterViewInit() {
