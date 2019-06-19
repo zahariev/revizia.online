@@ -21,6 +21,7 @@
           contenteditable="false"
           (click)="onClick(idx, $event)"
           (blur)="onBlur(idx, $event)"
+          (keydown)="keyDown(idx, $event)"
           (input)="onInput($event)"
         >
           {{ tab.name }}</span
