@@ -34,6 +34,14 @@
       ></menu-sheet>
     </mat-tab>
 
+    <mat-tab disabled>
+      <ng-template mat-tab-label>
+        <button mat-icon-button (click)="addTab()">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </ng-template>
+    </mat-tab>
+
     <!-- <mat-tab *ngFor="let tabz of tabs" [label]="tabz.title">
                <table-sheet date="{{ date }}"></table-sheet>
             </mat-tab> -->

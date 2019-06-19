@@ -78,4 +78,8 @@ export class TabsMenuSheetComponent implements OnInit {
       selection.addRange(range);
     }
   }
+
+  addTab() {
+    this.data.addMenuTab();
+  }
 }
