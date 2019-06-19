@@ -264,7 +264,7 @@ export class MenuSheetComponent implements OnInit {
     var rowIdx = this.dataList.push(
       new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
     );
-
+    // TODO scroll one row to bottom
     this.gridInit();
     return rowIdx;
   }

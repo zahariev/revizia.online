@@ -207,7 +207,7 @@ html [type="button"] {
 
 #total {
   position: relative;
-  text-align: right;
+  /* text-align: right; */
   line-height: 24px;
   right: 10px;
 }
