@@ -47,7 +47,16 @@ export class TabsMenuSheetComponent implements OnInit {
     var el = event.target;
     el.contentEditable = "false";
     this.activeEl = 0;
-    // this.updateList(idx, el);
+
+    var value = el.innerText;
+    value = value.replace(/\r?\n|\r\s/g, "");
+
+    console.log(this.data.menuList[idx].name);
+
+    console.log(value);
+
+    this.data.menuList[idx].name = value;
+    this.data.store("menuList");
   }
 
   onClick(idx: any, event: any) {
@@ -91,8 +100,10 @@ export class TabsMenuSheetComponent implements OnInit {
     switch (event.key) {
       case "Enter":
         {
-          this.selectText(el);
-          this.makeEditable(el);
+          var selection = window.getSelection();
+          selection.removeAllRanges();
+          // this.selectText(el);
+          //  this.makeEditable(el);
         }
 
         break;
