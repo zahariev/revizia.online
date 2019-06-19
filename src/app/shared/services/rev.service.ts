@@ -873,7 +873,7 @@ export class RevService {
   tabSelectedIdx: number;
 
   constructor(data: DataService) {
-    // this.menuList = this.getLocal("menuList") || this.menuList;
+    this.menuList = this.getLocal("menuList") || this.menuList;
     this.revizia.prevList = this.getLocal("prevList") || this.revizia.prevList;
     this.revizia.nextList = this.getLocal("nextList") || this.revizia.nextList;
 
@@ -885,12 +885,10 @@ export class RevService {
 
       if (typeof dat =="string") 
       {
-     
-        this.menuList = JSON.parse(dat);
-
+       // this.menuList = JSON.parse(dat);
         this.store("menuList");
         this.calculateRevSheet("prevList");
-    this.calculateRevSheet("nextList");
+        this.calculateRevSheet("nextList");
       } else {
         // MESSAGE - " Not Correct Data Loaded. Continue WITH last Data!"
       }
@@ -986,5 +984,13 @@ export class RevService {
     item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
 
     return item;
+  }
+
+  addMenuTab(){
+    var tab = {
+      name: "tabName",
+      data: []
+    };
+    this.menuList.push(tab)
   }
 }
