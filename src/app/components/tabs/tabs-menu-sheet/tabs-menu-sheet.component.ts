@@ -26,6 +26,9 @@ export class TabsMenuSheetComponent implements OnInit {
   }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
+    // remove selection text
+    var selection = window.getSelection();
+    selection.removeAllRanges();
     // Maintain scroll position of the last scrolled tab idx
     this.data.tabSelectedIdx = tabChange.index;
     var mlist = document.getElementById("menuTab" + tabChange.index);
@@ -40,6 +43,7 @@ export class TabsMenuSheetComponent implements OnInit {
   }
 
   onBlur(idx, event) {
+    // console.log("blur");
     var el = event.target;
     el.contentEditable = "false";
     this.activeEl = 0;
@@ -53,7 +57,7 @@ export class TabsMenuSheetComponent implements OnInit {
     } else if (this.activeEl == event.target) {
       this.selectText(event.target);
       this.activeEl = "select";
-      // event.preventDefault();
+      event.preventDefault();
     } else {
       this.activeEl = event.target;
     }
@@ -66,9 +70,10 @@ export class TabsMenuSheetComponent implements OnInit {
   }
 
   selectText(cell = document.activeElement) {
+    // console.log("select text");
     if (!this.editable) return;
     var range, selection;
-    if (this.activeEl == "select") this.activeEl = "editable";
+    // if (this.activeEl == "select") this.activeEl = "editable";
     if (window.getSelection) {
       selection = window.getSelection();
       range = document.createRange();
@@ -76,6 +81,46 @@ export class TabsMenuSheetComponent implements OnInit {
 
       selection.removeAllRanges();
       selection.addRange(range);
+    }
+  }
+
+  keyDown(idx, event: any) {
+    // console.log(event);
+    var el = event.target;
+    // console.log(event);
+    switch (event.key) {
+      case "Enter":
+        {
+          this.selectText(el);
+          this.makeEditable(el);
+        }
+
+        break;
+
+      case "ArrowLeft":
+        //  if (this.activeEl != "editable") this.focusNextElement(el, -1);
+        break;
+      case "ArrowRight":
+        //  if (this.activeEl != "editable") this.focusNextElement(el, 1);
+        break;
+      case "Escape":
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        event.target.innerText = this.data.menuList[idx].name;
+        event.preventDefault();
+        //this.focusNextElement(el, 0);
+        break;
+
+      case "Meta":
+      case "Control":
+      case "Shift":
+      case " ":
+        break;
+      default:
+        if (this.activeEl != "editable") this.selectText();
+        this.makeEditable(el);
+      // el.focus();
+      // setTimeout(el.focus(), 100);
     }
   }
 
