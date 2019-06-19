@@ -104,18 +104,15 @@ export class ReviziaSheetComponent {
     event.preventDefault();
   }
 
-  onMdown(item: any, elName: string, el: any) {
-    if (this.activeEl == el.target) {
+  onClick(item: any, elName: string, event: any) {
+    if (this.activeEl == "select") {
+      this.makeEditable(event.target);
+      // event.preventDefault();
+    } else if (this.activeEl == event.target) {
+      this.selectText(event.target);
       this.activeEl = "select";
     } else {
-      this.activeEl = el.target;
-    }
-  }
-
-  onClick(item: any, elName: string, event: any) {
-    // console.log("md");
-    if (this.activeEl == "select") {
-      this.selectText(document.activeElement);
+      this.activeEl = event.target;
     }
   }
 
