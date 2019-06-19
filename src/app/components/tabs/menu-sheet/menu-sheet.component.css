@@ -27,7 +27,7 @@
 }
 
 th {
-  min-width: 90px;
+  min-width: 80px;
 }
 
 th.name {
@@ -70,7 +70,7 @@ tr {
 }
 
 td {
-  min-width: 90px;
+  min-width: 80px;
 }
 
 .sticky {
@@ -264,4 +264,48 @@ th.DragHandle {
 /* .mat-row:not(.cdk-drag-placeholder)  */
 .cdk-drop-list-dragging {
   transition: transform 250ms cubic-bezier(0, 0, 1, 1);
+}
+
+.name {
+  min-width: 200px;
+}
+
+.cost {
+  min-width: 80px;
+}
+
+.price {
+  min-width: 90px;
+}
+
+.qty {
+  min-width: 90px;
+}
+
+.round {
+  min-width: 90px;
+}
+
+.table-remove {
+  min-width: 91px;
+}
+
+.DragHandle {
+  min-width: 90px;
+}
+
+.DragHandleTH {
+  min-width: 93px;
+}
+
+.roundSolad {
+  min-width: 90px;
+}
+
+.pos {
+  min-width: 90px;
+}
+
+.sum {
+  min-width: 105px;
 }
