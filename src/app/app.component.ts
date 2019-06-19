@@ -39,7 +39,7 @@ export class AppComponent {
       if (mlist) {
         mlist.parentElement.scrollTo(
           0,
-          this.data.tabScrollPos[this.data.tabSelectedIdx] * (1 - 0.5 / 100)
+          this.data.tabScrollPos[this.data.tabSelectedIdx] //* (1 - 0.5 / 100)
         ); // this fix % scroll disonanse
       }
     } else {

@@ -85,6 +85,8 @@ tr td:nth-child(2),
 tr td:nth-child(5),
 tr td:nth-child(9) {
   background: rgba(58, 250, 131, 0.295);
+
+  padding: 5px;
 }
 
 tr td:nth-child(7),
@@ -98,7 +100,7 @@ tr td:nth-child(9) {
 }
 
 tr span:not([class]) {
-  padding: 1rem;
+  padding: 0.7rem;
 }
 
 td.textRight {
@@ -110,7 +112,8 @@ td.textLeft {
 }
 
 tr {
-  line-height: 32.3px;
+  line-height: 24.3px;
+  padding: 5px;
 }
 
 .text-center {
