@@ -31,11 +31,11 @@ th {
 }
 
 th.name {
-  min-width: 240px;
+  min-width: 200px;
 }
 
 td.name {
-  min-width: 240px;
+  min-width: 200px;
   padding-left: 16px;
   text-align: left !important;
 }
@@ -77,6 +77,24 @@ td {
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.total {
+  /* text-align: right; */
+  position: absolute;
+  background: azure;
+  height: 36px;
+  width: 30%;
+  bottom: 0px;
+  z-index: 999;
+  right: 0px;
+}
+
+.totalSum {
+  position: relative;
+  text-align: right;
+  line-height: 24px;
+  z-index: 999;
 }
 
 .headerRow {

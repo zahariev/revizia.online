@@ -50,7 +50,7 @@ table {
 }
 
 tbody {
-  display: table-row-group;
+  display: table-caption;
   vertical-align: middle;
   border-color: inherit;
   /* padding-top: 34px; */
@@ -126,7 +126,7 @@ span.negative {
   position: absolute;
   background: azure;
   height: 36px;
-  width: 30%;
+  width: 10%;
   bottom: 0px;
   z-index: 999;
   right: 0px;
@@ -161,41 +161,41 @@ thead tr th {
 }
 
 .name {
-  width: 240px;
+  min-width: 200px;
 }
 
 .price {
-  width: 80px;
+  min-width: 80px;
 }
 
 .minus {
-  width: 90px;
+  min-width: 90px;
 }
 
 .plus {
-  width: 90px;
+  min-width: 90px;
 }
 
 .starts {
-  width: 90px;
+  min-width: 90px;
 }
 
 .ends {
-  width: 90px;
+  min-width: 90px;
 }
 
 .diff {
-  width: 90px;
+  min-width: 90px;
 }
 
 .roundSolad {
-  width: 90px;
+  min-width: 90px;
 }
 
 .pos {
-  width: 90px;
+  min-width: 90px;
 }
 
 .sum {
-  width: 95px;
+  min-width: 105px;
 }

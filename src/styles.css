@@ -58,7 +58,7 @@ button {
   bottom: 0px;
   height: 35px;
   background-color: azure;
-  width: 75%;
+  width: 90%;
 }
 
 #reviziaTabs .mat-tab-header {
@@ -68,7 +68,7 @@ button {
   left: 24px;
   height: 35px;
   background-color: azure;
-  width: 1118px;
+  width: 100%;
 }
 
 #menuTabs .mat-tab-header {
@@ -78,7 +78,7 @@ button {
   left: 24px;
   height: 35px;
   background-color: azure;
-  width: 804px;
+  width: 100%;
 }
 
 .mat-tab-body.mat-tab-body-active {
