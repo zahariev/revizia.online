@@ -260,11 +260,20 @@ export class MenuSheetComponent implements OnInit {
   }
 
   addRow(ev) {
+    // TODO scroll one row to bottom
+    var tabIdx = this.data.tabSelectedIdx;
+    var mlist = document.getElementById("menuTab" + tabIdx);
+    this.data.tabScrollPos[tabIdx] = this.data.tabScrollPos[tabIdx] + 70;
+    if (mlist) {
+      // console.log(this.data.tabScrollPos[tabIdx]);
+
+      mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabIdx] + 70);
+    }
     // console.log("add");
     var rowIdx = this.dataList.push(
       new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
     );
-    // TODO scroll one row to bottom
+
     this.gridInit();
     return rowIdx;
   }
