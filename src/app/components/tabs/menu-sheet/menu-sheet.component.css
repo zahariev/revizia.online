@@ -46,7 +46,7 @@ td.cost {
 
 #table {
   width: 100%;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   color: #212529;
 }
 
@@ -226,13 +226,13 @@ html [type="button"] {
 
 #total {
   position: relative;
-  /* text-align: right; */
   line-height: 24px;
-  right: 10px;
+  text-align: right;
+  bottom: 50px;
 }
 #total img {
-  /* position: fixed; */
-  padding-right: 30px;
+  position: relative;
+  /* padding-right: 30px; */
   z-index: 999;
   cursor: pointer;
 }
