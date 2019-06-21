@@ -9,14 +9,14 @@ import { MatTabChangeEvent } from "@angular/material/tabs";
   styleUrls: ["./tabs-menu-sheet.component.css"]
 })
 export class TabsMenuSheetComponent implements OnInit {
-  viewList;
+  // viewList;
   editable: boolean;
   mapTabToScroll = {};
   activeEl: any;
   contentChange: Boolean = false;
 
   constructor(public data: RevService) {
-    this.viewList = data.menuList;
+    // this.viewList = data.menuList;
     this.editable = true;
   }
 
@@ -40,6 +40,7 @@ export class TabsMenuSheetComponent implements OnInit {
 
   onInput(ev) {
     this.contentChange = true;
+    // console.log("input");
   }
 
   onBlur(idx, event) {
@@ -51,11 +52,12 @@ export class TabsMenuSheetComponent implements OnInit {
     var value = el.innerText;
     value = value.replace(/\r?\n|\r\s/g, "");
 
-    console.log(this.data.menuList[idx].name);
+    // console.log(this.data.menuList[idx].name);
 
-    console.log(value);
-
-    this.data.menuList[idx].name = value;
+    if (value.trim() != "") this.data.menuList[idx].name = value;
+    else this.data.menuList[idx].name = " . . .";
+    //console.log(value);
+    // this.viewList = this.data.menuList;
     this.data.store("menuList");
   }
 
@@ -110,9 +112,15 @@ export class TabsMenuSheetComponent implements OnInit {
 
       case "ArrowLeft":
         //  if (this.activeEl != "editable") this.focusNextElement(el, -1);
+        // event.preventDefault();
+        // event.stopPropagation();
+        return false;
         break;
       case "ArrowRight":
         //  if (this.activeEl != "editable") this.focusNextElement(el, 1);
+        // event.preventDefault();
+        // event.stopPropagation();
+        return false;
         break;
       case "Escape":
         var selection = window.getSelection();
