@@ -17,6 +17,8 @@
   flex: 1 1 auto;
   padding: 1.25rem;
   padding-top: 0px;
+
+  /* padding-bottom: 0px; */
   min-width: 805px;
 }
 
@@ -46,7 +48,7 @@ td.cost {
 
 #table {
   width: 100%;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   color: #212529;
 }
 
@@ -85,9 +87,15 @@ td {
   background: azure;
   height: 36px;
   width: 30%;
-  bottom: 0px;
+  bottom: 50px;
   z-index: 999;
   right: 0px;
+}
+
+.total {
+  text-align: left;
+  position: relative;
+  z-index: 9;
 }
 
 .totalSum {
@@ -218,22 +226,16 @@ html [type="button"] {
   font-size: 0.74rem !important;
 }
 
-.total {
-  text-align: left;
-  position: relative;
-  z-index: 9;
-}
-
-#total {
+#addRowBtn {
   /* position: relative; */
   position: sticky;
   line-height: 24px;
-  text-align: right;
-  bottom: 50px;
+  /* text-align: right; */
+  bottom: 27px;
   left: 1000px;
-  width: 100px;
+  width: 60px;
 }
-#total img {
+#addRowBtn img {
   position: relative;
   /* padding-right: 30px; */
   z-index: 999;
