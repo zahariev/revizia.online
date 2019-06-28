@@ -1,0 +1,316 @@
+.card {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border: 0;
+  font-weight: 200;
+  display: flex;
+  flex-direction: column;
+  min-width: 105%;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border-radius: 0.25rem;
+  position: relative;
+  top: 5px;
+}
+
+.card .card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  padding-top: 0px;
+
+  /* padding-bottom: 0px; */
+  min-width: 805px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 24px;
+}
+
+th {
+  min-width: 80px;
+}
+
+th.name {
+  min-width: 200px;
+}
+
+td.name {
+  min-width: 200px;
+  padding-left: 16px;
+  text-align: left !important;
+}
+
+td.cost {
+  font-size: 0.8em;
+}
+
+#table {
+  width: 100%;
+  /* margin-bottom: 40px; */
+  color: #212529;
+}
+
+table {
+  border-collapse: collapse;
+
+  table-layout: fixed;
+
+  border-spacing: 2px;
+}
+
+tbody {
+  display: table-caption;
+  padding-top: 60px;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  line-height: 24px;
+}
+
+td {
+  min-width: 80px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.total {
+  /* text-align: right; */
+  position: absolute;
+  background: azure;
+  height: 36px;
+  width: 30%;
+  bottom: 50px;
+  z-index: 999;
+  right: 0px;
+}
+
+.total {
+  text-align: left;
+  position: relative;
+  z-index: 9;
+}
+
+.totalSum {
+  position: relative;
+  text-align: right;
+  line-height: 24px;
+  z-index: 999;
+}
+
+.headerRow {
+  height: 35px;
+  position: fixed;
+  background-color: linen;
+  top: 40px;
+  margin-left: -1px;
+}
+
+thead tr th {
+  height: 35px;
+}
+
+/* height: 35px;
+padding-top: 10px;
+position: fixed;
+background-color: linen;
+top: 50px; */
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+table.table th {
+  font-weight: 400;
+}
+:focus {
+  background-color: rgba(198, 198, 198, 0.756);
+}
+
+.itemPrice {
+  font-size: 0.7em;
+}
+
+.table-bordered,
+.table-bordered td,
+.table-bordered th {
+  border: 1px solid #dee2e6;
+}
+
+tr td:nth-child(1),
+tr td:nth-child(2),
+tr td:nth-child(5),
+tr td:nth-child(9) {
+  background: rgba(58, 250, 131, 0.295);
+}
+
+tr td:nth-child(7),
+tr td:nth-child(10) {
+  background: rgba(58, 180, 250, 0.295);
+}
+
+tr td:nth-child(8),
+tr td:nth-child(9) {
+  background: rgba(255, 202, 173, 0.438);
+}
+
+tr span:not([class]) {
+  padding: 1rem;
+}
+
+/* tr {
+  line-height: 32px;
+} */
+
+td.textRight {
+  text-align: right;
+}
+
+td.textLeft {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+span.negative {
+  color: red;
+}
+
+#date {
+  text-align: left;
+}
+
+.btn {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  /* padding: 0.84rem 2.14rem; */
+  font-size: 0.81rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  /* margin: 0.375rem; */
+  border: 0;
+  /* border-radius: 0.125rem; */
+  cursor: pointer;
+  text-transform: uppercase;
+  white-space: normal;
+  word-wrap: normal;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #ff3547d1 !important;
+  color: #fff;
+  height: 24px;
+  width: 80px;
+}
+
+.btn-rounded {
+  border-radius: 10em;
+}
+
+[type="reset"],
+[type="submit"],
+button,
+html [type="button"] {
+  -webkit-appearance: none;
+}
+
+.btn.btn-sm {
+  font-size: 0.74rem !important;
+}
+
+#addRowBtn {
+  /* position: relative; */
+  position: sticky;
+  line-height: 24px;
+  /* text-align: right; */
+  bottom: 27px;
+  left: 1000px;
+  width: 60px;
+}
+#addRowBtn img {
+  position: relative;
+  /* padding-right: 30px; */
+  z-index: 999;
+  cursor: pointer;
+}
+
+th.DragHandleTH {
+  width: 40px !important;
+}
+
+th.DragHandle {
+  cursor: move;
+  width: 40px !important;
+}
+.cdk-drag-preview {
+  display: table-row;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 1, 1);
+}
+
+/* .mat-row:not(.cdk-drag-placeholder)  */
+.cdk-drop-list-dragging {
+  transition: transform 250ms cubic-bezier(0, 0, 1, 1);
+}
+
+.name {
+  min-width: 200px;
+}
+
+.cost {
+  min-width: 80px;
+}
+
+.price {
+  min-width: 90px;
+}
+
+.qty {
+  min-width: 90px;
+}
+
+.round {
+  min-width: 90px;
+}
+
+.table-remove {
+  min-width: 91px;
+}
+
+.DragHandle {
+  min-width: 90px;
+}
+
+.DragHandleTH {
+  min-width: 93px;
+}
+
+.roundSolad {
+  min-width: 90px;
+}
+
+.pos {
+  min-width: 90px;
+}
+
+.sum {
+  min-width: 105px;
+}
