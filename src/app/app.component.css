@@ -38,3 +38,9 @@ button {
   width: 120px;
   height: 50px;
 }
+
+.smallDate {
+  font-size: 0.7em;
+  position: absolute;
+  bottom: 10px;
+}
