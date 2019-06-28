@@ -18,8 +18,6 @@ export class ReviziaSheetComponent {
   editField: string;
 
   dataList;
-  prevList;
-  nextList;
   menuList;
   nextFocus: any;
   // dataList: Array<any> = [];

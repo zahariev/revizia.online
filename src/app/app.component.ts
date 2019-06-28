@@ -13,18 +13,19 @@ export class AppComponent {
   editable: Boolean;
   el;
   data;
-  tabs = ["prevList", "nextList"];
+  tabs = [];
   buttonName = "CashOut";
 
   constructor(data: RevService, el: ElementRef) {
     this.el = el;
     this.data = data;
+    this.tabs = this.data.revKeys;
     // this.data1 = "prevList";
     // this.data2 = "nextList";
     this.editable = true;
   }
   ngAfterViewInit() {
-    console.log(this.el);
+    // console.log(this.el);
   }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
