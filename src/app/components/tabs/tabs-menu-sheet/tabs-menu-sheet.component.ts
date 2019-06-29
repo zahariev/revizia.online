@@ -40,7 +40,7 @@ export class TabsMenuSheetComponent implements OnInit {
 
   onInput(ev) {
     this.contentChange = true;
-    // console.log("input");
+    console.log(ev);
   }
 
   onBlur(idx, event) {
@@ -98,32 +98,38 @@ export class TabsMenuSheetComponent implements OnInit {
   keyDown(idx, event: any) {
     // console.log(event);
     var el = event.target;
+    var selection;
     // console.log(event);
     switch (event.key) {
       case "Enter":
-        {
-          var selection = window.getSelection();
+        if (el.contentEditable == "true") {
+          selection = window.getSelection();
           selection.removeAllRanges();
-          // this.selectText(el);
-          //  this.makeEditable(el);
+          el.contentEditable = "false";
         }
 
         break;
 
       case "ArrowLeft":
-        //  if (this.activeEl != "editable") this.focusNextElement(el, -1);
-        // event.preventDefault();
-        // event.stopPropagation();
-        return false;
+        if (this.activeEl != "editable") break;
+        selection = window.getSelection();
+        try {
+          selection.collapse(el.firstChild, selection.focusOffset - 1);
+        } catch (error) {}
+        event.preventDefault();
+        event.stopPropagation();
         break;
       case "ArrowRight":
-        //  if (this.activeEl != "editable") this.focusNextElement(el, 1);
-        // event.preventDefault();
-        // event.stopPropagation();
-        return false;
+        if (this.activeEl != "editable") break;
+        selection = window.getSelection();
+        try {
+          selection.collapse(el.firstChild, selection.focusOffset + 1);
+        } catch (error) {}
+        event.preventDefault();
+        event.stopPropagation();
         break;
       case "Escape":
-        var selection = window.getSelection();
+        selection = window.getSelection();
         selection.removeAllRanges();
         event.target.innerText = this.data.menuList[idx].name;
         event.preventDefault();
