@@ -133,6 +133,8 @@ export class TabsMenuSheetComponent implements OnInit {
         selection.removeAllRanges();
         event.target.innerText = this.data.menuList[idx].name;
         event.preventDefault();
+
+        el.contentEditable = "false";
         //this.focusNextElement(el, 0);
         break;
 
