@@ -40,7 +40,7 @@ export class TabsMenuSheetComponent implements OnInit {
 
   onInput(ev) {
     this.contentChange = true;
-    console.log(ev);
+    // console.log(ev);
   }
 
   onBlur(idx, event) {
