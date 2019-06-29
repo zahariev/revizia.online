@@ -210,7 +210,7 @@ export class MenuSheetComponent implements OnInit {
     this.focussableElements = document.querySelectorAll("[tabindex]");
     var index = Array.from(this.focussableElements).indexOf(el);
 
-    if (index + step < 3) return;
+    if (index + step < 10) return;
     if (index > -1) {
       window.getSelection().removeAllRanges();
       var nextElement =
