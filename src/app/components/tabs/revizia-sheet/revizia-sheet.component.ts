@@ -53,7 +53,7 @@ export class ReviziaSheetComponent {
     if (this.contentChange) {
       var oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
-      console.log("change");
+      // console.log("change");
       updateItem[property] = Number(value) || value;
       if (idx == -1) {
         this.dataList.push(updateItem);

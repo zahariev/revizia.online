@@ -27,5 +27,12 @@
       </ng-template>
       <tabs-rev-sheet [date]="tab"></tabs-rev-sheet>
     </mat-tab>
+    <mat-tab disabled>
+      <ng-template mat-tab-label>
+        <button mat-icon-button (click)="addTab()">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </ng-template>
+    </mat-tab>
   </mat-tab-group>
 </mat-sidenav-container>

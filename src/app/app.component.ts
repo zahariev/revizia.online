@@ -56,4 +56,8 @@ export class AppComponent {
       }
     }
   }
+
+  addTab() {
+    this.data.newDayTab();
+  }
 }
