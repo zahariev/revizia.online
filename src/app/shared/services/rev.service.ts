@@ -877,13 +877,15 @@ export class RevService {
     this.menuList = this.getLocal("menuList") || this.menuList;
     // this.revizia.prevList = this.getLocal("prevList") || this.revizia.prevList;
     this.revizia = this.getLocal("revData") || this.revData;
-
+    var rev = {}
     this.revKeys = Object.keys(this.revizia)
-    
+    this.revKeys.sort();
     this.revKeys.forEach(day=>{
+      rev[day] = this.revizia[day];
       this.viewSheet[day] = {};
     })
     
+    this.revizia = rev;
 
     
     data.menu.subscribe(dat => {
@@ -936,7 +938,7 @@ export class RevService {
   }
 
   calculateRevSheets(){
-    Object.keys(this.revizia).forEach(key=>{
+    this.revKeys.forEach(key=>{
       this.calculateRevSheet(key)
     })
 
@@ -950,7 +952,7 @@ export class RevService {
         var revItem = this.revizia[date].filter(i => {
           return i.id == item.id;
         })[0];
-        var prevIdx = Object.keys(this.revizia).indexOf(date)-1;
+        var prevIdx = this.revKeys.indexOf(date)-1;
         // console.log(prevIdx)
 
         var itm = this.revItemCalculator(revItem, item, date, prevIdx);
@@ -982,7 +984,7 @@ export class RevService {
    
     if((prevIdx>-1))
     {
-      var prevDay = Object.keys(this.revizia)[prevIdx];
+      var prevDay = this.revKeys[prevIdx];
     var prevRev = this.revizia[prevDay].filter(i => {
         return i.id == menuItem.id;
       })[0] || {};
@@ -1020,20 +1022,32 @@ export class RevService {
     this.menuList.push(tab)
   }
 
-  newDayTab(){
-    var datestring= this.getNewDate();
-    this.revizia[datestring] = [];
-    this.viewSheet[datestring] = {};
-    if(this.revKeys.indexOf(datestring)==-1)  this.revKeys.push(datestring);
+  newDayTab(date):boolean{
+    var datestring= this.getNewDate(date);
+    
+    if(this.revKeys.indexOf(datestring)==-1)  {
+      this.revKeys.push(datestring);
+      
+      this.revizia[datestring] = [];
+      
+      this.viewSheet[datestring] = {};
+      this.calculateRevSheets();
+
+      this.revKeys.sort();
     this.store("revizia");
+    }
+    else{ // show calendar controll
+      return false;
+    }
+    return true;
   }
 
-  getNewDate(){
-    var d = new Date();
-    if(d.getHours()<9) {
+  getNewDate(date){
+    var d = date||new Date();
+    if(d.getHours()<9 && !date) {
       d = new Date(d.getTime()-(d.getHours()+1)*60*60*1000);
     }
-    var datestring = (d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+( (d.getDate().toString().slice(-2))));
+    var datestring = (d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+( (("0"+d.getDate().toString()).slice(-2))));
     return datestring;
   }
 

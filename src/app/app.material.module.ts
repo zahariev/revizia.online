@@ -29,6 +29,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatDatepickerModule, MatNativeDateModule } from "@angular/material";
 @NgModule({
   imports: [
     // PortalModule,
@@ -61,7 +62,9 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatListModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     // PortalModule,
@@ -94,7 +97,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatListModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    FormsModule
-  ]
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [MatDatepickerModule]
 })
 export class AppMaterialModule {}

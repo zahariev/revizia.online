@@ -8,6 +8,15 @@
       } */
 }
 
+.calendar-wrapper {
+  position: absolute;
+  z-index: 999;
+  background: azure;
+  min-height: 373px;
+  width: 300px;
+  bottom: 0px;
+}
+
 #tabbed {
   z-index: 1000;
   position: absolute;

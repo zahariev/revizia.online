@@ -11,6 +11,7 @@ import { MatTabChangeEvent } from "@angular/material/tabs";
 export class AppComponent {
   title = "rev";
   editable: Boolean;
+  showDatePicker: Boolean;
   el;
   data;
   tabs = [];
@@ -41,7 +42,7 @@ export class AppComponent {
         mlist.parentElement.scrollTo(
           0,
           this.data.tabScrollPos[this.data.tabSelectedIdx]
-        ); // this fix % scroll disonanse
+        );
       }
     } else {
       //Menu tab
@@ -57,7 +58,17 @@ export class AppComponent {
     }
   }
 
-  addTab() {
-    this.data.newDayTab();
+  addTab(ev) {
+    // if (!this.data.newDayTab())
+    {
+      // pop calendar contorll
+      this.showDatePicker = !this.showDatePicker;
+    }
+  }
+
+  onDateChanged(date) {
+    this.showDatePicker = false;
+    this.data.newDayTab(date);
+    // console.log(date);
   }
 }
