@@ -14,10 +14,10 @@
     [@.disabled]="true"
     [selectedIndex]="data.tabSelectedIdx"
   >
-    >
     <mat-tab *ngFor="let tab of data.menuList; let idx = index">
       <ng-template mat-tab-label>
         <span
+          [id]="'list-' + idx"
           contenteditable="false"
           (click)="onClick(idx, $event)"
           (blur)="onBlur(idx, $event)"

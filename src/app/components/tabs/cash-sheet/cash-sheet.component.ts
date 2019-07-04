@@ -14,9 +14,9 @@ import { RevService } from "app/shared/services/rev.service";
 @Component({
   selector: "cash-sheet",
   templateUrl: "./cash-sheet.component.html",
-  styleUrls: ["./casg-sheet.component.css"]
+  styleUrls: ["./cash-sheet.component.css"]
 })
-export class MenuSheetComponent implements OnInit {
+export class CashSheetComponent implements OnInit {
   @Input() editable: Boolean;
   @Input() tabIdx: string;
 

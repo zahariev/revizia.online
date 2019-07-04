@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { RevService } from "app/shared/services/rev.service";
 
-import { MatTabChangeEvent } from "@angular/material/tabs";
+import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
 
 @Component({
   selector: "tabs-menu-sheet",
@@ -154,4 +154,20 @@ export class TabsMenuSheetComponent implements OnInit {
   addTab() {
     this.data.addMenuTab();
   }
+
+  // dropp(ev) {
+  //   console.log(ev);
+  // }
+  // dropped(event: CdkDragDrop<any>, t: MatTabGroup): void {
+  //   const arr = this.data.menuList;
+  //   console.log(event);
+  //   var previousIndex = parseInt(
+  //     event.previousContainer.id.replace("list-", "")
+  //   );
+  //   var currentIndex = parseInt(event.container.id.replace("list-", ""));
+  //   console.log(previousIndex + "->" + currentIndex);
+  //   moveItemInArray(arr, previousIndex, currentIndex);
+  //   this.data.store("menuList");
+  //   // this.gridInit();
+  // }
 }
