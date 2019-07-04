@@ -1030,8 +1030,14 @@ export class RevService {
 
   getNewDate(){
     var d = new Date();
-
+    if(d.getHours()<9) {
+      d = new Date(d.getTime()-(d.getHours()+1)*60*60*1000);
+    }
     var datestring = (d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+( (d.getDate().toString().slice(-2))));
     return datestring;
+  }
+
+  changeDate(){
+    console.log("change")
   }
 }
