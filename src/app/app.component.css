@@ -26,16 +26,12 @@
   top: 20px;
 }
 
-button {
-  position: absolute;
-
-  z-index: 999;
-  background-color: rgb(214, 93, 93);
-  width: 100px;
+.calendar {
+  cursor: pointer;
   height: 35px;
   margin: 8px;
-  /* font-size: 2em; */
-  border-radius: 50px !important;
+
+  margin-left: -100px;
 }
 
 #saveBtn {
