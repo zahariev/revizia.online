@@ -42,6 +42,9 @@ button {
   height: 50px;
 }
 
+.mat-tab-label {
+  display: block !important;
+}
 .mat-tab-label .mat-tab-label-content {
   font-weight: 200;
 
