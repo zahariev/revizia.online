@@ -1,4 +1,8 @@
-<div class="container" (mousewheel)="mousewheel($event)">
+<div
+  class="container"
+  (wheel)="mousewheel($event)"
+  (mousewheel)="mousewheel($event)"
+>
   <!-- <mat-sidenav-container class="sidenav-container">
      TABS    
 
@@ -83,93 +87,4 @@
       </div>
     </div>
   </div>
-  <!-- </mat-tab>
-
-      <mat-tab label=" II ">
-        <div class="row">
-          <div class="col-md-12 mx-auto text-center ">
-           <!-- Editable table -->
-  <!-- <div class="card">
-              <div class="card-body">
-                <div id="table" class="table-editable">
-                  <div id="total" (click)="addRow($event)">
-                    <img
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALbSURBVGhD7Zm7bhNBFIYtbgUdtwp4CkQEVToUsQ4zlmxx63kFIhp3MTWJFAJPEKKdJSTQ8gwEeABuDUmogQb+szlphn+dPd71mkj+pF+y4jPn/HPxzuykNWXKlOr0XvSOz6eda0nmHrUzlybBf2wH/wOff+fCZ/ztQ/4dYiS23+8f0+aTw2XuMsw9hrlv7cz/MSn4r9J2Lu1c0nTN0X7VPo/RfIbR/EXNGSQ5oBXJqenHC4zfg/aYmSrCLO5Ibi1TP1jnp1DkOStep1Dj6ZXVBye1bD1gek9jmt+wgmNR8K+lppavRj7yTZo/UPAbtcxEE8umSLKc1MZoJGnnPkvcrNxttWNjbq17AUtnlydtTvJ08sGfU1vlkeljCSchDOSy2iqH7LBoVGmTimExZSVeks3koto7HNniWSKLYliMRejEQO0NRw5Z+TmFJLEohsVYhCX9udQBEOavswRWxbAYq9CJGbVZDKYKR2KewKIYFmNW8AtqsxgEBdrYqBgWY1bw62qzGEwTXjxIY6NiWIxd7r3aLAa9xJsUa/yv6oLlZsLy3lWbxVie/3XBcjOJN7VZzJHvwJFfQvJDYY2timExZgW/rTaLQQdS2tioGBZjVqnH6H+8kd3M3EO1WYxcOrHGVsWwGLPSzlW1WUx+mMvcF5rAoBgWY1Hpw5yAZTRgSSyKYTE2uUW1dzhy3WfZD5hiWExpBf/T9EIjoAMrNNlE5JbUVnnkRVo2Dp6wSbnvN9a6Z9WWjfng7/KkzSkJnZ7aGY12cKsscSMK/onaGB25WkSiDVpgnEJN+ceJ2qiGXLRiLW7RQmMQfnubtV3uHiAXrc1cdrml2bezJ7Rs/SRp5w46ssOLjy7Jmby81dUy40UfsctVN7tc2KRk1JOt5Iymbw7dsQcYvU/U3BDtt3GL5h12HMghC4ZmMJoL0Dq0DXN7MkP7s4TPwb+T7+RILKfK0gezKVOmDKHV+gux72wnZwTNRAAAAABJRU5ErkJggg=="
-                    />
-                  </div>
-
-                  <table
-                    cdkDropList
-                    (cdkDropListDropped)="drop($event)"
-                    contenteditable="false"
-                    class="table table-bordered table-responsive-md table-striped text-center"
-                  >
-                    <thead>
-                      <tr class="headerRow">
-                        <ng-container *ngFor="let col1 of columnList">
-                          <th class="text-center {{ col1.name }}">
-                            {{ col1.columnName }}
-                          </th>
-                        </ng-container>
-                        <th class="text-center">
-                          remove
-                        </th>
-                        <th class="DragHandleTH text-center">
-                          pos
-                        </th>
-                      </tr>
-                    </thead>
-
-                    <tr *ngFor="let item of viewList; let id = index" cdkDrag>
-                      <td
-                        :inner-text.prop="value"
-                        class="{{ col.name }}"
-                        *ngFor="let col of columnList; let idx = index"
-                        tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
-                        (keyup)="keyUp(item, col.name, $event)"
-                        (keydown)="keyDown(item, col.name, $event)"
-                        (mousedown)="onMdown(item, col.name, $event)"
-                        (click)="onClick(item, col.name, $event)"
-                        (blur)="onBlur(item, col.name, $event)"
-                        (input)="onInput($event)"
-                      >
-                        {{ item[col.name] }}
-                      </td>
-
-                      <td style="padding: 5px;">
-                        <span class="table-remove" contenteditable="false">
-                          <button
-                            class="my-0 btn btn-danger btn-rounded btn-sm"
-                            (click)="removeRow(id, $event)"
-                          >
-                            Remove
-                          </button>
-                        </span>
-                      </td>
-                      <td class=" text-center">
-                        <div class="DragHandle" cdkDragHandle>
-                          <svg
-                            width="24px"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                            ></path>
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                          </svg>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-  <!-- </mat-tab>
-    </mat-tab-group>
-  </mat-sidenav-container> -->
-
-  <!-- Editable table -->
 </div>
