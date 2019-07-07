@@ -10,13 +10,14 @@ import {
 import { MatIcon } from "@angular/material/icon";
 
 import { RevService } from "app/shared/services/rev.service";
+import { SheetComponent } from "../sheet.component";
 
 @Component({
   selector: "menu-sheet",
   templateUrl: "./menu-sheet.component.html",
   styleUrls: ["./menu-sheet.component.css"]
 })
-export class MenuSheetComponent implements OnInit {
+export class MenuSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
   @Input() tabIdx: string;
 
@@ -58,175 +59,48 @@ export class MenuSheetComponent implements OnInit {
     }
   ];
 
-  menuList;
-  dataList;
-
+  focus: any;
   nextFocus: any;
   viewList;
-  focussableElements: any;
+  date = "menuList";
 
-  focus: any;
-  activeEl: any;
-  contentChange: Boolean = false;
-  history: Array<any> = [];
-
-  constructor(private data: RevService, public el: ElementRef) {}
+  constructor(public dat: RevService, public el: ElementRef) {
+    super(dat, el);
+  }
 
   ngOnInit() {
-    this.dataList = this.data.menuList[this.tabIdx].data;
+    this.dataList = this.dat.menuList[this.tabIdx].data;
     this.gridInit();
   }
 
   gridInit() {
-    this.data.menuList[this.tabIdx].data = this.dataList;
-    // console.log(this.history);
-    this.viewList = this.data.menuList[this.tabIdx].data;
+    this.dat.menuList[this.tabIdx].data = this.dataList;
+    this.viewList = this.dat.menuList[this.tabIdx].data;
   }
 
-  updateList(item, property: string, el: any) {
-    var idx = this.dataList.indexOf(item);
-    var value = el.innerText;
-    value = value.replace(/\r?\n|\r\s/g, "");
-    // value = value.replace(" ", "");
-    // console.log(this.dataList);
-    var newItem = this.dataList[idx];
-    if (this.contentChange) {
-      var oldItem = JSON.parse(JSON.stringify(item));
-      this.history.push(oldItem);
-      newItem[property] = Number(value) || value;
-    } else el.innerHTML = newItem[property] || "";
+  // updateList(item, property: string, el: any) {
+  //   var idx = this.dataList.indexOf(item);
+  //   var value = el.innerText;
+  //   value = value.replace(/\r?\n|\r\s/g, "");
 
-    this.gridInit();
-    this.data.store("menuList");
-    this.contentChange = false;
-  }
+  //   var newItem = this.dataList[idx];
+  //   if (this.contentChange) {
+  //     var oldItem = JSON.parse(JSON.stringify(item));
+  //     this.history.push(oldItem);
+  //     newItem[property] = Number(value) || value;
+  //   } else el.innerHTML = newItem[property] || "";
 
-  onInput(ev) {
-    this.contentChange = true;
-  }
+  //   this.gridInit();
+  //   this.dat.store(this.date);
+  //   this.contentChange = false;
+  // }
 
-  onBlur(item, elName, event) {
-    var el = event.target;
-    el.contentEditable = "false";
+  // onBlur(item, elName, event) {
+  //   var el = event.target;
+  //   el.contentEditable = "false";
 
-    this.updateList(item, elName, el);
-  }
-
-  onClick(item: any, elName: string, event: any) {
-    if (this.activeEl == "select") {
-      this.makeEditable(event.target);
-      // event.preventDefault();
-    } else if (this.activeEl == event.target) {
-      this.selectText(event.target);
-      this.activeEl = "select";
-    } else {
-      this.activeEl = event.target;
-    }
-  }
-
-  keyDown(item, property: string, event: any) {
-    // console.log(event);
-    var el = event.target;
-    var row = this.columnList.length;
-    // console.log(event.key);
-    switch (event.key) {
-      case "Enter":
-        if (this.activeEl == "editable") {
-          this.focusNextElement(el, row); //colummnList.length
-
-          event.preventDefault();
-        } else {
-          this.selectText(el);
-          this.makeEditable(el);
-
-          event.preventDefault();
-        }
-
-        break;
-
-      case "ArrowUp":
-        this.focusNextElement(el, -row);
-        break;
-      case "ArrowDown":
-        this.focusNextElement(el, row);
-        break;
-      case "ArrowLeft":
-        if (this.activeEl != "editable") this.focusNextElement(el, -1);
-        break;
-      case "ArrowRight":
-        if (this.activeEl != "editable") this.focusNextElement(el, 1);
-        break;
-
-      case "Escape":
-        event.target.innerText = item[property];
-        event.preventDefault();
-        this.focusNextElement(el, 0);
-        break;
-      case "z":
-        if (event.ctrlKey || event.metaKey) this.undoValue();
-        break;
-      case "Meta":
-      case "Control":
-      case "Shift":
-      case " ":
-        break;
-      default:
-        if (this.activeEl != "editable") this.selectText();
-        this.makeEditable(el);
-        setTimeout(el.focus(), 10);
-    }
-  }
-
-  selectText(cell = document.activeElement) {
-    if (!this.editable) return;
-    var range, selection;
-    if (this.activeEl == "select") this.activeEl = "editable";
-    if (window.getSelection) {
-      selection = window.getSelection();
-      range = document.createRange();
-      range.selectNodeContents(cell);
-
-      selection.removeAllRanges();
-      selection.addRange(range);
-    }
-  }
-
-  keyUp(item, property: string, event: any) {
-    switch (event.key) {
-      case "Enter":
-        event.preventDefault();
-        return;
-        break;
-    }
-  }
-
-  makeEditable(el) {
-    if (!this.editable) return;
-    el.contentEditable = "true";
-    this.activeEl = "editable";
-  }
-
-  focusNextElement(el, step = 1) {
-    this.focussableElements = document.querySelectorAll("[tabindex]");
-    var index = Array.from(this.focussableElements).indexOf(el);
-
-    if (index + step < 10) return;
-    if (index > -1) {
-      window.getSelection().removeAllRanges();
-      var nextElement =
-        this.focussableElements[index + step] || this.focussableElements[index];
-
-      if (index) el.contentEditable = "false";
-
-      // console.log(nextElement);
-      nextElement.focus();
-      this.activeEl = nextElement;
-    } else {
-      this.focussableElements = document.querySelectorAll(".table td.name");
-      // console.log(this.focussableElements);
-      this.focussableElements[0].focus();
-    }
-  }
+  //   this.updateList(item, elName, el);
+  // }
 
   removeRow(itemIdx, ev) {
     this.dataList[itemIdx].delPosition = itemIdx;
@@ -234,42 +108,20 @@ export class MenuSheetComponent implements OnInit {
     // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
 
-    this.data.store("menuList");
+    this.dat.store(this.date);
     // this.viewList[item.id] = item;
 
     this.gridInit();
   }
 
-  undoValue() {
-    var item = this.history.pop();
-    var idx: any;
-    if (!item) return;
-    if (item.delPosition) {
-      var idx = item.delPosition;
-      delete item.delPosition;
-      this.dataList.splice(idx, 0, item);
-    } else {
-      idx = this.dataList.filter(itm => itm.id == item.id)[0];
-      idx = this.dataList.indexOf(idx);
-      this.dataList[idx] = item;
-    }
-    // localStorage.menuList = JSON.stringify(this.dataList);
-
-    this.data.store("menuList");
-    this.gridInit();
-  }
-
   addRow(ev) {
     // TODO scroll one row to bottom
-    var tabIdx = this.data.tabSelectedIdx;
+    var tabIdx = this.dat.tabSelectedIdx;
     var mlist = document.getElementById("menuTab" + tabIdx);
-    this.data.tabScrollPos[tabIdx] = this.data.tabScrollPos[tabIdx] + 2070;
+    this.dat.tabScrollPos[tabIdx] = this.dat.tabScrollPos[tabIdx] + 2070;
     if (mlist) {
-      // console.log(this.data.tabScrollPos[tabIdx]);
-
-      mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabIdx] + 2070);
+      mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
     }
-    // console.log("add");
     var rowIdx = this.dataList.push(
       new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
     );
@@ -278,16 +130,10 @@ export class MenuSheetComponent implements OnInit {
     return rowIdx;
   }
 
-  mousewheel(ev: Event) {
-    // maintain scroll position by tab idx
-    var scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
-    this.data.tabScrollPos[this.tabIdx] = scrollPos;
-  }
-
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-    this.data.store("menuList");
+    this.dat.store(this.date);
     this.gridInit();
   }
 }
