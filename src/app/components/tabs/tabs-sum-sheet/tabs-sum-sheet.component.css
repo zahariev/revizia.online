@@ -1,0 +1,14 @@
+.container {
+  min-height: 450px;
+  padding-bottom: 200px;
+  margin-bottom: -200px;
+}
+
+.mat-ink-bar {
+  transition: 0ms !important;
+  transform: 0ms !important;
+}
+
+.smallSum {
+  font-size: 0.7em;
+}
