@@ -30,31 +30,19 @@ export class AppComponent {
   }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
-    // console.log("ewthgf");
+    // tab selector in place
     window.dispatchEvent(new Event("resize"));
+
     var mlist;
+    var scrollPos = this.data.tabScrollPos[this.data.tabSelectedIdx];
 
-    if (tabChange.index) {
-      // revizia tabs
-      mlist = document.getElementById("revTab" + this.data.tabSelectedIdx);
+    mlist =
+      document.getElementById("revTab" + this.data.tabSelectedIdx) ||
+      document.getElementById("menuTab" + this.data.tabSelectedIdx);
 
-      if (mlist) {
-        mlist.parentElement.scrollTo(
-          0,
-          this.data.tabScrollPos[this.data.tabSelectedIdx]
-        );
-      }
+    if (mlist) {
+      mlist.parentElement.scrollTo(0, scrollPos);
     } else {
-      //Menu tab
-      mlist = document.getElementById("menuTab" + this.data.tabSelectedIdx);
-
-      if (mlist) {
-        mlist.parentElement.scrollTo(
-          0,
-          this.data.tabScrollPos[this.data.tabSelectedIdx]
-        );
-      } else {
-      }
     }
   }
 
