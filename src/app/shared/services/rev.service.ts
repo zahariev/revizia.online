@@ -1003,6 +1003,7 @@ export class RevService {
         switch (x){
           case "name": 
           case "starts":
+          case "price":
             if(!obj[x]) obj[x] = a[x];
             break;
           case "ends":
