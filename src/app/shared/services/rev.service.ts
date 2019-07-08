@@ -868,6 +868,10 @@ export class RevService {
 
   //view with rendered column data
   viewSheet = {};
+  sumSheet = {};
+  sumSheetView = {};
+  tempSummary: Array<any> = [];  
+  summary = {};
   // store scroll offset for menu tab idx
   tabScrollPos = [];
   tabSelectedIdx: number;
@@ -895,7 +899,6 @@ export class RevService {
         this.revizia = data.revizia;
         this.menuList = data.menu;
         this.store("menuList");
-        this.store("revData");
         
       } else {
         // MESSAGE - " Not Correct Data Loaded. Continue WITH last Data!"
@@ -907,23 +910,34 @@ export class RevService {
   }
 
   public store(name) {
-    // log(obj);
+
     var json;
-    if(name!="menuList") {
-     json = JSON.stringify(this.revizia);
-     name = "revData"
+
+    if(name=="menuList") {
+      json = JSON.stringify(this.menuList);
+        localStorage.setItem(
+          name,
+          json
+          // CryptoJS.AES.encrypt(json, "secret key 123").toString()
+        );
     }
-      else json = JSON.stringify(this.menuList);
-
-      this.calculateRevSheets();
-
-    localStorage.setItem(
-      name,
-      json
-      // CryptoJS.AES.encrypt(json, "secret key 123").toString()
-    );
-
     
+      this.calculateRevSheets();
+      json = JSON.stringify(this.revizia);
+      name = "revData"
+        localStorage.setItem(
+         name,
+         json
+          // CryptoJS.AES.encrypt(json, "secret key 123").toString()
+        );
+
+        json = JSON.stringify(this.summary);
+      name = "sumData"
+        localStorage.setItem(
+         name,
+         json
+          // CryptoJS.AES.encrypt(json, "secret key 123").toString()
+        );
   }
 
   public getLocal(name) {
@@ -938,35 +952,67 @@ export class RevService {
   }
 
   calculateRevSheets(){
+    this.tempSummary  = [];
+    
     this.revKeys.forEach(key=>{
       this.calculateRevSheet(key)
     })
 
   }
 
-   public calculateRevSheet(date) {
+  public calculateRevSheet(date) {
+   
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
+      if(!this.tempSummary[tab.name]) this.tempSummary[tab.name]=[];
       var tempList: Array<any> = [];
       tab.data.forEach((item, id) => {
         var revItem = this.revizia[date].filter(i => {
           return i.id == item.id;
         })[0];
         var prevIdx = this.revKeys.indexOf(date)-1;
-        // console.log(prevIdx)
+        // console.log(id)
 
         var itm = this.revItemCalculator(revItem, item, date, prevIdx);
         if (itm) {
+          
           tempList[id] = itm;
           this[date + "Sum"] += Number(itm.sum) || 0;
-          // this.revizia[date][this.revizia[date].indexOf(revItem)] = itm
+           
+          this.tempSummary[tab.name][id] = this.sumProp(this.tempSummary[tab.name][id],itm);
+
+           this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
+           //this.sumSheet = 
         }
       });
       this.viewSheet[date][tab.name] = tempList;
-      //  console.log( tempList)
+      
+      
+      
     });
-    // console.log( this.viewSheet)
+    this.sumSheetView = this.tempSummary;
+    // console.log(this.sumSheetView)
     return this[date];
+  }
+
+  sumProp(a,b){
+    // console.log(a);
+    if(!a) return b;
+    var obj ={}
+      Object.keys(a).map(function(x){
+        switch (x){
+          case "name": 
+          case "starts":
+            if(!obj[x]) obj[x] = a[x];
+            break;
+          case "ends":
+            obj[x] = b[x];break;
+          default:  obj[x] = a[x] +b[x];
+
+        }
+       });
+      //  console.log(obj)
+    return obj;
   }
 
   public revItemCalculator(item, menuItem, date, prevIdx) {
@@ -1012,6 +1058,10 @@ export class RevService {
     item.sum = Math.round(item.roundSold * menuItem.price * 100) / 100;
 
     return item;
+  }
+
+  sumItemCalc(item, menuItem){
+
   }
 
   addMenuTab(){

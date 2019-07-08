@@ -16,16 +16,7 @@ export class ReviziaSheetComponent extends SheetComponent {
   @Input() tabIdx: string;
   @Input() tabName: string;
 
-  editField: string;
-
   dataList;
-  menuList;
-  nextFocus: any;
-  // dataList: Array<any> = [];
-  // viewList: Array<any> = [];
-  rev;
-  focus: any;
-  history: Array<any> = [];
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);

@@ -29,10 +29,7 @@
               </thead>
               <tbody>
                 <tr
-                  *ngFor="
-                    let item of dat.viewSheet[date][tabName];
-                    let id = index
-                  "
+                  *ngFor="let item of dat.sumSheetView[tabName]; let id = index"
                 >
                   <td class="textLeft name">
                     <span contenteditable="false">{{ item.name }}</span>

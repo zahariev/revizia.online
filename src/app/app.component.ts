@@ -38,7 +38,8 @@ export class AppComponent {
 
     mlist =
       document.getElementById("revTab" + this.data.tabSelectedIdx) ||
-      document.getElementById("menuTab" + this.data.tabSelectedIdx);
+      document.getElementById("menuTab" + this.data.tabSelectedIdx) ||
+      document.getElementById("sumTab" + this.data.tabSelectedIdx);
 
     if (mlist) {
       mlist.parentElement.scrollTo(0, scrollPos);
