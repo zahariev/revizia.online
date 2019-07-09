@@ -1,0 +1,158 @@
+<!-- Editable table -->
+<div class="container" (mousewheel)="mousewheel($event)">
+  <div class="row">
+    <div class="col-md-12 mx-auto text-center ">
+      <div class="total">
+        <span class="date"></span>
+        <span class="totalSum"> Сума: {{ dat[date + "Sum"] | BGN }}</span>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div id="table" class="table-editable">
+            <table
+              contenteditable="false"
+              class="table table-bordered table-responsive-md table-striped text-center"
+            >
+              <thead class="headerRow">
+                <tr>
+                  <th class="text-center name">Артикул</th>
+                  <th class="text-center cost">ед.ц.</th>
+                  <th class="text-center minus">-</th>
+                  <th class="text-center mplus">+</th>
+                  <th class="text-center starts">Starts</th>
+                  <th class="text-center ends">Ends</th>
+                  <th class="text-center diff">р-ка</th>
+                  <th class="text-center roundSold">бр.</th>
+                  <th class="text-center pos">pos</th>
+                  <th class="text-center sum">Сума</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let item of dat.sumSheetView[tabName]; let id = index"
+                >
+                  <td class="textLeft name">
+                    <span contenteditable="false">{{ item.name }}</span>
+                  </td>
+                  <td>
+                    <span class="itemPrice price" contenteditable="false">{{
+                      item.price | hideZero | BGN
+                    }}</span>
+                  </td>
+
+                  <ng-container *ngIf="!editable; else editTemplate">
+                    <td class="minus">
+                      {{ item.minus | hideZero }}
+                    </td>
+                    <td class="mplus">
+                      {{ item.mplus | hideZero }}
+                    </td>
+                  </ng-container>
+                  <ng-template #editTemplate>
+                    <td
+                      class="minus"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'minus', $event)"
+                      (keydown)="keyDown(item, 'minus', $event)"
+                      (click)="onClick(item, 'minus', $event)"
+                      (blur)="onBlur(item, 'minus', $event)"
+                      (input)="onInput(item, 'minus', $event)"
+                    >
+                      {{ item.minus | hideZero }}
+                    </td>
+
+                    <td
+                      class="mplus"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 1 }}"
+                      (keyup)="keyUp(item, 'mplus', $event)"
+                      (keydown)="keyDown(item, 'mplus', $event)"
+                      (click)="onClick(item, 'mplus', $event)"
+                      (blur)="onBlur(item, 'mplus', $event)"
+                      (input)="onInput(item, 'mplus', $event)"
+                    >
+                      <!-- (blur)="updateList(item, 'mplus', $event)" -->
+                      {{ item.mplus | hideZero }}
+                    </td>
+                  </ng-template>
+
+                  <td class="starts">
+                    <span contenteditable="false">{{
+                      item.starts | hideZero
+                    }}</span>
+                  </td>
+
+                  <td class="ends" *ngIf="!editable; else editTemplate2">
+                    {{ item.ends | hideZero }}
+                  </td>
+
+                  <ng-template #editTemplate2>
+                    <td
+                      class="ends"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 2 }}"
+                      (keyup)="keyUp(item, 'ends', $event)"
+                      (keydown)="keyDown(item, 'ends', $event)"
+                      (click)="onClick(item, 'ends', $event)"
+                      (blur)="onBlur(item, 'ends', $event)"
+                      (input)="onInput(item, 'ends', $event)"
+                    >
+                      {{ item.ends | hideZero }}
+                    </td>
+                  </ng-template>
+                  <td class="textRight diff">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.diff | hideZero }}</span
+                    >
+                  </td>
+                  <td class="textRight roundSold">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.roundSold | hideZero }}</span
+                    >
+                  </td>
+                  <td class="textRight pos">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                    >
+                    </span>
+                  </td>
+                  <!-- | Round: item -->
+                  <td class="textRight sum">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.sum | hideZero | BGN }}
+                    </span>
+                  </td>
+                  <!-- <td>
+            <span class="table-remove">
+              <button
+                type="button"
+                mdbBtn
+                color="danger"
+                rounded="true"
+                size="sm"
+                class="my-0"
+                (click)="remove(id)"
+              >
+                Remove
+              </button>
+            </span>
+          </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="total"></div>
+        </div>
+      </div>
+      <!-- Editable table -->
+    </div>
+  </div>
+</div>
