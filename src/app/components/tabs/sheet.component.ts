@@ -1,4 +1,9 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ɵCodegenComponentFactoryResolver
+} from "@angular/core";
 
 import { RevService } from "app/shared/services/rev.service";
 @Component({
@@ -192,8 +197,8 @@ export class SheetComponent implements OnInit {
     } else {
       idx = this.dataList.filter(itm => itm.id == item.id)[0];
       idx = this.dataList.indexOf(idx);
-      if (this.date == "menuList") this.dataList[idx] = item;
-      else this.dat[this.date][idx] = item;
+
+      this.dataList[idx] = item;
     }
 
     this.dat.store(this.date);
