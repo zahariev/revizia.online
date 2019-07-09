@@ -8,7 +8,7 @@ import { MatTabChangeEvent } from "@angular/material/tabs";
   templateUrl: "./tara-sheet.component.html",
   styleUrls: ["./tara-sheet.component.css"]
 })
-export class TabsSumSheetComponent {
+export class TabsTaraSheetComponent {
   editable: boolean;
   @Input() date: any;
   selectedIndex: number;

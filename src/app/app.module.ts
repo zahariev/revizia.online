@@ -34,10 +34,12 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
     SummarySheetComponent,
     ReviziaSheetComponent,
     MenuSheetComponent,
+    TaraSheetComponent,
     CashSheetComponent,
     TabsMenuSheetComponent,
     TabsRevSheetComponent,
     TabsSumSheetComponent,
+    TabsTaraSheetComponent,
     CdkLazyDropList,
     CdkLazyDrag,
     SheetComponent
