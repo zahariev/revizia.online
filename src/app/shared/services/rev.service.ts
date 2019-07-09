@@ -1008,8 +1008,10 @@ export class RevService {
             break;
           case "ends":
             obj[x] = b[x];break;
-          default:  obj[x] = a[x] +b[x];
-
+          default:  
+          obj[x] = a[x]+b[x];
+          obj[x] = Math.round(obj[x] * 1000)/1000;
+          break;
         }
        });
       //  console.log(obj)
