@@ -5,8 +5,8 @@ import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
   selector: "tabs-sum-sheet",
-  templateUrl: "./tabs-sum-sheet.component.html",
-  styleUrls: ["./tabs-sum-sheet.component.css"]
+  templateUrl: "./sum-sheet.component.html",
+  styleUrls: ["./sum-sheet.component.css"]
 })
 export class TabsSumSheetComponent {
   editable: boolean;

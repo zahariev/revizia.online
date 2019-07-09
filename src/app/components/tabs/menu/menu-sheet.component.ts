@@ -5,8 +5,8 @@ import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
 
 @Component({
   selector: "tabs-menu-sheet",
-  templateUrl: "./tabs-menu-sheet.component.html",
-  styleUrls: ["./tabs-menu-sheet.component.css"]
+  templateUrl: "./menu-sheet.component.html",
+  styleUrls: ["./menu-sheet.component.css"]
 })
 export class TabsMenuSheetComponent implements OnInit {
   // viewList;

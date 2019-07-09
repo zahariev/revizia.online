@@ -5,8 +5,8 @@ import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
   selector: "tabs-rev-sheet",
-  templateUrl: "./tabs-rev-sheet.component.html",
-  styleUrls: ["./tabs-rev-sheet.component.css"]
+  templateUrl: "./rev-sheet.component.html",
+  styleUrls: ["./rev-sheet.component.css"]
 })
 export class TabsRevSheetComponent {
   editable: boolean;
