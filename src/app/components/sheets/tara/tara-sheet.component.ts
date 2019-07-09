@@ -6,11 +6,11 @@ import { RevService } from "app/shared/services/rev.service";
 import { SheetComponent } from "../sheet.component";
 
 @Component({
-  selector: "summary-sheet",
-  templateUrl: "./summary-sheet.component.html",
-  styleUrls: ["./summary-sheet.component.css"]
+  selector: "tara-sheet",
+  templateUrl: "./tara-sheet.component.html",
+  styleUrls: ["./tara-sheet.component.css"]
 })
-export class SummarySheetComponent extends SheetComponent {
+export class TaraSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
   @Input() tabIdx: string;
   @Input() tabName: string;

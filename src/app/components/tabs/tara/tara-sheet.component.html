@@ -1,0 +1,31 @@
+<mat-sidenav-container style="min-height:800px" class="container">
+  <!-- TABS    -->
+  <!-- <div id="saveBtn">
+      <button class="btn-danger" btn-rounded btn-sm>
+        Save changes
+      </button>
+    </div> -->
+  <mat-tab-group
+    animationDuration="0"
+    id="reviziaTabs"
+    [@.disabled]="true"
+    (selectedTabChange)="onSelectedTabChange($event)"
+    [selectedIndex]="data.tabSelectedIdx"
+  >
+    <mat-tab *ngFor="let tab of data.menuList; let idx = index">
+      <!-- [label]="tab.name" -->
+      <ng-template mat-tab-label>
+        <span> {{ tab.name }}</span>
+
+        <!-- <span class="smallSum"> 1{{ data[tab.name + "Sum"] | BGN }}</span> -->
+      </ng-template>
+
+      <summary-sheet
+        class="summaryTab"
+        [tabIdx]="idx"
+        [tabName]="tab.name"
+        id="sumTab{{ idx }}"
+      ></summary-sheet>
+    </mat-tab>
+  </mat-tab-group>
+</mat-sidenav-container>

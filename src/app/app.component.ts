@@ -16,6 +16,7 @@ export class AppComponent {
   data;
   tabs = [];
   buttonName = "CashOut";
+  // hideMenu = true;
 
   constructor(data: RevService, el: ElementRef) {
     this.el = el;
