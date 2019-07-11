@@ -34,16 +34,17 @@ export class AppComponent {
     // tab selector in place
     window.dispatchEvent(new Event("resize"));
 
-    var mlist;
+    var scrollTab;
     var scrollPos = this.data.tabScrollPos[this.data.tabSelectedIdx];
-
-    mlist =
+    // console.log(tabChange);
+    scrollTab =
       document.getElementById("revTab" + this.data.tabSelectedIdx) ||
       document.getElementById("menuTab" + this.data.tabSelectedIdx) ||
-      document.getElementById("sumTab" + this.data.tabSelectedIdx);
+      document.getElementById("sumTab" + this.data.tabSelectedIdx) ||
+      document.getElementById("taraTab" + this.data.tabSelectedIdx);
 
-    if (mlist) {
-      mlist.parentElement.scrollTo(0, scrollPos);
+    if (scrollTab) {
+      scrollTab.parentElement.scrollTo(0, scrollPos);
     } else {
     }
   }
