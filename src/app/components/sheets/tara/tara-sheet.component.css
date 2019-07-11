@@ -32,6 +32,7 @@ th {
 
 td {
   min-width: 80px;
+  height: 37px;
 }
 
 #table {
@@ -84,21 +85,23 @@ table.table th {
 tr td:nth-child(1),
 tr td:nth-child(2),
 tr td:nth-child(5),
-tr td:nth-child(9) {
+tr td:nth-child(6),
+tr td:nth-child(9),
+tr td:nth-child(10) {
   background: rgba(58, 250, 131, 0.295);
 
   padding: 5px;
 }
 
-tr td:nth-child(7),
-tr td:nth-child(10) {
+tr td:nth-child(17),
+tr td:nth-child(18) {
   background: rgba(58, 180, 250, 0.295);
 }
 
-tr td:nth-child(8),
-tr td:nth-child(9) {
+/* tr td:nth-child(9),
+tr td:nth-child(10) {
   background: rgba(255, 202, 173, 0.438);
-}
+} */
 
 tr span:not([class]) {
   padding: 0.7rem;
