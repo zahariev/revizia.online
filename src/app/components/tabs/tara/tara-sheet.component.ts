@@ -15,8 +15,6 @@ export class TabsTaraSheetComponent {
 
   constructor(public data: RevService) {
     // this.data = data;
-    // console.log(data.menuList);
-    // this.viewList = data.menuList;
     this.editable = true;
     this.selectedIndex = data.tabSelectedIdx;
   }
@@ -26,8 +24,8 @@ export class TabsTaraSheetComponent {
     // Maintain scroll position of the last scrolled tab idx
     this.data.tabSelectedIdx = tabChange.index;
 
-    var mlist = document.getElementById("revTab" + tabChange.index);
-
+    var mlist = document.getElementById("taraTab" + tabChange.index);
+    console.log(mlist);
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }
