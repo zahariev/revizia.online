@@ -108,8 +108,7 @@ export class MenuSheetComponent extends SheetComponent {
     // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
 
-    this.dat.store(this.date);
-    // this.viewList[item.id] = item;
+    this.dat.store();
 
     this.gridInit();
   }
@@ -133,7 +132,7 @@ export class MenuSheetComponent extends SheetComponent {
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-    this.dat.store(this.date);
+    this.dat.store();
     this.gridInit();
   }
 }
