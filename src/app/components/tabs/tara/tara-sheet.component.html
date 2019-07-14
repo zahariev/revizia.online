@@ -20,12 +20,13 @@
         <!-- <span class="smallSum"> 1{{ data[tab.name + "Sum"] | BGN }}</span> -->
       </ng-template>
 
-      <summary-sheet
-        class="summaryTab"
+      <tara-sheet
+        class="menuTab"
+        [editable]="editable"
         [tabIdx]="idx"
         [tabName]="tab.name"
-        id="sumTab{{ idx }}"
-      ></summary-sheet>
+        id="taraTab{{ idx }}"
+      ></tara-sheet>
     </mat-tab>
   </mat-tab-group>
 </mat-sidenav-container>

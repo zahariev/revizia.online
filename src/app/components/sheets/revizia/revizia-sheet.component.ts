@@ -17,7 +17,7 @@ export class ReviziaSheetComponent extends SheetComponent {
   @Input() tabName: string;
 
   dataList;
-
+  viewList;
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
     this.columnList.length = 3;
@@ -25,5 +25,6 @@ export class ReviziaSheetComponent extends SheetComponent {
 
   ngOnInit() {
     this.dataList = this.dat.revizia[this.date];
+    this.viewList = this.dat.revSheetView[this.date][this.tabName];
   }
 }

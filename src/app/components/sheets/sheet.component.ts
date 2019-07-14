@@ -26,26 +26,43 @@ export class SheetComponent implements OnInit {
   ngOnInit() {}
 
   updateList(item, property: string, el: any) {
-    var idx = this.dataList.indexOf(item);
+    var itemExists = this.dataList.filter(i => {
+      return i.id == item.id;
+    })[0];
+    item = itemExists || item;
+
+    // ||{
+    //   id: item.id,
+    //   minus: 0,
+    //   mplus: 0,
+    //   ends: 0
+    // }
+
+    // format edited text field
     var value = el.innerText + "";
     el.innerText = "";
     value = value.replace(/\r?\n|\r\s/g, "");
 
-    var newItem = this.dataList[idx] || {
-      id: item.id,
-      minus: 0,
-      mplus: 0,
-      ends: 0
-    };
     if (this.contentChange) {
       var oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
-      newItem[property] = Number(value) || value;
-      if (idx == -1) this.dataList.push(newItem);
-      el.innerText = value;
-    } else el.innerHTML = newItem[property] || "";
+      item[property] = Number(value) || value;
 
-    this.dat.store(this.date);
+      if (!itemExists) {
+        // console.log(idx);
+        // console.log(this.dataList);
+        this.dataList.push(item);
+      } else {
+        itemExists = item;
+      }
+      // console.log(this.dat.taraList);
+      el.innerText = value;
+    } else {
+      // not to double values in text filed on chrome
+      el.innerHTML = item[property] || "";
+    }
+
+    this.dat.store();
     this.contentChange = false;
   }
 
@@ -201,7 +218,7 @@ export class SheetComponent implements OnInit {
       this.dataList[idx] = item;
     }
 
-    this.dat.store(this.date);
+    this.dat.store();
     this.gridInit();
   }
 }

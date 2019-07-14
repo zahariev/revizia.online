@@ -16,135 +16,203 @@
               <thead class="headerRow">
                 <tr>
                   <th class="text-center name">Артикул</th>
-                  <th class="text-center cost">ед.ц.</th>
-                  <th class="text-center minus">-</th>
-                  <th class="text-center mplus">+</th>
-                  <th class="text-center starts">Starts</th>
-                  <th class="text-center ends">Ends</th>
-                  <th class="text-center diff">р-ка</th>
-                  <th class="text-center roundSold">бр.</th>
-                  <th class="text-center pos">pos</th>
-                  <th class="text-center sum">Сума</th>
+                  <th class="text-center net">net</th>
+                  <th class="text-center bruto">bruto 0.7</th>
+                  <th class="text-center bruto">1 l/kg</th>
+                  <th class="text-center tara">tara 0.7</th>
+                  <th class="text-center tara">1l</th>
+                  <th class="text-center qty">р-я 0.7</th>
+                  <th class="text-center qty">1л</th>
+                  <th class="text-center starts">starts</th>
+                  <th class="text-center buy">buy</th>
+                  <th class="text-center ends">ends</th>
+                  <th class="text-center store">inStorage</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  *ngFor="let item of dat.sumSheetView[tabName]; let id = index"
+                  *ngFor="
+                    let item of dat.taraSheetView[tabName];
+                    let id = index
+                  "
                 >
                   <td class="textLeft name">
                     <span contenteditable="false">{{ item.name }}</span>
                   </td>
                   <td>
-                    <span class="itemPrice price" contenteditable="false">{{
-                      item.price | hideZero | BGN
-                    }}</span>
+                    <span
+                      class="itemPrice net"
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.net < 0 }"
+                      >{{ item.net | number: "1.0-0" | hideZero }}</span
+                    >
                   </td>
 
                   <ng-container *ngIf="!editable; else editTemplate">
-                    <td class="minus">
-                      {{ item.minus | hideZero }}
+                    <td class="bruto">
+                      {{ item.bruto | hideZero }}
                     </td>
-                    <td class="mplus">
-                      {{ item.mplus | hideZero }}
+                    <td class="bruto1">
+                      {{ item.bruto1 | hideZero }}
+                    </td>
+                    <td class="tara">
+                      <span contenteditable="false">{{
+                        item.tara | hideZero
+                      }}</span>
+                    </td>
+                    <td class="tara1">
+                      <span contenteditable="false">{{
+                        item.tara | hideZero
+                      }}</span>
+                    </td>
+                    <td class="taraQty">
+                      <span contenteditable="false">{{
+                        item.taraQty | hideZero
+                      }}</span>
+                    </td>
+                    <td class="taraQty1">
+                      <span contenteditable="false">{{
+                        item.taraQty1 | hideZero
+                      }}</span>
+                    </td>
+                    <td class="starts">
+                      <span contenteditable="false">{{
+                        item.starts | hideZero
+                      }}</span>
+                    </td>
+                    <td class="buy">
+                      <span contenteditable="false">{{
+                        item.buy | hideZero
+                      }}</span>
+                    </td>
+                    <td class="ends">
+                      <span contenteditable="false">{{
+                        item.ends | hideZero
+                      }}</span>
+                    </td>
+                    <td class="ends">
+                      <span contenteditable="false">{{
+                        item.inStore | hideZero
+                      }}</span>
                     </td>
                   </ng-container>
+
                   <ng-template #editTemplate>
                     <td
-                      class="minus"
+                      class="bruto"
                       :inner-text.prop="value"
                       tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
-                      (keyup)="keyUp(item, 'minus', $event)"
-                      (keydown)="keyDown(item, 'minus', $event)"
-                      (click)="onClick(item, 'minus', $event)"
-                      (blur)="onBlur(item, 'minus', $event)"
-                      (input)="onInput(item, 'minus', $event)"
+                      (keyup)="keyUp(item, 'bruto', $event)"
+                      (keydown)="keyDown(item, 'bruto', $event)"
+                      (click)="onClick(item, 'bruto', $event)"
+                      (blur)="onBlur(item, 'bruto', $event)"
+                      (input)="onInput(item, 'bruto', $event)"
                     >
-                      {{ item.minus | hideZero }}
+                      {{ item.bruto | hideZero }}
                     </td>
 
                     <td
-                      class="mplus"
+                      class="bruto1"
                       :inner-text.prop="value"
-                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 1 }}"
-                      (keyup)="keyUp(item, 'mplus', $event)"
-                      (keydown)="keyDown(item, 'mplus', $event)"
-                      (click)="onClick(item, 'mplus', $event)"
-                      (blur)="onBlur(item, 'mplus', $event)"
-                      (input)="onInput(item, 'mplus', $event)"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'bruto1', $event)"
+                      (keydown)="keyDown(item, 'bruto1', $event)"
+                      (click)="onClick(item, 'bruto1', $event)"
+                      (blur)="onBlur(item, 'bruto1', $event)"
+                      (input)="onInput(item, 'bruto1', $event)"
                     >
-                      <!-- (blur)="updateList(item, 'mplus', $event)" -->
-                      {{ item.mplus | hideZero }}
+                      {{ item.bruto1 | hideZero }}
                     </td>
-                  </ng-template>
-
-                  <td class="starts">
-                    <span contenteditable="false">{{
-                      item.starts | hideZero
-                    }}</span>
-                  </td>
-
-                  <td class="ends" *ngIf="!editable; else editTemplate2">
-                    {{ item.ends | hideZero }}
-                  </td>
-
-                  <ng-template #editTemplate2>
                     <td
-                      class="ends"
+                      class="tara"
                       :inner-text.prop="value"
-                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 + 2 }}"
-                      (keyup)="keyUp(item, 'ends', $event)"
-                      (keydown)="keyDown(item, 'ends', $event)"
-                      (click)="onClick(item, 'ends', $event)"
-                      (blur)="onBlur(item, 'ends', $event)"
-                      (input)="onInput(item, 'ends', $event)"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'tara', $event)"
+                      (keydown)="keyDown(item, 'tara', $event)"
+                      (click)="onClick(item, 'tara', $event)"
+                      (blur)="onBlur(item, 'tara', $event)"
+                      (input)="onInput(item, 'tara', $event)"
                     >
-                      {{ item.ends | hideZero }}
+                      {{ item.tara | hideZero }}
+                    </td>
+                    <td
+                      class="tara1"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'tara1', $event)"
+                      (keydown)="keyDown(item, 'tara1', $event)"
+                      (click)="onClick(item, 'tara1', $event)"
+                      (blur)="onBlur(item, 'tara1', $event)"
+                      (input)="onInput(item, 'tara1', $event)"
+                    >
+                      {{ item.tara1 | hideZero }}
+                    </td>
+                    <td
+                      class="taraQty"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'taraQty', $event)"
+                      (keydown)="keyDown(item, 'taraQty', $event)"
+                      (click)="onClick(item, 'taraQty', $event)"
+                      (blur)="onBlur(item, 'taraQty', $event)"
+                      (input)="onInput(item, 'taraQty', $event)"
+                    >
+                      {{ item.taraQty | hideZero }}
+                    </td>
+                    <td
+                      class="taraQty1"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'taraQty1', $event)"
+                      (keydown)="keyDown(item, 'taraQty1', $event)"
+                      (click)="onClick(item, 'taraQty1', $event)"
+                      (blur)="onBlur(item, 'taraQty1', $event)"
+                      (input)="onInput(item, 'taraQty1', $event)"
+                    >
+                      {{ item.taraQty1 | hideZero }}
                     </td>
                   </ng-template>
-                  <td class="textRight diff">
+
+                  <td class="textRight starts">
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.diff < 0 }"
-                      >{{ item.diff | hideZero }}</span
+                      >{{ item.starts | hideZero }}</span
                     >
                   </td>
-                  <td class="textRight roundSold">
-                    <span
-                      contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
-                      >{{ item.roundSold | hideZero }}</span
-                    >
+
+                  <td
+                    class="textRight buy"
+                    :inner-text.prop="value"
+                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                    (keyup)="keyUp(item, 'buy', $event)"
+                    (keydown)="keyDown(item, 'buy', $event)"
+                    (click)="onClick(item, 'buy', $event)"
+                    (blur)="onBlur(item, 'buy', $event)"
+                    (input)="onInput(item, 'buy', $event)"
+                  >
+                    {{ item.buy | hideZero }}
                   </td>
-                  <td class="textRight pos">
+                  <td class="textRight ends">
                     <span
                       contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
-                    >
+                      [ngClass]="{ negative: item.ends < 0 }"
+                      >{{ item.ends | hideZero }}
                     </span>
                   </td>
                   <!-- | Round: item -->
-                  <td class="textRight sum">
-                    <span
-                      contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
-                      >{{ item.sum | hideZero | BGN }}
-                    </span>
+                  <td
+                    class="textRight inStore"
+                    :inner-text.prop="value"
+                    tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                    (keyup)="keyUp(item, 'inStore', $event)"
+                    (keydown)="keyDown(item, 'inStore', $event)"
+                    (click)="onClick(item, 'inStore', $event)"
+                    (blur)="onBlur(item, 'inStore', $event)"
+                    (input)="onInput(item, 'inStore', $event)"
+                  >
+                    {{ item.inStore | hideZero | BGN }}
                   </td>
-                  <!-- <td>
-            <span class="table-remove">
-              <button
-                type="button"
-                mdbBtn
-                color="danger"
-                rounded="true"
-                size="sm"
-                class="my-0"
-                (click)="remove(id)"
-              >
-                Remove
-              </button>
-            </span>
-          </td> -->
                 </tr>
               </tbody>
             </table>

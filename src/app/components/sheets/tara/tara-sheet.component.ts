@@ -17,6 +17,8 @@ export class TaraSheetComponent extends SheetComponent {
 
   viewList;
 
+  date = "taraList";
+
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
 
@@ -24,7 +26,9 @@ export class TaraSheetComponent extends SheetComponent {
   }
 
   ngOnInit() {
-    // console.log(this.dat.viewSheet);
-    // this.dataList = this.dat.revizia[this.date];
+    // console.log(this.dat.taraList);
+    this.dataList = this.dat.taraList; //[this.tabName];
+    this.viewList = this.dat.taraSheetView[this.tabName];
+    // console.log(this.dat.taraSheetView);
   }
 }
