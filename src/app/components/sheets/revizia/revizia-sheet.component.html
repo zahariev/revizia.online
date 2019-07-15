@@ -32,7 +32,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of viewList; let id = index">
+                <tr
+                  *ngFor="
+                    let item of dat.revSheetView[date][tabName];
+                    let id = index
+                  "
+                >
                   <td class="textLeft name">
                     <span contenteditable="false">{{ item.name }}</span>
                   </td>

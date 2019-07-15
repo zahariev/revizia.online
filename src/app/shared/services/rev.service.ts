@@ -982,50 +982,51 @@ export class RevService {
   }
 
   public calculateSheet(date) {
-    this.tempTara = [];
-    this.tempSummary=[];
-    this.tempRevizia[date]=[];
+    // this.tempTara = [];
+    // this.tempSummary=[];
+    // this.tempRevizia[date]=[];
 
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
 
       if(!this.tempSummary[tab.name]) this.tempSummary[tab.name]=[];
-      if(!this.tempTara[tab.name]) this.tempTara[tab.name]=[];
+      // if(!this.tempTara[tab.name]) this.tempTara[tab.name]=[];
      
       var tempList: Array<any> = [];
-      var prevDayIdx = this.revKeys.indexOf(date)-1;
-
+     
       tab.data.forEach((item, id) => { 
        
-       
-         // console.log(prevIdx)
+        var prevDayIdx = this.revKeys.indexOf(date)-1;
 
-        var itm = this.revItemCalculator(item, date, prevDayIdx);
+         // console.log(prevIdx)
+        var itm = this.revItemCalculator(Object.assign({},item), date, prevDayIdx);
         if (itm) {
-          this.tempRevizia[date].push(itm);
+         // this.tempRevizia[date].push(itm);
           tempList[id] = itm;
           
           this[date + "Sum"] += Number(itm.sum) || 0;
            
           this.tempSummary[tab.name][id] = this.sumProp(this.tempSummary[tab.name][id],itm);
           
-          this.tempTara[tab.name][id] = this.taraSums(item);
+          // this.tempTara[tab.name][id] = this.taraSums(itm);
           
            this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
            //this.sumSheet = 
         }
       });
-      console.log(tempList)
+      //  console.log(tempList)
 
       this.revSheetView[date][tab.name] = tempList;
       // this.taraSheetView[tab.name] = this.tempTara;      
       
     });
+
+    // console.log(this.revSheetView)
     this.sumSheetView = this.tempSummary;
-     this.taraSheetView = this.tempTara; 
-     this.revizia = this.tempRevizia;
+    //  this.taraSheetView = this.tempTara; 
+    //  this.revizia = this.tempRevizia;
     //  console.log(this.taraSheetView)
-    //return this[date];
+    return this[date];
   }
 
   sumProp(a,b){
