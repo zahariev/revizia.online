@@ -973,7 +973,7 @@ export class RevService {
 
   calculateSheets(){
     this.tempSummary  = [];
-    this.tempRevizia = {};
+    this.tempTara = [];
 
     this.revKeys.forEach(key=>{
       this.calculateSheet(key)
@@ -990,7 +990,7 @@ export class RevService {
     this.menuList.forEach(tab => {
 
       if(!this.tempSummary[tab.name]) this.tempSummary[tab.name]=[];
-      // if(!this.tempTara[tab.name]) this.tempTara[tab.name]=[];
+      if(!this.tempTara[tab.name]) this.tempTara[tab.name]=[];
      
       var tempList: Array<any> = [];
      
@@ -1008,7 +1008,7 @@ export class RevService {
            
           this.tempSummary[tab.name][id] = this.sumProp(this.tempSummary[tab.name][id],itm);
           
-          // this.tempTara[tab.name][id] = this.taraSums(itm);
+          this.tempTara[tab.name][id] = this.taraSums(Object.assign({},item));
           
            this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
            //this.sumSheet = 
@@ -1023,7 +1023,7 @@ export class RevService {
 
     // console.log(this.revSheetView)
     this.sumSheetView = this.tempSummary;
-    //  this.taraSheetView = this.tempTara; 
+     this.taraSheetView = this.tempTara; 
     //  this.revizia = this.tempRevizia;
     //  console.log(this.taraSheetView)
     return this[date];
@@ -1053,7 +1053,7 @@ export class RevService {
   }
 
   taraSums(menuItem){
-    var tItem = this.taraList.filter(i=>
+    var item = this.taraList.filter(i=>
       {return i.id == menuItem.id;
       })[0]||{bruto: 0,
         bruto1: 0,
@@ -1065,12 +1065,13 @@ export class RevService {
         buy:0,
         ends: 0};
         
-        tItem = Object.assign(menuItem,tItem);
+        var tItem = Object.assign(menuItem,item);
     
-    //this.tempTara.push(tItem);
+    
 
     tItem.net = (tItem.bruto1-tItem.tara1)||(tItem.bruto-tItem.tara)/0.7;
-    
+    this.taraList[this.taraList.indexOf(item)]= tItem;
+
     return tItem;
   }
 
