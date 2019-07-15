@@ -984,7 +984,7 @@ export class RevService {
   public calculateSheet(date) {
     this.tempTara = [];
     this.tempSummary=[];
-    // this.tempRevizia[date]=[];
+    this.tempRevizia[date]=[];
 
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
@@ -993,16 +993,18 @@ export class RevService {
       if(!this.tempTara[tab.name]) this.tempTara[tab.name]=[];
      
       var tempList: Array<any> = [];
+      var prevDayIdx = this.revKeys.indexOf(date)-1;
 
       tab.data.forEach((item, id) => { 
        
-        var prevIdx = this.revKeys.indexOf(date)-1;
+       
          // console.log(prevIdx)
 
-        var itm = this.revItemCalculator(item, date, prevIdx);
+        var itm = this.revItemCalculator(item, date, prevDayIdx);
         if (itm) {
-          // this.tempRevizia[date].push(itm);
+          this.tempRevizia[date].push(itm);
           tempList[id] = itm;
+          
           this[date + "Sum"] += Number(itm.sum) || 0;
            
           this.tempSummary[tab.name][id] = this.sumProp(this.tempSummary[tab.name][id],itm);
@@ -1014,15 +1016,16 @@ export class RevService {
         }
       });
       console.log(tempList)
+
       this.revSheetView[date][tab.name] = tempList;
       // this.taraSheetView[tab.name] = this.tempTara;      
       
     });
     this.sumSheetView = this.tempSummary;
      this.taraSheetView = this.tempTara; 
-    //  this.revizia = this.tempRevizia;
+     this.revizia = this.tempRevizia;
     //  console.log(this.taraSheetView)
-    return this[date];
+    //return this[date];
   }
 
   sumProp(a,b){
@@ -1070,7 +1073,7 @@ export class RevService {
     return tItem;
   }
 
-  public revItemCalculator( menuItem, date, prevIdx) {
+  public revItemCalculator( menuItem, date, prevDayIdx) {
 
         var revItem = this.revizia[date].filter(i => {
           return i.id == menuItem.id;
@@ -1083,20 +1086,20 @@ export class RevService {
 
       // this.revizia[date].push(revItem); // ?????
 // console.log(this.revizia[date])
-    if((prevIdx>-1))
+    if((prevDayIdx>-1))
     {
-      var prevDay = this.revKeys[prevIdx];
+      var prevDay = this.revKeys[prevDayIdx];
     var prevRev = this.revizia[prevDay].filter(i => {
         return i.id == menuItem.id;
       })[0] || {};
     revItem.starts = prevRev["ends"] || 0;
-    console.log(prevRev)
+    // console.log(prevRev)
     }
-  var item = Object.assign(revItem,menuItem);
+  var item = Object.assign(menuItem,revItem);
     item = this.viewItemCalc(item);
     // console.log(item);
 
-    return revItem;
+    return item;
   }
 
   viewItemCalc(item) {
@@ -1143,7 +1146,7 @@ export class RevService {
       this.revizia[datestring] = [];
       
       this.revSheetView[datestring] = {};
-      this.calculateRevSheets();
+      this.calculateSheets();
 
       this.revKeys.sort();
     this.store();
