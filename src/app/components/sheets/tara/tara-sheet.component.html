@@ -173,11 +173,11 @@
                     </td>
                   </ng-template>
 
-                  <td class="textRight starts">
+                  <td class="textRight start">
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.diff < 0 }"
-                      >{{ item.starts | hideZero }}</span
+                      >{{ item.start | hideZero }}</span
                     >
                   </td>
 
@@ -193,11 +193,11 @@
                   >
                     {{ item.buy | hideZero }}
                   </td>
-                  <td class="textRight ends">
+                  <td class="textRight end">
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.ends < 0 }"
-                      >{{ item.ends | hideZero }}
+                      >{{ item.end | hideZero }}
                     </span>
                   </td>
                   <!-- | Round: item -->
