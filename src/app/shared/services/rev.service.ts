@@ -1061,15 +1061,16 @@ export class RevService {
         tara1:0,
         taraQty:0,
         taraQty1:0,
-        starts: 0,
+        start: 0,
         buy:0,
-        ends: 0};
+        end: 0};
         
         var tItem = Object.assign(menuItem,item);
     
     
 
     tItem.net = (tItem.bruto1-tItem.tara1)||(tItem.bruto-tItem.tara)/0.7;
+    // tItem.end = 
     this.taraList[this.taraList.indexOf(item)]= tItem;
 
     return tItem;
