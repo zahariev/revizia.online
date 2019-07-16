@@ -10,13 +10,14 @@ import {
 import { MatIcon } from "@angular/material/icon";
 
 import { RevService } from "app/shared/services/rev.service";
+import { SheetComponent } from "../sheet.component";
 
 @Component({
   selector: "cash-sheet",
   templateUrl: "./cash-sheet.component.html",
   styleUrls: ["./cash-sheet.component.css"]
 })
-export class CashSheetComponent implements OnInit {
+export class CashSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
   @Input() tabIdx: string;
 
@@ -70,7 +71,9 @@ export class CashSheetComponent implements OnInit {
   contentChange: Boolean = false;
   history: Array<any> = [];
 
-  constructor(private data: RevService, public el: ElementRef) {}
+  constructor(private data: RevService, public el: ElementRef) {
+    super(data, el);
+  }
 
   ngOnInit() {
     this.dataList = this.data.menuList[this.tabIdx].data;
@@ -82,4 +85,8 @@ export class CashSheetComponent implements OnInit {
     // console.log(this.history);
     this.viewList = this.data.menuList[this.tabIdx].data;
   }
+
+  drop(ev) {}
+
+  addRow(e) {}
 }
