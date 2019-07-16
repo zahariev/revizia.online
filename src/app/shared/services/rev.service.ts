@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { taraItem, reviziaItem } from "app/shared/models/item.model"
 import { interval } from "rxjs";
 // import { Item, User, Table } from "../models/item.model";
 // import { OpenTab, OpenTabs, Order, CopyA, CopyO } from "../models/tab.model";
@@ -870,13 +871,13 @@ export class RevService {
 
   //view with rendered column data
   revSheetView = {};
-  sumSheet = {};
+  // sumSheet = {};
   sumSheetView = {};
   taraSheetView = [];
 
   tempTara: Array<any> = [];  
   tempSummary: Array<any> = [];  
-  tempRevizia = {};
+  // tempRevizia = {};
 
   summary = {};
   // store scroll offset for menu tab idx
@@ -935,34 +936,33 @@ export class RevService {
       this.calculateSheets();
       
       
-      json = JSON.stringify(this.revizia);
-      name = "revData"
-        localStorage.setItem(
-         name,
-         json
+        json = JSON.stringify(this.revizia);
+        name = "revData"
+          localStorage.setItem(
+          name,
+          json
           // CryptoJS.AES.encrypt(json, "secret key 123").toString()
         );
 
         json = JSON.stringify(this.summary);
-      name = "sumData"
-        localStorage.setItem(
-         name,
-         json
+        name = "sumData"
+          localStorage.setItem(
+          name,
+          json
           // CryptoJS.AES.encrypt(json, "secret key 123").toString()
         );
-// console.log(this.taraList)
+
         json = JSON.stringify(this.taraList);
         name = "taraData"
           localStorage.setItem(
-           name,
-           json
+          name,
+          json
             // CryptoJS.AES.encrypt(json, "secret key 123").toString()
           );
   }
 
   public getLocal(name) {
     if (!localStorage[name]) return 0;
-    // console.log(localStorage[name]);
     return JSON.parse(      
       // CryptoJS.AES.decrypt(
       localStorage.getItem(name)
@@ -998,10 +998,8 @@ export class RevService {
        
         var prevDayIdx = this.revKeys.indexOf(date)-1;
 
-         // console.log(prevIdx)
         var itm = this.revItemCalculator(Object.assign({},item), date, prevDayIdx);
         if (itm) {
-         // this.tempRevizia[date].push(itm);
           tempList[id] = itm;
           
           this[date + "Sum"] += Number(itm.sum) || 0;
@@ -1016,16 +1014,14 @@ export class RevService {
       });
       //  console.log(tempList)
 
-      this.revSheetView[date][tab.name] = tempList;
-      // this.taraSheetView[tab.name] = this.tempTara;      
+      this.revSheetView[date][tab.name] = tempList;     
       
     });
 
     // console.log(this.revSheetView)
     this.sumSheetView = this.tempSummary;
      this.taraSheetView = this.tempTara; 
-    //  this.revizia = this.tempRevizia;
-    //  console.log(this.taraSheetView)
+
     return this[date];
   }
 
@@ -1055,15 +1051,7 @@ export class RevService {
   taraSums(menuItem){
     var item = this.taraList.filter(i=>
       {return i.id == menuItem.id;
-      })[0]||{bruto: 0,
-        bruto1: 0,
-        tara:0,
-        tara1:0,
-        taraQty:0,
-        taraQty1:0,
-        start: 0,
-        buy:0,
-        end: 0};
+      })[0]|| new taraItem();
         
         var tItem = Object.assign(menuItem,item);
     
@@ -1078,29 +1066,22 @@ export class RevService {
 
   public revItemCalculator( menuItem, date, prevDayIdx) {
 
+        var prevDay = this.revKeys[prevDayIdx];
+        if((prevDayIdx<0)) prevDay = date;
+
         var revItem = this.revizia[date].filter(i => {
           return i.id == menuItem.id;
-        })[0]||{
-          id: menuItem.id,
-          minus: 0,
-          mplus: 0,
-          starts: 0,
-          ends: 0};
+        })[0]|| new reviziaItem(menuItem.id)
+    
 
-      // this.revizia[date].push(revItem); // ?????
-// console.log(this.revizia[date])
-    if((prevDayIdx>-1))
-    {
-      var prevDay = this.revKeys[prevDayIdx];
+    
     var prevRev = this.revizia[prevDay].filter(i => {
-        return i.id == menuItem.id;
-      })[0] || {};
+      return i.id == menuItem.id;
+    })[0] || {};
+
     revItem.starts = prevRev["ends"] || 0;
-    // console.log(prevRev)
-    }
   var item = Object.assign(menuItem,revItem);
     item = this.viewItemCalc(item);
-    // console.log(item);
 
     return item;
   }
