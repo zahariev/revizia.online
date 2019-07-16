@@ -21,6 +21,7 @@ export class reviziaItem {
 
 export class taraItem {
   constructor(
+    public id: string = "",
     public bruto: number = 0,
     public bruto1: number = 0,
     public tara: number = 0,
