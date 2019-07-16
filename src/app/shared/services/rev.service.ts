@@ -882,7 +882,7 @@ export class RevService {
   summary = {};
   // store scroll offset for menu tab idx
   tabScrollPos = [];
-  tabSelectedIdx: number;
+  tabSelectedIdx: number = 0;
   revizia = {};
   revKeys = [];
   constructor(data: DataService) {
@@ -1009,16 +1009,12 @@ export class RevService {
           this.tempTara[tab.name][id] = this.taraSums(Object.assign({},item));
           
            this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
-           //this.sumSheet = 
+         
         }
       });
-      //  console.log(tempList)
-
       this.revSheetView[date][tab.name] = tempList;     
       
     });
-
-    // console.log(this.revSheetView)
     this.sumSheetView = this.tempSummary;
      this.taraSheetView = this.tempTara; 
 
@@ -1044,7 +1040,6 @@ export class RevService {
           break;
         }
        });
-      //  console.log(obj)
     return obj;
   }
 
@@ -1094,14 +1089,10 @@ export class RevService {
       ) / 1000;
 
     item.qtySold = Math.round((item.diff / item.qty)*1000)/1000;
-    // item.price = 
-    // item.name = 
-    // item.id =
     item.roundSold =
       Math.round(item.diff / (item.qty * item.round)) * item.round;
     item.sum = Math.round(item.roundSold * item.price * 100) / 100;
        
-        // item.end = ite
     return item;
   }
 
@@ -1115,7 +1106,7 @@ export class RevService {
 
   addMenuTab(){
     var tab = {
-      name: "tabName",
+      name: "newTab",
       data: []
     };
     this.menuList.push(tab)
