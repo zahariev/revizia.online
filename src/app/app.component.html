@@ -15,11 +15,13 @@
     <mat-tab label="menu" *ngIf="!hideMenu">
       <tabs-menu-sheet></tabs-menu-sheet>
     </mat-tab>
-    <mat-tab label="SUMMARY" *ngIf="!hideSummary">
-      <tabs-sum-sheet></tabs-sum-sheet>
-    </mat-tab>
+
     <mat-tab label="Tara" *ngIf="!hideTara">
       <tabs-tara-sheet></tabs-tara-sheet>
+    </mat-tab>
+
+    <mat-tab label="SUMMARY" *ngIf="!hideSummary">
+      <tabs-sum-sheet></tabs-sum-sheet>
     </mat-tab>
 
     <mat-tab *ngFor="let tab of tabs">
