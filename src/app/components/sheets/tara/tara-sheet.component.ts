@@ -28,7 +28,7 @@ export class TaraSheetComponent extends SheetComponent {
   ngOnInit() {
     // console.log(this.dat.taraList);
     this.dataList = this.dat.taraList; //[this.tabName];
-    this.viewList = this.dat.taraSheetView[this.tabName];
+    //this.viewList = this.dat.taraSheetView[this.tabName];
     // console.log(this.dat.taraSheetView);
   }
 }

@@ -23,9 +23,9 @@
                   <th class="text-center tara">1l</th>
                   <th class="text-center qty">р-я 0.7</th>
                   <th class="text-center qty">1л</th>
-                  <th class="text-center starts">starts</th>
+                  <th class="text-center start">start</th>
                   <th class="text-center buy">buy</th>
-                  <th class="text-center ends">ends</th>
+                  <th class="text-center end">end</th>
                   <th class="text-center store">inStorage</th>
                 </tr>
               </thead>
@@ -62,7 +62,7 @@
                     </td>
                     <td class="tara1">
                       <span contenteditable="false">{{
-                        item.tara | hideZero
+                        item.tara1 | hideZero
                       }}</span>
                     </td>
                     <td class="taraQty">
@@ -75,9 +75,9 @@
                         item.taraQty1 | hideZero
                       }}</span>
                     </td>
-                    <td class="starts">
+                    <td class="start">
                       <span contenteditable="false">{{
-                        item.starts | hideZero
+                        item.start | hideZero
                       }}</span>
                     </td>
                     <td class="buy">
@@ -85,12 +85,12 @@
                         item.buy | hideZero
                       }}</span>
                     </td>
-                    <td class="ends">
+                    <td class="end">
                       <span contenteditable="false">{{
-                        item.ends | hideZero
+                        item.end | hideZero
                       }}</span>
                     </td>
-                    <td class="ends">
+                    <td class="end">
                       <span contenteditable="false">{{
                         item.inStore | hideZero
                       }}</span>
@@ -211,7 +211,7 @@
                     (blur)="onBlur(item, 'inStore', $event)"
                     (input)="onInput(item, 'inStore', $event)"
                   >
-                    {{ item.inStore | hideZero | BGN }}
+                    {{ item.inStore | hideZero }}
                   </td>
                 </tr>
               </tbody>
