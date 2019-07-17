@@ -1006,7 +1006,7 @@ export class RevService {
            
           this.tempSummary[tab.name][id] = this.sumProp(this.tempSummary[tab.name][id],itm);
           
-          this.tempTara[tab.name][id] = this.taraSums(Object.assign({},item));
+          this.tempTara[tab.name][id] = this.taraSums(Object.assign({},itm));
           
            this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
          
@@ -1043,20 +1043,18 @@ export class RevService {
     return obj;
   }
 
-  taraSums(menuItem){
+  taraSums(revItem){
+    return revItem;
     var item = this.taraList.filter(i=>
-      {return i.id == menuItem.id;
+      {return i.id == revItem.id;
       })[0]|| new taraItem();
-        
-        var tItem = Object.assign(menuItem,item);
-    
-    
 
-    tItem.net = (tItem.bruto1-tItem.tara1)||(tItem.bruto-tItem.tara)/0.7;
+    item.net = (item.bruto1-item.tara1)||(item.bruto-item.tara)/0.7;
+    item.end = revItem.ends - item.taraQty*item.tara-item.taraQty1*item.tara1;
     // tItem.end = 
-    this.taraList[this.taraList.indexOf(item)]= tItem;
-
-    return tItem;
+    //this.taraList[this.taraList.indexOf(item)]= tItem;
+    var taraViewItem = Object.assign(revItem,item);
+    return taraViewItem;
   }
 
   public revItemCalculator( menuItem, date, prevDayIdx) {
