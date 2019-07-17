@@ -64,6 +64,7 @@ export class SheetComponent implements OnInit {
 
     this.dat.store();
     this.contentChange = false;
+    this.gridInit();
   }
 
   gridInit() {}

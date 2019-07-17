@@ -25,5 +25,11 @@ export class ReviziaSheetComponent extends SheetComponent {
 
   ngOnInit() {
     this.dataList = this.dat.revizia[this.date];
+    this.viewList = this.dat.revSheetView[this.date][this.tabName];
+  }
+
+  gridInit() {
+    this.dat.revizia[this.date] = this.dataList;
+    this.viewList = this.dat.revSheetView[this.date][this.tabName]; //this.dat.revizia[this.date];
   }
 }
