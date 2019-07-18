@@ -25,7 +25,7 @@ export class TabsTaraSheetComponent {
     this.data.tabSelectedIdx = tabChange.index;
 
     var mlist = document.getElementById("taraTab" + tabChange.index);
-    console.log(mlist);
+    // console.log(mlist);
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }

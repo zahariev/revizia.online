@@ -19,6 +19,7 @@ import { TaraSheetComponent } from "./components/sheets/tara/tara-sheet.componen
 import { MenuSheetComponent } from "./components/sheets/menu/menu-sheet.component";
 import { CashSheetComponent } from "./components/sheets/cash/cash-sheet.component";
 import { TabsMenuSheetComponent } from "./components/tabs/menu/menu-sheet.component";
+import { TabsCashSheetComponent } from "./components/tabs/cash/cash-sheet.component";
 import { TabsRevSheetComponent } from "./components/tabs/revizia/rev-sheet.component";
 import { TabsSumSheetComponent } from "./components/tabs/summary/sum-sheet.component";
 import { TabsTaraSheetComponent } from "./components/tabs/tara/tara-sheet.component";
@@ -37,6 +38,7 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
     TaraSheetComponent,
     CashSheetComponent,
     TabsMenuSheetComponent,
+    TabsCashSheetComponent,
     TabsRevSheetComponent,
     TabsSumSheetComponent,
     TabsTaraSheetComponent,

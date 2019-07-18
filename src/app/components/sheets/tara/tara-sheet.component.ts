@@ -22,13 +22,13 @@ export class TaraSheetComponent extends SheetComponent {
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
 
-    this.columnList.length = 3;
+    this.columnList.length = 8;
   }
 
   ngOnInit() {
     // console.log(this.dat.taraList);
     this.dataList = this.dat.taraList; //[this.tabName];
-    //this.viewList = this.dat.taraSheetView[this.tabName];
+    this.dataList = this.dat.taraSheetView[this.tabName];
     // console.log(this.dat.taraSheetView);
   }
 }

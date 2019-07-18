@@ -25,18 +25,11 @@ export class SheetComponent implements OnInit {
 
   ngOnInit() {}
 
-  updateList(item, property: string, el: any) {
+  updateList(itm, property: string, el: any) {
     var itemExists = this.dataList.filter(i => {
-      return i.id == item.id;
+      return i.id == itm.id;
     })[0];
-    item = itemExists || item;
-
-    // ||{
-    //   id: item.id,
-    //   minus: 0,
-    //   mplus: 0,
-    //   ends: 0
-    // }
+    var item = itemExists || JSON.parse(JSON.stringify(itm));
 
     // format edited text field
     var value = el.innerText + "";
@@ -47,15 +40,6 @@ export class SheetComponent implements OnInit {
       var oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
       item[property] = Number(value) || value;
-
-      if (!itemExists) {
-        // console.log(idx);
-        // console.log(this.dataList);
-        this.dataList.push(item);
-      } else {
-        itemExists = item;
-      }
-      // console.log(this.dat.taraList);
       el.innerText = value;
     } else {
       // not to double values in text filed on chrome

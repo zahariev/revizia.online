@@ -76,14 +76,14 @@ export class CashSheetComponent extends SheetComponent {
   }
 
   ngOnInit() {
-    this.dataList = this.data.menuList[this.tabIdx].data;
+    this.dataList = this.data.cashList[this.tabIdx].data;
     this.gridInit();
   }
 
   gridInit() {
-    this.data.menuList[this.tabIdx].data = this.dataList;
+    this.data.cashList[this.tabIdx].data = this.dataList;
     // console.log(this.history);
-    this.viewList = this.data.menuList[this.tabIdx].data;
+    this.viewList = this.data.cashList[this.tabIdx].data;
   }
 
   drop(ev) {}
