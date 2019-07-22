@@ -4673,7 +4673,7 @@ export class RevService {
 
   private tempSummary = {};
   // private summary = {};
-  private revizia = {};
+  public revizia = {};
   private revKeys = [];
 
   constructor(public data: DataService) {
@@ -4846,8 +4846,8 @@ export class RevService {
       return i.id == menuItem.id;
     })[0];
     if (!item) {
-      this.taraList.push(new taraItem(menuItem.id));
       item = new taraItem(menuItem.id);
+      this.taraList.push(item);
     }
 
     item.net = item.bruto1 - item.tara1 || (item.bruto - item.tara) / 0.7;

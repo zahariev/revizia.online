@@ -190,6 +190,7 @@ export class SheetComponent implements OnInit {
 
   undoValue() {
     var item = this.history.pop();
+
     var idx: any;
     if (!item) return;
     if (item.delPosition) {
@@ -199,7 +200,7 @@ export class SheetComponent implements OnInit {
     } else {
       idx = this.dataList.filter(itm => itm.id == item.id)[0];
       idx = this.dataList.indexOf(idx);
-
+      // console.log(this.dataList[idx]);
       this.dataList[idx] = item;
     }
 
