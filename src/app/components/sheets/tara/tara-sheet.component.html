@@ -171,15 +171,28 @@
                     >
                       {{ item.taraQty1 | hideZero }}
                     </td>
+                    <td
+                      class="textRight start"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'start', $event)"
+                      (keydown)="keyDown(item, 'start', $event)"
+                      (click)="onClick(item, 'start', $event)"
+                      (blur)="onBlur(item, 'start', $event)"
+                      (input)="onInput(item, 'start', $event)"
+                      [ngClass]="{ negative: item.start < 0 }"
+                    >
+                      {{ item.start | hideZero }}
+                    </td>
                   </ng-template>
 
-                  <td class="textRight start">
+                  <!-- <td class="textRight start">
                     <span
                       contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
+                      [ngClass]="{ negative: item.start < 0 }"
                       >{{ item.start | hideZero }}</span
                     >
-                  </td>
+                  </td> -->
 
                   <td
                     class="textRight buy"
