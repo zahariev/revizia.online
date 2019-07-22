@@ -4663,22 +4663,20 @@ export class RevService {
   };
 
   //view with rendered column data
-  revSheetView = {};
-  sumSheetView = {};
-  taraSheetView = [];
-
-  // tempTara: Array<any> = [];
-  tempSummary: Array<any> = [];
+  public revSheetView = {};
+  public sumSheetView = {};
+  public taraSheetView = [];
 
   // store scroll offset for menu tab idx
-  tabScrollPos = [];
-  tabSelectedIdx: number = 0;
+  public tabScrollPos = [];
+  public tabSelectedIdx: number = 0;
 
-  summary = {};
-  revizia = {};
-  revKeys = [];
+  private tempSummary = {};
+  // private summary = {};
+  private revizia = {};
+  private revKeys = [];
 
-  constructor(data: DataService) {
+  constructor(public data: DataService) {
     this.menuList = this.getLocal("menuList") || this.menuList;
     // this.revizia.prevList = this.getLocal("prevList") || this.revizia.prevList;
     this.revizia = this.getLocal("revData") || this.revData;
@@ -4712,7 +4710,7 @@ export class RevService {
     this.calculateSheets();
   }
 
-  public store() {
+  public store(): void {
     var json: string;
 
     // if(
@@ -4732,7 +4730,39 @@ export class RevService {
     });
   }
 
-  public getLocal(name) {
+  public newDayTab(date): boolean {
+    var datestring = this.getNewDate(date);
+
+    if (this.revKeys.indexOf(datestring) == -1) {
+      this.revKeys.push(datestring);
+
+      this.revizia[datestring] = [];
+
+      this.revSheetView[datestring] = {};
+      this.calculateSheets();
+
+      this.revKeys.sort();
+      this.store();
+    } else {
+      // show calendar controll
+      return false;
+    }
+    return true;
+  }
+
+  public addMenuTab() {
+    var tab = {
+      name: "newTab",
+      data: []
+    };
+    this.menuList.push(tab);
+  }
+
+  /* * * * * * * * * * * *
+   *    private methods
+   * * * * * * * * * * * */
+
+  private getLocal(name) {
     if (!localStorage[name]) return 0;
     return JSON.parse(
       // CryptoJS.AES.decrypt(
@@ -4742,20 +4772,18 @@ export class RevService {
     );
   }
 
-  calculateSheets() {
-    this.tempSummary = [];
-    // this.tempTara = [];
-
+  private calculateSheets() {
+    this.tempSummary = {};
+    this.tempSummary["sumTotal"] = 0;
     this.revKeys.forEach(date => {
       this.calculateSheet(date);
     });
   }
 
-  public calculateSheet(date) {
+  private calculateSheet(date) {
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
       if (!this.tempSummary[tab.name]) this.tempSummary[tab.name] = [];
-      // if (!this.tempTara[tab.name]) this.tempTara[tab.name] = [];
 
       var tempRev: Array<any> = [];
       var tempTara: Array<any> = [];
@@ -4774,7 +4802,6 @@ export class RevService {
             this.tempSummary[tab.name][id],
             itm
           );
-          // console.log(menuItem);
           tempTara[id] = this.taraItemSums(menuItem, itm);
 
           this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
@@ -4784,13 +4811,12 @@ export class RevService {
       this.taraSheetView[tab.name] = tempTara;
     });
     this.sumSheetView = this.tempSummary;
-
-    // console.log(this.taraSheetView);
+    this.sumSheetView["sumTotal"] =
+      Math.round(this.sumSheetView["sumTotal"] * 1000) / 1000;
     return this[date];
   }
 
-  sumProp(a, b) {
-    // console.log(a);
+  private sumProp(a, b) {
     if (!a) return b;
     var obj = {};
     Object.keys(a).map(function(x) {
@@ -4812,7 +4838,7 @@ export class RevService {
     return obj;
   }
 
-  taraItemSums(menuItm, itm) {
+  private taraItemSums(menuItm, itm) {
     var menuItem = JSON.parse(JSON.stringify(menuItm));
     var revItem = JSON.parse(JSON.stringify(itm));
 
@@ -4833,12 +4859,10 @@ export class RevService {
     item.end = Math.round(item.end * 1000) / 1000;
     item.name = menuItem.name;
 
-    // Object.assign(item,menuItem);
-
     return item;
   }
 
-  public revItemCalculator(menuItem, date, prevDayIdx) {
+  private revItemCalculator(menuItem, date, prevDayIdx) {
     var prevDay = this.revKeys[prevDayIdx];
     if (prevDayIdx < 0) prevDay = date;
 
@@ -4859,7 +4883,7 @@ export class RevService {
     return item;
   }
 
-  viewItemCalc(item) {
+  private viewItemCalc(item) {
     item.diff =
       Math.round(
         (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
@@ -4874,39 +4898,7 @@ export class RevService {
     return item;
   }
 
-  viewTaraCalc(item, menuItem) {}
-
-  sumItemCalc(item, menuItem) {}
-
-  addMenuTab() {
-    var tab = {
-      name: "newTab",
-      data: []
-    };
-    this.menuList.push(tab);
-  }
-
-  newDayTab(date): boolean {
-    var datestring = this.getNewDate(date);
-
-    if (this.revKeys.indexOf(datestring) == -1) {
-      this.revKeys.push(datestring);
-
-      this.revizia[datestring] = [];
-
-      this.revSheetView[datestring] = {};
-      this.calculateSheets();
-
-      this.revKeys.sort();
-      this.store();
-    } else {
-      // show calendar controll
-      return false;
-    }
-    return true;
-  }
-
-  getNewDate(date) {
+  private getNewDate(date) {
     var d = date || new Date();
     if (d.getHours() < 9 && !date) {
       d = new Date(d.getTime() - (d.getHours() + 1) * 60 * 60 * 1000);
@@ -4920,7 +4912,8 @@ export class RevService {
     return datestring;
   }
 
-  changeDate() {
+  // To Do
+  private changeDate() {
     console.log("change");
   }
 }
