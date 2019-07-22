@@ -4667,7 +4667,7 @@ export class RevService {
   sumSheetView = {};
   taraSheetView = [];
 
-  tempTara: Array<any> = [];
+  // tempTara: Array<any> = [];
   tempSummary: Array<any> = [];
 
   // store scroll offset for menu tab idx
@@ -4717,7 +4717,7 @@ export class RevService {
 
     // if(
     var name = ["menuList", "revData", "sumData", "taraData"];
-    var dataList = ["menuList", "revizia", "summary", "tara"];
+    var dataList = ["menuList", "revizia", "summary", "taraList"];
 
     this.calculateSheets();
 
@@ -4744,7 +4744,7 @@ export class RevService {
 
   calculateSheets() {
     this.tempSummary = [];
-    this.tempTara = [];
+    // this.tempTara = [];
 
     this.revKeys.forEach(date => {
       this.calculateSheet(date);
@@ -4752,16 +4752,13 @@ export class RevService {
   }
 
   public calculateSheet(date) {
-    // this.tempTara = [];
-    // this.tempSummary=[];
-    // this.tempRevizia[date]=[];
-
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
       if (!this.tempSummary[tab.name]) this.tempSummary[tab.name] = [];
-      if (!this.tempTara[tab.name]) this.tempTara[tab.name] = [];
+      // if (!this.tempTara[tab.name]) this.tempTara[tab.name] = [];
 
-      var tempList: Array<any> = [];
+      var tempRev: Array<any> = [];
+      var tempTara: Array<any> = [];
 
       tab.data.forEach((menuItem, id) => {
         var item = JSON.parse(JSON.stringify(menuItem));
@@ -4769,7 +4766,7 @@ export class RevService {
 
         var itm = this.revItemCalculator(item, date, prevDayIdx);
         if (itm) {
-          tempList[id] = itm;
+          tempRev[id] = itm;
 
           this[date + "Sum"] += Number(itm.sum) || 0;
 
@@ -4777,66 +4774,18 @@ export class RevService {
             this.tempSummary[tab.name][id],
             itm
           );
-
-          this.tempTara[tab.name][id] = this.taraSums(
-            JSON.parse(JSON.stringify(menuItem)),
-            itm
-          );
+          // console.log(menuItem);
+          tempTara[id] = this.taraItemSums(menuItem, itm);
 
           this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
         }
       });
-      this.revSheetView[date][tab.name] = tempList;
-      // this.taraSheetView = this.tempTara;
+      this.revSheetView[date][tab.name] = tempRev;
+      this.taraSheetView[tab.name] = tempTara;
     });
     this.sumSheetView = this.tempSummary;
-    this.taraSheetView = this.tempTara;
-    // this.taraList = JSON.parse(JSON.stringify(this.tempTara));
-    console.log(this.taraSheetView);
-    return this[date];
-  }
 
-  public calculateSheet1(date) {
-    this.tempTara = [];
-    this.tempSummary = [];
-    // this.tempRevizia[date]=[];
-
-    this[date + "Sum"] = 0;
-    this.menuList.forEach(tab => {
-      if (!this.tempSummary[tab.name]) this.tempSummary[tab.name] = [];
-      if (!this.tempTara[tab.name]) this.tempTara[tab.name] = [];
-
-      var tempList: Array<any> = [];
-
-      tab.data.forEach((item, id) => {
-        var prevIdx = this.revKeys.indexOf(date) - 1;
-        // console.log(prevIdx)
-
-        var itm = this.revItemCalculator(item, date, prevIdx);
-        if (itm) {
-          // this.tempRevizia[date].push(itm);
-          tempList[id] = itm;
-          this[date + "Sum"] += Number(itm.sum) || 0;
-
-          this.tempSummary[tab.name][id] = this.sumProp(
-            this.tempSummary[tab.name][id],
-            itm
-          );
-
-          this.tempTara[tab.name][id] = this.taraSums(item);
-
-          this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
-          //this.sumSheet =
-        }
-      });
-      console.log(tempList);
-      this.revSheetView[date][tab.name] = tempList;
-      // this.taraSheetView[tab.name] = this.tempTara;
-    });
-    this.sumSheetView = this.tempSummary;
-    this.taraSheetView = this.tempTara;
-    //  this.revizia = this.tempRevizia;
-    //  console.log(this.taraSheetView)
+    // console.log(this.taraSheetView);
     return this[date];
   }
 
@@ -4863,11 +4812,17 @@ export class RevService {
     return obj;
   }
 
-  taraSums(menuItem, revItem) {
-    var item =
-      this.taraList.filter(i => {
-        return i.id == revItem.id;
-      })[0] || new taraItem(revItem.id);
+  taraItemSums(menuItm, itm) {
+    var menuItem = JSON.parse(JSON.stringify(menuItm));
+    var revItem = JSON.parse(JSON.stringify(itm));
+
+    var item = this.taraList.filter(i => {
+      return i.id == menuItem.id;
+    })[0];
+    if (!item) {
+      this.taraList.push(new taraItem(menuItem.id));
+      item = new taraItem(menuItem.id);
+    }
 
     item.net = item.bruto1 - item.tara1 || (item.bruto - item.tara) / 0.7;
     item.end =

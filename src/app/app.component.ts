@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, ElementRef } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 
 import { RevService } from "app/shared/services/rev.service";
 import { MatTabChangeEvent } from "@angular/material/tabs";
