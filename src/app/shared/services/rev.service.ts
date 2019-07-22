@@ -4802,7 +4802,7 @@ export class RevService {
             this.tempSummary[tab.name][id],
             itm
           );
-          tempTara[id] = this.taraItemSums(menuItem, itm);
+          tempTara[id] = this.taraItemSums(this.tempSummary[tab.name][id], itm);
 
           this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
         }
@@ -4858,7 +4858,9 @@ export class RevService {
       (item.inStore || 0);
     item.end = Math.round(item.end * 1000) / 1000;
     item.name = menuItem.name;
+    item.diff = item.start + item.buy - item.end;
 
+    item.diff = menuItem.diff - item.diff;
     return item;
   }
 

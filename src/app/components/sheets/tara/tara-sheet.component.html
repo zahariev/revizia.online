@@ -27,6 +27,7 @@
                   <th class="text-center buy">buy</th>
                   <th class="text-center end">end</th>
                   <th class="text-center store">inStorage</th>
+                  <th class="text-center diff">diff</th>
                 </tr>
               </thead>
               <tbody>
@@ -90,9 +91,14 @@
                         item.end | hideZero
                       }}</span>
                     </td>
-                    <td class="end">
+                    <td class="inStorage">
                       <span contenteditable="false">{{
                         item.inStore | hideZero
+                      }}</span>
+                    </td>
+                    <td class="diff">
+                      <span contenteditable="false">{{
+                        item.diff | hideZero
                       }}</span>
                     </td>
                   </ng-container>
@@ -225,6 +231,14 @@
                     (input)="onInput(item, 'inStore', $event)"
                   >
                     {{ item.inStore | hideZero }}
+                  </td>
+
+                  <td class="textRight diff">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.diff | hideZero }}
+                    </span>
                   </td>
                 </tr>
               </tbody>
