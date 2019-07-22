@@ -4,7 +4,9 @@
     <div class="col-md-12 mx-auto text-center ">
       <div class="total">
         <span class="date"></span>
-        <span class="totalSum"> Сума: {{ dat[date + "Sum"] | BGN }}</span>
+        <span class="totalSum">
+          Сума: {{ dat.sumSheetView["sumTotal"] | BGN }}</span
+        >
       </div>
       <div class="card">
         <div class="card-body">
