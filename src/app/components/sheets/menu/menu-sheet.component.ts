@@ -78,30 +78,6 @@ export class MenuSheetComponent extends SheetComponent {
     this.viewList = this.dat.menuList[this.tabIdx].data;
   }
 
-  // updateList(item, property: string, el: any) {
-  //   var idx = this.dataList.indexOf(item);
-  //   var value = el.innerText;
-  //   value = value.replace(/\r?\n|\r\s/g, "");
-
-  //   var newItem = this.dataList[idx];
-  //   if (this.contentChange) {
-  //     var oldItem = JSON.parse(JSON.stringify(item));
-  //     this.history.push(oldItem);
-  //     newItem[property] = Number(value) || value;
-  //   } else el.innerHTML = newItem[property] || "";
-
-  //   this.gridInit();
-  //   this.dat.store(this.date);
-  //   this.contentChange = false;
-  // }
-
-  // onBlur(item, elName, event) {
-  //   var el = event.target;
-  //   el.contentEditable = "false";
-
-  //   this.updateList(item, elName, el);
-  // }
-
   removeRow(itemIdx, ev) {
     this.dataList[itemIdx].delPosition = itemIdx;
     this.history.push(this.dataList[itemIdx]);

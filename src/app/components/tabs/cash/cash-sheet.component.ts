@@ -31,7 +31,7 @@ export class TabsCashSheetComponent implements OnInit {
     selection.removeAllRanges();
     // Maintain scroll position of the last scrolled tab idx
     this.data.tabSelectedIdx = tabChange.index;
-    var mlist = document.getElementById("menuTab" + tabChange.index);
+    var mlist = document.getElementById("cashTab" + tabChange.index);
 
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);

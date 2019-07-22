@@ -59,17 +59,10 @@ export class CashSheetComponent extends SheetComponent {
     }
   ];
 
-  menuList;
-  dataList;
-
+  focus: any;
   nextFocus: any;
   viewList;
-  focussableElements: any;
-
-  focus: any;
-  activeEl: any;
-  contentChange: Boolean = false;
-  history: Array<any> = [];
+  date = "cashList";
 
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
@@ -86,7 +79,37 @@ export class CashSheetComponent extends SheetComponent {
     this.viewList = this.data.cashList[this.tabIdx].data;
   }
 
-  drop(ev) {}
+  removeRow(itemIdx, ev) {
+    this.dataList[itemIdx].delPosition = itemIdx;
+    this.history.push(this.dataList[itemIdx]);
+    // console.log(itemIdx);
+    this.dataList.splice(itemIdx, 1);
 
-  addRow(e) {}
+    this.dat.store();
+
+    this.gridInit();
+  }
+
+  addRow(ev) {
+    // TODO scroll one row to bottom
+    var tabIdx = this.dat.tabSelectedIdx;
+    var mlist = document.getElementById("menuTab" + tabIdx);
+    this.dat.tabScrollPos[tabIdx] = this.dat.tabScrollPos[tabIdx] + 2070;
+    if (mlist) {
+      mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
+    }
+    var rowIdx = this.dataList.push(
+      new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
+    );
+
+    this.gridInit();
+    return rowIdx;
+  }
+
+  drop(event: CdkDragDrop<Item[]>) {
+    // reorder menu list Items
+    moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
+    this.dat.store();
+    this.gridInit();
+  }
 }

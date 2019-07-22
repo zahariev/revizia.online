@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { RevService } from "app/shared/services/rev.service";
 
+import { TabsCashSheetComponent } from "../cash/cash-sheet.component";
+
 import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
 
 @Component({
