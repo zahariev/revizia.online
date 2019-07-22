@@ -107,7 +107,10 @@ export class MenuSheetComponent extends SheetComponent {
 
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
+    var histItem = { prev: event.previousIndex, curr: event.currentIndex };
+    this.history.push(histItem);
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
+
     this.dat.store();
     this.gridInit();
   }

@@ -5,6 +5,8 @@ import {
   ɵCodegenComponentFactoryResolver
 } from "@angular/core";
 
+import { moveItemInArray } from "@angular/cdk/drag-drop";
+
 import { RevService } from "app/shared/services/rev.service";
 @Component({
   selector: "app-sheet",
@@ -194,15 +196,23 @@ export class SheetComponent implements OnInit {
     var idx: any;
     if (!item) return;
     if (item.delPosition) {
+      //delete
       var idx = item.delPosition;
       delete item.delPosition;
       this.dataList.splice(idx, 0, item);
+    }
+    if (item.prev > -1) {
+      // moved
+      moveItemInArray(this.dataList, item.curr, item.prev);
     } else {
+      // edited value
       idx = this.dataList.filter(itm => itm.id == item.id)[0];
       idx = this.dataList.indexOf(idx);
       // console.log(this.dataList[idx]);
       this.dataList[idx] = item;
     }
+
+    console.log(item);
 
     this.dat.store();
     this.gridInit();
