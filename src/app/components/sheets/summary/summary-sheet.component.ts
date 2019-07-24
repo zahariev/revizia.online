@@ -16,6 +16,7 @@ export class SummarySheetComponent extends SheetComponent {
   @Input() tabName: string;
 
   viewList;
+  containerName = "summaryList";
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
@@ -24,8 +25,6 @@ export class SummarySheetComponent extends SheetComponent {
   }
 
   ngOnInit() {
-    // console.log(this.dat.viewSheet);
-    // this.dataList = this.dat.revizia[this.date];
     this.viewList = this.dat.sumSheetView[this.tabName][this.date];
   }
 }

@@ -24,6 +24,11 @@ import { TabsRevSheetComponent } from "./components/tabs/revizia/rev-sheet.compo
 import { TabsSumSheetComponent } from "./components/tabs/summary/sum-sheet.component";
 import { TabsTaraSheetComponent } from "./components/tabs/tara/tara-sheet.component";
 
+import { environment } from "../environments/environment";
+
+import { AngularFirestoreModule } from "angularfire2/firestore";
+import { AngularFireModule } from "angularfire2";
+
 import { CdkLazyDropList, CdkLazyDrag } from "./shared/lazy-drag-drop";
 import { SheetComponent } from "app/components/sheets/sheet.component";
 
@@ -50,7 +55,9 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
     BrowserModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence()
   ],
   providers: [DataService, HttpService, RevService],
   bootstrap: [AppComponent]

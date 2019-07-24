@@ -18,13 +18,15 @@ export class ReviziaSheetComponent extends SheetComponent {
 
   dataList;
   viewList;
+  containerName = "revList";
+
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
     this.columnList.length = 3;
   }
 
   ngOnInit() {
-    this.dataList = this.dat.revizia[this.date];
+    this.dataList = this.dat.revList[this.date];
   }
 
   gridInit() {}

@@ -63,6 +63,7 @@ export class MenuSheetComponent extends SheetComponent {
   nextFocus: any;
   viewList;
   date = "menuList";
+  containerName = "menuList";
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);

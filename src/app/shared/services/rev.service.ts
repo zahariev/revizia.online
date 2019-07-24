@@ -1,6 +1,13 @@
 import { Injectable } from "@angular/core";
 import { taraItem, reviziaItem } from "app/shared/models/item.model";
-import { interval } from "rxjs";
+
+import { Observable } from "rxjs";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from "angularfire2/firestore";
+
+// import { interval } from "rxjs";
 // import { Item, User, Table } from "../models/item.model";
 // import { OpenTab, OpenTabs, Order, CopyA, CopyO } from "../models/tab.model";
 // import * as CryptoJS from "crypto-js";
@@ -1717,7 +1724,7 @@ export class RevService {
 
   taraList = [];
 
-  revData = {
+  revList1 = {
     "2019-06-24": [
       {
         id: "21209..",
@@ -4673,61 +4680,89 @@ export class RevService {
 
   private tempSummary = {};
   // private summary = {};
-  public revizia = {};
+  public revList = {};
   private revKeys = [];
 
-  constructor(public data: DataService) {
-    this.menuList = this.getLocal("menuList") || this.menuList;
-    // this.revizia.prevList = this.getLocal("prevList") || this.revizia.prevList;
-    this.revizia = this.getLocal("revData") || this.revData;
-    this.taraList = this.getLocal("taraData") || this.taraList;
-    this.cashList = this.getLocal("cashData") || this.cashList;
+  private afs;
+  private DbData;
 
-    var rev = {};
-    this.revKeys = Object.keys(this.revizia);
-    this.revKeys.sort();
-    this.revKeys.forEach(day => {
-      rev[day] = this.revizia[day];
-      this.revSheetView[day] = {};
+  constructor(public data: DataService, afs: AngularFirestore) {
+    this.DbData = afs.collection("barBilkova").doc("gbjmEZzKZDJSOxcBIt24");
+    this.DbData.valueChanges().subscribe(val => {
+      console.log("change");
+      this.menuList = val.menuList;
+      this.revList = val.revList;
+      this.taraList = val.taraList;
+      this.cashList = val.cashList;
+
+      var rev = {};
+      this.revKeys = Object.keys(this.revList);
+      this.revKeys.sort();
+      this.revKeys.forEach(day => {
+        rev[day] = this.revList[day];
+        this.revSheetView[day] = {};
+      });
+
+      this.revList = rev;
+
+      console.log(rev);
+      this.calculateSheets();
     });
 
-    this.revizia = rev;
+    // this.menuList = this.getLocal("menuList"); //|| this.menuList;
+    // this.revizia = this.getLocal("revData"); //|| this.revData;
+    // this.taraList = this.getLocal("taraData"); //|| this.taraList;
+    // this.cashList = this.getLocal("cashData"); //|| this.cashList;
 
-    data.menu.subscribe(dat => {
-      if (typeof dat == "string") {
-        var data = JSON.parse(dat);
-        this.revizia = data.revizia;
-        this.menuList = data.menu;
+    // this.menuList = this.DbData.menuList;
 
-        // this.tara =data.tara
+    // // console.log(this.items.datata);
+    // this.DbData.doc("gbjmEZzKZDJSOxcBIt24").update({ itemList: this.menuList });
 
-        this.store();
-      } else {
-        // MESSAGE - " Not Correct Data Loaded. Continue WITH last Data!"
-      }
-    });
+    // this.DbData.update({
+    //   list: { tralala: "asd" }
+    // });
+    // this.DbData.doc("gbjmEZzKZDJSOxcBIt24").update({ revList: this.revizia });
+    // this.DbData.doc("gbjmEZzKZDJSOxcBIt24").update({ cashList: this.cashList });
+    // this.DbData.doc("gbjmEZzKZDJSOxcBIt24").update({ taraList: this.taraList });
 
-    this.calculateSheets();
+    // data.menu.subscribe(dat => {
+    //   console.log("apiData");
+    //   if (typeof dat == "string") {
+    //     var data = JSON.parse(dat);
+    //     this.revizia = data.revizia;
+    //     this.menuList = data.menu;
+
+    //     // this.tara =data.tara
+
+    //     this.store();
+    //   } else {
+    //     // MESSAGE - " Not Correct Data Loaded. Continue WITH last Data!"
+    //   }
+    // });
   }
 
-  public store(): void {
+  public store(name = "revList"): void {
     var json: string;
-
+    console.log(name);
     // if(
-    var name = ["menuList", "revData", "sumData", "taraData"];
-    var dataList = ["menuList", "revizia", "sumSheetView", "taraList"];
+    //var name = "menuList"; //["menuData", "revData", "sumData", "taraData"];
+    // var dataList = ["menuList", "revizia", "sumSheetView", "taraList"];
 
     this.calculateSheets();
+    var data = {};
+    data[name] = this[name];
+    this.DbData.update(data);
 
-    dataList.forEach((data, idx) => {
-      json = JSON.stringify(this[data]);
-      localStorage.setItem(
-        name[idx],
-        json
-        // CryptoJS.AES.encrypt(json, "secret key 123").toString()
-      );
-      // }
-    });
+    // dataList.forEach((data, idx) => {
+    //   json = JSON.stringify(this[data]);
+    //   localStorage.setItem(
+    //     name[idx],
+    //     json
+    //     // CryptoJS.AES.encrypt(json, "secret key 123").toString()
+    //   );
+    //   // }
+    // });
   }
 
   public newDayTab(date): boolean {
@@ -4736,7 +4771,7 @@ export class RevService {
     if (this.revKeys.indexOf(datestring) == -1) {
       this.revKeys.push(datestring);
 
-      this.revizia[datestring] = [];
+      this.revList[datestring] = [];
 
       this.revSheetView[datestring] = {};
       this.calculateSheets();
@@ -4755,7 +4790,7 @@ export class RevService {
       name: "newTab",
       data: []
     };
-    this.menuList.push(tab);
+    // this.menuList.push(tab);
   }
 
   /* * * * * * * * * * * *
@@ -4872,17 +4907,17 @@ export class RevService {
     var prevDay = this.revKeys[prevDayIdx];
     if (prevDayIdx < 0) prevDay = date;
 
-    var revItem = this.revizia[date].filter(i => {
+    var revItem = this.revList[date].filter(i => {
       return i.id == menuItem.id;
     })[0];
 
     if (!revItem) {
       revItem = new reviziaItem(menuItem.id);
-      this.revizia[date].push(revItem);
+      this.revList[date].push(revItem);
     }
 
     var prevRev =
-      this.revizia[prevDay].filter(i => {
+      this.revList[prevDay].filter(i => {
         return i.id == menuItem.id;
       })[0] || {};
 

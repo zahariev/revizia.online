@@ -17,7 +17,7 @@ export class TaraSheetComponent extends SheetComponent {
 
   viewList;
 
-  date = "taraList";
+  containerName = "taraList";
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);

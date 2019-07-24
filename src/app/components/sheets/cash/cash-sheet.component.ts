@@ -63,6 +63,7 @@ export class CashSheetComponent extends SheetComponent {
   nextFocus: any;
   viewList;
   date = "cashList";
+  containerName = "cashList";
 
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);

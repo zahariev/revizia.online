@@ -17,6 +17,7 @@ export class SheetComponent implements OnInit {
   dataList;
   history: Array<any> = [];
   date;
+  containerName;
   activeEl;
   tabIdx;
   editable;
@@ -48,7 +49,7 @@ export class SheetComponent implements OnInit {
       el.innerHTML = item[property] || "";
     }
 
-    this.dat.store();
+    this.dat.store(this.containerName);
     this.contentChange = false;
     this.gridInit();
   }
