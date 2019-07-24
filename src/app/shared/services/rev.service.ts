@@ -4715,7 +4715,7 @@ export class RevService {
 
     // if(
     var name = ["menuList", "revData", "sumData", "taraData"];
-    var dataList = ["menuList", "revizia", "summary", "taraList"];
+    var dataList = ["menuList", "revizia", "sumSheetView", "taraList"];
 
     this.calculateSheets();
 
@@ -4821,10 +4821,11 @@ export class RevService {
     var obj = {};
     Object.keys(a).map(function(x) {
       switch (x) {
+        case "id":
         case "name":
         case "starts":
         case "price":
-          if (!obj[x]) obj[x] = a[x];
+          obj[x] = a[x];
           break;
         case "ends":
           obj[x] = b[x];
@@ -4850,17 +4851,20 @@ export class RevService {
       this.taraList.push(item);
     }
 
-    item.net = item.bruto1 - item.tara1 || (item.bruto - item.tara) / 0.7;
+    item.net =
+      Math.round((item.bruto1 - item.tara1) * 10000) / 10000 ||
+      Math.round(((item.bruto - item.tara) / 0.7) * 10000) / 10000 ||
+      1;
+
     item.end =
-      revItem.ends -
-      item.taraQty * item.tara -
-      item.taraQty1 * item.tara1 +
-      (item.inStore || 0);
-    item.end = Math.round(item.end * 1000) / 1000;
+      revItem.ends - item.taraQty * item.tara - item.taraQty1 * item.tara1;
+
+    item.end =
+      Math.round((item.end * 100) / item.net) / 100 + (item.inStore || 0);
     item.name = menuItem.name;
     item.diff = item.start + item.buy - item.end;
 
-    item.diff = menuItem.diff - item.diff;
+    item.diff = Math.round((menuItem.diff / item.net - item.diff) * 100) / 100;
     return item;
   }
 
@@ -4868,10 +4872,14 @@ export class RevService {
     var prevDay = this.revKeys[prevDayIdx];
     if (prevDayIdx < 0) prevDay = date;
 
-    var revItem =
-      this.revizia[date].filter(i => {
-        return i.id == menuItem.id;
-      })[0] || new reviziaItem(menuItem.id);
+    var revItem = this.revizia[date].filter(i => {
+      return i.id == menuItem.id;
+    })[0];
+
+    if (!revItem) {
+      revItem = new reviziaItem(menuItem.id);
+      this.revizia[date].push(revItem);
+    }
 
     var prevRev =
       this.revizia[prevDay].filter(i => {
