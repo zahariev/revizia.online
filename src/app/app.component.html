@@ -5,34 +5,33 @@
       Save changes
     </button>
   </div>
+
   <mat-tab-group
     [animationDuration]="'0ms'"
     id="itemTabs"
     [@.disabled]="true"
-    selectedIndex="0"
+    selectedIndex="1"
     (selectedTabChange)="onSelectedTabChange($event)"
   >
-    <mat-tab label="menu" *ngIf="showMenuTab || showAll">
-      <tabs-menu-sheet></tabs-menu-sheet>
-    </mat-tab>
-
-    <mat-tab label="daily Cash" *ngIf="showCashTab || showAllTabs">
-      <tabs-cash-sheet> </tabs-cash-sheet>
-    </mat-tab>
-
     <mat-tab disabled>
       <ng-template mat-tab-label>
-        <div (click)="hideTabs($event)">
+        <div id="tabHideBtn" (click)="toggleHideTabs($event)">
           <mat-icon>code</mat-icon>
         </div>
       </ng-template>
     </mat-tab>
+    <mat-tab label="Items" *ngIf="showAllTabs">
+      <tabs-menu-sheet></tabs-menu-sheet>
+    </mat-tab>
 
-    <mat-tab label="Tara" *ngIf="showTaraTab || showAllTabs">
+    <mat-tab label="daily Cash" *ngIf="showAllTabs">
+      <tabs-cash-sheet> </tabs-cash-sheet>
+    </mat-tab>
+
+    <mat-tab label="Tara" *ngIf="!wshowAllTabs">
       <tabs-tara-sheet></tabs-tara-sheet>
     </mat-tab>
-    <mat-divider [vertical]="true"></mat-divider>
-    <mat-tab label="SUMMARY" *ngIf="showSummaryTab || showAllTabs">
+    <mat-tab label="SUMMARY" *ngIf="!wshowAllTabs">
       <tabs-sum-sheet></tabs-sum-sheet>
     </mat-tab>
 

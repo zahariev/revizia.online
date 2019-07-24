@@ -26,6 +26,11 @@
   top: 20px;
 }
 
+#tabHideBtn {
+  cursor: pointer;
+  padding-top: 5px;
+}
+
 .calendar {
   cursor: pointer;
   height: 35px;

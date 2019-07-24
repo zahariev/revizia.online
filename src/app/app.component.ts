@@ -1,7 +1,7 @@
 import { Component, ElementRef } from "@angular/core";
+import { MatTabChangeEvent } from "@angular/material/tabs";
 
 import { RevService } from "app/shared/services/rev.service";
-import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
   selector: "app-root",
@@ -27,16 +27,14 @@ export class AppComponent {
     this.el = el;
     this.data = data;
     this.tabs = this.data.revKeys;
-    // this.data1 = "prevList";
-    // this.data2 = "nextList";
     this.editable = true;
   }
-  ngAfterViewInit() {
-    // console.log(this.el);
-  }
+
+  ngAfterViewInit() {}
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
     // tab selector in place
+
     window.dispatchEvent(new Event("resize"));
 
     var scrollTab;
@@ -66,5 +64,10 @@ export class AppComponent {
     this.showDatePicker = false;
     this.data.newDayTab(date);
     // console.log(date);
+  }
+
+  toggleHideTabs(e) {
+    return;
+    this.showAllTabs = !this.showAllTabs;
   }
 }
