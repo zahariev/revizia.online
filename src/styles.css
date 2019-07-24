@@ -45,6 +45,8 @@ button {
 
 .mat-tab-label {
   display: block !important;
+  align-items: end !important;
+  min-width: 120px !important;
 }
 .mat-tab-label .mat-tab-label-content {
   font-weight: 200;
@@ -52,8 +54,8 @@ button {
   font-size: 1.1em;
 }
 
-.mat-tab-label {
-  align-items: end !important;
+.mat-tab-disabled {
+  min-width: 50px !important;
 }
 
 .mat-tab-header {
