@@ -12,19 +12,27 @@
     selectedIndex="0"
     (selectedTabChange)="onSelectedTabChange($event)"
   >
-    <mat-tab label="menu" *ngIf="!hideMenu">
+    <mat-tab label="menu" *ngIf="showMenuTab || showAll">
       <tabs-menu-sheet></tabs-menu-sheet>
     </mat-tab>
 
-    <mat-tab label="daily Cash">
+    <mat-tab label="daily Cash" *ngIf="showCashTab || showAllTabs">
       <tabs-cash-sheet> </tabs-cash-sheet>
     </mat-tab>
 
-    <mat-tab label="Tara" *ngIf="!hideTara">
-      <tabs-tara-sheet></tabs-tara-sheet>
+    <mat-tab disabled>
+      <ng-template mat-tab-label>
+        <div (click)="hideTabs($event)">
+          <mat-icon>code</mat-icon>
+        </div>
+      </ng-template>
     </mat-tab>
 
-    <mat-tab label="SUMMARY" *ngIf="!hideSummary">
+    <mat-tab label="Tara" *ngIf="showTaraTab || showAllTabs">
+      <tabs-tara-sheet></tabs-tara-sheet>
+    </mat-tab>
+    <mat-divider [vertical]="true"></mat-divider>
+    <mat-tab label="SUMMARY" *ngIf="showSummaryTab || showAllTabs">
       <tabs-sum-sheet></tabs-sum-sheet>
     </mat-tab>
 
