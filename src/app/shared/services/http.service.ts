@@ -26,18 +26,18 @@ export class HttpService {
     return this.http.put(this.baseUrl + url, data, this.httpOptions);
   }
 
-  public getMenuData(): Observable<any> {
+  public getRevData(): Observable<any> {
     return this.get(
-      "/getMenu/",
+      "/getRevData/",
       "ApiKey=c7a919e51f2268e5c8eb471ae093d15d&areaID=1"
     );
   }
 
-  public setMenuData(data): Observable<any> {
-    return this.set("/setMenu/", data);
+  public setRevData(data): Observable<any> {
+    return this.set("/setRevData/", data);
   }
 
-  public getRevData(): Observable<any> {
+  public getRevData2(): Observable<any> {
     return this.http.get(
       "/itemsGet2/?ApiKey=c7a919e51f2268e5c8eb471ae093d15d&areaID=111"
     );

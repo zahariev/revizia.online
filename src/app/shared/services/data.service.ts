@@ -16,7 +16,7 @@ export class DataService {
 
   constructor(private http: HttpService) {
     // this.getRevItems();
-    this.getMenuData();
+    this.getRevData();
     // this.getUsers();
   }
 
@@ -27,8 +27,8 @@ export class DataService {
     });
   }
 
-  getMenuData() {
-    this.http.getMenuData().subscribe(data => {
+  getRevData() {
+    this.http.getRevData().subscribe(data => {
       // Read the result field from the JSON response.
       // console.log(data);
       this.menuSource.next(data);
