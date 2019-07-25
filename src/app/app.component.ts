@@ -33,8 +33,9 @@ export class AppComponent {
   ngAfterViewInit() {}
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
-    // tab selector in place
+    this.data.fStore(this.data.containerName);
 
+    // tab selector in place
     window.dispatchEvent(new Event("resize"));
 
     var scrollTab;

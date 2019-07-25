@@ -85,7 +85,7 @@ export class MenuSheetComponent extends SheetComponent {
     // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
 
-    this.dat.store();
+    this.dat.fStore();
 
     this.gridInit();
   }
@@ -112,7 +112,7 @@ export class MenuSheetComponent extends SheetComponent {
     this.history.push(histItem);
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
 
-    this.dat.store();
+    this.dat.fStore();
     this.gridInit();
   }
 }

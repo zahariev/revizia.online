@@ -29,6 +29,7 @@ export class SheetComponent implements OnInit {
   ngOnInit() {}
 
   updateList(itm, property: string, el: any) {
+    this.dat.firstLoad = false;
     var itemExists = this.dataList.filter(i => {
       return i.id == itm.id;
     })[0];
@@ -49,8 +50,11 @@ export class SheetComponent implements OnInit {
       el.innerHTML = item[property] || "";
     }
 
-    this.dat.store(this.containerName);
+    // this.dat.calculateSheets();
+    this.dat.localStore();
+    this.dat.containerName = this.containerName;
     this.contentChange = false;
+
     this.gridInit();
   }
 
@@ -177,12 +181,15 @@ export class SheetComponent implements OnInit {
 
       if (index) el.contentEditable = "false";
 
-      nextElement.focus();
       this.activeEl = nextElement;
     } else {
       this.focussableElements = document.querySelectorAll(".table td.name");
-      this.focussableElements[0].focus();
+
+      nextElement = this.focussableElements[0];
     }
+    // console.log(nextElement);
+    window.localStorage.setItem("focus", nextElement);
+    nextElement.focus();
   }
 
   // maintain scroll position by tab idx
@@ -215,7 +222,7 @@ export class SheetComponent implements OnInit {
 
     console.log(item);
 
-    this.dat.store();
+    this.dat.fStore();
     this.gridInit();
   }
 }

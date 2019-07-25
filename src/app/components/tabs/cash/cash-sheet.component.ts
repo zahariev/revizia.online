@@ -58,7 +58,7 @@ export class TabsCashSheetComponent implements OnInit {
     else this.data.menuList[idx].name = " . . .";
     //console.log(value);
     // this.viewList = this.data.menuList;
-    this.data.store();
+    this.data.fStore();
   }
 
   onClick(idx: any, event: any) {

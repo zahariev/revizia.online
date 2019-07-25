@@ -35,7 +35,7 @@
       <tabs-sum-sheet></tabs-sum-sheet>
     </mat-tab>
 
-    <mat-tab *ngFor="let tab of tabs">
+    <mat-tab *ngFor="let tab of data.revKeys">
       <ng-template mat-tab-label>
         {{ tab | date: "EEEE" }}
         <!-- <small>{{ data[tab + "Sum"] | BGN }}</small> -->
@@ -46,6 +46,7 @@
       </ng-template>
       <tabs-rev-sheet [date]="tab"></tabs-rev-sheet>
     </mat-tab>
+
     <mat-tab disabled>
       <ng-template mat-tab-label>
         <div class="calendar" (click)="addTab($event)">

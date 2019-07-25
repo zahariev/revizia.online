@@ -75,6 +75,7 @@ export class CashSheetComponent extends SheetComponent {
   }
 
   gridInit() {
+    // console.log(this.data.cashList[this.tabIdx]);s
     this.data.cashList[this.tabIdx].data = this.dataList;
     // console.log(this.history);
     this.viewList = this.data.cashList[this.tabIdx].data;
@@ -86,7 +87,7 @@ export class CashSheetComponent extends SheetComponent {
     // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
 
-    this.dat.store();
+    this.dat.fStore();
 
     this.gridInit();
   }
@@ -110,7 +111,7 @@ export class CashSheetComponent extends SheetComponent {
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-    this.dat.store();
+    this.dat.fStore();
     this.gridInit();
   }
 }
