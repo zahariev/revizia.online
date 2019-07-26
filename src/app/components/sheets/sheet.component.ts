@@ -52,7 +52,9 @@ export class SheetComponent implements OnInit {
 
     // this.dat.calculateSheets();
     this.dat.localStore();
+
     this.dat.containerName = this.containerName;
+    this.dat.fStore(this.dat.containerName);
     this.contentChange = false;
 
     this.gridInit();

@@ -33,7 +33,7 @@ export class AppComponent {
   ngAfterViewInit() {}
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
-    this.data.fStore(this.data.containerName);
+    // this.data.fStore(this.data.containerName);
 
     // tab selector in place
     window.dispatchEvent(new Event("resize"));
