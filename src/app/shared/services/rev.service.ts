@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { taraItem, reviziaItem } from "app/shared/models/item.model";
 import * as deepEqual from "deep-equal";
 
+import { map } from "rxjs/operators";
+import * as firebase from "firebase";
+
 import { Observable } from "rxjs";
 import {
   AngularFirestore,
@@ -3866,6 +3869,7 @@ export class RevService {
   ];
   revData = [];
   taraList = [];
+  sumData = {};
 
   public revSheetView = {};
   public sumSheetView = {};
@@ -3884,58 +3888,50 @@ export class RevService {
   private afs;
   private DbData; //:Observable<any[]>;
   public containerName;
+  changedFrom = "Local";
+  test;
 
   constructor(public data: DataService, afs: AngularFirestore) {
     this.DbData = afs.collection("barBilkova").doc("gbjmEZzKZDJSOxcBIt24");
+    this.test = afs
+      .collection("barBilkova")
+      .snapshotChanges()
+      .subscribe(res => {
+        const changedFrom = res[0].payload.doc.metadata.hasPendingWrites
+          ? "Local"
+          : "Server";
+        const data = res[0].payload.doc.data();
 
-    this.DbData.valueChanges().subscribe(val => {
-      // console.log(val);
-      console.log("subscribe");
-      var isChanged = !(
-        deepEqual(val.menuList, this.menuList) ||
-        deepEqual(val.revList, this.revList) ||
-        deepEqual(val.taraList, this.taraList)
-      );
+        if (changedFrom == "Server") this.setChangesFromServer(data);
+        console.log(changedFrom);
+      });
+    // .pipe(
+    //   map(actions =>
+    //     actions.map(a => {
+    //       const changedFrom = a.payload.doc.metadata.hasPendingWrites
+    //         ? "Local"
+    //         : "Server";
+    //       const data = a.payload.doc.data();
+    //       const id = a.payload.doc.id;
+    //       console.log("snapShot");
+    //       console.log(changedFrom);
+    //       if (changedFrom == "Server") {
+    //         this.setChangesFromServer(data);
+    //       }
 
-      // if (this.firstLoading) {
-      //   this.menuList = val.menuList || this.menuList;
-      //   this.revList = val.revList || this.revData;
-      //   this.taraList = val.taraList || this.taraList;
-      //   this.cashList = val.cashList || this.cashList;
+    //       return { id, ...data }; //a.payload.doc.metadata.hasPendingWrites ? "Local" : "Server";
+    //     })
+    //   )
+    // );
 
-      //   var rev = {};
-      //   this.revKeys = Object.keys(this.revList);
-      //   this.revKeys.sort();
-      //   this.revKeys.forEach(day => {
-      //     rev[day] = this.re.updatevList[day];
-      //     this.revSheetView[day] = {};
-      //   });
-      // } else
-      console.log(isChanged);
-      if (isChanged) {
-        // console.log("changed");
-        this.menuList = val.menuList;
-        this.revList = val.revList;
-        this.taraList = val.taraList;
-        this.cashList = val.cashList;
+    // this.DbData.valueChanges().subscribe(val => {
+    //   console.log(val);
+    //   console.log(this.changedFrom);
 
-        var rev = {};
-        this.revKeys = Object.keys(this.revList);
-        this.revKeys.sort();
-        this.revKeys.forEach(day => {
-          rev[day] = this.revList[day];
-          this.revSheetView[day] = {};
-        });
-      } else {
-        console.log("stepOver");
-        //
-      }
-    });
+    //   this.setChangesFromServer(val);
+    // });
 
-    this.menuList = this.getLocal("menuList") || this.menuList;
-    this.revList = this.getLocal("revData") || this.revData;
-    this.taraList = this.getLocal("taraData") || this.taraList;
-    this.cashList = this.getLocal("cashData") || this.cashList;
+    this.getLocal();
 
     var rev = {};
     this.revKeys = Object.keys(this.revList);
@@ -3946,8 +3942,25 @@ export class RevService {
     });
 
     this.revList = rev;
-
     // console.log(rev);
+    this.calculateSheets();
+  }
+
+  private setChangesFromServer(data) {
+    this.menuList = data.menuList;
+    this.revList = data.revList;
+    this.taraList = data.taraList;
+    // this.cashList = data.cashList;
+    console.log("setChangesFromServer");
+    var rev = {};
+    this.revKeys = Object.keys(this.revList);
+    this.revKeys.sort();
+    this.revKeys.forEach(day => {
+      rev[day] = this.revList[day];
+      this.revSheetView[day] = {};
+    });
+
+    this.revList = rev;
     this.calculateSheets();
   }
 
@@ -3960,7 +3973,9 @@ export class RevService {
     var data = {};
     data[name] = this[name];
 
-    this.DbData.update(JSON.parse(JSON.stringify(data)));
+    this.DbData.update(JSON.parse(JSON.stringify(data))).then(
+      console.log("send Update")
+    );
 
     this.containerName = "";
   }
@@ -3970,6 +3985,7 @@ export class RevService {
 
     this.calculateSheets();
     console.log("localStore");
+
     var name = ["menuList", "revData", "sumData", "taraData"];
     var dataList = ["menuList", "revList", "sumSheetView", "taraList"];
 
@@ -4017,14 +4033,15 @@ export class RevService {
    *    private methods
    * * * * * * * * * * * */
 
-  private getLocal(name) {
-    if (!localStorage[name]) return 0;
-    return JSON.parse(
-      // CryptoJS.AES.decrypt(
-      localStorage.getItem(name)
-      // ,"secret key 123"
-      // ).toString(CryptoJS.enc.Utf8)
-    );
+  private getLocal() {
+    var data = ["menuList", "revData", "cashData", "taraData", "sumData"];
+    var name = ["menuList", "revList", "cashList", "taraList", "summaryList"];
+
+    this.containerName = "";
+    data.forEach((data, idx) => {
+      this[name[idx]] = JSON.parse(localStorage.getItem(data));
+      console.log(name[idx]);
+    });
   }
 
   public calculateSheets() {
