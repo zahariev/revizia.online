@@ -68,7 +68,7 @@ export class AppComponent {
   }
 
   toggleHideTabs(e) {
-    return;
+    // return;
     this.showAllTabs = !this.showAllTabs;
   }
 }

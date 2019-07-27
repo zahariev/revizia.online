@@ -16,7 +16,7 @@ export class DataService {
 
   constructor(private http: HttpService) {
     // this.getRevItems();
-    this.getRevData();
+    // this.getRevData();
     // this.getUsers();
   }
 

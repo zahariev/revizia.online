@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ɵCodegenComponentFactoryResolver
-} from "@angular/core";
+import { Component, OnInit, ElementRef } from "@angular/core";
 
 import { moveItemInArray } from "@angular/cdk/drag-drop";
 
