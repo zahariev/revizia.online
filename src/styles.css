@@ -43,6 +43,23 @@ button {
   height: 50px;
 }
 
+#cashRev .container {
+  /* position: absolute; */
+  padding-top: 100px;
+}
+
+#cashRev .mat-tab-header {
+  /* position: absolute; */
+  top: 110px !important;
+  width: 75% !important;
+  min-width: 755px;
+}
+
+#cashRev .headerRow {
+  /* position: absolute; */
+  top: 140px !important;
+}
+
 .mat-tab-label {
   display: block !important;
   align-items: end !important;

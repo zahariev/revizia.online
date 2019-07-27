@@ -24,7 +24,5 @@ export class SummarySheetComponent extends SheetComponent {
     this.columnList.length = 3;
   }
 
-  ngOnInit() {
-    this.viewList = this.dat.sumSheetView[this.tabName][this.date];
-  }
+  ngOnInit() {}
 }

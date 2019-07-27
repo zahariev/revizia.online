@@ -12,6 +12,6 @@ button.mat-icon-button {
 
 #plus_Sign {
   position: absolute;
-  /* right: 137px; */
+  right: 10px;
   z-index: 999;
 }

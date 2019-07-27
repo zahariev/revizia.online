@@ -18,8 +18,7 @@ import {
 // import { _localeFactory } from "@angular/core/src/application_module";
 import { DataService } from "./data.service";
 // import { deepEqual } from 'assert';
-// const MENU;
-// let log = console.log;
+
 @Injectable()
 export class RevService {
   //  view;= []
@@ -3875,9 +3874,10 @@ export class RevService {
   public sumSheetView = {};
   public taraSheetView = [];
 
-  // store scroll offset for menu tab idx
+  // store scroll offset for menu tab and idx
   public tabScrollPos = [];
   public tabSelectedIdx: number = 0;
+  public tabCashSelectedIdx: number = 0;
 
   private tempSummary = {};
   // private summary = {};
@@ -3903,7 +3903,7 @@ export class RevService {
         const data = res[0].payload.doc.data();
 
         if (changedFrom == "Server") this.setChangesFromServer(data);
-        console.log(changedFrom);
+        // console.log(changedFrom);
       });
     // .pipe(
     //   map(actions =>
@@ -3931,7 +3931,7 @@ export class RevService {
     //   this.setChangesFromServer(val);
     // });
 
-    this.getLocal();
+    //this.getLocal();
 
     var rev = {};
     this.revKeys = Object.keys(this.revList);
@@ -3950,8 +3950,8 @@ export class RevService {
     this.menuList = data.menuList;
     this.revList = data.revList;
     this.taraList = data.taraList;
-    // this.cashList = data.cashList;
-    console.log("setChangesFromServer");
+    this.cashList = data.cashList;
+    // console.log("setChangesFromServer");
     var rev = {};
     this.revKeys = Object.keys(this.revList);
     this.revKeys.sort();
@@ -3966,16 +3966,17 @@ export class RevService {
 
   public fStore(name = "revList"): void {
     var json: string;
-    console.log(name);
+    // console.log(name);
 
     this.calculateSheets();
 
     var data = {};
     data[name] = this[name];
 
-    this.DbData.update(JSON.parse(JSON.stringify(data))).then(
-      console.log("send Update")
-    );
+    this.DbData.update(JSON.parse(JSON.stringify(data)))
+      .then
+      // console.log("send Update")
+      ();
 
     this.containerName = "";
   }
@@ -3984,7 +3985,8 @@ export class RevService {
     var json: string;
 
     this.calculateSheets();
-    console.log("localStore");
+    // return;
+    // console.log("localStore");
 
     var name = ["menuList", "revData", "sumData", "taraData"];
     var dataList = ["menuList", "revList", "sumSheetView", "taraList"];
@@ -4026,7 +4028,15 @@ export class RevService {
       name: "newTab",
       data: []
     };
-    // this.menuList.push(tab);
+    this.menuList.push(tab);
+  }
+
+  public addCashTab() {
+    var tab = {
+      name: "newTab",
+      data: []
+    };
+    this.cashList.push(tab);
   }
 
   /* * * * * * * * * * * *
@@ -4035,7 +4045,7 @@ export class RevService {
 
   private getLocal() {
     var data = ["menuList", "revData", "cashData", "taraData", "sumData"];
-    var name = ["menuList", "revList", "cashList", "taraList", "summaryList"];
+    var name = ["menuList", "revList", "cashList", "taraList", "tempSummary"];
 
     this.containerName = "";
     data.forEach((data, idx) => {

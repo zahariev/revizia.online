@@ -5,7 +5,7 @@
     id="menuTabs"
     (selectedTabChange)="onSelectedTabChange($event)"
     [@.disabled]="true"
-    [selectedIndex]="data.tabSelectedIdx"
+    [selectedIndex]="selectedIndex"
   >
     <mat-tab *ngFor="let tab of data.cashList; let idx = index">
       <ng-template mat-tab-label>

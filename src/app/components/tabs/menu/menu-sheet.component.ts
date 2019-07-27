@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { RevService } from "app/shared/services/rev.service";
 
-import { TabsCashSheetComponent } from "../cash/cash-sheet.component";
+import { TabsCashSheetComponent } from "../cash-edit/cash-sheet.component";
 
 import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
 
@@ -24,7 +24,7 @@ export class TabsMenuSheetComponent implements OnInit {
 
   ngOnInit() {
     // this.selectedIndex = 1;
-    this.data.tabSelectedIdx = 0;
+    // this.data.tabSelectedIdx = 0;
   }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {

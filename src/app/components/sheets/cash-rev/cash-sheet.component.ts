@@ -13,11 +13,11 @@ import { RevService } from "app/shared/services/rev.service";
 import { SheetComponent } from "../sheet.component";
 
 @Component({
-  selector: "menu-sheet",
-  templateUrl: "./menu-sheet.component.html",
-  styleUrls: ["./menu-sheet.component.css"]
+  selector: "cash-revSheet",
+  templateUrl: "./cash-sheet.component.html",
+  styleUrls: ["./cash-sheet.component.css"]
 })
-export class MenuSheetComponent extends SheetComponent {
+export class CashRevSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
   @Input() tabIdx: string;
 
@@ -62,21 +62,23 @@ export class MenuSheetComponent extends SheetComponent {
   focus: any;
   nextFocus: any;
   viewList;
-  date = "menuList";
-  containerName = "menuList";
+  date = "cashList";
+  containerName = "cashList";
 
-  constructor(public dat: RevService, public el: ElementRef) {
-    super(dat, el);
+  constructor(private data: RevService, public el: ElementRef) {
+    super(data, el);
   }
 
   ngOnInit() {
-    this.dataList = this.dat.menuList[this.tabIdx].data;
+    this.dataList = this.data.cashList[this.tabIdx].data;
     this.gridInit();
   }
 
   gridInit() {
-    // this.dat.menuList[this.tabIdx].data = this.dataList;
-    this.viewList = this.dat.menuList[this.tabIdx].data;
+    // console.log(this.data.cashList[this.tabIdx]);s
+    this.data.cashList[this.tabIdx].data = this.dataList;
+    // console.log(this.history);
+    this.viewList = this.data.cashList[this.tabIdx].data;
   }
 
   removeRow(itemIdx, ev) {
@@ -108,11 +110,8 @@ export class MenuSheetComponent extends SheetComponent {
 
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
-    var histItem = { prev: event.previousIndex, curr: event.currentIndex };
-    this.history.push(histItem);
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-
-    this.dat.fStore(this.containerName);
+    this.dat.fStore();
     this.gridInit();
   }
 }

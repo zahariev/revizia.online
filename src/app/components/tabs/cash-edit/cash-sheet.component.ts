@@ -14,6 +14,7 @@ export class TabsCashSheetComponent implements OnInit {
   mapTabToScroll = {};
   activeEl: any;
   contentChange: Boolean = false;
+  selectedIndex = 0;
 
   constructor(public data: RevService) {
     // this.viewList = data.menuList;
@@ -22,7 +23,6 @@ export class TabsCashSheetComponent implements OnInit {
 
   ngOnInit() {
     // this.selectedIndex = 1;
-    this.data.tabSelectedIdx = 0;
   }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
@@ -152,7 +152,7 @@ export class TabsCashSheetComponent implements OnInit {
   }
 
   addTab() {
-    this.data.addMenuTab();
+    this.data.addCashTab();
   }
 
   // dropp(ev) {
