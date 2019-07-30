@@ -10,6 +10,15 @@ button.mat-icon-button {
   top: 5px;
 }
 
+.overHeader {
+  width: 100%;
+  height: 75px;
+  background: white;
+  top: 25px;
+  position: absolute;
+  z-index: 999;
+}
+
 #plus_Sign {
   position: absolute;
   right: 10px;
