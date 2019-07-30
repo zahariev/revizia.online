@@ -113,6 +113,15 @@ td {
   margin-left: -1px;
 }
 
+.footerRow {
+  height: 27px;
+  position: absolute;
+  display: none;
+  background-color: linen;
+  bottom: 35px;
+  margin-left: -1px;
+}
+
 thead tr th {
   height: 35px;
 }
