@@ -3866,11 +3866,14 @@ export class RevService {
       ]
     }
   ];
+  cashData = [];
   revData = [];
   taraList = [];
+  taraData = [];
   sumData = {};
 
   public revSheetView = {};
+  public cashSheetView = {};
   public sumSheetView = {};
   public taraSheetView = [];
 
@@ -3949,9 +3952,12 @@ export class RevService {
   private setChangesFromServer(data) {
     this.menuList = data.menuList;
     this.revList = data.revList;
+    // this.taraList = data.taraData;
     this.taraList = data.taraList;
     this.cashList = data.cashList;
+    this.cashData = data.cashData || [];
     // console.log("setChangesFromServer");
+    console.log(data.cashData);
     var rev = {};
     this.revKeys = Object.keys(this.revList);
     this.revKeys.sort();

@@ -95,7 +95,7 @@ button {
 }
 
 #menuTabs .mat-tab-header {
-  position: fixed !important;
+  /* position: fixed !important; */
   z-index: 99;
   top: 10px;
   left: 24px;

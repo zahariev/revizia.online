@@ -14,12 +14,13 @@ import { SheetComponent } from "../sheet.component";
 
 @Component({
   selector: "cash-revSheet",
-  templateUrl: "./cash-sheet.component.html",
-  styleUrls: ["./cash-sheet.component.css"]
+  templateUrl: "./cash-revSheet.component.html",
+  styleUrls: ["./cash-revSheet.component.css"]
 })
 export class CashRevSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
   @Input() tabIdx: string;
+  @Input() date: any;
 
   columnList = [
     // {
@@ -34,19 +35,19 @@ export class CashRevSheetComponent extends SheetComponent {
       editable: true
     },
     {
-      columnName: "дост.Цена",
+      columnName: "на час",
       name: "cost",
       format: "number",
       editable: true
     },
     {
-      columnName: "цена",
+      columnName: "надница",
       name: "price",
       format: "BGN",
       editable: true
     },
     {
-      columnName: "колич.",
+      columnName: "часове",
       name: "qty",
       format: "number",
       editable: true
@@ -62,23 +63,25 @@ export class CashRevSheetComponent extends SheetComponent {
   focus: any;
   nextFocus: any;
   viewList;
-  date = "cashList";
-  containerName = "cashList";
+  containerName = "cashData";
 
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
   }
 
   ngOnInit() {
-    this.dataList = this.data.cashList[this.tabIdx].data;
+    console.log(this.tabIdx);
+
+    this.dataList = this.data.cashData[this.date];
+
     this.gridInit();
   }
 
   gridInit() {
-    // console.log(this.data.cashList[this.tabIdx]);s
-    this.data.cashList[this.tabIdx].data = this.dataList;
+    // console.log(this.data.cashList[this.tabIdx]);
+    //this.dataList[this.tabIdx].data = this.dataList;
     // console.log(this.history);
-    this.viewList = this.data.cashList[this.tabIdx].data;
+    this.viewList = this.data.cashData[this.tabIdx].data;
   }
 
   removeRow(itemIdx, ev) {
@@ -94,24 +97,20 @@ export class CashRevSheetComponent extends SheetComponent {
 
   addRow(ev) {
     // TODO scroll one row to bottom
-    var tabIdx = this.dat.tabSelectedIdx;
-    var mlist = document.getElementById("menuTab" + tabIdx);
-    this.dat.tabScrollPos[tabIdx] = this.dat.tabScrollPos[tabIdx] + 2070;
-    if (mlist) {
-      mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
-    }
+    var tabIdx = this.dat.tabCashSelectedIdx;
+    var mlist = document.getElementById("cashTab" + tabIdx);
+    // this.dat.tabCashScrollPos[tabIdx] = this.dat.tabCashScrollPos[tabIdx] + 2070;
+    // if (mlist) {
+    //   mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
+    // }
+    // console.log(this.dataList);
     var rowIdx = this.dataList.push(
-      new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
+      new Item("new" + this.dataList.length.toString(), "", 0, 0, 0, 0)
     );
+    this.dataList;
+    console.log(this.dataList);
 
     this.gridInit();
     return rowIdx;
-  }
-
-  drop(event: CdkDragDrop<Item[]>) {
-    // reorder menu list Items
-    moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-    this.dat.fStore();
-    this.gridInit();
   }
 }

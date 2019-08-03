@@ -18,11 +18,11 @@ import { SummarySheetComponent } from "./components/sheets/summary/summary-sheet
 import { TaraSheetComponent } from "./components/sheets/tara/tara-sheet.component";
 import { MenuSheetComponent } from "./components/sheets/menu/menu-sheet.component";
 import { CashSheetComponent } from "./components/sheets/cash/cash-sheet.component";
-import { CashRevSheetComponent } from "./components/sheets/cash-rev/cash-sheet.component";
+import { CashRevSheetComponent } from "./components/sheets/cash-rev/cash-revSheet.component";
 import { TabsMenuSheetComponent } from "./components/tabs/menu/menu-sheet.component";
 
 import { TabsCashSheetComponent } from "./components/tabs/cash-edit/cash-sheet.component";
-import { TabsCashRevComponent } from "./components/tabs/cash-rev/cash-sheet.component";
+import { TabsCashRevComponent } from "./components/tabs/cash-rev/cash-revSheet.component";
 import { TabsRevSheetComponent } from "./components/tabs/revizia/rev-sheet.component";
 import { TabsSumSheetComponent } from "./components/tabs/summary/sum-sheet.component";
 import { TabsTaraSheetComponent } from "./components/tabs/tara/tara-sheet.component";

@@ -1,6 +1,10 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import { RevService } from "app/shared/services/rev.service";
-
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  CdkDragHandle
+} from "@angular/cdk/drag-drop";
 import { TabsCashSheetComponent } from "../cash-edit/cash-sheet.component";
 
 import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
@@ -161,16 +165,17 @@ export class TabsMenuSheetComponent implements OnInit {
   // dropp(ev) {
   //   console.log(ev);
   // }
-  // dropped(event: CdkDragDrop<any>, t: MatTabGroup): void {
+  // dropItem(event: CdkDragDrop<any>, t: MatTabGroup): void {
   //   const arr = this.data.menuList;
   //   console.log(event);
+  //   return;
   //   var previousIndex = parseInt(
   //     event.previousContainer.id.replace("list-", "")
   //   );
   //   var currentIndex = parseInt(event.container.id.replace("list-", ""));
   //   console.log(previousIndex + "->" + currentIndex);
   //   moveItemInArray(arr, previousIndex, currentIndex);
-  //   this.data.store("menuList");
+  //   this.data.fStore("menuList");
   //   // this.gridInit();
   // }
 }

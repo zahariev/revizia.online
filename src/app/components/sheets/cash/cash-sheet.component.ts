@@ -34,14 +34,14 @@ export class CashSheetComponent extends SheetComponent {
       editable: true
     },
     {
-      columnName: "дост.Цена",
-      name: "cost",
+      columnName: "на час",
+      name: "hour",
       format: "number",
       editable: true
     },
     {
-      columnName: "цена",
-      name: "price",
+      columnName: "надница",
+      name: "wage",
       format: "BGN",
       editable: true
     },
@@ -70,7 +70,10 @@ export class CashSheetComponent extends SheetComponent {
   }
 
   ngOnInit() {
-    this.dataList = this.data.cashList[this.tabIdx].data;
+    // console.log("cash-sheet");
+    this.dataList = this.data.cashList
+      ? this.data.cashList[this.tabIdx].data
+      : [];
     this.gridInit();
   }
 
