@@ -33,3 +33,14 @@ export class taraItem {
     public end: number = 0
   ) {}
 }
+
+export class cashItem {
+  constructor(
+    public id: string = "",
+    public name: string = "",
+    public cost: number,
+    public qty: number = 1,
+    public price: number = 0,
+    public round: number = 0
+  ) {}
+}
