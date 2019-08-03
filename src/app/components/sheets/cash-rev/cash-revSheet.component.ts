@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from "@angular/core";
-import { Item } from "app/shared/models/item.model";
+import { cashItem } from "app/shared/models/item.model";
 
 import {
   CdkDragDrop,
@@ -19,7 +19,7 @@ import { SheetComponent } from "../sheet.component";
 })
 export class CashRevSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
-  @Input() tabIdx: string;
+  @Input() tabName: string;
   @Input() date: any;
 
   columnList = [
@@ -67,12 +67,13 @@ export class CashRevSheetComponent extends SheetComponent {
 
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
+    console.log(data.cashSheetView);
   }
 
   ngOnInit() {
-    console.log(this.tabIdx);
+    // console.log(this.tabName);
 
-    this.dataList = this.data.cashData[this.date];
+    this.dataList = this.data.cashData[this.date] || [];
 
     this.gridInit();
   }
@@ -81,33 +82,22 @@ export class CashRevSheetComponent extends SheetComponent {
     // console.log(this.data.cashList[this.tabIdx]);
     //this.dataList[this.tabIdx].data = this.dataList;
     // console.log(this.history);
-    this.viewList = this.data.cashData[this.tabIdx].data;
-  }
-
-  removeRow(itemIdx, ev) {
-    this.dataList[itemIdx].delPosition = itemIdx;
-    this.history.push(this.dataList[itemIdx]);
-    // console.log(itemIdx);
-    this.dataList.splice(itemIdx, 1);
-
-    this.dat.fStore();
-
-    this.gridInit();
+    //this.viewList = this.data.cashData[this.tabIdx].data;
   }
 
   addRow(ev) {
     // TODO scroll one row to bottom
-    var tabIdx = this.dat.tabCashSelectedIdx;
-    var mlist = document.getElementById("cashTab" + tabIdx);
+    // var tabIdx = this.dat.tabCashSelectedIdx;
+    // var mlist = document.getElementById("cashTab" + tabIdx);
     // this.dat.tabCashScrollPos[tabIdx] = this.dat.tabCashScrollPos[tabIdx] + 2070;
     // if (mlist) {
     //   mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
     // }
-    // console.log(this.dataList);
+    console.log(this.dataList);
     var rowIdx = this.dataList.push(
-      new Item("new" + this.dataList.length.toString(), "", 0, 0, 0, 0)
+      new cashItem("new" + this.dataList.length.toString(), "", 0, 0, 0, 0)
     );
-    this.dataList;
+    // this.dataList;
     console.log(this.dataList);
 
     this.gridInit();
