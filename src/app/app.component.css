@@ -55,6 +55,12 @@
   bottom: 10px;
 }
 
+@-moz-document url-prefix() {
+  .smallDate {
+    bottom: 5px !important;
+  }
+}
+
 button.mat-icon-button {
   line-height: 0px !important;
   width: 24px !important;

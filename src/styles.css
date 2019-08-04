@@ -65,6 +65,13 @@ button {
   align-items: end !important;
   min-width: 120px !important;
 }
+
+@-moz-document url-prefix() {
+  .mat-tab-label {
+    bottom: 1px !important;
+  }
+}
+
 .mat-tab-label .mat-tab-label-content {
   font-weight: 200;
 
