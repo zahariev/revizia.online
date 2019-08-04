@@ -92,4 +92,6 @@ export class CashRevSheetComponent extends SheetComponent {
     this.gridInit();
     return rowIdx;
   }
+
+  drop(e) {}
 }

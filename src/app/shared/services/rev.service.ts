@@ -34,7 +34,46 @@ export class RevService {
   ];
   cashList = [
     {
-      name: "...loading",
+      name: "Заплати",
+      data: [
+        {
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
+    },
+    {
+      name: "Стоки",
+      data: [
+        {
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
+    },
+    {
+      name: "Отстъпки",
+      data: [
+        {
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
+    },
+    {
+      name: "Консумация",
       data: [
         {
           id: "",
@@ -77,7 +116,7 @@ export class RevService {
   test;
 
   constructor(public data: DataService, afs: AngularFirestore) {
-    this.DbData = afs.collection("barBilkova").doc("gbjmEZzKZDJSOxcBIt24");
+    this.DbData = afs.collection("barBilkova").doc("Latest"); //gbjmEZzKZDJSOxcBIt24
     this.test = afs
       .collection("barBilkova")
       .snapshotChanges()
@@ -104,11 +143,15 @@ export class RevService {
   }
 
   private setChangesFromServer(data) {
-    this.menuList = data.menuList;
-    this.revList = data.revList;
+    // console.log(data === {});
+
+    this.menuList =
+      data.menuList || this.getLocalSt("menuList") || this.menuList;
+    this.revList = data.revList || this.revList; //this.getLocalSt("revData")
     // this.taraList = data.taraData;
-    this.taraList = data.taraList;
-    this.cashList = data.cashList;
+    this.taraList =
+      data.taraList || this.getLocalSt("taraData") || this.taraList;
+    this.cashList = data.cashList || this.cashList;
     this.cashData = data.cashData || [];
     // console.log("setChangesFromServer");
     // console.log(data.cashData);
@@ -215,6 +258,10 @@ export class RevService {
       this[name[idx]] = JSON.parse(localStorage.getItem(data));
       console.log(name[idx]);
     });
+  }
+
+  private getLocalSt(name) {
+    return JSON.parse(localStorage.getItem(name));
   }
 
   public calculateSheets() {
