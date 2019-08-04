@@ -67,7 +67,7 @@ export class CashRevSheetComponent extends SheetComponent {
 
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
-    console.log(data.cashSheetView);
+    // console.log(data.cashSheetView);
   }
 
   ngOnInit() {
@@ -79,27 +79,16 @@ export class CashRevSheetComponent extends SheetComponent {
   }
 
   gridInit() {
-    // console.log(this.data.cashList[this.tabIdx]);
-    //this.dataList[this.tabIdx].data = this.dataList;
-    // console.log(this.history);
-    //this.viewList = this.data.cashData[this.tabIdx].data;
+    this.data.cashData[this.date] = this.dataList;
+    this.viewList = this.data.cashSheetView[this.date][this.tabName];
   }
 
   addRow(ev) {
-    // TODO scroll one row to bottom
-    // var tabIdx = this.dat.tabCashSelectedIdx;
-    // var mlist = document.getElementById("cashTab" + tabIdx);
-    // this.dat.tabCashScrollPos[tabIdx] = this.dat.tabCashScrollPos[tabIdx] + 2070;
-    // if (mlist) {
-    //   mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
-    // }
-    console.log(this.dataList);
-    var rowIdx = this.dataList.push(
-      new cashItem("new" + this.dataList.length.toString(), "", 0, 0, 0, 0)
-    );
+    var rowIdx = this.dataList.push(new cashItem(this.tabName, "", 0, 0, 0, 0));
     // this.dataList;
     console.log(this.dataList);
 
+    this.data.calcDailyCashSheets(this.date);
     this.gridInit();
     return rowIdx;
   }
