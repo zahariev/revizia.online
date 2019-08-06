@@ -20,34 +20,39 @@
               <thead class="headerRow">
                 <tr>
                   <ng-container *ngFor="let col1 of columnList">
-                    <th class="text-center {{ col1.name }}">
+                    <th
+                      *ngIf="col1.tabIdx == 'all' || col1.tabIdx == tabIdx"
+                      class="text-center  {{ col1.name }}"
+                    >
                       {{ col1.columnName }}
                     </th>
                   </ng-container>
-                  <th class="table-remove text-center">
-                    remove
+                  <!-- <th class="table-remove text-center">
+                    remove  col1.tabIdx == 'all' || col1.tabIdx.includes(tabIdx)
                   </th>
                   <th class="DragHandleTH text-center">
                     pos
-                  </th>
+                  </th> -->
                 </tr>
               </thead>
 
               <tbody>
                 <tr *ngFor="let item of viewList; let id = index" cdkDrag>
-                  <td
-                    :inner-text.prop="value"
-                    class="{{ col.name }}"
-                    *ngFor="let col of columnList; let idx = index"
-                    tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
-                    (keyup)="keyUp(item, col.name, $event)"
-                    (keydown)="keyDown(item, col.name, $event)"
-                    (click)="onClick(item, col.name, $event)"
-                    (blur)="onBlur(item, col.name, $event)"
-                    (input)="onInput($event)"
-                  >
-                    {{ item[col.name] }}
-                  </td>
+                  <ng-container *ngFor="let col of columnList; let idx = index">
+                    <td
+                      *ngIf="col.tabIdx == 'all' || col.tabIdx.includes(tabIdx)"
+                      :inner-text.prop="value"
+                      class="{{ col.name }} cashData"
+                      tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
+                      (keyup)="keyUp(item, col.name, $event)"
+                      (keydown)="keyDown(item, col.name, $event)"
+                      (click)="onClick(item, col.name, $event)"
+                      (blur)="onBlur(item, col.name, $event)"
+                      (input)="onInput($event)"
+                    >
+                      {{ item[col.name] }}
+                    </td>
+                  </ng-container>
 
                   <!-- <td style="padding: 5px;">
                     <span class="table-remove" contenteditable="false">
@@ -56,7 +61,7 @@
                         (click)="removeRow(id, $event)"
                       >
                         Remove
-                      </button>
+                      </button> 
                     </span>
                   </td>
                   <td class=" text-center">
