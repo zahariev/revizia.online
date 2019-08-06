@@ -32,4 +32,11 @@ export class TabsRevSheetComponent {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }
   }
+
+  dayOff(e, date) {
+    this.data.revList[date].forEach(i => {
+      i.ends = i.mplus + i.minus + i.starts;
+    });
+    this.data.fStore();
+  }
 }

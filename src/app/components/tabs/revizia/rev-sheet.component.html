@@ -6,13 +6,13 @@
       </button>
     </div> -->
 
-  <div id="revMenuBtn">
+  <div id="revMenuBtnContainer">
     <mat-menu id="menu" #appMenu="matMenu">
-      <button mat-menu-item>DayOff</button>
+      <button mat-menu-item (click)="dayOff($event, date)">DayOff</button>
       <!-- <button mat-menu-item>new Period()</button> -->
     </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+    <button id="menuBtn" mat-icon-button [matMenuTriggerFor]="appMenu">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
