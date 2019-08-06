@@ -261,10 +261,9 @@ export class RevService {
 
       if (item) {
         item.startRev = JSON.parse(JSON.stringify(revItem.ends));
-        // console.log(item.startRev);
+        item.netStart = JSON.parse(JSON.stringify(item.end));
       }
     });
-    // console.log(this.taraList[0].startRev);
   }
 
   public removeSheet(date) {
@@ -274,10 +273,8 @@ export class RevService {
   }
 
   public newPeriod() {
-    // console.log(this.revList);
-    // console.log(this.taraList[0].startRev);
     this.copyLastDayRevData();
-    console.log(this.taraList[0].startRev);
+    // console.log(this.taraList[0].startRev);
     this.revList = {};
     this.revList[this.getNewDate(0)] = [];
     // console.log(this.revList);
@@ -292,7 +289,7 @@ export class RevService {
       rev[day] = this.revList[day];
       this.revSheetView[day] = {};
     });
-    console.log(this.taraList[0].startRev);
+    // console.log(this.taraList[0].startRev);
     this.revList = rev;
     this.fStore();
     this.fStore("taraList");
@@ -439,7 +436,7 @@ export class RevService {
       Math.round((item.end * 100) / item.net) / 100 + (item.inStore || 0);
     item.name = menuItem.name;
     item.diff = item.start + item.buy - item.end;
-
+    item.start = item.start || item.netStart;
     item.diff = Math.round((menuItem.diff / item.net - item.diff) * 100) / 100;
     return item;
   }
