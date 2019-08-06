@@ -29,4 +29,13 @@ export class TabsSumSheetComponent {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }
   }
+  private newPeriod(e) {
+    // confirm(
+    //   "You Are Going to DELETE this sheet!!! \n are you shure, please confirm"
+    // )
+    //   ? this.data.newPeriod()
+    //   : 0;
+
+    this.data.newPeriod();
+  }
 }

@@ -107,7 +107,7 @@ export class RevService {
   // private summary = {};
   public revList = {};
   private revKeys = [];
-
+  private newRevList = {};
   public firstLoad: boolean = true;
   private afs;
   private DbData; //:Observable<any[]>;
@@ -129,6 +129,12 @@ export class RevService {
         if (changedFrom == "Server") this.setChangesFromServer(data);
       });
 
+    this.revListInit();
+    // console.log(rev);
+    this.calculateSheets();
+  }
+
+  private revListInit() {
     var rev = {};
     this.revKeys = Object.keys(this.revList);
     this.revKeys.sort();
@@ -140,8 +146,6 @@ export class RevService {
     });
 
     this.revList = rev;
-    // console.log(rev);
-    this.calculateSheets();
   }
 
   private setChangesFromServer(data) {
@@ -155,19 +159,19 @@ export class RevService {
       data.taraList || this.getLocalSt("taraData") || this.taraList;
     this.cashList = data.cashList || this.cashList;
     this.cashData = data.cashData || [];
-    var rev = {};
-    this.revKeys = Object.keys(this.revList);
-    this.revKeys.sort();
-    this.cashSheetView["sum"] = {};
-    this.revKeys.forEach(day => {
-      this.cashSummary[day] = [];
-      this.cashSheetView[day] = {};
+    // var rev = {};
+    // this.revKeys = Object.keys(this.revList);
+    // this.revKeys.sort();
+    // this.cashSheetView["sum"] = {};
+    // this.revKeys.forEach(day => {
+    //   this.cashSummary[day] = [];
+    //   this.cashSheetView[day] = {};
+    //   rev[day] = this.revList[day];
+    //   this.revSheetView[day] = {};
+    // });
 
-      rev[day] = this.revList[day];
-      this.revSheetView[day] = {};
-    });
-
-    this.revList = rev;
+    // this.revList = rev;
+    this.revListInit();
     this.calculateSheets();
   }
 
@@ -246,6 +250,54 @@ export class RevService {
     this.cashList.push(tab);
   }
 
+  private copyLastDayRevData() {
+    var lastDate = this.revKeys.slice(-1)[0];
+
+    var tempList = [];
+    this.revList[lastDate].forEach(revItem => {
+      var item = this.taraList.filter(taraItem => {
+        return taraItem.id == revItem.id;
+      })[0];
+
+      if (item) {
+        item.startRev = JSON.parse(JSON.stringify(revItem.ends));
+        // console.log(item.startRev);
+      }
+    });
+    // console.log(this.taraList[0].startRev);
+  }
+
+  public removeSheet(date) {
+    delete this.revList[date];
+    this.revListInit();
+    this.fStore();
+  }
+
+  public newPeriod() {
+    // console.log(this.revList);
+    // console.log(this.taraList[0].startRev);
+    this.copyLastDayRevData();
+    console.log(this.taraList[0].startRev);
+    this.revList = {};
+    this.revList[this.getNewDate(0)] = [];
+    // console.log(this.revList);
+    this.revKeys = [];
+    this.revKeys[0] = this.getNewDate(0);
+
+    var rev = {};
+    this.revKeys.forEach(day => {
+      this.cashSummary[day] = [];
+      this.cashSheetView[day] = {};
+
+      rev[day] = this.revList[day];
+      this.revSheetView[day] = {};
+    });
+    console.log(this.taraList[0].startRev);
+    this.revList = rev;
+    this.fStore();
+    this.fStore("taraList");
+  }
+
   /* * * * * * * * * * * *
    *    private methods
    * * * * * * * * * * * */
@@ -294,7 +346,7 @@ export class RevService {
         // this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
       });
       var i = tempCash.length;
-      console.log(i);
+      // console.log(i);
       for (i; i < 4; i++) {
         // tempCash.push(emptyRow);
       }
@@ -394,7 +446,6 @@ export class RevService {
 
   private revItemCalculator(menuItem, date, prevDayIdx) {
     var prevDay = this.revKeys[prevDayIdx];
-    if (prevDayIdx < 0) prevDay = date;
 
     var revItem = this.revList[date].filter(i => {
       return i.id == menuItem.id;
@@ -404,13 +455,21 @@ export class RevService {
       revItem = new reviziaItem(menuItem.id);
       this.revList[date].push(revItem);
     }
+    var prevEnds = 0;
+    if (prevDayIdx < 0) {
+      prevEnds =
+        this.taraList.filter(i => {
+          return i.id == menuItem.id;
+        })[0]["startRev"] || {};
+    } //prevDay = date;
+    else {
+      prevEnds =
+        this.revList[prevDay].filter(i => {
+          return i.id == menuItem.id;
+        })[0]["ends"] || {};
+    }
 
-    var prevRev =
-      this.revList[prevDay].filter(i => {
-        return i.id == menuItem.id;
-      })[0] || {};
-
-    revItem.starts = prevRev["ends"] || 0;
+    revItem.starts = prevEnds || 0;
     var item = Object.assign(revItem, menuItem);
     item = this.viewItemCalc(item);
 
