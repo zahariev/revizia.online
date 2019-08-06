@@ -183,8 +183,9 @@ thead tr th {
   min-width: 90px;
 }
 
-.starts {
+.start {
   min-width: 90px;
+  text-align: center !important;
 }
 
 .ends {
@@ -205,4 +206,11 @@ thead tr th {
 
 .sum {
   min-width: 105px;
+}
+
+.netStart {
+  font-size: 0.5em;
+  color: red;
+  position: relative;
+  /* bottom: 10px; */
 }

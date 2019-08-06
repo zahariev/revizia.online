@@ -178,7 +178,7 @@
                       {{ item.taraQty1 | hideZero }}
                     </td>
                     <td
-                      class="textRight start"
+                      class=" start"
                       :inner-text.prop="value"
                       tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
                       (keyup)="keyUp(item, 'start', $event)"
@@ -189,6 +189,12 @@
                       [ngClass]="{ negative: item.start < 0 }"
                     >
                       {{ item.start | hideZero }}
+                      <span
+                        class="netStart"
+                        *ngIf="item.start != item.netStart"
+                      >
+                        {{ item.netStart }}
+                      </span>
                     </td>
                   </ng-template>
 
@@ -201,7 +207,7 @@
                   </td> -->
 
                   <td
-                    class="textRight buy"
+                    class=" buy"
                     :inner-text.prop="value"
                     tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
                     (keyup)="keyUp(item, 'buy', $event)"
@@ -212,7 +218,7 @@
                   >
                     {{ item.buy | hideZero }}
                   </td>
-                  <td class="textRight end">
+                  <td class=" end">
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.ends < 0 }"
@@ -221,7 +227,7 @@
                   </td>
                   <!-- | Round: item -->
                   <td
-                    class="textRight inStore"
+                    class=" inStore"
                     :inner-text.prop="value"
                     tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
                     (keyup)="keyUp(item, 'inStore', $event)"
@@ -233,7 +239,7 @@
                     {{ item.inStore | hideZero }}
                   </td>
 
-                  <td class="textRight diff">
+                  <td class=" diff">
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.diff < 0 }"
