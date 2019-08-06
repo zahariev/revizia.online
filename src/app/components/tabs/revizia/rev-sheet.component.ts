@@ -40,6 +40,14 @@ export class TabsRevSheetComponent {
     this.data.fStore();
   }
 
+  private removeSheet(e, date): void {
+    confirm(
+      "You Are Going to DELETE this sheet!!! \n are you shure, please confirm"
+    )
+      ? this.data.removeSheet(date)
+      : 0;
+  }
+
   private dayClearIn(e, date): void {
     this.data.revList[date].forEach(i => {
       i.mplus = 0;

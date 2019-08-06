@@ -9,7 +9,11 @@
   <div id="revMenuBtnContainer">
     <mat-menu id="menu" #appMenu="matMenu">
       <button mat-menu-item (click)="dayOff($event, date)">DayOff</button>
-      <button mat-menu-item [matMenuTriggerFor]="subMenu">
+      <button mat-menu-item (click)="removeSheet($event, date)">
+        delete Sheet
+      </button>
+      <button mat-menu-item>
+        <!-- [matMenuTriggerFor]="subMenu" -->
         Clear old Data
       </button>
     </mat-menu>
