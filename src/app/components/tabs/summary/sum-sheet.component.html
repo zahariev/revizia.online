@@ -1,10 +1,15 @@
 <mat-sidenav-container style="min-height:800px" class="container">
-  <!-- TABS    -->
-  <!-- <div id="saveBtn">
-      <button class="btn-danger" btn-rounded btn-sm>
-        Save changes
-      </button>
-    </div> -->
+  <div id="revMenuBtnContainer">
+    <mat-menu id="menu" #appMenu="matMenu">
+      <button mat-menu-item>save Period</button>
+      <button mat-menu-item>set New Period</button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
   <mat-tab-group
     animationDuration="0"
     id="reviziaTabs"
