@@ -18,7 +18,7 @@ export class SheetComponent implements OnInit {
   editable;
   contentChange: Boolean = false;
   columnList = { length: 0 };
-
+  row: number = 0;
   constructor(public dat: RevService, public el: ElementRef) {}
 
   ngOnInit() {}
@@ -85,7 +85,7 @@ export class SheetComponent implements OnInit {
   keyDown(item, property: string, event: any) {
     // console.log(event);
     var el = event.target;
-    var row = this.columnList.length;
+    var row = this.row || this.columnList.length;
     // console.log(event.key);
     switch (event.key) {
       case "Enter":

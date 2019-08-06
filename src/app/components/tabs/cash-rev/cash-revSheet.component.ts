@@ -10,15 +10,17 @@ import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
 })
 export class TabsCashRevComponent implements OnInit {
   // viewList;
-  editable: boolean;
+  // editable: boolean;
   mapTabToScroll = {};
   activeEl: any;
   contentChange: Boolean = false;
   selectedIndex = 0;
   @Input() date: any;
+
+  @Input() editable: boolean = true;
   constructor(public data: RevService) {
     // this.viewList = data.menuList;
-    this.editable = true;
+    // this.editable = true;
   }
 
   ngOnInit() {

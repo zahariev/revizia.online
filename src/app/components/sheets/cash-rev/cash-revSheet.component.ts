@@ -20,7 +20,7 @@ import { SheetComponent } from "../sheet.component";
 export class CashRevSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
   @Input() tabName: string;
-  @Input() tabIdx: string;
+  @Input() tabIdx: number;
   @Input() date: any;
 
   columnList = [
@@ -55,7 +55,7 @@ export class CashRevSheetComponent extends SheetComponent {
       name: "comment",
       format: "number",
       editable: true,
-      tabIdx: "all"
+      tabIdx: [1, 2, 3, 4, 5]
     }
     // {
     //   columnName: "закр.",
@@ -69,7 +69,7 @@ export class CashRevSheetComponent extends SheetComponent {
   nextFocus: any;
   viewList;
   containerName = "cashData";
-
+  row = 3;
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
     // console.log(data.cashSheetView);
@@ -78,7 +78,12 @@ export class CashRevSheetComponent extends SheetComponent {
   ngOnInit() {
     // console.log(this.tabName);
 
-    this.dataList = this.data.cashData[this.date] || [];
+    if (!this.data.cashData[this.date]) {
+      this.data.cashData[this.date] = [];
+
+      this.dat.fStore("cashData");
+    }
+    this.dataList = this.data.cashData[this.date];
 
     this.gridInit();
   }
@@ -89,9 +94,11 @@ export class CashRevSheetComponent extends SheetComponent {
   }
 
   addRow(ev) {
-    var rowIdx = this.dataList.push(new cashItem(this.tabName, "", 0, 0, 0, 0));
+    var rowIdx = this.dataList.push(
+      new cashItem(Number(this.tabIdx), "", 0, 0)
+    );
     // this.dataList;
-    console.log(this.dataList);
+    // console.log(this.dataList);
 
     this.data.calcDailyCashSheets(this.date);
     this.gridInit();
@@ -100,11 +107,12 @@ export class CashRevSheetComponent extends SheetComponent {
 
   updateList(itm, property: string, el: any) {
     // this.dat.firstLoad = false;
-    // var itemExists = this.dataList.filter(i => {
-    //   return i.id == itm.id;
-    // })[0];
 
-    var item = JSON.parse(JSON.stringify(itm));
+    var itemExists = this.dataList.filter(i => {
+      return i.id == itm.id;
+    })[0];
+    // console.log(itm);
+    var item = itemExists || JSON.parse(JSON.stringify(itm));
 
     // format edited text field
     var value = el.innerText + "";
@@ -120,15 +128,19 @@ export class CashRevSheetComponent extends SheetComponent {
       // not to double values in text filed on chrome
       el.innerHTML = item[property] || "";
     }
+    console.log(item);
+
+    if (!itemExists) this.dataList.push(item);
 
     // this.dat.calculateSheets();
     // this.dat.localStore();
+    console.log(this.dat.cashData);
 
-    this.dat.containerName = this.containerName;
-    this.dat.fStore(this.dat.containerName);
+    // this.dat.containerName = this.containerName;
+    this.dat.fStore("cashData");
     this.contentChange = false;
 
-    this.gridInit();
+    // this.gridInit();
   }
 
   drop(e) {}

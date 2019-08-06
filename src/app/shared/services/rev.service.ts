@@ -86,8 +86,8 @@ export class RevService {
       ]
     }
   ];
-  cashData = [];
-  revData = [];
+  cashData = {};
+  revData = {};
   taraList = [];
   taraData = [];
   sumData = {};
@@ -158,36 +158,22 @@ export class RevService {
     this.taraList =
       data.taraList || this.getLocalSt("taraData") || this.taraList;
     this.cashList = data.cashList || this.cashList;
-    this.cashData = data.cashData || [];
-    // var rev = {};
-    // this.revKeys = Object.keys(this.revList);
-    // this.revKeys.sort();
-    // this.cashSheetView["sum"] = {};
-    // this.revKeys.forEach(day => {
-    //   this.cashSummary[day] = [];
-    //   this.cashSheetView[day] = {};
-    //   rev[day] = this.revList[day];
-    //   this.revSheetView[day] = {};
-    // });
+    this.cashData = data.cashData || {};
 
-    // this.revList = rev;
     this.revListInit();
     this.calculateSheets();
   }
 
   public fStore(name = "revList"): void {
     var json: string;
-    // console.log(name);
 
     this.calculateSheets();
 
     var data = {};
     data[name] = this[name];
 
-    this.DbData.update(JSON.parse(JSON.stringify(data)))
-      .then
-      // console.log("send Update")
-      ();
+    this.DbData.update(JSON.parse(JSON.stringify(data))).then();
+    console.log(data);
 
     this.containerName = "";
   }
@@ -299,16 +285,16 @@ export class RevService {
    *    private methods
    * * * * * * * * * * * */
 
-  private getLocal() {
-    var data = ["menuList", "revData", "cashData", "taraData", "sumData"];
-    var name = ["menuList", "revList", "cashList", "taraList", "tempSummary"];
+  // private getLocal() {
+  //   var data = ["menuList", "revData", "cashData", "taraData", "sumData"];
+  //   var name = ["menuList", "revList", "cashList", "taraList", "tempSummary"];
 
-    this.containerName = "";
-    data.forEach((data, idx) => {
-      this[name[idx]] = JSON.parse(localStorage.getItem(data));
-      console.log(name[idx]);
-    });
-  }
+  //   this.containerName = "";
+  //   data.forEach((data, idx) => {
+  //     this[name[idx]] = JSON.parse(localStorage.getItem(data));
+  //     console.log(name[idx]);
+  //   });
+  // }
 
   private getLocalSt(name) {
     return JSON.parse(localStorage.getItem(name));
@@ -330,13 +316,13 @@ export class RevService {
     this.cashSheetView[date] = {};
     if (!this.cashData[date]) return;
 
-    this.cashList.forEach(tab => {
+    this.cashList.forEach((tab, idx) => {
       var tempCash: Array<any> = [];
-      var emptyRow = new cashItem(tab.name, "", 0, 0);
+      // var emptyRow = new cashItem(idx, "", 0, 0);
       tab.data.forEach((cashItem, id) => {
         tempCash = [];
         this.cashData[date].forEach(i => {
-          if (i.id == cashItem.id || i.id == tab.name) tempCash.push(i);
+          if (i.tabIdx == idx) tempCash.push(i);
         });
 
         // this.cashSummary[date][tab.name]["sum"] += item.sum;
@@ -345,7 +331,7 @@ export class RevService {
       var i = tempCash.length;
       // console.log(i);
       for (i; i < 4; i++) {
-        // tempCash.push(emptyRow);
+        tempCash.push(new cashItem(idx, "", 0, 0));
       }
       this.cashSheetView[date][tab.name] = tempCash;
       this.cashSheetView["sum"][tab.name] = tempCash;

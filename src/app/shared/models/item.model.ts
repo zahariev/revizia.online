@@ -36,9 +36,16 @@ export class taraItem {
 
 export class cashItem {
   constructor(
-    public id: string = "",
+    public tabIdx: number,
     public name: string = "",
     public sum: number,
-    public suma: number = 1
+    public suma: number = 1,
+    public id: number = Number(
+      Date.now()
+        .toString()
+        .slice(7) +
+        "" +
+        Math.floor(Math.random() * 10000)
+    )
   ) {}
 }
