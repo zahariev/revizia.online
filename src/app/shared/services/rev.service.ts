@@ -431,7 +431,7 @@ export class RevService {
       1;
 
     item.end =
-      revItem.ends - item.taraQty * item.tara - item.taraQty1 * item.tara1;
+      revItem.ends || 0 - item.taraQty * item.tara - item.taraQty1 * item.tara1;
 
     item.end =
       Math.round((item.end * 100) / item.net) / 100 + (item.inStore || 0);
@@ -457,13 +457,13 @@ export class RevService {
       prevEnds =
         this.taraList.filter(i => {
           return i.id == menuItem.id;
-        })[0]["startRev"] || {};
+        })[0]["startRev"] || 0;
     } //prevDay = date;
     else {
       prevEnds =
         this.revList[prevDay].filter(i => {
           return i.id == menuItem.id;
-        })[0]["ends"] || {};
+        })[0]["ends"] || 0;
     }
 
     revItem.starts = prevEnds || 0;
