@@ -21,7 +21,9 @@
                 <tr>
                   <ng-container *ngFor="let col1 of columnList">
                     <th
-                      *ngIf="col1.tabIdx == 'all' || col1.tabIdx == tabIdx"
+                      *ngIf="
+                        col1.tabIdx == 'all' || col1.tabIdx.indexOf(tabIdx) > -1
+                      "
                       class="text-center  {{ col1.name }}"
                     >
                       {{ col1.columnName }}
@@ -40,7 +42,9 @@
                 <tr *ngFor="let item of viewList; let id = index" cdkDrag>
                   <ng-container *ngFor="let col of columnList; let idx = index">
                     <td
-                      *ngIf="col.tabIdx == 'all' || col.tabIdx.includes(tabIdx)"
+                      *ngIf="
+                        col.tabIdx == 'all' || col.tabIdx.indexOf(tabIdx) > -1
+                      "
                       :inner-text.prop="value"
                       class="{{ col.name }} cashData"
                       tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
