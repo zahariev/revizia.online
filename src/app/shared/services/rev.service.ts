@@ -375,6 +375,7 @@ export class RevService {
             itm
           );
           tempTara[id] = this.taraItemSums(this.tempSummary[tab.name][id], itm);
+          // console.log(tempTara[id].netStart);
 
           this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
         }
@@ -436,7 +437,6 @@ export class RevService {
       Math.round((item.end * 100) / item.net) / 100 + (item.inStore || 0);
     item.name = menuItem.name;
     item.diff = item.start + item.buy - item.end;
-    item.start = item.start || item.netStart;
     item.diff = Math.round((menuItem.diff / item.net - item.diff) * 100) / 100;
     return item;
   }
