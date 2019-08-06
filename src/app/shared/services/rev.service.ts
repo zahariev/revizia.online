@@ -132,6 +132,8 @@ export class RevService {
     var rev = {};
     this.revKeys = Object.keys(this.revList);
     this.revKeys.sort();
+
+    this.cashSheetView["sum"] = {};
     this.revKeys.forEach(day => {
       rev[day] = this.revList[day];
       this.revSheetView[day] = {};
@@ -153,11 +155,10 @@ export class RevService {
       data.taraList || this.getLocalSt("taraData") || this.taraList;
     this.cashList = data.cashList || this.cashList;
     this.cashData = data.cashData || [];
-    // console.log("setChangesFromServer");
-    // console.log(data.cashData);
     var rev = {};
     this.revKeys = Object.keys(this.revList);
     this.revKeys.sort();
+    this.cashSheetView["sum"] = {};
     this.revKeys.forEach(day => {
       this.cashSummary[day] = [];
       this.cashSheetView[day] = {};
@@ -270,6 +271,7 @@ export class RevService {
     this.tempSummary["sumTotal"] = 0;
     // this.tempCashSummary["sumTotal"] = 0;
     this.revKeys.forEach(date => {
+      this.cashSheetView["sum"] = {};
       this.calcDailyCashSheets(date);
       this.calculateRevSheet(date);
     });
@@ -281,20 +283,27 @@ export class RevService {
 
     this.cashList.forEach(tab => {
       var tempCash: Array<any> = [];
-      // tempCash[0] = new cashItem(tab.name, "", 0, 0, 0, 0);
+      var emptyRow = new cashItem(tab.name, "", 0, 0);
       tab.data.forEach((cashItem, id) => {
         tempCash = [];
         this.cashData[date].forEach(i => {
           if (i.id == cashItem.id || i.id == tab.name) tempCash.push(i);
         });
+
         // this.cashSummary[date][tab.name]["sum"] += item.sum;
         // this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
       });
+      var i = tempCash.length;
+      console.log(i);
+      for (i; i < 4; i++) {
+        // tempCash.push(emptyRow);
+      }
       this.cashSheetView[date][tab.name] = tempCash;
+      this.cashSheetView["sum"][tab.name] = tempCash;
     });
   }
 
-  private calculateRevSheet(date) {
+  public calculateRevSheet(date) {
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
       if (!this.tempSummary[tab.name]) this.tempSummary[tab.name] = [];

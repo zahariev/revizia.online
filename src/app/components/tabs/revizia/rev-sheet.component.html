@@ -9,7 +9,20 @@
   <div id="revMenuBtnContainer">
     <mat-menu id="menu" #appMenu="matMenu">
       <button mat-menu-item (click)="dayOff($event, date)">DayOff</button>
-      <!-- <button mat-menu-item>new Period()</button> -->
+      <button mat-menu-item [matMenuTriggerFor]="subMenu">
+        Clear old Data
+      </button>
+    </mat-menu>
+    <mat-menu id="menuClear" #subMenu="matMenu">
+      <button mat-menu-item (click)="dayClearIn($event, date)">
+        clear Incoming
+      </button>
+      <button mat-menu-item (click)="dayClearEnd($event, date)">
+        clear End
+      </button>
+      <button mat-menu-item (click)="dayClearAll($event, date)">
+        clear All
+      </button>
     </mat-menu>
 
     <button id="menuBtn" mat-icon-button [matMenuTriggerFor]="appMenu">

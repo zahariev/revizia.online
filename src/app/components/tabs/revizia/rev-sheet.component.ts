@@ -33,9 +33,33 @@ export class TabsRevSheetComponent {
     }
   }
 
-  dayOff(e, date) {
+  private dayOff(e, date): void {
     this.data.revList[date].forEach(i => {
       i.ends = i.mplus + i.minus + i.starts;
+    });
+    this.data.fStore();
+  }
+
+  private dayClearIn(e, date): void {
+    this.data.revList[date].forEach(i => {
+      i.mplus = 0;
+      i.minus = 0;
+      i.ends = 0;
+    });
+
+    this.data.calculateRevSheet(date);
+    this.data.fStore();
+  }
+
+  private dayClearAll(e, date): void {
+    this.dayClearEnd(e, date);
+    this.dayClearIn(e, date);
+
+    // this.data.fStore();
+  }
+  private dayClearEnd(e, date): void {
+    this.data.revList[date].forEach(i => {
+      i.ends = 0;
     });
     this.data.fStore();
   }
