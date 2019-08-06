@@ -5,7 +5,18 @@
         Save changes
       </button>
     </div> -->
-  <div><mat-icon>menu</mat-icon></div>
+
+  <div id="revMenuBtn">
+    <mat-menu id="menu" #appMenu="matMenu">
+      <button mat-menu-item>DayOff</button>
+      <!-- <button mat-menu-item>new Period()</button> -->
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
   <mat-tab-group
     animationDuration="0"
     id="reviziaTabs"
