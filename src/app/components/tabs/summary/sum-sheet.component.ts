@@ -30,12 +30,12 @@ export class TabsSumSheetComponent {
     }
   }
   private newPeriod(e) {
-    // confirm(
-    //   "You Are Going to DELETE this sheet!!! \n are you shure, please confirm"
-    // )
-    //   ? this.data.newPeriod()
-    //   : 0;
+    confirm(
+      "You Are Going to DELETE All Sheets!!! \n Are you shure, please confirm !"
+    )
+      ? this.data.newPeriod()
+      : 0;
 
-    this.data.newPeriod();
+    // this.data.newPeriod();
   }
 }
