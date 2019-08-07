@@ -8,14 +8,14 @@
     selectedIndex="1"
     (selectedTabChange)="onSelectedTabChange($event)"
   >
-    <mat-tab disabled *ngIf="!_simple">
+    <mat-tab disabled *ngIf="!data._simpleMode">
       <ng-template mat-tab-label>
         <div id="tabHideBtn" (click)="toggleHideTabs($event)">
           <mat-icon>code</mat-icon>
         </div>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Items" *ngIf="showAllTabs">
+    <mat-tab label="Items">
       <tabs-menu-sheet></tabs-menu-sheet>
     </mat-tab>
 

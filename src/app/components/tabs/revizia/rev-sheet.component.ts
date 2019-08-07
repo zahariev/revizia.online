@@ -33,14 +33,14 @@ export class TabsRevSheetComponent {
     }
   }
 
-  private dayOff(e, date): void {
+  public dayOff(e, date): void {
     this.data.revList[date].forEach(i => {
       i.ends = i.mplus + i.minus + i.starts;
     });
     this.data.fStore();
   }
 
-  private removeSheet(e, date): void {
+  public removeSheet(e, date): void {
     confirm(
       "You Are Going to DELETE this sheet!!! \n are you shure, please confirm"
     )
@@ -48,7 +48,7 @@ export class TabsRevSheetComponent {
       : 0;
   }
 
-  private dayClearIn(e, date): void {
+  public dayClearIn(e, date): void {
     this.data.revList[date].forEach(i => {
       i.mplus = 0;
       i.minus = 0;
@@ -59,13 +59,13 @@ export class TabsRevSheetComponent {
     this.data.fStore();
   }
 
-  private dayClearAll(e, date): void {
+  public dayClearAll(e, date): void {
     this.dayClearEnd(e, date);
     this.dayClearIn(e, date);
 
     // this.data.fStore();
   }
-  private dayClearEnd(e, date): void {
+  public dayClearEnd(e, date): void {
     this.data.revList[date].forEach(i => {
       i.ends = 0;
     });

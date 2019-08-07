@@ -29,7 +29,7 @@ export class TabsSumSheetComponent {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }
   }
-  private newPeriod(e) {
+  public newPeriod(e) {
     confirm(
       "You Are Going to DELETE All Sheets!!! \n Are you shure, please confirm !"
     )
@@ -38,4 +38,5 @@ export class TabsSumSheetComponent {
 
     // this.data.newPeriod();
   }
+  public savePeriod() {}
 }

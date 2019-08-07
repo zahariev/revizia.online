@@ -91,6 +91,7 @@ export class RevService {
   taraList = [];
   taraData = [];
   sumData = {};
+  _simpleMode: boolean = true;
 
   public revSheetView = {};
   public cashSheetView = {};

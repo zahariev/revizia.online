@@ -22,14 +22,14 @@ export class AppComponent {
   showTaraTab: boolean = true;
   showSummaryTab: boolean = true;
   showAllTabs: boolean = true;
-  _simple: boolean = true;
+  // _simple: boolean = true;
 
   constructor(data: RevService, el: ElementRef) {
     this.el = el;
     this.data = data;
     this.tabs = this.data.revKeys;
     this.editable = true;
-    if (this._simple) {
+    if (this.data._simpleMode) {
       this.showAllTabs = false;
       console.log(this.data.revKeys);
       this.data.revKeys = this.data.revKeys.slice(-2);
@@ -37,7 +37,7 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    if (this._simple) {
+    if (this.data._simpleMode) {
       this.showAllTabs = false;
       setTimeout(() => {
         this.data.revKeys = this.data.revKeys.slice(-2);
