@@ -22,15 +22,29 @@ export class AppComponent {
   showTaraTab: boolean = true;
   showSummaryTab: boolean = true;
   showAllTabs: boolean = true;
+  _simple: boolean = true;
 
   constructor(data: RevService, el: ElementRef) {
     this.el = el;
     this.data = data;
     this.tabs = this.data.revKeys;
     this.editable = true;
+    if (this._simple) {
+      this.showAllTabs = false;
+      console.log(this.data.revKeys);
+      this.data.revKeys = this.data.revKeys.slice(-2);
+    }
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    if (this._simple) {
+      this.showAllTabs = false;
+      setTimeout(() => {
+        this.data.revKeys = this.data.revKeys.slice(-2);
+        // console.log(this.data.revKeys);
+      }, 1000);
+    }
+  }
 
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
     // this.data.fStore(this.data.containerName);

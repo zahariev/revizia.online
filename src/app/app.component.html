@@ -1,10 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
   <!-- TABS    -->
-  <div id="saveBtn">
-    <button class="btn-danger" btn-rounded btn-sm>
-      Save changes
-    </button>
-  </div>
 
   <mat-tab-group
     [animationDuration]="'0ms'"
@@ -13,7 +8,7 @@
     selectedIndex="1"
     (selectedTabChange)="onSelectedTabChange($event)"
   >
-    <mat-tab disabled>
+    <mat-tab disabled *ngIf="!_simple">
       <ng-template mat-tab-label>
         <div id="tabHideBtn" (click)="toggleHideTabs($event)">
           <mat-icon>code</mat-icon>
@@ -35,7 +30,7 @@
       <tabs-sum-sheet></tabs-sum-sheet>
     </mat-tab>
 
-    <mat-tab *ngFor="let tab of data.revKeys">
+    <mat-tab *ngFor="let tab of data.revKeys; let id = index">
       <ng-template mat-tab-label>
         {{ tab | date: "EEEE" }}
         <!-- <small>{{ data[tab + "Sum"] | BGN }}</small> -->
