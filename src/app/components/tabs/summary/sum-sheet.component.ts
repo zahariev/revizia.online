@@ -38,5 +38,5 @@ export class TabsSumSheetComponent {
 
     // this.data.newPeriod();
   }
-  public savePeriod() {}
+  public savePeriod(e) {}
 }
