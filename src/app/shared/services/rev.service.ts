@@ -173,7 +173,7 @@ export class RevService {
     data[name] = this[name];
 
     this.DbData.update(JSON.parse(JSON.stringify(data))).then();
-    console.log(data);
+    // console.log(data);
 
     this.containerName = "";
   }

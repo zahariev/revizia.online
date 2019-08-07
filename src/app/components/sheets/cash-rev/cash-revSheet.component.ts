@@ -128,13 +128,13 @@ export class CashRevSheetComponent extends SheetComponent {
       // not to double values in text filed on chrome
       el.innerHTML = item[property] || "";
     }
-    console.log(item);
+    // console.log(item);
 
     if (!itemExists) this.dataList.push(item);
 
     // this.dat.calculateSheets();
     // this.dat.localStore();
-    console.log(this.dat.cashData);
+    // console.log(this.dat.cashData);
 
     // this.dat.containerName = this.containerName;
     this.dat.fStore("cashData");
