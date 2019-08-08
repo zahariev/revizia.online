@@ -323,3 +323,16 @@ th.DragHandle {
 .sum {
   min-width: 105px;
 }
+
+#dropTab {
+  z-index: 999;
+  position: absolute;
+  right: 300px;
+  top: 100px;
+}
+
+#dropTab div {
+  border: 1px solid;
+  padding: 10px;
+  text-align: center;
+}

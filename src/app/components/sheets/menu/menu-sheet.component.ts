@@ -4,7 +4,12 @@ import { Item } from "app/shared/models/item.model";
 import {
   CdkDragDrop,
   moveItemInArray,
-  CdkDragHandle
+  CdkDragHandle,
+  transferArrayItem,
+  CdkDragEnter,
+  CdkDragExit,
+  CdkDragStart,
+  CdkDrag
 } from "@angular/cdk/drag-drop";
 
 import { MatIcon } from "@angular/material/icon";
@@ -84,10 +89,8 @@ export class MenuSheetComponent extends SheetComponent {
     this.history.push(this.dataList[itemIdx]);
     // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
-
-    this.dat.fStore();
-
     this.gridInit();
+    this.dat.fStore();
   }
 
   addRow(ev) {
@@ -114,5 +117,18 @@ export class MenuSheetComponent extends SheetComponent {
 
     this.dat.fStore(this.containerName);
     this.gridInit();
+  }
+
+  dropToTab(event: CdkDragDrop<Item[]>) {
+    console.log(event);
+    // reorder menu tabs
+    // var histItem = { prev: event.previousIndex, curr: event.currentIndex };
+    // this.history.push(histItem);
+    moveItemInArray(this.dat.menuList, event.previousIndex, event.currentIndex);
+
+    this.dataList = this.dat.menuList[this.tabIdx].data;
+    this.viewList = this.dat.menuList[this.tabIdx].data;
+
+    this.dat.fStore("menuList");
   }
 }

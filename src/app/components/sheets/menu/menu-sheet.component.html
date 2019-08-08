@@ -3,6 +3,20 @@
   (wheel)="mousewheel($event)"
   (mousewheel)="mousewheel($event)"
 >
+  <div
+    id="dropTab"
+    cdkDropList
+    (cdkDropListDropped)="dropToTab($event)"
+    #tabs="cdkDropList"
+  >
+    <div
+      *ngFor="let tab of dat.menuList; let idx = index"
+      cdkDrag
+      [cdkDragData]="tab"
+    >
+      <span> {{ tab.name }}</span>
+    </div>
+  </div>
   <!-- <mat-sidenav-container class="sidenav-container">
      TABS    
 
@@ -17,7 +31,9 @@
           <div id="table" class="table-editable">
             <table
               cdkDropList
+              #activeTab="cdkDropList"
               (cdkDropListDropped)="drop($event)"
+              [cdkDropListConnectedTo]="[tabs]"
               contenteditable="false"
               class="table table-bordered table-responsive-md table-striped text-center"
             >
@@ -38,7 +54,11 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let item of viewList; let id = index" cdkDrag>
+                <tr
+                  *ngFor="let item of viewList; let id = index"
+                  cdkDrag
+                  [cdkDragData]="item"
+                >
                   <td
                     :inner-text.prop="value"
                     class="{{ col.name }}"

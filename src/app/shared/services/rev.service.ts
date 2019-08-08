@@ -117,7 +117,7 @@ export class RevService {
   test;
 
   constructor(public data: DataService, afs: AngularFirestore) {
-    this.DbData = afs.collection("barBilkova").doc("Latest"); //gbjmEZzKZDJSOxcBIt24
+    this.DbData = afs.collection("barBilkova").doc("test2"); //"gbjmEZzKZDJSOxcBIt24");
     this.test = afs
       .collection("barBilkova")
       .snapshotChanges()
@@ -173,7 +173,7 @@ export class RevService {
     var data = {};
     data[name] = this[name];
 
-    this.DbData.update(JSON.parse(JSON.stringify(data))).then();
+    this.DbData.update(data).then();
     // console.log(data);
 
     this.containerName = "";

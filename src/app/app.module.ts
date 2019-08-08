@@ -33,6 +33,8 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 import { AngularFireModule } from "angularfire2";
 
 import { CdkLazyDropList, CdkLazyDrag } from "./shared/lazy-drag-drop";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+
 import { SheetComponent } from "app/components/sheets/sheet.component";
 
 @NgModule({
@@ -61,6 +63,7 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
     BrowserAnimationsModule,
     AppMaterialModule,
     HttpClientModule,
+    DragDropModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence()
   ],
