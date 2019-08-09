@@ -185,7 +185,7 @@ export class SheetComponent implements OnInit {
       nextElement = this.focussableElements[0];
     }
     // console.log(nextElement);
-    window.localStorage.setItem("focus", nextElement);
+    // window.localStorage.setItem("focus", nextElement);
     nextElement.focus();
   }
 
