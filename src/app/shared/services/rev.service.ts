@@ -22,7 +22,7 @@ export class RevService {
       name: "...loading",
       data: [
         {
-          id: "21209..",
+          id: "21210",
           name: "Кафе",
           cost: 56,
           qty: 0.007,
@@ -87,9 +87,48 @@ export class RevService {
     }
   ];
   cashData = {};
-  revData = {};
-  taraList = [];
-  taraData = [];
+  revData = { "2019-01-01": [] };
+  taraList = [
+    {
+      bruto: 0,
+      bruto1: 0,
+      buy: 4,
+      diff: 0,
+      end: 0,
+      id: "21210",
+      inStore: 0,
+      name: "",
+      net: 1,
+      netStart: 1,
+      start: 1,
+      startRev: 1,
+      tara: 0,
+      tara1: 0,
+      taraQty: 0,
+      taraQty1: 0
+    }
+  ];
+  taraData = [
+    {
+      bruto: 0,
+      bruto1: 0,
+      buy: 4,
+      diff: 0,
+      end: 0,
+      id: "21210",
+      inStore: "",
+      name: "",
+      net: 1,
+      netStart: 1,
+      start: 1,
+      startRev: 1,
+      tara: 0,
+      tara1: 0,
+      taraQty: 0,
+      taraQty1: 0
+    }
+  ];
+
   sumData = {};
   _simpleMode: boolean = false;
 
@@ -111,24 +150,21 @@ export class RevService {
   private newRevList = {};
   public firstLoad: boolean = true;
   private afs;
-  private DbData; //:Observable<any[]>;
+  private DbData;
   public containerName;
   changedFrom = "Local";
   test;
 
   constructor(public data: DataService, afs: AngularFirestore) {
-    this.DbData = afs.collection("barBilkova").doc("test2"); //"gbjmEZzKZDJSOxcBIt24");
-    this.test = afs
-      .collection("barBilkova")
-      .snapshotChanges()
-      .subscribe(res => {
-        const changedFrom = res[0].payload.doc.metadata.hasPendingWrites
-          ? "Local"
-          : "Server";
-        const data = res[0].payload.doc.data();
+    this.DbData = afs.collection("barBilkova").doc("test"); //"gbjmEZzKZDJSOxcBIt24");
+    this.test = this.DbData.snapshotChanges().subscribe(res => {
+      const changedFrom = res.payload.metadata.hasPendingWrites
+        ? "Local"
+        : "Server";
+      const data = res.payload.data();
 
-        if (changedFrom == "Server") this.setChangesFromServer(data);
-      });
+      if (changedFrom == "Server") this.setChangesFromServer(data);
+    });
 
     this.revListInit();
     // console.log(rev);
@@ -153,11 +189,11 @@ export class RevService {
     // console.log(data === {});
 
     this.menuList =
-      data.menuList || this.getLocalSt("menuList") || this.menuList;
-    this.revList = data.revList || this.revList; //this.getLocalSt("revData")
+      data.menuList || this.getLocalSt("menuList") || this.menuList; //
+    this.revList = data.revList || this.getLocalSt("revData") || this.revList; //this.getLocalSt("revData")
     // this.taraList = data.taraData;
     this.taraList =
-      data.taraList || this.getLocalSt("taraData") || this.taraList;
+      data.taraList || this.getLocalSt("taraData") || this.taraList; //||
     this.cashList = data.cashList || this.cashList;
     this.cashData = data.cashData || {};
 
@@ -173,8 +209,9 @@ export class RevService {
     var data = {};
     data[name] = this[name];
 
-    this.DbData.update(data).then();
-    // console.log(data);
+    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
 
     this.containerName = "";
   }
@@ -184,7 +221,7 @@ export class RevService {
 
     this.calculateSheets();
     // return;
-    // console.log("localStore");
+    console.log("localStore");
 
     var name = ["menuList", "revData", "sumData", "taraData"];
     var dataList = ["menuList", "revList", "sumSheetView", "taraList"];
@@ -218,6 +255,7 @@ export class RevService {
       // show calendar controll
       return false;
     }
+    this.fStore();
     return true;
   }
 
@@ -227,6 +265,7 @@ export class RevService {
       data: []
     };
     this.menuList.push(tab);
+    // this.fStore("menuList");
   }
 
   public addCashTab() {
@@ -439,12 +478,12 @@ export class RevService {
       revItem = new reviziaItem(menuItem.id);
       this.revList[date].push(revItem);
     }
-    var prevEnds = 0;
+    var prevEnds;
     if (prevDayIdx < 0) {
-      prevEnds =
-        this.taraList.filter(i => {
-          return i.id == menuItem.id;
-        })[0]["startRev"] || 0;
+      prevEnds = this.taraList.filter(i => {
+        return i.id == menuItem.id;
+      })[0];
+      prevEnds = prevEnds ? prevEnds["startRev"] : 0;
     } //prevDay = date;
     else {
       prevEnds =
