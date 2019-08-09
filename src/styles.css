@@ -91,6 +91,10 @@ button {
   width: 90%;
 }
 
+.mat-tab-body.mat-tab-body-active {
+  background: lightgrey;
+}
+
 #reviziaTabs .mat-tab-header {
   position: fixed !important;
   z-index: 99;
