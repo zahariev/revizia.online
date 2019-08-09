@@ -30,7 +30,13 @@ export class taraItem {
     public taraQty1: number = 0,
     public start: number = 0,
     public buy: number = 0,
-    public end: number = 0
+    public end: number = 0,
+    public diff: number = 0,
+    public inStore: number = 0,
+    public name: string = "",
+    public net: number = 0,
+    public netStart: number = 0,
+    public startRev: number = 0
   ) {}
 }
 
