@@ -13,7 +13,7 @@ button.mat-icon-button {
 .overHeader {
   width: 100%;
   height: 75px;
-  background: white;
+  background: lightgray;
   top: 25px;
   position: absolute;
   z-index: 999;

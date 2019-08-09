@@ -90,7 +90,7 @@ export class MenuSheetComponent extends SheetComponent {
     // console.log(itemIdx);
     this.dataList.splice(itemIdx, 1);
     this.gridInit();
-    this.dat.fStore();
+    this.dat.fStore("menuList");
   }
 
   addRow(ev) {

@@ -327,12 +327,13 @@ th.DragHandle {
 #dropTab {
   z-index: 999;
   position: absolute;
-  right: 300px;
+  left: 950px;
   top: 100px;
 }
 
 #dropTab div {
   border: 1px solid;
   padding: 10px;
+  margin: -1px;
   text-align: center;
 }

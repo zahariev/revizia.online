@@ -1,10 +1,37 @@
 <mat-sidenav-container class="container">
-  <!-- TABS    -->
-  <!-- <div id="saveBtn">
-    <button class="btn-danger" btn-rounded btn-sm>
-      Save changes
+  <div id="itemMenuBtnContainer">
+    <mat-menu id="menu" #appMenu="matMenu">
+      <!-- <button mat-menu-item (click)="dayOff($event, date)">DayOff</button> -->
+      <button
+        mat-menu-item
+        (click)="removeTab($event, date)"
+        *ngIf="!data._simpleMode"
+      >
+        remove TAB
+      </button>
+    </mat-menu>
+    <!-- <mat-menu id="menuClear" #subMenu="matMenu">
+      <button mat-menu-item (click)="dayClearIn($event, date)">
+        clear Incoming
+      </button>
+       <button mat-menu-item *ngIf="!data._simpleMode">
+        [matMenuTriggerFor]="subMenu"
+        Clear old Data
+      </button> 
+      <button mat-menu-item (click)="dayClearEnd($event, date)">
+        clear End
+      </button>
+      <button mat-menu-item (click)="dayClearAll($event, date)">
+        clear All
+      </button> 
+    </mat-menu>-->
+
+    <button id="menuBtn" mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
     </button>
-  </div> -->
+  </div>
+
+  <!-- TABS    -->
 
   <mat-tab-group
     animationDuration="0"

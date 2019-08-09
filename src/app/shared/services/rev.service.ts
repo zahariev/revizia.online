@@ -268,6 +268,10 @@ export class RevService {
     // this.fStore("menuList");
   }
 
+  public removeMenuTab() {
+    if (this.revList) this.menuList.splice(this.tabSelectedIdx, 1);
+  }
+
   public addCashTab() {
     var tab = {
       name: "newTab",

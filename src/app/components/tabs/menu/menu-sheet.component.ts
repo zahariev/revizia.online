@@ -162,6 +162,13 @@ export class TabsMenuSheetComponent implements OnInit {
     this.data.addMenuTab();
   }
 
+  removeTab() {
+    confirm(
+      "You Are Going to DELETE this tab! \n are you shure, please confirm \n"
+    )
+      ? this.data.removeMenuTab()
+      : 0;
+  }
   // dropp(ev) {
   //   console.log(ev);
   // }
