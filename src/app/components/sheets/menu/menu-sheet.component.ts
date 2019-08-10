@@ -27,11 +27,11 @@ export class MenuSheetComponent extends SheetComponent {
   @Input() tabIdx: string;
 
   columnList = [
-    // {
-    //   name: "id",
-    //   format: "number",
-    //   editable: true
-    // },
+    {
+      name: "id",
+      format: "number",
+      editable: true
+    },
     {
       columnName: "Име",
       name: "name",
