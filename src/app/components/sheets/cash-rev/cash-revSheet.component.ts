@@ -68,7 +68,7 @@ export class CashRevSheetComponent extends SheetComponent {
   focus: any;
   nextFocus: any;
   viewList;
-  containerName = "cashData";
+  containerName = "cashList";
   row = 3;
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
@@ -78,18 +78,19 @@ export class CashRevSheetComponent extends SheetComponent {
   ngOnInit() {
     // console.log(this.tabName);
 
-    if (!this.data.cashData[this.date]) {
-      this.data.cashData[this.date] = [];
+    if (!this.data.cashItems) {
+      //cashData[this.date]
+      this.data.cashItems = [];
 
-      this.dat.fStore("cashData");
+      // this.dat.fStore("cashItems");
     }
-    this.dataList = this.data.cashData[this.date];
+    this.dataList = this.data.cashList[this.date] || [];
 
     this.gridInit();
   }
 
   gridInit() {
-    this.data.cashData[this.date] = this.dataList;
+    this.data.cashList[this.date] = this.dataList;
     this.viewList = this.data.cashSheetView[this.date][this.tabName];
   }
 

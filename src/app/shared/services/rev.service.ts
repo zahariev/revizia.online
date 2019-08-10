@@ -32,7 +32,7 @@ export class RevService {
       ]
     }
   ];
-  cashList = [
+  cashItems = [
     {
       name: "Заплати",
       data: [
@@ -86,7 +86,35 @@ export class RevService {
       ]
     }
   ];
-  cashData = { "2019-01-01": [] };
+
+  cashData = [
+    {
+      id: 0,
+      name: "bar1",
+      data: {
+        "2019-01-01": [
+          {
+            cost: 0.5,
+            diff: 0,
+            ends: 1,
+            id: "21210",
+            minus: 0,
+            mplus: 0,
+            name: "Безкофеин",
+            price: 2.4,
+            qty: 1,
+            qtySold: 0,
+            round: 1,
+            roundSold: 0,
+            starts: 1,
+            sum: 0
+          }
+        ]
+      }
+    }
+  ];
+
+  //{ "2019-01-01": [] };
   revData2 = {
     "2019-01-01": [
       {
@@ -193,6 +221,7 @@ export class RevService {
   private cashSummary = {};
   // private summary = {};
   public revList = {};
+  public cashList = {};
   private revKeys = [];
   private newRevList = {};
   public firstLoad: boolean = true;
@@ -209,13 +238,13 @@ export class RevService {
   // areaID: number = 0;
 
   // // Bilkova
-  // api_key: string = "JulJuD8xEvE6sptbL3cT"
-  // storeName: string = "barBilkova";
-  // areaID: number = 0;
-
-  api_key: string = "wrVNHyTluyMt5odAO6eL";
-  storeName: string = "barKicks";
+  api_key: string = "JulJuD8xEvE6sptbL3cT";
+  storeName: string = "barBilkova";
   areaID: number = 0;
+
+  // api_key: string = "wrVNHyTluyMt5odAO6eL";
+  // storeName: string = "barKicks";
+  // areaID: number = 0;
 
   constructor(public data: DataService, afs: AngularFirestore) {
     this.DbData = afs.collection(this.storeName).doc(this.api_key); //"gbjmEZzKZDJSOxcBIt24");
@@ -229,7 +258,6 @@ export class RevService {
     });
 
     this.revListInit();
-    // console.log(rev);
     this.calculateSheets();
   }
 
@@ -248,23 +276,17 @@ export class RevService {
   }
 
   private setChangesFromServer(data) {
-    // console.log(data === {});
-
     //with Local Storage
     this.menuList =
       data.menuList || this.getLocalSt("menuList") || this.menuList; //
-    this.revData = data.revData || this.getLocalSt("revData") || this.revData; //this.getLocalSt("revData")
-    console.log(this.revData);
-
-    this.revList = this.revData[0].data; //this.getLocalSt("revData"); //this.revList; //this.getLocalSt("revData")
-    // this.taraList = data.taraData;
-    console.log(this.revList);
+    this.revData = this.getLocalSt("revData") || this.revData;
+    this.revList = this.revData[0].data;
 
     this.taraList =
       data.taraList || this.getLocalSt("taraList") || this.taraList; //||
-    this.cashList =
-      data.cashList || this.getLocalSt("cashList") || this.cashList;
-    this.cashData = data.cashData || {};
+    this.cashList = this.cashData[this.areaID].data;
+    // data.cashList || this.getLocalSt("cashList") || this.cashList;
+    //this.cashData = data.cashData || {};
 
     // without Local Storage
     // this.menuList = data.menuList || this.menuList; //
@@ -286,6 +308,9 @@ export class RevService {
     if (name == "revList") {
       data["revData"] = this["revData"];
       data["revData"][this.areaID].data = this.revList;
+    } else if (name == "cashList") {
+      data["cashData"] = this["cashData"];
+      data["cashData"][this.areaID].data = this.cashList;
     } else {
       data[name] = this[name];
     }
@@ -363,7 +388,7 @@ export class RevService {
       name: "newTab",
       data: []
     };
-    this.cashList.push(tab);
+    // this.cashList.push(tab);
   }
 
   private copyLastDayRevData() {
@@ -444,16 +469,16 @@ export class RevService {
 
   calcDailyCashSheets(date) {
     this.cashSheetView[date] = {};
-    if (!this.cashData[date]) return;
+    if (!this.cashList[date]) return;
 
-    this.cashList.forEach((tab, idx) => {
+    this.cashItems.forEach((tab, idx) => {
       var tempCash: Array<any> = [];
       // var emptyRow = new cashItem(idx, "", 0, 0);
       tab.data.forEach((cashItem, id) => {
         tempCash = [];
-        console.log(typeof this.cashData[date]);
+        console.log(this.cashList[date]);
 
-        this.cashData[date].forEach(i => {
+        this.cashList[date].forEach(i => {
           if (i.tabIdx == idx) tempCash.push(i);
         });
 

@@ -8,7 +8,7 @@
     (selectedTabChange)="onSelectedTabChange($event)"
     [@.disabled]="true"
   >
-    <mat-tab *ngFor="let tab of data.cashList; let idx = index">
+    <mat-tab *ngFor="let tab of data.cashItems; let idx = index">
       <ng-template mat-tab-label>
         <span [id]="'list-' + idx" contenteditable="false">
           {{ tab.name }}</span
