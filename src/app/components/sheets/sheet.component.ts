@@ -228,7 +228,7 @@ export class SheetComponent implements OnInit {
       this.dataList[idx] = item;
     }
 
-    console.log(item);
+    // console.log(item);
 
     this.dat.fStore();
     this.gridInit();
