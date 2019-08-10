@@ -61,13 +61,24 @@ export class SheetComponent implements OnInit {
     this.contentChange = true;
   }
 
-  onBlur(item, elName, event) {
+  onBlur(item, colName, event) {
     var el = event.target;
     // console.log(el.innerText);
-    if (this.contentChange) this.updateList(item, elName, el);
+    if (colName == "id") {
+      var oldID = item.id;
+      // this.updateList(item, colName, el);
+
+      // this.updateId(oldID, item.id);
+    } else if (this.contentChange) this.updateList(item, colName, el);
 
     el.contentEditable = "false";
     event.preventDefault();
+  }
+
+  updateId(id, value) {
+    var db = localStorage.getItem(this.dat.storeName + this.dat.areaID);
+
+    console.log(db.replace(/"id":" + id + "/g, '"id":"' + value + '"'));
   }
 
   onClick(item: any, elName: string, event: any) {

@@ -570,7 +570,7 @@ export class RevService {
       item = new taraItem(menuItem.id);
       this.taraList.push(item);
     }
-    item.start = item.start || item.netStart;
+    // item.start = item.start || item.netStart;
     item.net = Math.round((item.bruto1 - item.tara1) * 10000) / 10000;
     if (!item.net)
       item.net = Math.round(((item.bruto - item.tara) / 0.7) * 10000) / 10000;
