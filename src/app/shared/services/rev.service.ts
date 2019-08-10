@@ -276,25 +276,26 @@ export class RevService {
   }
 
   private setChangesFromServer(data) {
+    var localSt = this.getLocalSt(this.storeName);
+
     //with Local Storage
-    this.menuList =
-      data.menuList || this.getLocalSt("menuList") || this.menuList; //
-    this.revData = this.getLocalSt("revData") || this.revData;
+    // this.menuList =
+    //   data.menuList || localSt["menuList"] || this.menuList;
+    // this.revData = data.revData || localSt["revData"] || this.revData;
+    // this.revList = this.revData[0].data;
+    // this.cashData =
+    //   data.cashData || this.getLocalSt("taraList") || this.cashData;
+    // this.cashList = this.cashData[this.areaID].data;
+    // this.taraList =
+    //   data.taraList || this.getLocalSt("taraList") || this.taraList;
+
+    // no localStorage
+    this.menuList = data.menuList || this.menuList;
+    this.revData = data.revData || this.revData;
     this.revList = this.revData[0].data;
-
-    this.taraList =
-      data.taraList || this.getLocalSt("taraList") || this.taraList; //||
+    this.cashData = data.cashData || this.cashData;
     this.cashList = this.cashData[this.areaID].data;
-    // data.cashList || this.getLocalSt("cashList") || this.cashList;
-    //this.cashData = data.cashData || {};
-
-    // without Local Storage
-    // this.menuList = data.menuList || this.menuList; //
-    // this.revList = data.revList || this.revList; //this.getLocalSt("revData")
-    // // this.taraList = data.taraData;
-    // this.taraList = data.taraList || this.taraList; //||
-    // this.cashList = data.cashList || this.cashList;
-    // this.cashData = data.cashData || {};
+    this.taraList = data.taraList || this.taraList;
 
     this.revListInit();
     this.calculateSheets();
@@ -336,17 +337,19 @@ export class RevService {
       "taraList",
       "cashData"
     ];
-
+    var sumData = {};
     this.containerName = "";
     dataList.forEach((data, idx) => {
-      json = JSON.stringify(this[data]);
-      localStorage.setItem(
-        name[idx],
-        json
-        // CryptoJS.AES.encrypt(json, "secret key 123").toString()
-      );
+      sumData[name[idx]] = JSON.parse(JSON.stringify(this[data]));
+
       // }
     });
+    json = JSON.stringify(sumData);
+    localStorage.setItem(
+      this.storeName + "_" + this.areaID,
+      json
+      // CryptoJS.AES.encrypt(json, "secret key 123").toString()
+    );
   }
 
   public newDayTab(date): boolean {
