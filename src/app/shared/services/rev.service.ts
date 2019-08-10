@@ -479,7 +479,7 @@ export class RevService {
       // var emptyRow = new cashItem(idx, "", 0, 0);
       tab.data.forEach((cashItem, id) => {
         tempCash = [];
-        console.log(this.cashList[date]);
+        // console.log(this.cashList[date]);
 
         this.cashList[date].forEach(i => {
           if (i.tabIdx == idx) tempCash.push(i);
