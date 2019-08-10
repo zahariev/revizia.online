@@ -86,8 +86,27 @@ export class RevService {
       ]
     }
   ];
-  cashData = {};
-  revData = { "2019-01-01": [] };
+  cashData = { "2019-01-01": [] };
+  revData = {
+    "2019-01-01": [
+      {
+        cost: 0.5,
+        diff: 0,
+        ends: 1,
+        id: "21210",
+        minus: 0,
+        mplus: 0,
+        name: "Безкофеин",
+        price: 2.4,
+        qty: 1,
+        qtySold: 0,
+        round: 1,
+        roundSold: 0,
+        starts: 1,
+        sum: 0
+      }
+    ]
+  };
   taraList = [
     {
       bruto: 0,
@@ -155,15 +174,30 @@ export class RevService {
   changedFrom = "Local";
   test;
 
+  /* Login credentials    */
+  /*                      */
+  // api_key: string = "test";"JulJuD8xEvE6sptbL3cT"
+  // storeName: string = "demo";
+  // areaID: number = 0;
+
+  // // Bilkova
+  // api_key: string = "JulJuD8xEvE6sptbL3cT"
+  // storeName: string = "barBilkova";
+  // areaID: number = 0;
+
+  api_key: string = "wrVNHyTluyMt5odAO6eL";
+  storeName: string = "barKicks";
+  areaID: number = 0;
+
   constructor(public data: DataService, afs: AngularFirestore) {
-    this.DbData = afs.collection("barBilkova").doc("test"); //"gbjmEZzKZDJSOxcBIt24");
+    this.DbData = afs.collection(this.storeName).doc(this.api_key); //"gbjmEZzKZDJSOxcBIt24");
     this.test = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
         ? "Local"
         : "Server";
       const data = res.payload.data();
 
-      if (changedFrom == "Server") this.setChangesFromServer(data);
+      if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
 
     this.revListInit();
@@ -188,14 +222,26 @@ export class RevService {
   private setChangesFromServer(data) {
     // console.log(data === {});
 
+    //with Local Storage
     this.menuList =
       data.menuList || this.getLocalSt("menuList") || this.menuList; //
-    this.revList = data.revList || this.getLocalSt("revData") || this.revList; //this.getLocalSt("revData")
+    // this.revData = data.revData || this.getLocalSt("revData") ||this.revData; //this.getLocalSt("revData")
+    this.revList = data.revlist || this.getLocalSt("revData"); //this.revList; //this.getLocalSt("revData")
     // this.taraList = data.taraData;
+
     this.taraList =
-      data.taraList || this.getLocalSt("taraData") || this.taraList; //||
-    this.cashList = data.cashList || this.cashList;
+      data.taraList || this.getLocalSt("taraList") || this.taraList; //||
+    this.cashList =
+      data.cashList || this.getLocalSt("cashList") || this.cashList;
     this.cashData = data.cashData || {};
+
+    // without Local Storage
+    // this.menuList = data.menuList || this.menuList; //
+    // this.revList = data.revList || this.revList; //this.getLocalSt("revData")
+    // // this.taraList = data.taraData;
+    // this.taraList = data.taraList || this.taraList; //||
+    // this.cashList = data.cashList || this.cashList;
+    // this.cashData = data.cashData || {};
 
     this.revListInit();
     this.calculateSheets();
@@ -205,10 +251,13 @@ export class RevService {
     var json: string;
 
     this.calculateSheets();
-
     var data = {};
-    data[name] = this[name];
-
+    // if (name == "revList") {
+    //   data["revData"] = this["revData"];
+    // } else
+    {
+      data[name] = this[name];
+    }
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error("Error adding document: ", error);
     });
@@ -365,6 +414,8 @@ export class RevService {
       // var emptyRow = new cashItem(idx, "", 0, 0);
       tab.data.forEach((cashItem, id) => {
         tempCash = [];
+        console.log(typeof this.cashData[date]);
+
         this.cashData[date].forEach(i => {
           if (i.tabIdx == idx) tempCash.push(i);
         });
