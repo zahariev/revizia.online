@@ -558,7 +558,7 @@ export class RevService {
     return obj;
   }
 
-  private taraItemSums(menuItm, itm, query = 1) {
+  private taraItemSums(menuItm, itm, query = 0) {
     var menuItem = JSON.parse(JSON.stringify(menuItm));
     var revItem = JSON.parse(JSON.stringify(itm));
 
@@ -570,9 +570,10 @@ export class RevService {
       item = new taraItem(menuItem.id);
       this.taraList.push(item);
     }
-
-    item.net = ((item.bruto1 - item.tara1) * 100000) / 100000;
-    // Math.round(((item.bruto - item.tara) / 0.7) * 100000) / 100000 ||
+    item.start = item.start || item.netStart;
+    item.net = Math.round((item.bruto1 - item.tara1) * 10000) / 10000;
+    if (!item.net)
+      item.net = Math.round(((item.bruto - item.tara) / 0.7) * 10000) / 10000;
     // 1;
     if (item.net <= 0) item.net = 1;
     item.end =
@@ -580,15 +581,17 @@ export class RevService {
     // console.log(revItem.ends - item.taraQty1 * item.tara1);
 
     item.end =
-      Math.round((item.end * 1000) / item.net) / 1000 + (item.inStore || 0);
+      Math.round((item.end * 100) / item.net) / 100 + (item.inStore || 0);
 
     item.name = menuItem.name;
-    item["netDiff"] = item.start + item.buy - item.end;
+    item["netDiff"] =
+      Math.round((item.start + item.buy - item.end) * 100) / 100;
     // if (item.net != 1)
 
-    if (query) item.start = item.end;
+    // if (query) item.start = item.end;
 
-    item.diff = Math.round((menuItem.diff / item.net - item.diff) * 100) / 100;
+    item.diff =
+      Math.round((menuItem.diff / item.net - item["netDiff"]) * 100) / 100;
 
     return item;
   }
@@ -635,7 +638,9 @@ export class RevService {
 
     item.qtySold = Math.round((item.diff / item.qty) * 1000) / 1000;
     item.roundSold =
-      Math.round(item.diff / (item.qty * item.round)) * item.round;
+      Math.round(
+        Math.round(item.diff / (item.qty * item.round)) * item.round * 100
+      ) / 100;
     item.sum = Math.round(item.roundSold * item.price * 100) / 100;
 
     return item;
