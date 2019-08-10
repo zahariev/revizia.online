@@ -87,7 +87,7 @@ export class RevService {
     }
   ];
   cashData = { "2019-01-01": [] };
-  revData = {
+  revData2 = {
     "2019-01-01": [
       {
         cost: 0.5,
@@ -107,6 +107,34 @@ export class RevService {
       }
     ]
   };
+
+  revData = [
+    {
+      id: 0,
+      name: "bar1",
+      data: {
+        "2019-01-01": [
+          {
+            cost: 0.5,
+            diff: 0,
+            ends: 1,
+            id: "21210",
+            minus: 0,
+            mplus: 0,
+            name: "Безкофеин",
+            price: 2.4,
+            qty: 1,
+            qtySold: 0,
+            round: 1,
+            roundSold: 0,
+            starts: 1,
+            sum: 0
+          }
+        ]
+      }
+    }
+  ];
+
   taraList = [
     {
       bruto: 0,
@@ -225,9 +253,12 @@ export class RevService {
     //with Local Storage
     this.menuList =
       data.menuList || this.getLocalSt("menuList") || this.menuList; //
-    // this.revData = data.revData || this.getLocalSt("revData") ||this.revData; //this.getLocalSt("revData")
-    this.revList = data.revlist || this.getLocalSt("revData"); //this.revList; //this.getLocalSt("revData")
+    this.revData = data.revData || this.getLocalSt("revData") || this.revData; //this.getLocalSt("revData")
+    console.log(this.revData);
+
+    this.revList = this.revData[0].data; //this.getLocalSt("revData"); //this.revList; //this.getLocalSt("revData")
     // this.taraList = data.taraData;
+    console.log(this.revList);
 
     this.taraList =
       data.taraList || this.getLocalSt("taraList") || this.taraList; //||
@@ -252,10 +283,10 @@ export class RevService {
 
     this.calculateSheets();
     var data = {};
-    // if (name == "revList") {
-    //   data["revData"] = this["revData"];
-    // } else
-    {
+    if (name == "revList") {
+      data["revData"] = this["revData"];
+      data["revData"][this.areaID].data = this.revList;
+    } else {
       data[name] = this[name];
     }
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
@@ -270,10 +301,16 @@ export class RevService {
 
     this.calculateSheets();
     // return;
-    console.log("localStore");
+    // console.log("localStore");
 
-    var name = ["menuList", "revData", "sumData", "taraData"];
-    var dataList = ["menuList", "revList", "sumSheetView", "taraList"];
+    var name = ["menuList", "revData", "sumData", "taraData", "cashData"];
+    var dataList = [
+      "menuList",
+      "revData",
+      "sumSheetView",
+      "taraList",
+      "cashData"
+    ];
 
     this.containerName = "";
     dataList.forEach((data, idx) => {
@@ -524,6 +561,7 @@ export class RevService {
 
   private revItemCalculator(menuItem, date, prevDayIdx) {
     var prevDay = this.revKeys[prevDayIdx];
+    // console.log(this.revList);
 
     var revItem = this.revList[date].filter(i => {
       return i.id == menuItem.id;
