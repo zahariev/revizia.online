@@ -23,10 +23,14 @@
                   <th class="text-center tara">1l</th>
                   <th class="text-center qty">р-я 0.7</th>
                   <th class="text-center qty">1л</th>
+                  <th class="text-center start">startRev</th>
+                  <th class="text-center start">netStart</th>
                   <th class="text-center start">start</th>
                   <th class="text-center buy">buy</th>
-                  <th class="text-center end">end</th>
                   <th class="text-center store">inStorage</th>
+                  <th class="text-center end">end</th>
+                  <th class="text-center end">netDiff</th>
+
                   <th class="text-center diff">diff</th>
                 </tr>
               </thead>
@@ -181,6 +185,32 @@
                       class=" start"
                       :inner-text.prop="value"
                       tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'startRev', $event)"
+                      (keydown)="keyDown(item, 'startRev', $event)"
+                      (click)="onClick(item, 'startRev', $event)"
+                      (blur)="onBlur(item, 'startRev', $event)"
+                      (input)="onInput(item, 'startRev', $event)"
+                      [ngClass]="{ negative: item.startRev < 0 }"
+                    >
+                      {{ item.startRev | hideZero }}
+                    </td>
+                    <td
+                      class=" start"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
+                      (keyup)="keyUp(item, 'netStart', $event)"
+                      (keydown)="keyDown(item, 'netStart', $event)"
+                      (click)="onClick(item, 'netStart', $event)"
+                      (blur)="onBlur(item, 'netStart', $event)"
+                      (input)="onInput(item, 'netStart', $event)"
+                      [ngClass]="{ negative: item.netStart < 0 }"
+                    >
+                      {{ item.netStart | hideZero }}
+                    </td>
+                    <td
+                      class=" start"
+                      :inner-text.prop="value"
+                      tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
                       (keyup)="keyUp(item, 'start', $event)"
                       (keydown)="keyDown(item, 'start', $event)"
                       (click)="onClick(item, 'start', $event)"
@@ -189,12 +219,12 @@
                       [ngClass]="{ negative: item.start < 0 }"
                     >
                       {{ item.start | hideZero }}
-                      <span
+                      <!-- <span
                         class="netStart"
                         *ngIf="item.start != item.netStart"
                       >
                         {{ item.netStart }}
-                      </span>
+                      </span> -->
                     </td>
                   </ng-template>
 
@@ -218,14 +248,6 @@
                   >
                     {{ item.buy | hideZero }}
                   </td>
-                  <td class=" end">
-                    <span
-                      contenteditable="false"
-                      [ngClass]="{ negative: item.ends < 0 }"
-                      >{{ item.end | hideZero }}
-                    </span>
-                  </td>
-                  <!-- | Round: item -->
                   <td
                     class=" inStore"
                     :inner-text.prop="value"
@@ -238,7 +260,21 @@
                   >
                     {{ item.inStore | hideZero }}
                   </td>
-
+                  <td class=" end">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.ends < 0 }"
+                      >{{ item.end | hideZero }}
+                    </span>
+                  </td>
+                  <!-- | Round: item -->
+                  <td class=" diff">
+                    <span
+                      contenteditable="false"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                      >{{ item.netDiff | hideZero }}
+                    </span>
+                  </td>
                   <td class=" diff">
                     <span
                       contenteditable="false"

@@ -36,6 +36,7 @@ export class taraItem {
     public name: string = "",
     public net: number = 0,
     public netStart: number = 0,
+    public netDiff: number = 0,
     public startRev: number = 0
   ) {}
 }
