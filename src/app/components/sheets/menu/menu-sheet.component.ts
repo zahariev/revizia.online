@@ -101,9 +101,10 @@ export class MenuSheetComponent extends SheetComponent {
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
     }
-    var rowIdx = this.dataList.push(
-      new Item("new" + this.dataList.length.toString(), "new", 0, 0, 0, 0)
-    );
+    var idx = Math.random()
+      .toString(36)
+      .substr(2, 9);
+    var rowIdx = this.dataList.push(new Item(idx, "newItem", 0, 0, 0, 0));
 
     this.gridInit();
     return rowIdx;
