@@ -578,7 +578,6 @@ export class RevService {
     if (item.net <= 0) item.net = 1;
     item.end =
       revItem.ends - item.taraQty * item.tara - item.taraQty1 * item.tara1;
-    // console.log(revItem.ends - item.taraQty1 * item.tara1);
 
     item.end =
       Math.round((item.end * 100) / item.net) / 100 + (item.inStore || 0);
