@@ -111,6 +111,7 @@ button {
   top: 10px;
   left: 24px;
   height: 35px;
+  color: black !important;
   background-color: azure;
   width: 100%;
 }
@@ -118,4 +119,8 @@ button {
 .mat-tab-body.mat-tab-body-active {
   position: fixed !important;
   margin-top: 10px;
+}
+
+td {
+  color: black !important;
 }
