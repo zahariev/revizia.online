@@ -39,11 +39,19 @@
             >
               <thead class="headerRow">
                 <tr>
-                  <ng-container *ngFor="let col1 of columnList">
+                  <ng-container
+                    *ngFor="let col1 of columnList; let idx = index"
+                  >
                     <th class="text-center {{ col1.name }}">
                       {{ col1.columnName }}
                     </th>
                   </ng-container>
+                  <th class="unitPrice text-center">
+                    unitPrice
+                  </th>
+                  <th class="markup text-center">
+                    markup%
+                  </th>
                   <th class="table-remove text-center">
                     remove
                   </th>
@@ -72,7 +80,19 @@
                   >
                     {{ item[col.name] }}
                   </td>
-
+                  <td class=" unitPrice">
+                    <span contenteditable="false">
+                      {{ item.qtyBruto * item.price | number }}
+                    </span>
+                  </td>
+                  <td class=" markup">
+                    <span contenteditable="false">
+                      {{
+                        (item.qtyBruto * item.price - item.cost) / item.cost
+                          | percent
+                      }}
+                    </span>
+                  </td>
                   <td style="padding: 5px;">
                     <span class="table-remove" contenteditable="false">
                       <button

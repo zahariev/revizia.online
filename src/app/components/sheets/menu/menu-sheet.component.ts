@@ -38,18 +38,14 @@ export class MenuSheetComponent extends SheetComponent {
       format: "string",
       editable: true
     },
-    {
-      columnName: "дост.Цена",
-      name: "cost",
-      format: "number",
-      editable: true
-    },
+
     {
       columnName: "цена",
       name: "price",
       format: "BGN",
       editable: true
     },
+
     {
       columnName: "колич.",
       name: "qty",
@@ -59,6 +55,18 @@ export class MenuSheetComponent extends SheetComponent {
     {
       columnName: "закр.",
       name: "round",
+      format: "number",
+      editable: true
+    },
+    {
+      columnName: "бр.в литър",
+      name: "qtyBruto",
+      format: "number",
+      editable: true
+    },
+    {
+      columnName: "дост.Цена",
+      name: "cost",
       format: "number",
       editable: true
     }
