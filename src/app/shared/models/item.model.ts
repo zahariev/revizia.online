@@ -34,6 +34,7 @@ export class taraItem {
     public buy: number = 0,
     public end: number = 0,
     public diff: number = 0,
+    public diffCash: number = 0,
     public inStore: number = 0,
     public name: string = "",
     public net: number = 0,
