@@ -113,7 +113,7 @@
                   <td class="textRight roundSold">
                     <span
                       contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
+                      [ngClass]="{ negative: item.roundSold < 0 }"
                       >{{ item.roundSold | hideZero }}</span
                     >
                   </td>
@@ -128,7 +128,7 @@
                   <td class="textRight sum">
                     <span
                       contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
+                      [ngClass]="{ negative: item.sum < 0 }"
                       >{{ item.sum | hideZero | BGN }}
                     </span>
                   </td>

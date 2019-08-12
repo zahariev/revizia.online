@@ -24,7 +24,7 @@
                   <th class="text-center qty">р-я 0.7</th>
                   <th class="text-center qty">1л</th>
                   <th class="text-center start">startRev</th>
-                  <th class="text-center start">netStart</th>
+                  <!-- <th class="text-center start">netStart</th> -->
                   <th class="text-center start">start</th>
                   <th class="text-center buy">buy</th>
                   <th class="text-center store">inStorage</th>
@@ -194,7 +194,7 @@
                     >
                       {{ item.startRev | hideZero }}
                     </td>
-                    <td
+                    <!-- <td
                       class=" start"
                       :inner-text.prop="value"
                       tabIndex="{{ 30 * (tabIdx + 1) + id * 3 }}"
@@ -206,7 +206,7 @@
                       [ngClass]="{ negative: item.netStart < 0 }"
                     >
                       {{ item.netStart | hideZero }}
-                    </td>
+                    </td> -->
                     <td
                       class=" start"
                       :inner-text.prop="value"
@@ -271,7 +271,7 @@
                   <td class=" diff">
                     <span
                       contenteditable="false"
-                      [ngClass]="{ negative: item.diff < 0 }"
+                      [ngClass]="{ negative: item.netDiff < 0 }"
                       >{{ item.netDiff | hideZero }}
                     </span>
                   </td>

@@ -84,6 +84,19 @@ export class RevService {
           round: 1
         }
       ]
+    },
+    {
+      name: "Брак почерпки",
+      data: [
+        {
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
     }
   ];
 
@@ -575,6 +588,8 @@ export class RevService {
     if (!item.net)
       item.net = Math.round(((item.bruto - item.tara) / 0.7) * 10000) / 10000;
     // 1;
+    console.log(item.net);
+
     if (item.net <= 0) item.net = 1;
     item.end =
       revItem.ends - item.taraQty * item.tara - item.taraQty1 * item.tara1;

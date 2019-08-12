@@ -22,7 +22,7 @@ export class TaraSheetComponent extends SheetComponent {
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
 
-    this.columnList.length = 11;
+    this.columnList.length = 10;
   }
 
   ngOnInit() {
