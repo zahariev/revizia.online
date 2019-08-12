@@ -201,5 +201,6 @@ thead tr th {
 }
 
 .sum {
+  font-size: 0.8em;
   min-width: 105px;
 }
