@@ -218,7 +218,7 @@ export class RevService {
   ];
 
   sumData = {};
-  _simpleMode: boolean = false;
+  _simpleMode: boolean = true;
 
   public revSheetView = {};
   public cashSheetView = {};
