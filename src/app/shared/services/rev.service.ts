@@ -533,18 +533,26 @@ export class RevService {
             this.tempSummary[tab.name][id],
             itm
           );
-          tempTara[id] = this.taraItemSums(this.tempSummary[tab.name][id], itm);
+          if (date == this.revKeys[this.revKeys.length - 1])
+            tempTara[id] = this.taraItemSums(
+              this.tempSummary[tab.name][id],
+              itm
+            );
+
           // console.log(tempTara[id].netStart);
 
           this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
         }
       });
       this.revSheetView[date][tab.name] = tempRev;
-      this.taraSheetView[tab.name] = tempTara;
+
+      if (date == this.revKeys[this.revKeys.length - 1])
+        this.taraSheetView[tab.name] = tempTara;
     });
     this.sumSheetView = this.tempSummary;
     this.sumSheetView["sumTotal"] =
       Math.round(this.sumSheetView["sumTotal"] * 1000) / 1000;
+
     return this[date];
   }
 
@@ -557,6 +565,10 @@ export class RevService {
         case "name":
         case "starts":
         case "price":
+        case "qtyBruto":
+        case "qty":
+        case "cost":
+        case "round":
           obj[x] = a[x];
           break;
         case "ends":
@@ -584,11 +596,11 @@ export class RevService {
       this.taraList.push(item);
     }
     // item.start = item.start || item.netStart;
-    item.net = Math.round((item.bruto1 - item.tara1) * 10000) / 10000;
+    item.net = Math.round((item.bruto1 - item.tara1) * 1000) / 1000;
     if (!item.net)
-      item.net = Math.round(((item.bruto - item.tara) / 0.7) * 10000) / 10000;
+      item.net = Math.round(((item.bruto - item.tara) / 0.7) * 1000) / 1000;
     // 1;
-    console.log(item.net);
+    // console.log(item.net);
 
     if (item.net <= 0) item.net = 1;
     item.end =
@@ -599,14 +611,18 @@ export class RevService {
 
     item.name = menuItem.name;
     item["netDiff"] =
-      Math.round((item.start + item.buy - item.end) * 100) / 100;
+      Math.round(((item.start || item.netStart) + item.buy - item.end) * 100) /
+      100;
     // if (item.net != 1)
 
     // if (query) item.start = item.end;
-
+    console.log(menuItem);
     item.diff =
-      Math.round((menuItem.diff / item.net - item["netDiff"]) * 100) / 100;
-
+      Math.round(
+        (menuItem.roundSold / menuItem.qtyBruto - (item["netDiff"] || 0)) * 100
+      ) / 100;
+    item["diffCash"] =
+      Math.round(item.diff * menuItem.qtyBruto * menuItem["price"] * 100) / 100;
     return item;
   }
 
