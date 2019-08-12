@@ -87,7 +87,8 @@ tr td:nth-child(2),
 tr td:nth-child(5),
 tr td:nth-child(6),
 tr td:nth-child(9),
-tr td:nth-child(10) {
+tr td:nth-child(10),
+tr td:nth-child(13) {
   background: rgba(58, 250, 131, 0.295);
 
   padding: 5px;
@@ -209,8 +210,19 @@ thead tr th {
 }
 
 .netStart {
-  font-size: 0.5em;
+  font-size: 0.6em;
   color: red;
   position: relative;
   /* bottom: 10px; */
+}
+
+.smallDiff {
+  font-size: 0.9em;
+  /* color: red; */
+  position: relative;
+  /* bottom: 10px; */
+}
+
+.diffCash {
+  font-size: 0.8em;
 }

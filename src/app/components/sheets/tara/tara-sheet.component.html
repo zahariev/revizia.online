@@ -25,7 +25,7 @@
                   <th class="text-center qty">1л</th>
                   <th class="text-center start">startRev</th>
                   <!-- <th class="text-center start">netStart</th> -->
-                  <th class="text-center start">start</th>
+                  <th class="text-center start">netStart</th>
                   <th class="text-center buy">buy</th>
                   <th class="text-center store">inStorage</th>
                   <th class="text-center end">end</th>
@@ -218,10 +218,10 @@
                       (input)="onInput(item, 'start', $event)"
                       [ngClass]="{ negative: item.start < 0 }"
                     >
-                      {{ item.start | hideZero }}
+                      {{ item.start || item.netStart | hideZero }}
                       <span
                         class="netStart"
-                        *ngIf="item.start != item.netStart"
+                        *ngIf="item.start && item.start != item.netStart"
                       >
                         {{ item.netStart }}
                       </span>
@@ -272,14 +272,22 @@
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.netDiff < 0 }"
-                      >{{ item.netDiff | hideZero }}
+                    >
+                      <!-- {{ item.netDiff | hideZero }} -->
+                    </span>
+                    <span
+                      class="smallDiff"
+                      *ngIf="item.diff"
+                      [ngClass]="{ negative: item.diff < 0 }"
+                    >
+                      {{ item.diff }}
                     </span>
                   </td>
-                  <td class=" diff">
+                  <td class=" diffCash">
                     <span
                       contenteditable="false"
                       [ngClass]="{ negative: item.diff < 0 }"
-                      >{{ item.diff | hideZero }}
+                      >{{ item.diffCash | BGN }}
                     </span>
                   </td>
                 </tr>
