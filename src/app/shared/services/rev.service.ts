@@ -218,7 +218,7 @@ export class RevService {
   ];
 
   sumData = {};
-  _simpleMode: boolean = true;
+  _simpleMode: boolean = false;
 
   public revSheetView = {};
   public cashSheetView = {};
@@ -240,40 +240,69 @@ export class RevService {
   public firstLoad: boolean = true;
   private afs;
   private DbData;
+
   public containerName;
   changedFrom = "Local";
   test;
 
   /* Login credentials    */
   /*                      */
-  // api_key: string = "test";"JulJuD8xEvE6sptbL3cT"
+  // api_key: string = "test"; //"JulJuD8xEvE6sptbL3cT"
   // storeName: string = "demo";
   // areaID: number = 0;
+  // areaName: string = "DEMO";
 
   // // Bilkova
-  api_key: string = "JulJuD8xEvE6sptbL3cT";
-  storeName: string = "barBilkova";
-  areaID: number = 0;
-
-  // api_key: string = "wrVNHyTluyMt5odAO6eL";
-  // storeName: string = "barKicks";
+  // api_key: string = "JulJuD8xEvE6sptbL3cT";
+  // storeName: string = "barBilkova";
   // areaID: number = 0;
+  // areaName: string = "Big_bar";
+
+  api_key: string = "wrVNHyTluyMt5odAO6eL";
+  storeName: string = "barKicks";
+  areaID: number = 0;
+  areaName: string = "barKicks_1";
 
   constructor(public data: DataService, afs: AngularFirestore) {
+    // const cfg = JSON.parse(localStorage.getItem("config")) || {};
+
+    // this.areaID = this.areaID || cfg["area_id"];
+    // this.areaName = this.areaName || cfg.area_name;
+
     this.DbData = afs.collection(this.storeName).doc(this.api_key); //"gbjmEZzKZDJSOxcBIt24");
     this.test = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
         ? "Local"
         : "Server";
       const data = res.payload.data();
-
+      console.log(res);
+      if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
+
+    console.log(this.test);
 
     this.revListInit();
     this.calculateSheets();
   }
 
+  private setNewStore() {
+    var data = {};
+    //  (name == "revList") {
+    data["revData"] = this["revData"];
+    //data["revData"][this.areaID].data = this.revList;
+    // } else if (name == "cashList") {
+    data["cashData"] = this["cashData"];
+    //data["cashData"][this.areaID].data = this.cashList;
+    // } else {
+    data["taraList"] = this["taraList"];
+    data["menuList"] = this["menuList"];
+    // }
+
+    this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
+      console.error(error);
+    });
+  }
   private revListInit() {
     var rev = {};
     this.revKeys = Object.keys(this.revList);
@@ -329,7 +358,7 @@ export class RevService {
       data[name] = this[name];
     }
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
-      console.error("Error adding document: ", error);
+      console.error(error);
     });
 
     this.containerName = "";
@@ -616,7 +645,7 @@ export class RevService {
     // if (item.net != 1)
 
     // if (query) item.start = item.end;
-    console.log(menuItem);
+    // console.log(menuItem);
     item.diff =
       Math.round(
         (menuItem.roundSold / menuItem.qtyBruto - (item["netDiff"] || 0)) * 100
