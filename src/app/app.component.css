@@ -17,6 +17,14 @@
   bottom: 40px;
 }
 
+#storeName {
+  position: fixed;
+  top: 3px;
+  right: 50px;
+  z-index: 9999;
+  font-size: 1.5em;
+}
+
 #tabbed {
   z-index: 1000;
   position: absolute;
