@@ -1,11 +1,8 @@
 import { Injectable } from "@angular/core";
 import { taraItem, reviziaItem, cashItem } from "app/shared/models/item.model";
-import * as deepEqual from "deep-equal";
 
-import { map } from "rxjs/operators";
 import * as firebase from "firebase";
 
-import { Observable } from "rxjs";
 import {
   AngularFirestore,
   AngularFirestoreDocument
@@ -262,7 +259,7 @@ export class RevService {
   storeName: string = "barKicks";
   areaID: number = 0;
   areaName: string = "barKicks_1";
-
+  testData;
   constructor(public data: DataService, afs: AngularFirestore) {
     // const cfg = JSON.parse(localStorage.getItem("config")) || {};
 
@@ -270,17 +267,17 @@ export class RevService {
     // this.areaName = this.areaName || cfg.area_name;
 
     this.DbData = afs.collection(this.storeName).doc(this.api_key); //"gbjmEZzKZDJSOxcBIt24");
+    this.testData = afs.collection(this.storeName);
     this.test = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
         ? "Local"
         : "Server";
       const data = res.payload.data();
-      console.log(res);
+      // console.log(res);
+
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
-
-    console.log(this.test);
 
     this.revListInit();
     this.calculateSheets();
