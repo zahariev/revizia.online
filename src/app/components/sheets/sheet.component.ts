@@ -126,7 +126,7 @@ export class SheetComponent implements OnInit {
       case "ArrowRight":
         if (this.activeEl != "editable") this.focusNextElement(el, 1);
         break;
-      case "space":
+      case " ":
         this.selectText(el);
         this.makeEditable(el);
 
@@ -157,8 +157,6 @@ export class SheetComponent implements OnInit {
       case "Control":
 
       case "Shift":
-      case " ":
-        break;
 
       default:
         if (this.activeEl != "editable") this.selectText();
