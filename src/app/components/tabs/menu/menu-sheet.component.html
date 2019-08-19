@@ -1,7 +1,17 @@
 <mat-sidenav-container class="container">
   <div id="itemMenuBtnContainer">
     <mat-menu id="menu" #appMenu="matMenu">
-      <!-- <button mat-menu-item (click)="dayOff($event, date)">DayOff</button> -->
+      <p>- - - switch Areas - - -</p>
+      <button
+        *ngFor="let area of data.revData; let idx = index"
+        mat-menu-item
+        (click)="areaChange($event, idx)"
+      >
+        {{ area.name }}
+      </button>
+      <p>- - - - -</p>
+      <button mat-menu-item (click)="areaNew($event)">new Area</button>
+
       <button
         mat-menu-item
         (click)="removeTab($event, date)"

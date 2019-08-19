@@ -315,6 +315,31 @@ export class RevService {
     this.revList = rev;
   }
 
+  changeArea(areaID) {
+    if (this.revData[areaID]) this.areaID = areaID;
+
+    this.revList = this.revData[this.areaID].data;
+    this.areaName = this.revData[this.areaID].name;
+    this.revListInit();
+    this.calculateSheets();
+  }
+
+  areaNew(ev) {
+    var data = {};
+    data["revData"] = this.revData;
+    var id = data["revData"].push({
+      id: data["revData"].length,
+      name: "new",
+      data: { "2010-01-01": [] }
+    });
+
+    //console.log(id);
+
+    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
+      console.error(error);
+    });
+  }
+
   private setChangesFromServer(data) {
     var localSt = this.getLocalSt(this.storeName);
 
@@ -332,7 +357,7 @@ export class RevService {
     // no localStorage
     this.menuList = data.menuList || this.menuList;
     this.revData = data.revData || this.revData;
-    this.revList = this.revData[0].data;
+    this.revList = this.revData[this.areaID].data;
     this.cashData = data.cashData || this.cashData;
     this.cashList = this.cashData[this.areaID].data;
     this.taraList = data.taraList || this.taraList;
