@@ -97,7 +97,7 @@ export class SheetComponent implements OnInit {
     // console.log(event);
     var el = event.target;
     var row = this.row || this.columnList.length;
-    // console.log(event.key);
+    console.log(event.key);
     switch (event.key) {
       case "Enter":
         if (this.activeEl == "editable") {
@@ -122,10 +122,24 @@ export class SheetComponent implements OnInit {
       case "ArrowLeft":
         if (this.activeEl != "editable") this.focusNextElement(el, -1);
         break;
+
       case "ArrowRight":
         if (this.activeEl != "editable") this.focusNextElement(el, 1);
         break;
+      case "space":
+        this.selectText(el);
+        this.makeEditable(el);
 
+        event.preventDefault();
+        break;
+      case "Tab":
+        el = this.focusNextElement(el, 1);
+
+        if (this.activeEl != "editable") this.selectText();
+        this.makeEditable(el);
+        setTimeout(el.focus(), 10);
+        event.preventDefault();
+        break;
       case "Escape":
         event.target.innerText = item[property];
         event.preventDefault();
@@ -145,6 +159,7 @@ export class SheetComponent implements OnInit {
       case "Shift":
       case " ":
         break;
+
       default:
         if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
@@ -204,6 +219,7 @@ export class SheetComponent implements OnInit {
     // console.log(nextElement);
     // window.localStorage.setItem("focus", nextElement);
     nextElement.focus();
+    return nextElement;
   }
 
   // maintain scroll position by tab idx
