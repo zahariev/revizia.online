@@ -97,7 +97,7 @@ export class SheetComponent implements OnInit {
     // console.log(event);
     var el = event.target;
     var row = this.row || this.columnList.length;
-    console.log(event.key);
+    // console.log(event.key);
     switch (event.key) {
       case "Enter":
         if (this.activeEl == "editable") {
