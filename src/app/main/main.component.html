@@ -1,0 +1,58 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- TABS    -->
+
+  <mat-tab-group
+    [animationDuration]="'0ms'"
+    id="itemTabs"
+    [@.disabled]="true"
+    selectedIndex="1"
+    (selectedTabChange)="onSelectedTabChange($event)"
+  >
+    <mat-tab disabled *ngIf="!data._simpleMode">
+      <ng-template mat-tab-label>
+        <div id="tabHideBtn" (click)="toggleHideTabs($event)">
+          <mat-icon>code</mat-icon>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Items">
+      <tabs-menu-sheet></tabs-menu-sheet>
+    </mat-tab>
+
+    <!-- <mat-tab label="daily Cash" *ngIf="showAllTabs">
+        <tabs-cash-sheet> </tabs-cash-sheet>
+      </mat-tab> -->
+
+    <mat-tab label="Tara" *ngIf="showAllTabs">
+      <tabs-tara-sheet></tabs-tara-sheet>
+    </mat-tab>
+    <mat-tab label="SUMMARY" *ngIf="showAllTabs">
+      <tabs-sum-sheet></tabs-sum-sheet>
+    </mat-tab>
+
+    <mat-tab *ngFor="let tab of data.revKeys; let id = index">
+      <ng-template mat-tab-label>
+        {{ tab | date: "EEEE" }}
+        <!-- <small>{{ data[tab + "Sum"] | BGN }}</small> -->
+        <div class="smallDate">
+          {{ tab | date: "d MMMM " }}
+        </div>
+        <!-- <span class="smallSum"> {{ data[tab.titleSum] | BGN }}</span> -->
+      </ng-template>
+      <tabs-rev-sheet [date]="tab"></tabs-rev-sheet>
+    </mat-tab>
+
+    <mat-tab disabled>
+      <ng-template mat-tab-label>
+        <div class="calendar" (click)="addTab($event)">
+          <mat-icon>event</mat-icon>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</mat-sidenav-container>
+<div *ngIf="showDatePicker" class="calendar-wrapper">
+  <mat-calendar #calendar (selectedChange)="onDateChanged($event)">
+  </mat-calendar>
+</div>
+<div id="storeName">{{ data.areaName }}</div>

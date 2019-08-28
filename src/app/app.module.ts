@@ -5,6 +5,8 @@ import { AppMaterialModule } from "./app.material.module";
 
 import { HttpClientModule } from "@angular/common/http";
 
+import { AppRoutingModule } from "./app-routing/app-routing.module";
+
 import { HttpService } from "./shared/services/http.service";
 import { DataService } from "./shared/services/data.service";
 import { RevService } from "./shared/services/rev.service";
@@ -31,11 +33,15 @@ import { environment } from "../environments/environment";
 
 import { AngularFirestoreModule } from "angularfire2/firestore";
 import { AngularFireModule } from "angularfire2";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { CdkLazyDropList, CdkLazyDrag } from "./shared/lazy-drag-drop";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { SheetComponent } from "app/components/sheets/sheet.component";
+import { UserProfileComponent } from "./components/user-profile/user-profile.component";
+import { MainComponent } from "./main/main.component";
+import { AuthGuard } from "./auth.guard";
 
 @NgModule({
   declarations: [
@@ -56,7 +62,9 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
     TabsTaraSheetComponent,
     CdkLazyDropList,
     CdkLazyDrag,
-    SheetComponent
+    SheetComponent,
+    UserProfileComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -65,9 +73,12 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
     HttpClientModule,
     DragDropModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    AngularFireAuthModule,
+
+    AppRoutingModule
   ],
-  providers: [DataService, HttpService, RevService],
+  providers: [DataService, HttpService, RevService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

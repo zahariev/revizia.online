@@ -1,0 +1,78 @@
+@media all and (min-width: 768px) {
+  tr td {
+    vertical-align: middle !important;
+  }
+  /* span {
+        &:not([class]) {
+          padding: 1rem 1rem;
+        } */
+}
+
+.calendar-wrapper {
+  position: absolute;
+  z-index: 999;
+  background: azure;
+  min-height: 373px;
+  width: 300px;
+  bottom: 40px;
+}
+
+#storeName {
+  position: fixed;
+  top: 3px;
+  right: 50px;
+  z-index: 9999;
+  font-size: 1.5em;
+}
+
+#tabbed {
+  z-index: 1000;
+  position: absolute;
+  font-size: 34x !important;
+  line-height: 37px !important;
+  right: 55px;
+  top: 20px;
+}
+
+#tabHideBtn {
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.calendar {
+  cursor: pointer;
+  height: 35px;
+  margin: 8px;
+
+  /* margin-left: -100px; */
+}
+
+#saveBtn {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  background-color: rgb(214, 93, 93);
+  z-index: 999;
+  width: 120px;
+  height: 50px;
+}
+
+.smallDate {
+  font-size: 0.7em;
+  position: absolute;
+  bottom: 11px;
+}
+
+@-moz-document url-prefix() {
+  .smallDate {
+    bottom: 9px !important;
+  }
+}
+
+button.mat-icon-button {
+  line-height: 0px !important;
+  width: 24px !important;
+  height: 24px !important;
+  margin-left: -50px;
+  top: -3px;
+}
