@@ -250,15 +250,15 @@ export class RevService {
   // areaName: string = "DEMO";
 
   // // Bilkova
-  // api_key: string = "JulJuD8xEvE6sptbL3cT";
-  // storeName: string = "barBilkova";
-  // areaID: number = 0;
-  // areaName: string = "Big_bar";
-
-  api_key: string = "wrVNHyTluyMt5odAO6eL";
-  storeName: string = "barKicks";
+  api_key: string = "JulJuD8xEvE6sptbL3cT";
+  storeName: string = "barBilkova";
   areaID: number = 0;
-  areaName: string = "barKicks_1";
+  areaName: string = "Big_bar";
+
+  // api_key: string = "wrVNHyTluyMt5odAO6eL";
+  // storeName: string = "barKicks";
+  // areaID: number = 0;
+  // areaName: string = "barKicks_1";
 
   testData;
   constructor(public data: DataService, afs: AngularFirestore) {
@@ -361,6 +361,9 @@ export class RevService {
     this.cashData = data.cashData || this.cashData;
     this.cashList = this.cashData[this.areaID].data;
     this.taraList = data.taraList || this.taraList;
+
+    // this.revList = this.revData[this.areaID].data;
+    this.areaName = this.revData[this.areaID].name;
 
     this.revListInit();
     this.calculateSheets();
