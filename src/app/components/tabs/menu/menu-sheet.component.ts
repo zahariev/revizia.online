@@ -64,7 +64,7 @@ export class TabsMenuSheetComponent implements OnInit {
     else this.data.menuList[idx].name = " . . .";
     //console.log(value);
     // this.viewList = this.data.menuList;
-    this.data.localStore();
+    // this.data.localStore();
     this.data.fStore("menuList");
   }
 

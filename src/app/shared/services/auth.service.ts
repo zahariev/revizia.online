@@ -33,14 +33,16 @@ export class AuthService {
       })
     );
   }
-  async googleSignin() {
+  async googleSignin(returnUrl) {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    return this.updateUserData(credential.user);
+
+    return this.updateUserData(credential.user, returnUrl);
   }
 
-  private updateUserData(user) {
+  private updateUserData(user, returnUrl) {
     //
+
     localStorage.setItem("userID", user.uid);
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
@@ -54,12 +56,14 @@ export class AuthService {
       photoURL: user.photoURL
     };
 
+    this.router.navigateByUrl(returnUrl);
+
     return userRef.set(data, { merge: true });
   }
 
   async signOut() {
     await this.afAuth.auth.signOut();
     localStorage.setItem("userID", "");
-    this.router.navigate(["/"]);
+    this.router.navigate(["login"]);
   }
 }

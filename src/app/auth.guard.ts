@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import * as firebase from "firebase/app";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -7,8 +8,8 @@ import {
 } from "@angular/router";
 
 import { AuthService } from "app/shared/services/auth.service";
-import { Observable } from "rxjs";
-import { tap, map, take } from "rxjs/operators";
+// import { Observable } from "rxjs";
+// import { tap, map, take } from "rxjs/operators";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -18,24 +19,10 @@ export class AuthGuard implements CanActivate {
     if (localStorage.userID) {
       return true;
     } else {
-      this.router.navigate(["login"]);
+      this.router.navigate(["login"], {
+        queryParams: { returnUrl: state.url }
+      });
       return false;
     }
-  }
-
-  canActivate1(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.auth.user$.pipe(
-      take(1),
-      map(user => !!user), // <-- map to boolean
-      tap(loggedIn => {
-        if (!loggedIn) {
-          console.log("access denied");
-          this.router.navigate(["/login"]);
-        }
-      })
-    );
   }
 }

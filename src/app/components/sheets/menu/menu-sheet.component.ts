@@ -129,7 +129,7 @@ export class MenuSheetComponent extends SheetComponent {
   }
 
   dropToTab(event: CdkDragDrop<Item[]>) {
-    console.log(event);
+    // console.log(event);
     // reorder menu tabs
     // var histItem = { prev: event.previousIndex, curr: event.currentIndex };
     // this.history.push(histItem);
