@@ -70,7 +70,7 @@ export class CashRevSheetComponent extends SheetComponent {
   viewList;
   containerName = "cashList";
   row = 3;
-  constructor(private data: RevService, public el: ElementRef) {
+  constructor(public data: RevService, public el: ElementRef) {
     super(data, el);
     // console.log(data.cashSheetView);
   }
