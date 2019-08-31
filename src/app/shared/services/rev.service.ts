@@ -1230,17 +1230,12 @@ export class RevService {
 
   storeData = {
     name: " store Name ...edit",
-    areas: [
-      {
-        name: "bar 1"
-      }
-    ]
+    areas: [{ id: "srg", name: "bar 1" }]
   };
 
   cashData = [
     {
-      id: 0,
-      name: "bar1",
+      id: "asd",
       data: {
         "2019-01-01": [
           {
@@ -1312,27 +1307,6 @@ export class RevService {
     }
   ];
 
-  // taraData = [
-  //   {
-  //     bruto: 0,
-  //     bruto1: 0,
-  //     buy: 4,
-  //     diff: 0,
-  //     end: 0,
-  //     id: "21210",
-  //     inStore: "",
-  //     name: "",
-  //     net: 1,
-  //     netStart: 1,
-  //     start: 1,
-  //     startRev: 1,
-  //     tara: 0,
-  //     tara1: 0,
-  //     taraQty: 0,
-  //     taraQty1: 0
-  //   }
-  // ];
-  s;
   // taraList2 = [
   //   {
   //     bruto: 0,
@@ -3784,8 +3758,7 @@ export class RevService {
     data["revData"] = this.revData;
     var id = data["revData"].push({
       id: data["revData"].length,
-      name: "new",
-      data: { "2010-01-01": [] }
+      name: "newArea"
     });
 
     //console.log(id);

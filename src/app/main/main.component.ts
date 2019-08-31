@@ -30,9 +30,10 @@ export class MainComponent {
     this.editable = true;
     if (this.data._simpleMode) {
       this.showAllTabs = false;
-      console.log(this.data.revKeys);
+
       this.data.revKeys = this.data.revKeys.slice(-2);
     }
+    console.log(this.data);
   }
 
   ngAfterViewInit() {
