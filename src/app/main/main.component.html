@@ -1,3 +1,12 @@
+<mat-toolbar color="primary">
+  <span class="gap">File</span>
+  <span>Edit</span>
+  <span class="filler"></span>
+  <span>About</span>
+  <div id="storeName">{{ data.storeData.name }}</div>
+  <div id="areaName">{{ data.areaName }}</div>
+</mat-toolbar>
+
 <mat-sidenav-container class="sidenav-container">
   <!-- TABS    -->
 
@@ -51,9 +60,8 @@
     </mat-tab>
   </mat-tab-group>
 </mat-sidenav-container>
+
 <div *ngIf="showDatePicker" class="calendar-wrapper">
   <mat-calendar #calendar (selectedChange)="onDateChanged($event)">
   </mat-calendar>
 </div>
-<div id="storeName">{{ data.storeData.name }}</div>
-<div id="areaName">{{ data.areaName }}</div>

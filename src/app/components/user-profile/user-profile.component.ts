@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.auth.signOut();
 
-    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "area/0";
     // get return url from route parameters or default to '/'
   }
 

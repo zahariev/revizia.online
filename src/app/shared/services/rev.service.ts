@@ -3678,7 +3678,7 @@ export class RevService {
 
   /* Login credentials    */
   /*                      */
-  api_key: string = "test"; //"JulJuD8xEvE6sptbL3cT"
+  db_key: string = "test"; //"JulJuD8xEvE6sptbL3cT"
   storeName: string = "demo";
   areaID: number = 0;
   areaName: string = "DEMO";
@@ -3696,10 +3696,8 @@ export class RevService {
 
   testData;
   constructor(public data: DataService, afs: AngularFirestore) {
-    // const cfg = JSON.parse(localStorage.getItem("config")) || {};
-    this.api_key = localStorage.userID || 0;
-    // console.log(firebase.auth().currentUser);
-    this.DbData = afs.collection("databases").doc(this.api_key);
+    this.db_key = localStorage.userID || 0;
+    this.DbData = afs.collection("databases").doc(this.db_key);
     this.conn = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
         ? "Local"
@@ -3707,6 +3705,7 @@ export class RevService {
       const data = res.payload.data();
       // console.log(res);
 
+      // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
@@ -3732,7 +3731,7 @@ export class RevService {
   }
   private revListInit() {
     var rev = {};
-    this.revKeys = Object.keys(this.revList);
+    this.revKeys = Object.keys(this.revList || {});
     this.revKeys.sort();
 
     this.cashSheetView["sum"] = {};
@@ -3744,7 +3743,9 @@ export class RevService {
     this.revList = rev;
   }
 
-  changeArea(areaID) {
+  public changeArea(areaID) {
+    console.log(areaID);
+
     if (this.revData[areaID]) this.areaID = areaID;
 
     this.revList = this.revData[this.areaID].data;
@@ -3783,6 +3784,7 @@ export class RevService {
     //   data.taraList ||
     //   this.getLocalSt("barBilkova_0").taraList ||
     //   this.taraList;
+    // console.log(data.revData);
 
     // no localStorage
     this.menuList = data.menuList || this.menuList;

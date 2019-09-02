@@ -1,5 +1,6 @@
-import { Component, ElementRef } from "@angular/core";
+import { Component, OnInit, ElementRef } from "@angular/core";
 import { MatTabChangeEvent } from "@angular/material/tabs";
+import { ActivatedRoute } from "@angular/router";
 
 import { RevService } from "app/shared/services/rev.service";
 @Component({
@@ -23,7 +24,7 @@ export class MainComponent {
   showAllTabs: boolean = true;
   // _simple: boolean = true;
 
-  constructor(data: RevService, el: ElementRef) {
+  constructor(data: RevService, el: ElementRef, private route: ActivatedRoute) {
     this.el = el;
     this.data = data;
     this.tabs = this.data.revKeys;
@@ -34,6 +35,19 @@ export class MainComponent {
       this.data.revKeys = this.data.revKeys.slice(-2);
     }
     console.log(this.data);
+  }
+
+  ngOnInit() {
+    //const param = this.route.snapshot.queryParams["id"];
+    //const routeParam = this.route.paramMap["params"]["id"];
+    this.route.paramMap.subscribe(params => {
+      console.log(this.data.revData);
+      if (this.data.revData[params["params"]["id"]])
+        setTimeout(this.data.changeArea(params["params"]["id"]), 1000);
+      //   this.data.revList = area.data;
+      //   this.data.areaName = area.name;
+      // }
+    });
   }
 
   ngAfterViewInit() {
