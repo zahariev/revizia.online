@@ -111,7 +111,7 @@ button {
 }
 
 .mat-tab-body.mat-tab-body-active {
-  /* position: fixed !important; */
+  position: fixed !important;
   margin-top: 10px;
 }
 
