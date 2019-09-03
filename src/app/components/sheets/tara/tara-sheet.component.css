@@ -47,10 +47,6 @@ table {
   border-spacing: 2px;
 }
 
-.headerRow {
-  /* position: sticky; */
-}
-
 tbody {
   display: table-caption;
   vertical-align: middle;
@@ -155,7 +151,7 @@ span.negative {
   height: 35px;
   position: fixed;
   background-color: linen;
-  top: 40px;
+  top: 74px;
   margin-left: -1px;
 }
 

@@ -7,7 +7,7 @@
   <div id="areaName">{{ data.areaName }}</div>
 </mat-toolbar>
 
-<mat-sidenav-container class="sidenav-container">
+<div class="sidenav-container">
   <!-- TABS    -->
 
   <mat-tab-group
@@ -59,7 +59,7 @@
       </ng-template>
     </mat-tab>
   </mat-tab-group>
-</mat-sidenav-container>
+</div>
 
 <div *ngIf="showDatePicker" class="calendar-wrapper">
   <mat-calendar #calendar (selectedChange)="onDateChanged($event)">

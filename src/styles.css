@@ -16,15 +16,9 @@ body {
 }
 
 body {
-  /* background-image: url("bg1.jpg"); */
-  font-family: LatoWebLight;
-  font-style: normal;
-  /*sans-serif;*/
-  /*color: #ccc;*/
+  /* font-family: LatoWebLight;
+  font-style: normal; */
   background-color: rgba(0, 0, 0, 0.26);
-}
-
-body {
   font-family: Roboto, sans-serif;
   font-weight: 200;
   /* font-size: 0.7rem; */
@@ -98,7 +92,7 @@ button {
 #reviziaTabs .mat-tab-header {
   position: fixed !important;
   z-index: 99;
-  top: 10px;
+  top: 40px;
   left: 24px;
   height: 35px;
   background-color: azure;
@@ -106,9 +100,9 @@ button {
 }
 
 #menuTabs .mat-tab-header {
-  /* position: fixed !important; */
+  position: fixed !important;
   z-index: 99;
-  top: 10px;
+  top: 40px;
   left: 24px;
   height: 35px;
   color: black !important;
@@ -117,8 +111,19 @@ button {
 }
 
 .mat-tab-body.mat-tab-body-active {
-  position: fixed !important;
+  /* position: fixed !important; */
   margin-top: 10px;
+}
+
+.mat-toolbar {
+  position: fixed !important;
+  top: 0px;
+  font-weight: 300;
+  font-family: Roboto, sans-serif;
+  z-index: 99;
+  height: 40px !important;
+  font-size: 0.7em;
+  background: darkgray !important;
 }
 
 td {
