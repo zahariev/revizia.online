@@ -4,13 +4,13 @@
   font-weight: 200;
   display: flex;
   flex-direction: column;
-  min-width: 105%;
+  /* min-width: 105%; */
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border-radius: 0.25rem;
   position: relative;
-  top: 5px;
+  top: 3px;
 }
 
 .card .card-body {
