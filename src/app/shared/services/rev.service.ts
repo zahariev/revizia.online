@@ -3744,7 +3744,7 @@ export class RevService {
   }
 
   public changeArea(areaID) {
-    console.log(areaID);
+    // console.log(areaID);
 
     if (this.revData[areaID]) this.areaID = areaID;
 

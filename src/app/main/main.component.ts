@@ -34,14 +34,14 @@ export class MainComponent {
 
       this.data.revKeys = this.data.revKeys.slice(-2);
     }
-    console.log(this.data);
+    // console.log(this.data);
   }
 
   ngOnInit() {
     //const param = this.route.snapshot.queryParams["id"];
     //const routeParam = this.route.paramMap["params"]["id"];
     this.route.paramMap.subscribe(params => {
-      console.log(this.data.revData);
+      // console.log(this.data.revData);
       if (this.data.revData[params["params"]["id"]])
         setTimeout(this.data.changeArea(params["params"]["id"]), 1000);
       //   this.data.revList = area.data;

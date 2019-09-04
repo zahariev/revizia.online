@@ -222,7 +222,7 @@ export class SheetComponent implements OnInit {
 
   // maintain scroll position by tab idx
   mousewheel(ev: Event) {
-    console.log(this.el.nativeElement.offsetParent.firstChild);
+    // console.log(this.el.nativeElement.offsetParent.firstChild);
     // console.log(this.el.nativeElement.firstChild.scrollTop);
     var scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
     this.dat.tabScrollPos[this.tabIdx] = scrollPos;
