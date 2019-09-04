@@ -215,14 +215,6 @@ export class TabsMenuSheetComponent implements OnInit {
       : 0;
   }
 
-  areaChange(ev, areaID) {
-    this.data.changeArea(areaID);
-  }
-
-  areaNew(ev) {
-    this.data.areaNew(ev);
-  }
-
   // dropp(ev) {
   //   console.log(ev);
   // }

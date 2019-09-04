@@ -49,12 +49,16 @@ export class AuthService {
       `users/${user.uid}`
     );
 
+    if (!user.managedDBs) {
+      user.managedDBs = {};
+      user.managedDBs[user["uid"]] = "admin";
+    }
     const data = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      manageDBs: user.manageDBs
+      manageDBs: user.managedDBs
     };
 
     this.router.navigateByUrl(returnUrl);

@@ -1,46 +1,4 @@
 <mat-sidenav-container class="container">
-  <div id="itemMenuBtnContainer">
-    <mat-menu id="menu" #appMenu="matMenu">
-      <p>- - - switch Areas - - -</p>
-      <button
-        *ngFor="let area of data.revData; let idx = index"
-        mat-menu-item
-        (click)="areaChange($event, idx)"
-      >
-        {{ area.name }}
-      </button>
-      <p>- - - - -</p>
-      <button mat-menu-item (click)="areaNew($event)">new Area</button>
-
-      <button
-        mat-menu-item
-        (click)="removeTab($event, date)"
-        *ngIf="!data._simpleMode"
-      >
-        remove TAB
-      </button>
-    </mat-menu>
-    <!-- <mat-menu id="menuClear" #subMenu="matMenu">
-      <button mat-menu-item (click)="dayClearIn($event, date)">
-        clear Incoming
-      </button>
-       <button mat-menu-item *ngIf="!data._simpleMode">
-        [matMenuTriggerFor]="subMenu"
-        Clear old Data
-      </button> 
-      <button mat-menu-item (click)="dayClearEnd($event, date)">
-        clear End
-      </button>
-      <button mat-menu-item (click)="dayClearAll($event, date)">
-        clear All
-      </button> 
-    </mat-menu>-->
-
-    <button id="menuBtn" mat-icon-button [matMenuTriggerFor]="appMenu">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
-
   <!-- TABS    -->
 
   <mat-tab-group

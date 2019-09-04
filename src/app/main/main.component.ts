@@ -89,6 +89,14 @@ export class MainComponent {
     }
   }
 
+  areaChange(ev, areaID) {
+    this.data.changeArea(areaID);
+  }
+
+  areaNew(ev) {
+    this.data.areaNew(ev);
+  }
+
   onDateChanged(date) {
     this.showDatePicker = false;
     this.data.newDayTab(date);

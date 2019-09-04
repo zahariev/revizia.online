@@ -16,30 +16,6 @@ button.mat-icon-button {
   z-index: 999;
 }
 
-#itemMenuBtnContainer {
-  top: 0px;
-  width: 35px;
-  height: 35px;
-
-  background-color: azure !important;
-  position: relative;
-  z-index: 999;
-}
-
-button.mat-icon-button {
-  line-height: 0px !important;
-  width: 24px !important;
-  height: 24px !important;
-  border-radius: 0px !important;
-  top: 0px !important;
-  padding-left: 19px !important;
-  background-color: transparent !important;
-}
-
-button.mat-menu-item {
-  background-color: white !important;
-}
-
 div.mat-menu-panel {
   /* background-color: azure !important; */
 }
