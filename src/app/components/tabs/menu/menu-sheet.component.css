@@ -43,3 +43,35 @@ button.mat-menu-item {
 div.mat-menu-panel {
   /* background-color: azure !important; */
 }
+
+.headerRow {
+  height: 35px;
+  position: sticky;
+
+  width: fit-content;
+  background-color: linen;
+  top: 64px;
+  margin-left: 44px;
+  z-index: 99;
+}
+
+.headerRow tr th {
+  height: 35px;
+  min-width: 90px;
+  font-weight: 400;
+  border: 1px solid lightgray;
+  border-inline-end: none;
+}
+
+th.name {
+  min-width: 200px !important;
+}
+
+th.cost {
+  min-width: 80px !important;
+}
+
+th.DragHandleTH {
+  min-width: 95px !important;
+  border: 1px solid lightgray !important;
+}

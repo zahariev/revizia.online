@@ -66,6 +66,28 @@
           >
         </div>
       </ng-template>
+      <div class="headerRow">
+        <tr>
+          <ng-container *ngFor="let col1 of columnList; let idx = index">
+            <th class="text-center {{ col1.name }}">
+              {{ col1.columnName }}
+            </th>
+          </ng-container>
+          <th class="unitPrice text-center">
+            unitPrice
+          </th>
+          <th class="markup text-center">
+            markup%
+          </th>
+          <th class="table-remove text-center">
+            remove
+          </th>
+          <th class="DragHandleTH text-center">
+            pos
+          </th>
+        </tr>
+      </div>
+
       <menu-sheet
         class="menuTab"
         [editable]="editable"

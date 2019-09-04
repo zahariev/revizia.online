@@ -20,6 +20,29 @@
         <!-- <span class="smallSum"> 1{{ data[tab.name + "Sum"] | BGN }}</span> -->
       </ng-template>
 
+      <div class="headerRow">
+        <!-- <thead > -->
+        <tr>
+          <th class="text-center name">Артикул</th>
+          <th class="text-center  net">net</th>
+          <th class="text-center  bruto">bruto 0.7</th>
+          <th class="text-center  bruto">1 l/kg</th>
+          <th class="text-center  tara">tara 0.7</th>
+          <th class="text-center  tara">1l</th>
+          <th class="text-center qty">р-я 0.7</th>
+          <th class="text-center w90 qty">1л</th>
+          <th class="text-center w90 start">startRev</th>
+          <th class="text-center start">netStart</th>
+          <th class="text-center buy">buy</th>
+          <th class="text-center store">inStorage</th>
+          <th class="text-center end">end</th>
+          <th class="text-center w90 end">netDiff</th>
+
+          <th class="text-center diff">diff</th>
+        </tr>
+        <!-- </thead> -->
+      </div>
+
       <tara-sheet
         class="menuTab"
         [editable]="editable"

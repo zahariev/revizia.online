@@ -93,7 +93,7 @@ button {
   position: fixed !important;
   z-index: 99;
   top: 40px;
-  left: 24px;
+  padding-left: 44px;
   height: 35px;
   background-color: azure;
   width: 100%;
@@ -103,7 +103,8 @@ button {
   position: fixed !important;
   z-index: 99;
   top: 40px;
-  left: 24px;
+  padding-left: 44px;
+  /* left: 24px; */
   height: 35px;
   color: black !important;
   background-color: azure;

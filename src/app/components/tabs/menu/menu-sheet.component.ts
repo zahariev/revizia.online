@@ -20,6 +20,51 @@ export class TabsMenuSheetComponent implements OnInit {
   mapTabToScroll = {};
   activeEl: any;
   contentChange: Boolean = false;
+  columnList = [
+    // {
+    //   name: "id",
+    //   format: "number",
+    //   editable: true
+    // },
+    {
+      columnName: "Име",
+      name: "name",
+      format: "string",
+      editable: true
+    },
+
+    {
+      columnName: "цена",
+      name: "price",
+      format: "BGN",
+      editable: true
+    },
+
+    {
+      columnName: "колич.",
+      name: "qty",
+      format: "number",
+      editable: true
+    },
+    {
+      columnName: "закр.",
+      name: "round",
+      format: "number",
+      editable: true
+    },
+    {
+      columnName: "бр.в литър",
+      name: "qtyBruto",
+      format: "number",
+      editable: true
+    },
+    {
+      columnName: "дост.Цена",
+      name: "cost",
+      format: "number",
+      editable: true
+    }
+  ];
 
   constructor(public data: RevService) {
     // this.viewList = data.menuList;
