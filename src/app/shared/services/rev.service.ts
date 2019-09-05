@@ -1146,13 +1146,68 @@ export class RevService {
     }
   ];
 
-  menuList2 = [
+  // menuList2 = [
+  //   {
+  //     name: "non",
+  //     data: [
+  //       {
+  //         id: "21210",
+  //         name: "Кафе",
+  //         cost: 56,
+  //         qty: 0.007,
+  //         price: 2.2,
+  //         round: 1
+  //       }
+  //     ]
+  //   }
+  // ];
+
+  cashItems = [
     {
-      name: "non",
+      name: "Заплати",
       data: [
         {
-          id: "21210",
-          name: "Кафе",
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
+    },
+    {
+      name: "Стоки",
+      data: [
+        {
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
+    },
+    {
+      name: "консумация",
+      data: [
+        {
+          id: "",
+          name: "new",
+          cost: 56,
+          qty: 0.007,
+          price: 2.2,
+          round: 1
+        }
+      ]
+    },
+    {
+      name: "НПЛ",
+      data: [
+        {
+          id: "",
+          name: "new",
           cost: 56,
           qty: 0.007,
           price: 2.2,
@@ -1162,15 +1217,22 @@ export class RevService {
     }
   ];
 
-  cashItems = [];
   storeData = {
     name: "Test",
     areas: [{ id: "srg", name: "bar 1" }],
     managedDBs: {}
   };
 
-  cashData = [];
+  cashData = [
+    {
+      id: "asd",
+      data: {
+        "2019-01-01": [{}]
+      }
+    }
+  ];
   revData = [];
+
   // taraList = [
   //   {
   //     bruto: 0,
@@ -3636,9 +3698,20 @@ export class RevService {
     if (this.revData[areaID]) this.areaID = areaID;
 
     this.revList = this.revData[this.areaID].data;
-    this.areaName = this.revData[this.areaID].name;
+    this.areaName = this.storeData.areas[this.areaID].name;
     this.revListInit();
     this.calculateSheets();
+  }
+
+  public changeAreaName(name) {
+    this.revData[this.areaID].name = name;
+    this.storeData.areas[this.areaID].name = name;
+    this.fStore("storeData");
+  }
+
+  public changeStoreName(name) {
+    this.storeData.name = name;
+    this.fStore("storeData");
   }
 
   areaNew(ev) {
@@ -3682,7 +3755,7 @@ export class RevService {
     this.cashData = data.cashData || this.cashData;
     this.cashList = this.cashData[this.areaID]
       ? this.cashData[this.areaID].data
-      : [];
+      : this.cashList;
     this.storeData = data.storeData || this.storeData;
     this.taraList = data.taraList || this.taraList;
     this.areaName = this.revData[this.areaID]
@@ -3698,6 +3771,7 @@ export class RevService {
 
     this.calculateSheets();
     var data = {};
+
     if (name == "revList") {
       data["revData"] = this["revData"] || [];
       data["revData"][this.areaID] = data["revData"][this.areaID] || {};
@@ -3709,6 +3783,7 @@ export class RevService {
     } else {
       data[name] = this[name];
     }
+    console.log(data);
 
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error(error);

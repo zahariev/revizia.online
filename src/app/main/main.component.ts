@@ -16,6 +16,11 @@ export class MainComponent {
   data;
   tabs = [];
   buttonName = "CashOut";
+  activeEl;
+  contentChange;
+
+  areaName;
+  storeName;
 
   showMenuTab: boolean = true;
   showCashTab: boolean = true;
@@ -34,6 +39,9 @@ export class MainComponent {
 
       this.data.revKeys = this.data.revKeys.slice(-2);
     }
+
+    this.areaName = data.areaName;
+    this.storeName = data.storeName;
     // console.log(this.data);
   }
 
@@ -79,6 +87,108 @@ export class MainComponent {
       scrollTab.parentElement.scrollTo(0, scrollPos);
     } else {
     }
+  }
+
+  onClick(event: any) {
+    if (this.activeEl == "select") {
+      this.makeEditable(event.target);
+      // event.preventDefault();
+    } else if (this.activeEl == event.target) {
+      this.selectText(event.target);
+      this.activeEl = "select";
+    } else {
+      this.activeEl = event.target;
+    }
+  }
+
+  keyDown(property: string, event: any) {
+    // console.log(event);
+    var el = event.target;
+    switch (event.key) {
+      case "Enter":
+        this.selectText(el);
+        this.makeEditable(el);
+
+        event.preventDefault();
+
+        break;
+
+      case " ":
+        this.selectText(el);
+        this.makeEditable(el);
+
+        event.preventDefault();
+        break;
+      case "Tab":
+        if (this.activeEl != "editable") this.selectText();
+        this.makeEditable(el);
+        setTimeout(el.focus(), 10);
+        event.preventDefault();
+        break;
+      case "Escape":
+        event.target.innerText = this[property];
+        event.preventDefault();
+        break;
+
+      case "Meta":
+      case "Control":
+
+      case "Shift":
+
+      default:
+        if (this.activeEl != "editable") this.selectText();
+        this.makeEditable(el);
+        setTimeout(el.focus(), 10);
+    }
+  }
+
+  onInput(event) {
+    this.contentChange = true;
+  }
+
+  keyUp(event: any) {
+    switch (event.key) {
+      case "Enter":
+        event.preventDefault();
+        return true;
+        break;
+    }
+
+    return true;
+  }
+
+  selectText(cell = document.activeElement) {
+    if (!this.editable) return;
+    var range, selection;
+    if (this.activeEl == "select") this.activeEl = "editable";
+    // const input = window.document;
+    if (window.getSelection) {
+      selection = window.getSelection();
+      range = document.createRange();
+      range.selectNodeContents(cell);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  }
+
+  changeAreaName(event) {
+    var name = event.target.innerText;
+    console.log(name);
+    if (this.contentChange) this.data.changeAreaName(name);
+
+    event.target.contentEditable = "false";
+    event.preventDefault();
+  }
+
+  changeStoreName(property: string, el: any) {
+    this.data.fStore("storeData");
+    this.contentChange = false;
+  }
+
+  makeEditable(el) {
+    // if (!this.editable) return;
+    el.contentEditable = "true";
+    this.activeEl = "editable";
   }
 
   addTab(ev) {
