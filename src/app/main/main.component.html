@@ -9,7 +9,7 @@
       <button mat-menu-item [matMenuTriggerFor]="revDays">RevDays</button>
     </mat-menu>
 
-    <mat-menu id="menu" #areaMenu="matMenu">
+    <mat-menu id="menu1" #areaMenu="matMenu">
       <p>- - - switch Areas - - -</p>
       <button
         *ngFor="let area of data.revData; let idx = index"
@@ -29,31 +29,45 @@
         remove TAB
       </button>
     </mat-menu>
-    <!-- <mat-menu id="menuClear" #subMenu="matMenu">
-          <button mat-menu-item (click)="dayClearIn($event, date)">
-            clear Incoming
-          </button>
-           <button mat-menu-item *ngIf="!data._simpleMode">
-            [matMenuTriggerFor]="subMenu"
-            Clear old Data
-          </button> 
-          <button mat-menu-item (click)="dayClearEnd($event, date)">
-            clear End
-          </button>
-          <button mat-menu-item (click)="dayClearAll($event, date)">
-            clear All
-          </button> 
-        </mat-menu>-->
+
+    <mat-menu id="menu2" #revDays="matMenu">
+      <button
+        mat-menu-item
+        (click)="removeTab($event, date)"
+        *ngIf="!data._simpleMode"
+      >
+        remove TAB
+      </button>
+    </mat-menu>
+  </div>
+  <div
+    id="storeName"
+    contenteditable="false"
+    (keyup)="keyUp($event)"
+    (keydown)="keyDown('storeName', $event)"
+    (click)="onClick($event)"
+    (blur)="changeStoreName($event)"
+    (input)="onInput($event)"
+  >
+    {{ data.storeData.name }}
+  </div>
+  <div
+    id="areaName"
+    contenteditable="false"
+    (keyup)="keyUp($event)"
+    (keydown)="keyDown('areaName', $event)"
+    (click)="onClick($event)"
+    (blur)="changeAreaName($event)"
+    (input)="onInput($event)"
+  >
+    {{ data.areaName }}
   </div>
 
-  <span class="gap">File</span>
+  <!-- <span class="gap">File</span>
   <span>Edit</span>
   <span class="filler"></span>
   <span>About</span>
-  <span class="example-fill-remaining-space"></span>
-
-  <div id="storeName">{{ data.storeData.name }}</div>
-  <div id="areaName">{{ data.areaName }}</div>
+  <span class="example-fill-remaining-space"></span> -->
 </mat-toolbar>
 
 <div class="sidenav-container">
