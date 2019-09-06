@@ -12,7 +12,7 @@
     <mat-menu id="menu1" #areaMenu="matMenu">
       <p>- - - switch Areas - - -</p>
       <button
-        *ngFor="let area of data.revData; let idx = index"
+        *ngFor="let area of data.storeData.areas; let idx = index"
         mat-menu-item
         (click)="areaChange($event, idx)"
       >

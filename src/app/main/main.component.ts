@@ -106,11 +106,14 @@ export class MainComponent {
     var el = event.target;
     switch (event.key) {
       case "Enter":
-        this.selectText(el);
-        this.makeEditable(el);
+        if (this.activeEl != "editable") {
+          this.selectText();
 
-        event.preventDefault();
-
+          this.makeEditable(el);
+        } else {
+          event.preventDefault();
+          event.target.blur();
+        }
         break;
       case "Escape":
         event.target.innerText = this[property];
@@ -121,7 +124,7 @@ export class MainComponent {
       case "Control":
 
       case "Shift":
-
+        break;
       default:
         if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
@@ -167,9 +170,12 @@ export class MainComponent {
     event.preventDefault();
   }
 
-  changeStoreName(property: string, el: any) {
-    this.data.fStore("storeData");
-    this.contentChange = false;
+  changeStoreName(event: any) {
+    var name = event.target.innerText;
+    // console.log(name);
+    if (this.contentChange) this.data.changeStoreName(name);
+    event.target.contentEditable = "false";
+    event.preventDefault();
   }
 
   makeEditable(el) {

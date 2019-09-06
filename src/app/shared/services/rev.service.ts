@@ -3643,6 +3643,7 @@ export class RevService {
   // areaName: string = "barKicks_1";
 
   testData;
+
   constructor(
     public data: DataService,
     afs: AngularFirestore,
@@ -3709,7 +3710,6 @@ export class RevService {
   }
 
   public changeAreaName(name) {
-    this.revData[this.areaID].name = name;
     this.storeData.areas[this.areaID].name = name;
     this.fStore("storeData");
   }
@@ -3763,8 +3763,8 @@ export class RevService {
       : this.cashList;
     this.storeData = data.storeData || this.storeData;
     this.taraList = data.taraList || this.taraList;
-    this.areaName = this.revData[this.areaID]
-      ? this.revData[this.areaID].name
+    this.areaName = this.storeData.areas[this.areaID]
+      ? this.storeData.areas[this.areaID].name
       : "";
 
     this.revListInit();
