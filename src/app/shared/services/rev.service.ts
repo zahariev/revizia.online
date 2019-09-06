@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { taraItem, reviziaItem, cashItem } from "app/shared/models/item.model";
 
+import { Router } from "@angular/router";
 import * as firebase from "firebase/app";
 
 import {
@@ -3626,9 +3627,9 @@ export class RevService {
   /* Login credentials    */
   /*                      */
   db_key: string = "test"; //"JulJuD8xEvE6sptbL3cT"
-  storeName: string = "demo";
+  storeName: string = "";
   areaID: number = 0;
-  areaName: string = "DEMO";
+  areaName: string = "loading data.....";
 
   // // Bilkova
   // api_key: string = "JulJuD8xEvE6sptbL3cT";
@@ -3642,7 +3643,11 @@ export class RevService {
   // areaName: string = "barKicks_1";
 
   testData;
-  constructor(public data: DataService, afs: AngularFirestore) {
+  constructor(
+    public data: DataService,
+    afs: AngularFirestore,
+    private router: Router
+  ) {
     this.revData[0] = {};
 
     this.db_key = localStorage.userID || 0;
@@ -3696,7 +3701,7 @@ export class RevService {
     // console.log(areaID);
 
     if (this.revData[areaID]) this.areaID = areaID;
-
+    this.router.navigateByUrl("area/" + areaID);
     this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
     this.revListInit();

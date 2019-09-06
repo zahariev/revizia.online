@@ -112,19 +112,6 @@ export class MainComponent {
         event.preventDefault();
 
         break;
-
-      case " ":
-        this.selectText(el);
-        this.makeEditable(el);
-
-        event.preventDefault();
-        break;
-      case "Tab":
-        if (this.activeEl != "editable") this.selectText();
-        this.makeEditable(el);
-        setTimeout(el.focus(), 10);
-        event.preventDefault();
-        break;
       case "Escape":
         event.target.innerText = this[property];
         event.preventDefault();
