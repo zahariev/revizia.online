@@ -3788,7 +3788,7 @@ export class RevService {
     } else {
       data[name] = this[name];
     }
-    console.log(data);
+    // console.log(data);
 
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error(error);

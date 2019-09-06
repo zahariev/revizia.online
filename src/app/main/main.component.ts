@@ -163,7 +163,7 @@ export class MainComponent {
 
   changeAreaName(event) {
     var name = event.target.innerText;
-    console.log(name);
+    // console.log(name);
     if (this.contentChange) this.data.changeAreaName(name);
 
     event.target.contentEditable = "false";

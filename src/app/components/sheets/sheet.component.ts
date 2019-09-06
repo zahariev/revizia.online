@@ -78,7 +78,7 @@ export class SheetComponent implements OnInit {
   updateId(id, value) {
     var db = localStorage.getItem(this.dat.storeName + this.dat.areaID);
 
-    console.log(db.replace(/"id":" + id + "/g, '"id":"' + value + '"'));
+    // console.log(db.replace(/"id":" + id + "/g, '"id":"' + value + '"'));
   }
 
   onClick(item: any, elName: string, event: any) {
