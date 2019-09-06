@@ -42,6 +42,7 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { MainComponent } from "./main/main.component";
 import { AuthGuard } from "./auth.guard";
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -78,7 +79,13 @@ import { AuthGuard } from "./auth.guard";
 
     AppRoutingModule
   ],
-  providers: [DataService, HttpService, RevService, AuthGuard],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    DataService,
+    HttpService,
+    RevService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
