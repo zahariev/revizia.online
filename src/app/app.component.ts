@@ -12,7 +12,9 @@ export class AppComponent {
 
     if (
       evt.which === 8 &&
-      (evt.target["nodeName"] !== "TD" && evt.target["nodeName"] !== "DIV")
+      (evt.target["nodeName"] !== "TD" &&
+        evt.srcElement["id"] != "areaName" &&
+        evt.srcElement["id"] != "storeName") //target["nodeName"] !== "DIV")
     ) {
       evt.preventDefault();
     }
