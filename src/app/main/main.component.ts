@@ -46,14 +46,9 @@ export class MainComponent {
   }
 
   ngOnInit() {
-    //const param = this.route.snapshot.queryParams["id"];
-    //const routeParam = this.route.paramMap["params"]["id"];
     this.route.paramMap.subscribe(params => {
-      // console.log(this.data.revData);
       if (this.data.revData[params["params"]["id"]])
-        setTimeout(this.data.changeArea(params["params"]["id"]), 1000);
-      //   this.data.revList = area.data;
-      //   this.data.areaName = area.name;
+        setTimeout(this.data.changeArea(params["params"]["id"]), 100);
       // }
     });
   }
@@ -126,9 +121,9 @@ export class MainComponent {
       case "Shift":
         break;
       default:
-        if (this.activeEl != "editable") this.selectText();
+        // if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
-        setTimeout(el.focus(), 10);
+      //setTimeout(el.focus(), 10);
     }
   }
 
@@ -148,7 +143,7 @@ export class MainComponent {
   }
 
   selectText(cell = document.activeElement) {
-    if (!this.editable) return;
+    // if (!this.editable) return;
     var range, selection;
     if (this.activeEl == "select") this.activeEl = "editable";
     // const input = window.document;

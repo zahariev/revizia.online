@@ -8,13 +8,17 @@ import { Component, HostListener } from "@angular/core";
 export class AppComponent {
   @HostListener("document:keydown", ["$event"])
   onKeyDown(evt: KeyboardEvent) {
-    console.log(evt);
-
     if (
+      // backSpace
       evt.which === 8 &&
+      // cell edit
       (evt.target["nodeName"] !== "TD" &&
+        //areaName edit
         evt.srcElement["id"] != "areaName" &&
-        evt.srcElement["id"] != "storeName") //target["nodeName"] !== "DIV")
+        //tabName edit
+        evt.srcElement["id"].indexOf("list") &&
+        //storeName edit
+        evt.srcElement["id"] != "storeName")
     ) {
       evt.preventDefault();
     }
