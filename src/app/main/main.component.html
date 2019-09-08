@@ -37,12 +37,11 @@
     </mat-menu>
 
     <mat-menu id="menu2" #revDays="matMenu">
-      <button
-        mat-menu-item
-        (click)="removeDayTab($event, date)"
-        *ngIf="!data._simpleMode"
-      >
+      <button mat-menu-item (click)="removeDayTab($event)">
         remove DayTab
+      </button>
+      <button mat-menu-item (click)="dayOff($event, date)">
+        day Off
       </button>
     </mat-menu>
   </div>

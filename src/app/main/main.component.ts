@@ -200,8 +200,8 @@ export class MainComponent {
     // console.log("menu open");
     ev.preventDefault();
   }
-  public dayOff(e, date): void {
-    this.data.revList[date].forEach(i => {
+  public dayOff(e): void {
+    this.data.revList[this.data.activeDate].forEach(i => {
       i.ends = i.mplus + i.minus + i.starts;
     });
     this.data.fStore();
