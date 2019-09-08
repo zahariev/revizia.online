@@ -66,6 +66,15 @@ export class MainComponent {
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
     // this.data.fStore(this.data.containerName);
 
+    this.data.activeDateIdx = this.showAllTabs
+      ? tabChange.index - 4
+      : tabChange.index - 2;
+    this.data.activeDate = Object.keys(this.data.revList)[
+      this.data.activeDateIdx
+    ];
+    this.data.activeTabIdx = tabChange.index;
+
+    // console.log(this.data.activeDate);
     // tab selector in place
     window.dispatchEvent(new Event("resize"));
 
@@ -142,6 +151,10 @@ export class MainComponent {
     return true;
   }
 
+  //
+  // edit names events
+  //
+
   selectText(cell = document.activeElement) {
     // if (!this.editable) return;
     var range, selection;
@@ -179,6 +192,29 @@ export class MainComponent {
     this.activeEl = "editable";
   }
 
+  //
+  // Menu events
+  //
+
+  public contextMenuOpen(ev) {
+    // console.log("menu open");
+    ev.preventDefault();
+  }
+  public dayOff(e, date): void {
+    this.data.revList[date].forEach(i => {
+      i.ends = i.mplus + i.minus + i.starts;
+    });
+    this.data.fStore();
+  }
+
+  public removeDayTab(e): void {
+    confirm(
+      "You Are Going to DELETE this sheet!!! \n are you shure, please confirm"
+    )
+      ? this.data.removeRevSheet()
+      : 0;
+  }
+
   addTab(ev) {
     // if (!this.data.newDayTab())
     {
@@ -194,6 +230,9 @@ export class MainComponent {
   areaNew(ev) {
     this.data.areaNew(ev);
   }
+
+  //
+  //
 
   onDateChanged(date) {
     this.showDatePicker = false;

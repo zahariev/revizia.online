@@ -6,7 +6,13 @@
 
     <mat-menu #appMenu="matMenu">
       <button mat-menu-item [matMenuTriggerFor]="areaMenu">Areas</button>
-      <button mat-menu-item [matMenuTriggerFor]="revDays">RevDays</button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="revDays"
+        *ngIf="data.activeDate"
+      >
+        RevDays
+      </button>
     </mat-menu>
 
     <mat-menu id="menu1" #areaMenu="matMenu">
@@ -33,10 +39,10 @@
     <mat-menu id="menu2" #revDays="matMenu">
       <button
         mat-menu-item
-        (click)="removeTab($event, date)"
+        (click)="removeDayTab($event, date)"
         *ngIf="!data._simpleMode"
       >
-        remove TAB
+        remove DayTab
       </button>
     </mat-menu>
   </div>
@@ -77,7 +83,8 @@
     [animationDuration]="'0ms'"
     id="itemTabs"
     [@.disabled]="true"
-    selectedIndex="1"
+    [selectedIndex]="data.activeTabIdx"
+    (contextmenu)="contextMenuOpen($event)"
     (selectedTabChange)="onSelectedTabChange($event)"
   >
     <mat-tab disabled *ngIf="!data._simpleMode">
@@ -104,10 +111,12 @@
 
     <mat-tab *ngFor="let tab of data.revKeys; let id = index">
       <ng-template mat-tab-label>
-        {{ tab | date: "EEEE" }}
-        <!-- <small>{{ data[tab + "Sum"] | BGN }}</small> -->
-        <div class="smallDate">
-          {{ tab | date: "d MMMM " }}
+        <div>
+          {{ tab | date: "EEEE" }}
+          <!-- <small>{{ data[tab + "Sum"] | BGN }}</small> -->
+          <div class="smallDate">
+            {{ tab | date: "d MMMM " }}
+          </div>
         </div>
         <!-- <span class="smallSum"> {{ data[tab.titleSum] | BGN }}</span> -->
       </ng-template>

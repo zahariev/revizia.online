@@ -3608,6 +3608,9 @@ export class RevService {
   public tabScrollPos = [];
   public tabSelectedIdx: number = 0;
   public tabCashSelectedIdx: number = 0;
+  public activeDate;
+  public activeDateIdx;
+  public activeTabIdx: number = 1;
 
   private tempSummary = {};
   private cashSummary = {};
@@ -3883,8 +3886,15 @@ export class RevService {
     });
   }
 
-  public removeSheet(date) {
-    delete this.revList[date];
+  public removeRevSheet(date) {
+    if (!date) date = this.activeDate;
+
+    if (this.revList[date]) delete this.revList[date];
+    console.log(Object.keys(this.revList)[this.activeDateIdx]);
+
+    // if tab is last move active focus on last after deletion
+    if (!Object.keys(this.revList)[this.activeDateIdx])
+      this.activeTabIdx = this.activeTabIdx - 1;
     this.revListInit();
     this.fStore();
   }
