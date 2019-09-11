@@ -47,8 +47,12 @@ export class MainComponent {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      // if (this.data.revData[params["params"]["store"]])
+      //   setTimeout(this.data.changeStore(params["params"]["store"]), 100);
+      // // }
+
       if (this.data.revData[params["params"]["id"]])
-        setTimeout(this.data.changeArea(params["params"]["id"]), 100);
+        setTimeout(this.data.changeArea(params["params"]["id"]), 50);
       // }
     });
   }

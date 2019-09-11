@@ -3713,6 +3713,19 @@ export class RevService {
     this.calculateSheets();
   }
 
+  public changeStore(storeName) {
+    // console.log(areaID);
+
+    // if (this.revData[areaID]) this.areaID = areaID;
+    this.router.navigateByUrl("area/" + this.areaID);
+    this.revList = this.revData[this.areaID].data;
+    this.areaName = this.storeData.areas[this.areaID].name;
+
+    window.document.title = this.storeData.name + " " + this.areaName;
+    this.revListInit();
+    this.calculateSheets();
+  }
+
   public changeAreaName(name) {
     this.storeData.areas[this.areaID].name = name;
     this.fStore("storeData");
