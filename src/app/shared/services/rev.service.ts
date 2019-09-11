@@ -3730,6 +3730,12 @@ export class RevService {
       name: "newArea"
     });
 
+    data["storeData"] = this.storeData;
+    var id = data["storeData"]["areas"].push({
+      id: data["storeData"]["areas"].length,
+      name: "newArea"
+    });
+
     //console.log(id);
 
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
