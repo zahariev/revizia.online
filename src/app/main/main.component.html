@@ -6,6 +6,8 @@
 
     <mat-menu #appMenu="matMenu">
       <button mat-menu-item [matMenuTriggerFor]="areaMenu">Areas</button>
+      <button mat-menu-item [matMenuTriggerFor]="periodMenu">Period</button>
+
       <button
         mat-menu-item
         [matMenuTriggerFor]="revDays"
@@ -29,10 +31,17 @@
 
       <button
         mat-menu-item
-        (click)="removeTab($event, date)"
+        (click)="removeMenuTab($event, date)"
         *ngIf="!data._simpleMode"
       >
         remove TAB
+      </button>
+    </mat-menu>
+
+    <mat-menu id="menu" #periodMenu="matMenu">
+      <button mat-menu-item (click)="savePeriod($event)">save Period</button>
+      <button mat-menu-item (click)="newPeriod($event)">
+        set New Period
       </button>
     </mat-menu>
 

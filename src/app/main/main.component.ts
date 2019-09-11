@@ -231,6 +231,25 @@ export class MainComponent {
     this.data.areaNew(ev);
   }
 
+  removeMenuTab() {
+    confirm(
+      "You Are Going to DELETE this tab! \n are you shure, please confirm \n"
+    )
+      ? this.data.removeMenuTab()
+      : 0;
+  }
+
+  public newPeriod(e) {
+    confirm(
+      "You Are Going to DELETE All Sheets!!! \n Are you shure, please confirm !"
+    )
+      ? this.data.newPeriod()
+      : 0;
+
+    // this.data.newPeriod();
+  }
+  public savePeriod(e) {}
+
   //
   //
 
