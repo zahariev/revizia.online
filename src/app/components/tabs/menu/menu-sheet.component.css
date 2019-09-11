@@ -38,7 +38,9 @@ div.mat-menu-panel {
   border: 1px solid lightgray;
   border-inline-end: none;
 }
-
+th.id {
+  min-width: 80px !important;
+}
 th.name {
   min-width: 200px !important;
 }
@@ -48,6 +50,6 @@ th.cost {
 }
 
 th.DragHandleTH {
-  min-width: 95px !important;
+  min-width: 96px !important;
   border: 1px solid lightgray !important;
 }

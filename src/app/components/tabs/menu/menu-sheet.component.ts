@@ -21,11 +21,7 @@ export class TabsMenuSheetComponent implements OnInit {
   activeEl: any;
   contentChange: Boolean = false;
   columnList = [
-    // {
-    //   name: "id",
-    //   format: "number",
-    //   editable: true
-    // },
+    { columnName: "id", name: "id", format: "number", editable: true },
     {
       columnName: "Име",
       name: "name",
@@ -205,14 +201,6 @@ export class TabsMenuSheetComponent implements OnInit {
 
   addTab() {
     this.data.addMenuTab();
-  }
-
-  removeTab() {
-    confirm(
-      "You Are Going to DELETE this tab! \n are you shure, please confirm \n"
-    )
-      ? this.data.removeMenuTab()
-      : 0;
   }
 
   // dropp(ev) {
