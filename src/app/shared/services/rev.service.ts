@@ -3667,7 +3667,6 @@ export class RevService {
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
-
     this.revListInit();
     this.calculateSheets();
   }
@@ -3708,6 +3707,8 @@ export class RevService {
     this.router.navigateByUrl("area/" + areaID);
     this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
+
+    window.document.title = this.storeData.name + " " + this.areaName;
     this.revListInit();
     this.calculateSheets();
   }
@@ -3776,6 +3777,7 @@ export class RevService {
       ? this.storeData.areas[this.areaID].name
       : "";
 
+    window.document.title = this.storeData.name + " " + this.areaName;
     this.revListInit();
     this.calculateSheets();
   }
