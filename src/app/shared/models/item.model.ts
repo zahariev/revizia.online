@@ -24,6 +24,8 @@ export class reviziaItem {
 export class taraItem {
   constructor(
     public id: string = "",
+    public name: string = "",
+    public net: number = 0,
     public bruto: number = 0,
     public bruto1: number = 0,
     public tara: number = 0,
@@ -36,8 +38,6 @@ export class taraItem {
     public diff: number = 0,
     public diffCash: number = 0,
     public inStore: number = 0,
-    public name: string = "",
-    public net: number = 0,
     public netStart: number = 0,
     public netDiff: number = 0,
     public startRev: number = 0
