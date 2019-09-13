@@ -3667,6 +3667,7 @@ export class RevService {
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
+
     this.revListSortByDate();
     this.calculateSheets();
   }
@@ -3807,7 +3808,7 @@ export class RevService {
 
   public fStore(name = "revList"): void {
     var json: string;
-    console.log(this.areaID);
+    // console.log(this.areaID);
 
     this.calculateSheets();
     var data = {};

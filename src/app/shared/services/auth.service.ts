@@ -11,13 +11,14 @@ import {
 
 import { Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
+import { map, take, tap } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
   user$: Observable<User>;
 
   constructor(
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router
   ) {
@@ -70,5 +71,15 @@ export class AuthService {
     await this.afAuth.auth.signOut();
     localStorage.setItem("userID", "");
     // this.router.navigate(["login"]);
+  }
+
+  isAuthorised() {
+    return this.afAuth.authState.pipe(
+      take(1),
+      map(authState => !!authState),
+      tap(authenticated => {
+        if (!authenticated) this.router.navigate(["/login"]);
+      })
+    );
   }
 }
