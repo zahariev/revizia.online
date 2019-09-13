@@ -24,6 +24,8 @@ export class SheetComponent implements OnInit {
   ngOnInit() {}
 
   updateList(itm, property: string, el: any) {
+    // console.log(itm);
+
     this.dat.firstLoad = false;
     var itemExists = this.dataList.filter(i => {
       return i.id == itm.id;
@@ -44,6 +46,7 @@ export class SheetComponent implements OnInit {
       // not to double values in text filed on chrome
       el.innerHTML = item[property] || "";
     }
+    // console.log(item === oldItem);
 
     // this.dat.calculateSheets();
     // this.dat.localStore();

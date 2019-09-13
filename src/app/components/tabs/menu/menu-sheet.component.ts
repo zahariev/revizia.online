@@ -62,9 +62,12 @@ export class TabsMenuSheetComponent implements OnInit {
     }
   ];
 
+  simpleModeColumns = ["name", "price", "cost"];
   constructor(public data: RevService) {
     // this.viewList = data.menuList;
     this.editable = true;
+
+    // console.log("init");
   }
 
   ngOnInit() {

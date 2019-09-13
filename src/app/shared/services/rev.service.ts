@@ -3667,7 +3667,7 @@ export class RevService {
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
     });
-    this.revListInit();
+    this.revListSortByDate();
     this.calculateSheets();
   }
 
@@ -3686,7 +3686,8 @@ export class RevService {
       console.error(error);
     });
   }
-  private revListInit() {
+
+  private revListSortByDate() {
     var rev = {};
     this.revKeys = Object.keys(this.revList || {});
     this.revKeys.sort();
@@ -3703,13 +3704,22 @@ export class RevService {
   public changeArea(areaID) {
     // console.log(areaID);
 
-    if (this.revData[areaID]) this.areaID = areaID;
+    // if (this.revData[areaID])
+    this.areaID = areaID;
     this.router.navigateByUrl("area/" + areaID);
-    this.revList = this.revData[this.areaID].data;
+    //this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
 
+    this.revList = this.revData[this.areaID]
+      ? this.revData[this.areaID].data
+      : [];
+    this.cashList = this.cashData[this.areaID]
+      ? this.cashData[this.areaID].data
+      : this.cashList;
+    // this.taraList = data.taraList || this.taraList;
+
     window.document.title = this.storeData.name + " " + this.areaName;
-    this.revListInit();
+    this.revListSortByDate();
     this.calculateSheets();
   }
 
@@ -3722,7 +3732,7 @@ export class RevService {
     this.areaName = this.storeData.areas[this.areaID].name;
 
     window.document.title = this.storeData.name + " " + this.areaName;
-    this.revListInit();
+    this.revListSortByDate();
     this.calculateSheets();
   }
 
@@ -3791,12 +3801,13 @@ export class RevService {
       : "";
 
     window.document.title = this.storeData.name + " " + this.areaName;
-    this.revListInit();
+    this.revListSortByDate();
     this.calculateSheets();
   }
 
   public fStore(name = "revList"): void {
     var json: string;
+    console.log(this.areaID);
 
     this.calculateSheets();
     var data = {};
@@ -3916,7 +3927,7 @@ export class RevService {
     // if tab is last move active focus on last after deletion
     if (!Object.keys(this.revList)[this.activeDateIdx])
       this.activeTabIdx = this.activeTabIdx - 1;
-    this.revListInit();
+    this.revListSortByDate();
     this.fStore();
   }
 
@@ -4003,6 +4014,8 @@ export class RevService {
   }
 
   public calculateRevSheet(date) {
+    // console.log(date);
+
     this[date + "Sum"] = 0;
     this.menuList.forEach(tab => {
       if (!this.tempSummary[tab.name]) this.tempSummary[tab.name] = [];

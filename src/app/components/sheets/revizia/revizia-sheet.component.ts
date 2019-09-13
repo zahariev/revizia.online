@@ -29,5 +29,8 @@ export class ReviziaSheetComponent extends SheetComponent {
     this.dataList = this.dat.revList[this.date];
   }
 
-  gridInit() {}
+  gridInit() {
+    // on areaChange change dataset
+    this.dataList = this.dat.revList[this.date];
+  }
 }
