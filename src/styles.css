@@ -102,6 +102,10 @@ button {
   width: 100%;
 }
 
+#cashTabs .mat-tab-header {
+  left: 24px;
+}
+
 #menuTabs .mat-tab-header {
   position: fixed !important;
   z-index: 99;
