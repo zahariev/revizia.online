@@ -19,13 +19,13 @@ export class TaraSheetComponent extends SheetComponent {
 
   containerName = "taraList";
 
-  constructor(public dat: RevService, public el: ElementRef) {
-    super(dat, el);
+  constructor(public data: RevService, public el: ElementRef) {
+    super(data, el);
 
     this.columnList.length = 10;
   }
 
   ngOnInit() {
-    this.dataList = this.dat.taraList;
+    this.dataList = this.data.taraList;
   }
 }

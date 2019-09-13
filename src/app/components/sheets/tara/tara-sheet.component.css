@@ -200,6 +200,18 @@ span.negative {
   /* bottom: 10px; */
 }
 
+.bruto,
+.bruto1,
+.tara,
+.tara1 {
+  font-size: 0.8em;
+  color: gray !important;
+}
+
+.net {
+  font-size: 0.6em;
+}
+
 .smallDiff {
   font-size: 0.9em;
   /* color: red; */
