@@ -30,6 +30,15 @@ export class ReviziaSheetComponent extends SheetComponent {
   }
 
   gridInit() {
+    // console.log("init revsheet");
+
+    // on areaChange change dataset
+    this.dataList = this.dat.revList[this.date];
+  }
+
+  ngAfterViewInit() {
+    // console.log("viewInit revsheet");
+
     // on areaChange change dataset
     this.dataList = this.dat.revList[this.date];
   }
