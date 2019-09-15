@@ -55,6 +55,8 @@ export class TaraSheetComponent extends SheetComponent {
     // if()
     // this.dataList = this.data.taraData[this.data.areaID].data;
 
+    this.gridInit();
+
     this.data.firstLoad = false;
     var itemExists = this.dataList.filter(i => {
       return i.id == itm.id;
