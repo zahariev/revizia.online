@@ -47,10 +47,6 @@ export class MainComponent {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      // if (this.data.revData[params["params"]["store"]])
-      //   setTimeout(this.data.changeStore(params["params"]["store"]), 100);
-      // // }
-
       //check if area exists
       if (this.data.revData[params["params"]["id"]])
         setTimeout(this.data.changeArea(params["params"]["id"]), 50);

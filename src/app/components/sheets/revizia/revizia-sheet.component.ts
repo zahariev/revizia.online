@@ -34,8 +34,6 @@ export class ReviziaSheetComponent extends SheetComponent {
   }
 
   ngAfterViewInit() {
-    // console.log("viewInit revsheet");
-
     // on areaChange change dataset
     this.dataList = this.dat.revList[this.date];
   }
