@@ -17,7 +17,7 @@ export class TaraSheetComponent extends SheetComponent {
 
   viewList;
 
-  containerName = "taraList";
+  containerName = "taraData";
 
   constructor(public data: RevService, public el: ElementRef) {
     super(data, el);
@@ -26,11 +26,11 @@ export class TaraSheetComponent extends SheetComponent {
   }
 
   ngOnInit() {
-    this.dataList = this.data.taraList;
+    //this.dataList = this.data.taraData[this.data.areaID].data;
   }
 
   gridInit() {
-    // console.log("gridInit");
+    // console.log("dataInit");
     // console.log(this.data.areaID);
 
     // on areaChange change dataset
@@ -50,7 +50,10 @@ export class TaraSheetComponent extends SheetComponent {
   }
 
   updateList(itm, property: string, el: any) {
-    // console.log(itm);
+    // console.log(property);
+    // this.datasourceInit();
+    // if()
+    // this.dataList = this.data.taraData[this.data.areaID].data;
 
     this.data.firstLoad = false;
     var itemExists = this.dataList.filter(i => {
@@ -83,6 +86,6 @@ export class TaraSheetComponent extends SheetComponent {
     this.data.fStore("menuList");
     this.contentChange = false;
 
-    this.gridInit();
+    // this.gridInit();
   }
 }

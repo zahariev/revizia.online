@@ -25,6 +25,7 @@ export class SheetComponent implements OnInit {
 
   updateList(itm, property: string, el: any) {
     // console.log(itm);
+    this.gridInit();
 
     this.dat.firstLoad = false;
     var itemExists = this.dataList.filter(i => {
@@ -54,8 +55,6 @@ export class SheetComponent implements OnInit {
     this.dat.containerName = this.containerName;
     this.dat.fStore(this.dat.containerName);
     this.contentChange = false;
-
-    this.gridInit();
   }
 
   gridInit() {}

@@ -3685,10 +3685,8 @@ export class RevService {
   }
 
   public changeArea(areaID) {
-    // console.log(areaID);
-
-    // if (this.revData[areaID])
-    this.areaID = areaID;
+    if (this.storeData.areas[areaID]) this.areaID = areaID;
+    else this.areaID = 0;
 
     //this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
@@ -3702,9 +3700,10 @@ export class RevService {
     this.taraList = this.taraData[this.areaID]
       ? this.taraData[this.areaID].data
       : this.taraList;
-
+    this.revData[this.areaID].filter = "";
     this.router.navigateByUrl("area/" + areaID);
     window.document.title = this.storeData.name + " " + this.areaName;
+
     this.revListSortByDate();
     this.calculateSheets();
   }
@@ -3818,7 +3817,7 @@ export class RevService {
         data["cashData"][this.areaID] = data["cashData"][this.areaID] || {};
         data["cashData"][this.areaID].data = this.cashList;
         break;
-      case "taraList":
+      case "taraData":
         data["taraData"] = this["taraData"];
         data["taraData"][this.areaID] = data["taraData"][this.areaID] || {};
         data["taraData"][this.areaID].data = this.taraList;

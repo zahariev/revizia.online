@@ -51,6 +51,7 @@ export class MainComponent {
       //   setTimeout(this.data.changeStore(params["params"]["store"]), 100);
       // // }
 
+      //check if area exists
       if (this.data.revData[params["params"]["id"]])
         setTimeout(this.data.changeArea(params["params"]["id"]), 50);
       // }
@@ -63,7 +64,7 @@ export class MainComponent {
       setTimeout(() => {
         this.data.revKeys = this.data.revKeys.slice(-2);
         // console.log(this.data.revKeys);
-      }, 1000);
+      }, 100);
     }
   }
 
