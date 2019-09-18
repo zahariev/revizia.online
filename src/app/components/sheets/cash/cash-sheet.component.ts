@@ -63,7 +63,7 @@ export class CashSheetComponent extends SheetComponent {
   nextFocus: any;
   viewList;
   date = "cashList";
-  containerName = "cashList";
+  containerName = "cashData";
 
   constructor(private data: RevService, public el: ElementRef) {
     super(data, el);
@@ -78,7 +78,7 @@ export class CashSheetComponent extends SheetComponent {
   }
 
   gridInit() {
-    // console.log(this.data.cashList[this.tabIdx]);s
+    console.log(this.data.cashList[this.tabIdx]);
     this.data.cashList[this.tabIdx].data = this.dataList;
     // console.log(this.history);
     this.viewList = this.data.cashList[this.tabIdx].data;

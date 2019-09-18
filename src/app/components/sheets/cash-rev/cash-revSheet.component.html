@@ -39,7 +39,13 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let item of viewList; let id = index" cdkDrag>
+                <tr
+                  *ngFor="
+                    let item of data.cashSheetView[date][tabName];
+                    let id = index
+                  "
+                  cdkDrag
+                >
                   <ng-container *ngFor="let col of columnList; let idx = index">
                     <td
                       *ngIf="

@@ -64,7 +64,7 @@ export class CashRevSheetComponent extends SheetComponent {
     //   editable: true
     // }
   ];
-
+  cashData = {};
   focus: any;
   nextFocus: any;
   viewList;
@@ -90,16 +90,22 @@ export class CashRevSheetComponent extends SheetComponent {
   }
 
   gridInit() {
+    // this.cashData = this.data.cashData;
+    // this.data.cashList = this.cashData[this.data.areaID]
+    //   ? this.cashData[this.data.areaID].data
+    //   : this.data.cashList;
+
+    //this.dataList = this.data.cashList[this.date] || [];
+    // console.log(this.dataList);
+
     this.data.cashList[this.date] = this.dataList;
-    this.viewList = this.data.cashSheetView[this.date][this.tabName];
+    // this.data.cashSheetView[this.date][this.tabName];
   }
 
   addRow(ev) {
     var rowIdx = this.dataList.push(
       new cashItem(Number(this.tabIdx), "", 0, 0)
     );
-    // this.dataList;
-    // console.log(this.dataList);
 
     this.data.calcDailyCashSheets(this.date);
     this.gridInit();
@@ -108,8 +114,9 @@ export class CashRevSheetComponent extends SheetComponent {
 
   updateList(itm, property: string, el: any) {
     // this.dat.firstLoad = false;
+    this.gridInit();
 
-    var itemExists = this.dataList.filter(i => {
+    var itemExists = this.data.cashList[this.date].filter(i => {
       return i.id == itm.id;
     })[0];
     // console.log(itm);
@@ -141,7 +148,7 @@ export class CashRevSheetComponent extends SheetComponent {
     this.dat.fStore("cashData");
     this.contentChange = false;
 
-    // this.gridInit();
+    this.gridInit();
   }
 
   drop(e) {}
