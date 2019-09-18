@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { taraItem, reviziaItem, cashItem } from "app/shared/models/item.model";
 
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import * as firebase from "firebase/app";
 
 import {
@@ -3615,7 +3615,7 @@ export class RevService {
   public firstLoad: boolean = true;
   private afs;
   private DbData;
-
+  public navigateToAreaID: number;
   public containerName;
   changedFrom = "Local";
   conn;
@@ -3632,9 +3632,14 @@ export class RevService {
   constructor(
     public data: DataService,
     afs: AngularFirestore,
-    private router: Router
+    private router: Router // private route: ActivatedRoute
   ) {
     this.revData[0] = {};
+    this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e.id && this.storeData.areas[e.id]) this.areaID = e.id;
+      // else this.areaID = 0;
+    });
 
     this.db_key = localStorage.userID || 0;
     this.DbData = afs.collection("databases").doc(this.db_key);
@@ -3685,10 +3690,12 @@ export class RevService {
   }
 
   public changeArea(areaID) {
-    if (this.storeData.areas[areaID]) this.areaID = areaID;
+    if (this.navigateToAreaID) {
+      this.areaID = this.navigateToAreaID;
+      delete this.navigateToAreaID;
+    } else if (this.storeData.areas[areaID]) this.areaID = areaID;
     else this.areaID = 0;
 
-    //this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
 
     this.revList = this.revData[this.areaID]
@@ -3696,13 +3703,14 @@ export class RevService {
       : [];
     this.cashList = this.cashData[this.areaID]
       ? this.cashData[this.areaID].data
-      : this.cashList;
+      : [];
     this.taraList = this.taraData[this.areaID]
       ? this.taraData[this.areaID].data
-      : this.taraList;
+      : [];
     this.revData[this.areaID].filter = "";
-    this.router.navigateByUrl("area/" + areaID);
-    window.document.title = this.storeData.name + " " + this.areaName;
+    this.router.navigateByUrl("area/" + areaID); //{ skipLocationChange: true }
+
+    window.document.title = this.areaName + " " + this.storeData.name;
 
     this.revListSortByDate();
     this.calculateSheets();
@@ -3716,7 +3724,7 @@ export class RevService {
     this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
 
-    window.document.title = this.storeData.name + " " + this.areaName;
+    window.document.title = this.areaName + " " + this.storeData.name;
     this.revListSortByDate();
     this.calculateSheets();
   }
@@ -3783,7 +3791,7 @@ export class RevService {
     this.cashData = data.cashData || this.cashData;
     this.cashList = this.cashData[this.areaID]
       ? this.cashData[this.areaID].data
-      : this.cashList;
+      : [];
     this.storeData = data.storeData || this.storeData;
     this.taraData = data.taraData || this.taraData;
     // this.taraList = data.taraList || this.taraList;
@@ -3794,14 +3802,15 @@ export class RevService {
       ? this.storeData.areas[this.areaID].name
       : "";
 
-    window.document.title = this.storeData.name + " " + this.areaName;
+    window.document.title = this.areaName + " " + this.storeData.name;
+
     this.revListSortByDate();
     this.calculateSheets();
   }
 
   public fStore(name = "revList"): void {
     var json: string;
-    // console.log(this.areaID);
+    // console.log(name);
 
     this.calculateSheets();
     var data = {};
@@ -3812,7 +3821,7 @@ export class RevService {
         data["revData"][this.areaID] = data["revData"][this.areaID] || {};
         data["revData"][this.areaID].data = this.revList;
         break;
-      case "cashList":
+      case "cashData":
         data["cashData"] = this["cashData"];
         data["cashData"][this.areaID] = data["cashData"][this.areaID] || {};
         data["cashData"][this.areaID].data = this.cashList;
@@ -3987,16 +3996,15 @@ export class RevService {
     });
   }
 
-  calcDailyCashSheets(date) {
+  public calcDailyCashSheets(date) {
     this.cashSheetView[date] = {};
     if (!this.cashList[date]) return;
-
+    // console.log(this.cashList[date]);
     this.cashItems.forEach((tab, idx) => {
       var tempCash: Array<any> = [];
       // var emptyRow = new cashItem(idx, "", 0, 0);
       tab.data.forEach((cashItem, id) => {
         tempCash = [];
-        // console.log(this.cashList[date]);
 
         this.cashList[date].forEach(i => {
           if (i.tabIdx == idx) tempCash.push(i);

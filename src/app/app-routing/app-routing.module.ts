@@ -13,14 +13,16 @@ const routes: Routes = [
   {
     path: "area/:id",
     component: MainComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    runGuardsAndResolvers: "always"
   },
 
   { path: "**", redirectTo: "area/0" }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  // RouterModule.forRoot(routes, {onSameUrlNavigation: ‘reload’}),
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" })],
   exports: [RouterModule],
   declarations: []
 })
