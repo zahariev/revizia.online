@@ -78,7 +78,7 @@ export class RevService {
   cashData = [];
 
   // view = [];
-  public menuList = [];
+  public menuList = [{ name: "", data: [] }];
   public revData = [];
   public taraData = [];
   public taraList = [new taraItem()];
@@ -132,7 +132,7 @@ export class RevService {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e.id) this.navigateToAreaID = e.id;
-      else this.areaID = 0;
+      // else this.areaID = 0;
     });
 
     this.db_key = localStorage.userID || 0;
@@ -145,15 +145,19 @@ export class RevService {
         : "Server";
 
       const data = res.payload.data();
-      // console.log(res);
+      // console.log(res.payload.metadata.hasPendingWrites);
 
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
 
-      if (this.navigateToAreaID) {
+      if (
+        this.navigateToAreaID &&
+        this.storeData.areas[this.navigateToAreaID]
+      ) {
         this.areaID = this.navigateToAreaID;
         delete this.navigateToAreaID;
+        this.changeArea(this.areaID);
       }
     });
   }
@@ -213,11 +217,11 @@ export class RevService {
     this.router.navigateByUrl("area/" + areaID); //{ skipLocationChange: true }
 
     window.document.title = this.areaName + " " + this.storeData.name;
-    console.log(this.cashList);
+    // console.log(this.cashList);
 
     this.revListSortByDate();
     this.calculateSheets();
-    console.log(this.cashList);
+    // console.log(this.cashList);
   }
 
   public changeStore(storeName) {
@@ -287,6 +291,8 @@ export class RevService {
     // console.log(data.revData);
     // console.log(this.areaID);
     // no localStorage
+    console.log("setChanges");
+
     this.menuList = data.menuList || this.menuList;
     this.revData = data.revData || this.revData;
     this.revList = this.revData[this.areaID]
@@ -314,9 +320,9 @@ export class RevService {
 
   public fStore(name = "revList"): void {
     var json: string;
-    console.log(name);
+    // console.log(name);
     console.log(this.areaID);
-    console.log(this.cashData);
+    // console.log(this.cashData);
 
     this.calculateSheets();
     var data = {};
@@ -504,12 +510,12 @@ export class RevService {
 
   public calcDailyCashSheets(date) {
     this.cashSheetView[date] = {};
-    console.log(this.cashData);
+    // console.log(this.cashData);
 
     let cashList = this.cashData[this.areaID]
       ? this.cashData[this.areaID].data
       : [];
-    console.log(cashList[date]);
+    // console.log(cashList[date]);
 
     // console.log(this.cashList[date]);
     this.cashItems.forEach((tab, idx) => {
