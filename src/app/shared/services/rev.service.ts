@@ -132,25 +132,30 @@ export class RevService {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e.id) this.navigateToAreaID = e.id;
-      // else this.areaID = 0;
+      else this.areaID = 0;
     });
 
     this.db_key = localStorage.userID || 0;
+
     this.DbData = afs.collection("databases").doc(this.db_key);
+
     this.conn = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
         ? "Local"
         : "Server";
+
       const data = res.payload.data();
       // console.log(res);
 
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) this.setNewStore();
       if (changedFrom == "Server" && data) this.setChangesFromServer(data);
-    });
 
-    this.revListSortByDate();
-    this.calculateSheets();
+      if (this.navigateToAreaID) {
+        this.areaID = this.navigateToAreaID;
+        delete this.navigateToAreaID;
+      }
+    });
   }
 
   private setNewStore() {
@@ -183,14 +188,15 @@ export class RevService {
     this.revList = rev;
   }
 
-  public changeArea(areaID) {
-    console.log(this.cashList);
-
+  public changeArea(areaID = this.areaID) {
+    // url areaID
     if (this.navigateToAreaID) {
       this.areaID = this.navigateToAreaID;
       delete this.navigateToAreaID;
-    } else if (this.storeData.areas[areaID]) this.areaID = areaID;
-    else this.areaID = 0;
+    }
+
+    if (this.storeData.areas[areaID]) this.areaID = areaID;
+    else return;
 
     this.areaName = this.storeData.areas[this.areaID].name;
 
