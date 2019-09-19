@@ -204,10 +204,13 @@ export class MainComponent {
     // console.log("menu open");
     ev.preventDefault();
   }
+
   public dayOff(e): void {
     this.data.revList[this.data.activeDate].forEach(i => {
-      i.ends = i.mplus + i.minus + i.starts;
+      i.ends = <number>i.mplus * 1 + <number>i.minus * 1 + <number>i.starts * 1;
     });
+    // this.data.revListSortByDate();
+    // this.data.calculateSheets();
     this.data.fStore();
   }
 
