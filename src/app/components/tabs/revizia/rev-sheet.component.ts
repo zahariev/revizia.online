@@ -14,9 +14,6 @@ export class TabsRevSheetComponent {
   selectedIndex: number;
 
   constructor(public data: RevService) {
-    // this.data = data;
-    // console.log(data.menuList);
-    // this.viewList = data.menuList;
     this.editable = true;
     this.selectedIndex = data.tabSelectedIdx;
   }
@@ -25,9 +22,7 @@ export class TabsRevSheetComponent {
   onSelectedTabChange(tabChange: MatTabChangeEvent) {
     // Maintain scroll position of the last scrolled tab idx
     this.data.tabSelectedIdx = tabChange.index;
-
     var mlist = document.getElementById("revTab" + tabChange.index);
-
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
     }
