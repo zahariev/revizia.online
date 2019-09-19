@@ -84,7 +84,7 @@ export class CashRevSheetComponent extends SheetComponent {
 
       // this.dat.fStore("cashItems");
     }
-    this.dataList = this.data.cashList[this.date] || [];
+    // this.dataList = this.data.cashList[this.date] || [];
 
     this.gridInit();
   }
@@ -98,12 +98,13 @@ export class CashRevSheetComponent extends SheetComponent {
     //this.dataList = this.data.cashList[this.date] || [];
     // console.log(this.dataList);
 
-    this.data.cashList[this.date] = this.dataList;
+    this.data.cashList[this.date] =
+      this.data.cashList[this.date] || this.dataList;
     // this.data.cashSheetView[this.date][this.tabName];
   }
 
   addRow(ev) {
-    var rowIdx = this.dataList.push(
+    var rowIdx = this.data.cashList[this.date].push(
       new cashItem(Number(this.tabIdx), "", 0, 0)
     );
 
@@ -115,8 +116,12 @@ export class CashRevSheetComponent extends SheetComponent {
   updateList(itm, property: string, el: any) {
     // this.dat.firstLoad = false;
     this.gridInit();
+    let dataList = this.data.cashData[this.data.areaID]
+      ? this.data.cashData[this.data.areaID].data[this.date]
+      : [];
+    dataList = dataList || [];
 
-    var itemExists = this.data.cashList[this.date].filter(i => {
+    let itemExists = dataList.filter(i => {
       return i.id == itm.id;
     })[0];
     // console.log(itm);
@@ -138,7 +143,9 @@ export class CashRevSheetComponent extends SheetComponent {
     }
     // console.log(item);
 
-    if (!itemExists) this.dataList.push(item);
+    if (!itemExists) dataList.push(item);
+    // console.log(dataList);
+    this.data.cashData[this.data.areaID].data[this.date] = dataList;
 
     // this.dat.calculateSheets();
     // this.dat.localStore();
