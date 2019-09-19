@@ -59,3 +59,11 @@ export class cashItem {
     )
   ) {}
 }
+
+export class Store {
+  constructor(
+    public name: string = "",
+    public areas: { id: number; name: string }[] = [],
+    public managedDBs: {} = {}
+  ) {}
+}
