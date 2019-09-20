@@ -309,3 +309,14 @@ th.DragHandle {
 .DragHandleTH {
   min-width: 93px;
 }
+
+#cashDaily {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  text-align: left;
+}
+
+#cashDaily p {
+  margin: 0px !important;
+}

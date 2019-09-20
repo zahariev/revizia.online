@@ -1,10 +1,4 @@
 <div class="container" (mousewheel)="mousewheel($event)">
-  <!-- <mat-sidenav-container class="sidenav-container">
-     TABS    
-
-    <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="0">
-      <mat-tab label=" I "> -->
-
   <div class="row">
     <div class="col-md-12 mx-auto text-center ">
       <!-- Editable table -->
@@ -67,12 +61,14 @@
               </tbody>
             </table>
           </div>
-          <div>
+          <!--    {{ data.cashSheetSuma[date] | BGN }} -->
+          <!-- {{ data.spendSum[date] | BGN }} -->
+          <div id="cashDaily">
             Оборот:
-            <p>по ревизия:{{ data[date + "Sum"] | BGN }}</p>
+            <p>по ревизия: {{ data[date + "Sum"] | BGN }}</p>
 
-            <p>разходи: {{ data[date + "Sum"] | BGN }}</p>
-            cash:
+            <p>разходи:</p>
+            <p>cash:</p>
           </div>
           <div id="addRowBtn">
             <img
