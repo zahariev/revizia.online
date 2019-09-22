@@ -69,7 +69,7 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    localStorage.setItem("userID", "");
+    // localStorage.setItem("userID", "");
     // this.router.navigate(["login"]);
   }
 

@@ -64,7 +64,7 @@
           <!--    {{ data.cashSheetSuma[date] | BGN }} -->
           <!-- {{ data.spendSum[date] | BGN }} -->
           <div id="cashDaily">
-            Оборот:
+            Оборот: {{ data.cashSheetSuma[date] | BGN }}
             <p>по ревизия: {{ data[date + "Sum"] | BGN }}</p>
 
             <p>разходи:</p>

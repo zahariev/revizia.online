@@ -99,14 +99,14 @@ export class CashRevSheetComponent extends SheetComponent {
     // console.log(this.dataList);
 
     this.data.cashList[this.date] =
-      this.data.cashList[this.date] || this.dataList;
+      this.data.cashList[this.date] || this.dataList || {};
     // this.data.cashSheetView[this.date][this.tabName];
   }
 
   addRow(ev) {
-    var rowIdx = this.data.cashList[this.date].push(
-      new cashItem(Number(this.tabIdx), "", 0, 0)
-    );
+    let cashList = this.data.cashList ? this.data.cashList[this.date] : [];
+
+    var rowIdx = cashList.push(new cashItem(Number(this.tabIdx), "", 0, 0));
 
     this.data.calcDailyCashSheets(this.date);
     this.gridInit();

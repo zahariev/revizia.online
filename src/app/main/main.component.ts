@@ -48,11 +48,12 @@ export class MainComponent {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       let areaID = params["params"]["id"][0];
-      // console.log(areaID);
 
       //check if area exists
       if (this.data.storeData.areas[areaID]) {
-        setTimeout(this.data.changeArea(areaID), 50);
+        // change Url
+        this.data.changeArea(areaID);
+        // setTimeout(this.data.changeArea(areaID), 50);
       }
     });
   }
