@@ -155,11 +155,7 @@ export class RevService {
 
       const data = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
-      console.log(data);
-      // data.taraList = [];
-      // this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
-      //   console.error(error);
-      // });
+      // console.log(data);
 
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) this.setNewStore();
@@ -405,8 +401,8 @@ export class RevService {
     switch (name) {
       case "revList":
         data["revData"] = this["revData"] || [];
-        data["revData"][this.areaID] = this["revData"][this.areaID] || {};
-        data["revData"][this.areaID].data = this.returnList("revData");
+        // data["revData"][this.areaID] = this["revData"][this.areaID] || {};
+        // data["revData"][this.areaID].data = this.returnList("revData");
         this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(function(
           error
         ) {
@@ -415,24 +411,24 @@ export class RevService {
         break;
       case "cashData":
         data["cashData"] = this["cashData"] || [];
-        data["cashData"][this.areaID] = this["cashData"][this.areaID] || {};
-        data["cashData"][this.areaID].data = this.returnList("cashData");
+        // data["cashData"][this.areaID] = this["cashData"][this.areaID] || {};
+        // data["cashData"][this.areaID].data = this.returnList("cashData");
         break;
       case "taraData":
         data["taraData"] = this["taraData"];
-        data["taraData"][this.areaID] = data["taraData"][this.areaID] || {};
-        data["taraData"][this.areaID].data = this.taraList;
+        // data["taraData"][this.areaID] = data["taraData"][this.areaID] || {};
+        // data["taraData"][this.areaID].data = this.taraList;
         break;
       default:
         data[name] = this[name];
     }
-    console.log(data);
-    // delete data["revData"];
+
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error(error);
     });
+
     //backup on localStore
-    // this.localStore();
+    this.localStore();
     this.containerName = "";
   }
 
@@ -441,18 +437,18 @@ export class RevService {
 
     // this.calculateSheets();
 
-    var name = ["menuList", "revData", "sumData", "taraData", "cashData"];
     var dataList = [
       "menuList",
       "revData",
       "sumSheetView",
       "taraData",
-      "cashData"
+      "cashData",
+      "storeData"
     ];
     var sumData = {};
     this.containerName = "";
-    dataList.forEach((data, idx) => {
-      sumData[name[idx]] = JSON.parse(JSON.stringify(this[data]));
+    dataList.forEach((name, idx) => {
+      sumData[name] = JSON.parse(JSON.stringify(this[name]));
 
       // }
     });
