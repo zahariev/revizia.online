@@ -18,7 +18,7 @@ export class ReviziaSheetComponent extends SheetComponent {
 
   dataList;
   viewList;
-  containerName = "revList";
+  containerName = "revData";
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);

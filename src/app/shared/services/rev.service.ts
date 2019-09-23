@@ -391,18 +391,14 @@ export class RevService {
     // });
   }
 
-  public fStore(name = "revList"): void {
+  public fStore(name = "revData"): void {
     var json: string;
-    // console.log(this.cashData);
 
     this.calculateSheets();
     let data = {};
-
     switch (name) {
-      case "revList":
+      case "revData":
         data["revData"] = this["revData"] || [];
-        // data["revData"][this.areaID] = this["revData"][this.areaID] || {};
-        // data["revData"][this.areaID].data = this.returnList("revData");
         this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(function(
           error
         ) {
@@ -411,17 +407,15 @@ export class RevService {
         break;
       case "cashData":
         data["cashData"] = this["cashData"] || [];
-        // data["cashData"][this.areaID] = this["cashData"][this.areaID] || {};
-        // data["cashData"][this.areaID].data = this.returnList("cashData");
+
         break;
       case "taraData":
-        data["taraData"] = this["taraData"];
-        // data["taraData"][this.areaID] = data["taraData"][this.areaID] || {};
-        // data["taraData"][this.areaID].data = this.taraList;
+        data["taraData"] = this["taraData"] || [];
         break;
       default:
-        data[name] = this[name];
+        data[name] = this[name] || [];
     }
+    // console.log(data);
 
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error(error);
