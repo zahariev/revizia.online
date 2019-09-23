@@ -189,9 +189,7 @@ export class RevService {
       if (!res.payload.exists) this.setNewRevSheet();
       if (changedFrom == "Server" && data) {
         this.revData = data.revData || this.revData;
-        this.revList = this.revData[this.areaID]
-          ? this.revData[this.areaID].data
-          : [];
+        this.revList = this.returnList("revData");
       }
       // this.setNewRevSheet();
       if (
@@ -269,15 +267,11 @@ export class RevService {
 
       this.areaName = this.storeData.areas[this.areaID].name;
 
-      this.revList = this.revData[this.areaID]
-        ? this.revData[this.areaID].data
-        : [];
-      this.cashList = this.cashData[this.areaID]
-        ? this.cashData[this.areaID].data
-        : [];
-      this.taraList = this.taraData[this.areaID]
-        ? this.taraData[this.areaID].data
-        : [];
+      this.revList = this.returnList("revData");
+
+      this.cashList = this.returnList("cashData");
+
+      this.taraList = this.returnList("taraData");
       //this.revData[this.areaID].data.filter = "";
 
       // console.log(this.revKeys);
@@ -289,6 +283,14 @@ export class RevService {
       this.calculateSheets();
     });
     // console.log(this.cashList);
+  }
+
+  public returnList(data) {
+    if (!this[data][this.areaID]) {
+      this[data][this.areaID] = {};
+    }
+    if (!this[data][this.areaID].data) this[data][this.areaID].data = {};
+    return this[data][this.areaID].data;
   }
 
   public changeStore(storeName) {
@@ -341,45 +343,22 @@ export class RevService {
   }
 
   private setChangesFromServer(data) {
-    //var localSt = this.getLocalSt(this.storeName);
+    //this.getDataFromLocalBackup();
 
-    //with Local Storage
-    // this.menuList =
-    //   data.menuList || localSt["menuList"] || this.menuList;
-    // this.revData = data.revData || localSt["revData"] || this.revData;
-    // this.revList = this.revData[0].data;
-    // this.cashData =
-    //   data.cashData || this.getLocalSt("taraList") || this.cashData;
-    // this.cashList = this.cashData[this.areaID].data;
-    // this.taraList =
-    //   data.taraList ||
-    //   this.getLocalSt("barBilkova_0").taraList ||
-    //   this.taraList;
-    // console.log(data.revData);
-    // console.log(this.areaID);
     // no localStorage
 
     this.menuList = data.menuList || this.menuList;
-    // this.revData = data.revData || this.revData;
-    // this.revList = this.revData[this.areaID]
-    //   ? this.revData[this.areaID].data
-    //   : [];
+    this.revData = data.revData || this.revData;
+    this.revList = this.returnList("revData");
     this.cashData = data.cashData || this.cashData;
-    // this.cashData[1] = {};
-    // this.cashData[1].data = {};
-
-    this.cashList = this.cashData[this.areaID]
-      ? this.cashData[this.areaID].data
-      : [];
+    this.cashList = this.returnList("cashData");
     this.storeData = data.storeData || this.storeData;
     this.taraData = data.taraData || this.taraData;
     // this.taraList = data.taraList || this.taraList;
-    this.taraList = this.taraData[this.areaID]
-      ? this.taraData[this.areaID].data
-      : [];
+    this.taraList = this.returnList("taraData");
     this.areaName = this.storeData.areas[this.areaID]
       ? this.storeData.areas[this.areaID].name
-      : "";
+      : "set areaName";
 
     window.document.title = this.areaName + " " + this.storeData.name;
 
@@ -387,33 +366,57 @@ export class RevService {
     this.calculateSheets();
   }
 
+  private getDataFromLocalBackup() {
+    let localSt = this.getLocalSt("bar Kicks_");
+
+    console.log(localSt);
+
+    // return;
+    let data = {};
+    // with Local Storage
+    this.menuList = localSt["menuList"] || this.menuList;
+    this.revData = localSt["revData"] || this.revData;
+    this.revList = this.returnList("revData");
+    this.cashData = localSt["cashData"] || this.cashData;
+    this.cashList = this.returnList("cashData");
+    this.taraData = localSt["taraData"];
+    this.taraList = this.returnList("taraData");
+
+    data["menuList"] = this["menuList"];
+    data["revData"] = this["revData"];
+    data["cashData"] = this["cashData"];
+    data["taraData"] = this["taraData"];
+    data["storeData"] = {
+      name: "bar Kicks",
+      areas: [{ name: "Old bar" }, { name: "New bar" }]
+    };
+    // this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
+    //   console.error(error);
+    // });
+  }
+
   public fStore(name = "revList"): void {
     var json: string;
-    console.log(this[name]);
-    console.log(this.areaID);
     // console.log(this.cashData);
 
     this.calculateSheets();
-    var data = {};
+    let data = {};
 
     switch (name) {
       case "revList":
         data["revData"] = this["revData"] || [];
         data["revData"][this.areaID] = this["revData"][this.areaID] || {};
-        data["revData"][this.areaID].data = this.revList;
+        data["revData"][this.areaID].data = this.returnList("revData");
         this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(function(
           error
         ) {
           console.error(error);
         });
-        console.log("update new revSheet data");
-        // return;
         break;
       case "cashData":
-        data["cashData"] = JSON.parse(JSON.stringify(this["cashData"]));
-        data["cashData"][1] = {};
+        data["cashData"] = this["cashData"] || [];
         data["cashData"][this.areaID] = this["cashData"][this.areaID] || {};
-        // data["cashData"][this.areaID].data = this["cashData"][this.areaID].data;
+        data["cashData"][this.areaID].data = this.returnList("cashData");
         break;
       case "taraData":
         data["taraData"] = this["taraData"];
@@ -423,12 +426,13 @@ export class RevService {
       default:
         data[name] = this[name];
     }
-    // console.log(data);
+    console.log(data);
     // delete data["revData"];
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error(error);
     });
-    this.localStore();
+    //backup on localStore
+    // this.localStore();
     this.containerName = "";
   }
 
@@ -603,27 +607,29 @@ export class RevService {
     this.cashItems.forEach((tab, idx) => {
       var tempCashSheet: Array<any> = [];
       // var emptyRow = new cashItem(idx, "", 0, 0);
-      tab.data.forEach((cItem, id) => {
-        tempCashSheet = [];
-        if (cashList[date]) {
-          tempSuma = 0;
-          cashList[date].forEach(i => {
-            // console.log(i);
-            tempSuma += (i.suma || 0) * 1;
-            tempSum += (i.sum || 0) * 1;
-            if (i.tabIdx == idx) tempCashSheet.push(i);
-          });
-        } else {
-          cashList[date] = [];
-          for (let j; j < 4; j++) {
-            tempCashSheet.push(new cashItem(idx, "", 0, 0, 0));
-          }
+      // tab.data.forEach((cItem, id) => {
+      tempCashSheet = [];
+      if (cashList[date]) {
+        tempSuma = 0;
+        cashList[date].forEach(i => {
+          // console.log(i);
+          tempSuma += (i.suma || 0) * 1;
+          tempSum += (i.sum || 0) * 1;
+          if (i.tabIdx == idx) tempCashSheet.push(i);
+        });
+      } else {
+        cashList[date] = [];
+        for (let j; j < 4; j++) {
+          tempCashSheet.push(new cashItem(idx, "", 0, 0, 0));
         }
-        this.cashSheetSuma[date] += tempSuma;
-        this.cashSheetSum[date] += tempSuma;
-        // this.cashSummary[date][tab.name]["sum"] += item.sum;
-        // this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
-      });
+      }
+      this.cashSheetSuma[date] += tempSuma;
+      this.cashSheetSum[date] += tempSuma;
+      // this.cashSummary[date][tab.name]["sum"] += item.sum;
+      // this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
+
+      // });
+
       // let j = tempCash.length;
       // console.log(i);
       // for (i; i < 4; i++) {

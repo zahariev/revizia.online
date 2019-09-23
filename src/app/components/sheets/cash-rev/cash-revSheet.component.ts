@@ -68,7 +68,7 @@ export class CashRevSheetComponent extends SheetComponent {
   focus: any;
   nextFocus: any;
   viewList;
-  containerName = "cashList";
+  containerName = "cashData";
   row = 3;
   constructor(public data: RevService, public el: ElementRef) {
     super(data, el);
@@ -84,7 +84,10 @@ export class CashRevSheetComponent extends SheetComponent {
 
       // this.dat.fStore("cashItems");
     }
-    // this.dataList = this.data.cashList[this.date] || [];
+    // if (!this.data.cashList) this.data.cashList = {};
+    // if (!this.data.cashList[this.date]) this.data.cashList[this.date] = [];
+
+    this.dataList = this.data.cashList[this.date];
 
     this.gridInit();
   }
@@ -94,69 +97,68 @@ export class CashRevSheetComponent extends SheetComponent {
     // this.data.cashList = this.cashData[this.data.areaID]
     //   ? this.cashData[this.data.areaID].data
     //   : this.data.cashList;
-
-    //this.dataList = this.data.cashList[this.date] || [];
+    // this.dataList = this.data.cashList[this.data.areaID][this.date] || [];
     // console.log(this.dataList);
-
-    this.data.cashList[this.date] =
-      this.data.cashList[this.date] || this.dataList || {};
+    // this.data.cashList[this.date] =
+    //   this.data.cashList[this.date] || this.dataList || [];
     // this.data.cashSheetView[this.date][this.tabName];
   }
 
   addRow(ev) {
-    let cashList = this.data.cashList ? this.data.cashList[this.date] : [];
+    // if (!this.data.cashList[this.data.areaID][this.date]) this.data.cashList[this.data.areaID][this.date] = [];
+    let cashList = this.data.cashList[this.date];
 
     var rowIdx = cashList.push(new cashItem(Number(this.tabIdx), "", 0, 0));
 
     this.data.calcDailyCashSheets(this.date);
     this.gridInit();
+    // console.log(this.data.cashSheetView[this.date]);
+    console.log(this.data.cashList);
+
     return rowIdx;
   }
 
-  updateList(itm, property: string, el: any) {
-    // this.dat.firstLoad = false;
-    this.gridInit();
-    let dataList = this.data.cashData[this.data.areaID]
-      ? this.data.cashData[this.data.areaID].data[this.date]
-      : [];
-    dataList = dataList || [];
+  // updateList2(itm, property: string, el: any) {
+  //   // this.dat.firstLoad = false;
+  //   this.gridInit();
+  //   let dataList = this.data.cashList; //returnList("cashData")[this.date];
 
-    let itemExists = dataList.filter(i => {
-      return i.id == itm.id;
-    })[0];
-    // console.log(itm);
-    var item = itemExists || JSON.parse(JSON.stringify(itm));
+  //   let itemExists = dataList.filter(i => {
+  //     return i.id == itm.id;
+  //   })[0];
+  //   // console.log(itm);
+  //   var item = itemExists || JSON.parse(JSON.stringify(itm));
 
-    // format edited text field
-    var value = el.innerText + "";
-    el.innerText = "";
-    value = value.replace(/\r?\n|\r\s/g, "");
+  //   // format edited text field
+  //   var value = el.innerText + "";
+  //   el.innerText = "";
+  //   value = value.replace(/\r?\n|\r\s/g, "");
 
-    if (this.contentChange) {
-      var oldItem = JSON.parse(JSON.stringify(item));
-      this.history.push(oldItem);
-      item[property] = Number(value) || value;
-      el.innerText = value;
-    } else {
-      // not to double values in text filed on chrome
-      el.innerHTML = item[property] || "";
-    }
-    // console.log(item);
+  //   if (this.contentChange) {
+  //     var oldItem = JSON.parse(JSON.stringify(item));
+  //     this.history.push(oldItem);
+  //     item[property] = Number(value) || value;
+  //     el.innerText = value;
+  //   } else {
+  //     // not to double values in text filed on chrome
+  //     el.innerHTML = item[property] || "";
+  //   }
+  //   // console.log(item);
 
-    if (!itemExists) dataList.push(item);
-    // console.log(dataList);
-    this.data.cashData[this.data.areaID].data[this.date] = dataList;
+  //   if (!itemExists) dataList.push(item);
+  //   // console.log(dataList);
+  //   this.data.cashData[this.data.areaID].data[this.date] = dataList;
 
-    // this.dat.calculateSheets();
-    // this.dat.localStore();
-    // console.log(this.dat.cashData);
+  //   // this.dat.calculateSheets();
+  //   // this.dat.localStore();
+  //   // console.log(this.dat.cashData);
 
-    // this.dat.containerName = this.containerName;
-    this.dat.fStore("cashData");
-    this.contentChange = false;
+  //   // this.dat.containerName = this.containerName;
+  //   this.dat.fStore("cashData");
+  //   this.contentChange = false;
 
-    this.gridInit();
-  }
+  //   this.gridInit();
+  // }
 
   drop(e) {}
 }
