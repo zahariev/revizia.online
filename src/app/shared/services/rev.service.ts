@@ -172,7 +172,7 @@ export class RevService {
 
       // this.setNewRevSheet();
     });
-
+    // return;
     this.conn2 = this.DbRevData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
         ? "Local"
@@ -180,12 +180,13 @@ export class RevService {
 
       const data = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
-      console.log(data);
+      // console.log(data);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) this.setNewRevSheet();
       if (changedFrom == "Server" && data) {
         this.revData = data.revData || this.revData;
         this.revList = this.returnList("revData");
+        // console.log(this.revList);
       }
       // this.setNewRevSheet();
       if (
@@ -310,7 +311,7 @@ export class RevService {
     this.fStore("storeData");
   }
 
-  areaNew(ev) {
+  public areaNew(ev) {
     var data = {};
     data["revData"] = this.revData;
     var id = data["revData"].push({
@@ -337,21 +338,19 @@ export class RevService {
   }
 
   private setChangesFromServer(data) {
-    console.log(data);
+    // console.log(data);
 
-    //this.getDataFromLocalBackup();
+    // this.getDataFromLocalBackup();
 
     // no localStorage
 
     this.menuList = data.menuList || this.menuList;
-    // this.revData = data.revData || this.revData;
-    // this.revList = this.returnList("revData");
     this.cashData = data.cashData || this.cashData;
     this.cashList = this.returnList("cashData");
     this.storeData = data.storeData || this.storeData;
     this.taraData = data.taraData || this.taraData;
-    // this.taraList = data.taraList || this.taraList;
     this.taraList = this.returnList("taraData");
+
     this.areaName = this.storeData.areas[this.areaID]
       ? this.storeData.areas[this.areaID].name
       : "set areaName";
@@ -365,7 +364,7 @@ export class RevService {
   private getDataFromLocalBackup() {
     let localSt = this.getLocalSt("bar Kicks_");
 
-    console.log(localSt);
+    // console.log(localSt);
 
     // return;
     let data = {};
@@ -433,7 +432,7 @@ export class RevService {
     });
 
     //backup on localStore
-    this.localStore();
+    // this.localStore();
     this.containerName = "";
   }
 
@@ -527,7 +526,7 @@ export class RevService {
     if (!date) date = this.activeDate;
 
     if (this.revList[date]) delete this.revList[date];
-    console.log(Object.keys(this.revList)[this.activeDateIdx]);
+    // console.log(Object.keys(this.revList)[this.activeDateIdx]);
 
     // if tab is last move active focus on last after deletion
     if (!Object.keys(this.revList)[this.activeDateIdx])

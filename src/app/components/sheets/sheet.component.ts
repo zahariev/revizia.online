@@ -24,8 +24,8 @@ export class SheetComponent implements OnInit {
   ngOnInit() {}
 
   updateList(itm, property: string, el: any) {
-    // console.log(itm);
     this.gridInit();
+    // console.log(this.dataList);
 
     this.dat.firstLoad = false;
     var itemExists = this.dataList.filter(i => {
