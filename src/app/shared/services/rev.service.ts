@@ -137,9 +137,9 @@ export class RevService {
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       // if(e instanceof NavigationEnd)
-      // console.log(e.snapshot.params.id);
-      if (e.snapshot && e.snapshot.params.id > -1)
+      if (e.snapshot && e.snapshot.params.id > -1) {
         this.navigateToAreaID = e.snapshot.params.id;
+      }
       // else this.areaID = 0;
     });
 
@@ -180,7 +180,7 @@ export class RevService {
 
       const data = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
-
+      console.log(data);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) this.setNewRevSheet();
       if (changedFrom == "Server" && data) {
@@ -248,10 +248,8 @@ export class RevService {
   public changeArea(areaID = this.areaID) {
     // url areaID
     if (this.navigateToAreaID) {
-      console.log(this.navigateToAreaID);
       if (this.storeData.areas[areaID]) this.areaID = this.navigateToAreaID;
       delete this.navigateToAreaID;
-      // console.log(this.areaID);
     }
 
     // console.log(this.areaID);
@@ -339,13 +337,15 @@ export class RevService {
   }
 
   private setChangesFromServer(data) {
+    console.log(data);
+
     //this.getDataFromLocalBackup();
 
     // no localStorage
 
     this.menuList = data.menuList || this.menuList;
-    this.revData = data.revData || this.revData;
-    this.revList = this.returnList("revData");
+    // this.revData = data.revData || this.revData;
+    // this.revList = this.returnList("revData");
     this.cashData = data.cashData || this.cashData;
     this.cashList = this.returnList("cashData");
     this.storeData = data.storeData || this.storeData;
@@ -398,12 +398,23 @@ export class RevService {
     let data = {};
     switch (name) {
       case "revData":
-        data["revData"] = this["revData"] || [];
+        data["revData"] = JSON.parse(JSON.stringify(this["revData"])) || [];
         this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(function(
           error
         ) {
           console.error(error);
         });
+        // clear old revData
+        // data["revData"] = {};
+        // this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(
+        //   error
+        // ) {
+        //   console.error(error);
+        // });
+
+        /// IMportant
+        return;
+        return; ///xaxaxaxaxa !!!?@@?@?@?@PO@
         break;
       case "cashData":
         data["cashData"] = this["cashData"] || [];
@@ -458,20 +469,20 @@ export class RevService {
     var datestring = this.getNewDate(date);
 
     if (this.revKeys.indexOf(datestring) == -1) {
-      this.revKeys.push(datestring);
+      // this.revKeys.push(datestring);
 
-      this.revList[datestring] = [];
+      this.revData[this.areaID].data[datestring] = [];
 
       this.revSheetView[datestring] = {};
-      this.calculateSheets();
 
-      this.revKeys.sort();
+      this.revListSortByDate();
+      this.calculateSheets();
       this.fStore();
     } else {
       // show calendar controll
       return false;
     }
-    this.fStore();
+    //this.fStore();
     return true;
   }
 

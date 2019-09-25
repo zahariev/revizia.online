@@ -113,7 +113,7 @@ export class CashRevSheetComponent extends SheetComponent {
     this.data.calcDailyCashSheets(this.date);
     this.gridInit();
     // console.log(this.data.cashSheetView[this.date]);
-    console.log(this.data.cashList);
+    // console.log(this.data.cashList);
 
     return rowIdx;
   }
