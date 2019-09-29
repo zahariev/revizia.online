@@ -71,6 +71,10 @@
 
             <p>разходи: {{ data.cashSheetSum[date] | BGN }}</p>
             <p>cash: {{ data.cashSheetSuma[date] | BGN }}</p>
+            <p [ngClass]="{ negative: diff < 0 }">
+              разлика:
+              {{ diff | hideZero | BGN }}
+            </p>
           </div>
           <div>
             <img
