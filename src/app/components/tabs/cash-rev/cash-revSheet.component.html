@@ -13,6 +13,7 @@
         <span [id]="'list-' + idx" contenteditable="false">
           {{ tab.name }}</span
         >
+        <span class="small"> {{ data.cashTabSummary[date][tab.name] }}</span>
       </ng-template>
       <cash-revSheet
         class="cashTab"
