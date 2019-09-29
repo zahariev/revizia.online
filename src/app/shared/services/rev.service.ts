@@ -104,6 +104,7 @@ export class RevService {
 
   public cashSheetSuma = {};
   public cashSheetSum = {};
+  public cashTabSummary = {};
   // private summary = {};
   public revList = {};
   public cashList = {};
@@ -591,8 +592,8 @@ export class RevService {
 
   public calcDailyCashSheets(date) {
     this.cashSheetView[date] = {};
-    this.cashSheetSuma = {};
-    this.cashSheetSum = {};
+    this.cashTabSummary[date] = {};
+    this.cashSheetSuma[date] = 0;
     this.cashSheetSuma[date] = 0;
 
     // console.log(date);
@@ -605,17 +606,25 @@ export class RevService {
     let tempSum = 0;
     let tempTabSuma = {};
     this.cashItems.forEach((tab, idx) => {
+      this.cashTabSummary[date][tab.name] = 0;
       var tempCashSheet: Array<any> = [];
       // var emptyRow = new cashItem(idx, "", 0, 0);
       // tab.data.forEach((cItem, id) => {
       tempCashSheet = [];
       if (cashList[date]) {
         tempSuma = 0;
+        tempSum = 0;
+
         cashList[date].forEach(i => {
-          // console.log(i);
-          tempSuma += (i.suma || 0) * 1;
-          tempSum += (i.sum || 0) * 1;
-          if (i.tabIdx == idx) tempCashSheet.push(i);
+          i as cashItem;
+
+          tempSuma += i.suma * 1;
+          tempSum += i.sum * 1;
+
+          if (i.tabIdx == idx) {
+            tempCashSheet.push(i);
+            this.cashTabSummary[date][tab.name] += i.sum * 1;
+          }
         });
       } else {
         cashList[date] = [];
@@ -623,23 +632,26 @@ export class RevService {
           tempCashSheet.push(new cashItem(idx, "", 0, 0, 0));
         }
       }
-      this.cashSheetSuma[date] += tempSuma;
-      this.cashSheetSum[date] += tempSuma;
-      // this.cashSummary[date][tab.name]["sum"] += item.sum;
-      // this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
+
+      this.cashSheetSuma[date] = tempSuma;
+      this.cashSheetSum[date] = tempSum;
+
+      //this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
+
+      //  this.cashTabSummary[date][tab.name]["suma"] += i.sum;
 
       // });
 
-      // let j = tempCash.length;
+      // let i = tempCashSheet.length;
       // console.log(i);
       // for (i; i < 4; i++) {
-      //   tempCash.push(new cashItem(idx, "", 0, 0));
+      //   tempCashSheet.push(new cashItem(idx, "", 0, 0));
       // }
       // console.log(tempSuma);
+      // console.log(this.cashSheetSuma);
 
+      console.log(tab.name + " " + tempSum);
       this.cashSheetView[date][tab.name] = tempCashSheet;
-      this.cashSheetView["sum"][tab.name] = tempSuma;
-      this.cashSheetView["sum"]["suma"] += tempSuma;
     });
   }
 
