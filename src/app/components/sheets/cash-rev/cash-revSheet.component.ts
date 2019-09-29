@@ -70,6 +70,7 @@ export class CashRevSheetComponent extends SheetComponent {
   viewList;
   containerName = "cashData";
   row = 3;
+  diff: number = 0;
   constructor(public data: RevService, public el: ElementRef) {
     super(data, el);
     // console.log(data.cashSheetView);
@@ -102,6 +103,10 @@ export class CashRevSheetComponent extends SheetComponent {
     // this.data.cashList[this.date] =
     //   this.data.cashList[this.date] || this.dataList || [];
     // this.data.cashSheetView[this.date][this.tabName];
+    this.diff =
+      this.data.cashSheetSum[this.date] +
+      this.data.cashSheetSuma[this.date] -
+      this.data[this.date + "Sum"];
   }
 
   addRow(ev) {

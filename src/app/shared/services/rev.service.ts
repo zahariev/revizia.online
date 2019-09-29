@@ -650,7 +650,7 @@ export class RevService {
       // console.log(tempSuma);
       // console.log(this.cashSheetSuma);
 
-      console.log(tab.name + " " + tempSum);
+      // console.log(tab.name + " " + tempSum);
       this.cashSheetView[date][tab.name] = tempCashSheet;
     });
   }
