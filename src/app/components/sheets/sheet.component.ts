@@ -72,7 +72,7 @@ export class SheetComponent implements OnInit {
 
       // this.updateId(oldID, item.id);
     } else if (this.contentChange) this.updateList(item, colName, el);
-
+    this.gridInit();
     el.contentEditable = "false";
     event.preventDefault();
   }
