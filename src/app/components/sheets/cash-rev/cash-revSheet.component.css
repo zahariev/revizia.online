@@ -235,11 +235,11 @@ html [type="button"] {
   left: 1000px;
   width: 60px;
 }
-#addRowBtn img {
+img {
   position: fixed;
   /* padding-right: 30px; */
   z-index: 999;
-  right: 50%;
+  left: 500px;
   top: 145px;
   cursor: pointer;
 }
