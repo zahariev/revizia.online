@@ -12,9 +12,9 @@ const routes: Routes = [
   },
   {
     path: "area/:id",
-    component: MainComponent,
-    canActivate: [AuthGuard],
-    runGuardsAndResolvers: "always"
+    component: MainComponent
+    // canActivate: [AuthGuard],
+    // runGuardsAndResolvers: "always"
   },
 
   { path: "**", redirectTo: "area/0" }

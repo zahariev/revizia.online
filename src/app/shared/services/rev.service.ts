@@ -144,7 +144,7 @@ export class RevService {
       // else this.areaID = 0;
     });
 
-    this.db_key = localStorage.userID || 0;
+    //this.db_key = localStorage.userID || 0;
 
     this.DbData = afs.collection("databases").doc(this.db_key);
     this.DbRevData = afs.collection("revSheets").doc(this.db_key);

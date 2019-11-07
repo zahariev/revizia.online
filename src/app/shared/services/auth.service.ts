@@ -24,6 +24,11 @@ export class AuthService {
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
+        // demo mode
+        return this.afs
+          .doc<User>(`users/9aMUx5Qy5jYmivpODcyXRTDCuml2`)
+          .valueChanges();
+
         // Logged in
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
