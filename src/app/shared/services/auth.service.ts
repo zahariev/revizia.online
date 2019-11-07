@@ -74,12 +74,13 @@ export class AuthService {
   }
 
   isAuthorised() {
-    return this.afAuth.authState.pipe(
-      take(1),
-      map(authState => !!authState),
-      tap(authenticated => {
-        if (!authenticated) this.router.navigate(["/login"]);
-      })
-    );
+    return true;
+    // return this.afAuth.authState.pipe(
+    //   take(1),
+    //   map(authState => !!authState),
+    //   tap(authenticated => {
+    //     if (!authenticated) this.router.navigate(["/login"]);
+    //   })
+    // );
   }
 }
