@@ -285,7 +285,7 @@ export class RevService {
     if (!this[data][this.areaID]) {
       this[data][this.areaID] = {};
     }
-    if (!this[data][this.areaID].data) this[data][this.areaID].data = {};
+    if (!this[data][this.areaID].data) this[data][this.areaID].data = [];
     return this[data][this.areaID].data;
   }
 
