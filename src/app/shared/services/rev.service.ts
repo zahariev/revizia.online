@@ -122,7 +122,7 @@ export class RevService {
 
   /* Login credentials    */
   /*                      */
-  db_key: string = "test"; //"JulJuD8xEvE6sptbL3cT"
+  db_key: string = "9aMUx5Qy5jYmivpODcyXRTDCuml2";
   storeName: string = "";
   areaID: number = 0;
   areaName: string = "loading data.....";
@@ -285,7 +285,7 @@ export class RevService {
     if (!this[data][this.areaID]) {
       this[data][this.areaID] = {};
     }
-    if (!this[data][this.areaID].data) this[data][this.areaID].data = {};
+    if (!this[data][this.areaID].data) this[data][this.areaID].data = [];
     return this[data][this.areaID].data;
   }
 
