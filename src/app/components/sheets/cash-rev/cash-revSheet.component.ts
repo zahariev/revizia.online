@@ -1,24 +1,24 @@
-import { Component, OnInit, Input, ElementRef } from "@angular/core";
-import { cashItem } from "app/shared/models/item.model";
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { cashItem } from 'app/shared/models/item.model';
 
 import {
   CdkDragDrop,
   moveItemInArray,
   CdkDragHandle
-} from "@angular/cdk/drag-drop";
+} from '@angular/cdk/drag-drop';
 
-import { MatIcon } from "@angular/material/icon";
+import { MatIcon } from '@angular/material/icon';
 
-import { RevService } from "app/shared/services/rev.service";
-import { SheetComponent } from "../sheet.component";
+import { RevService } from 'app/shared/services/rev.service';
+import { SheetComponent } from '../sheet.component';
 
 @Component({
-  selector: "cash-revSheet",
-  templateUrl: "./cash-revSheet.component.html",
-  styleUrls: ["./cash-revSheet.component.css"]
+  selector: 'cash-revSheet',
+  templateUrl: './cash-revSheet.component.html',
+  styleUrls: ['./cash-revSheet.component.css']
 })
 export class CashRevSheetComponent extends SheetComponent {
-  @Input() editable: Boolean;
+  @Input() editable: boolean;
   @Input() tabName: string;
   @Input() tabIdx: number;
   @Input() date: any;
@@ -30,30 +30,30 @@ export class CashRevSheetComponent extends SheetComponent {
     //   editable: true
     // },
     {
-      columnName: "Име",
-      name: "name",
-      format: "string",
+      columnName: 'Име',
+      name: 'name',
+      format: 'string',
       editable: true,
-      tabIdx: "all"
+      tabIdx: 'all'
     },
     {
-      columnName: "сума",
-      name: "sum",
-      format: "number",
+      columnName: 'сума',
+      name: 'sum',
+      format: 'number',
       editable: true,
-      tabIdx: "all"
+      tabIdx: 'all'
     },
     {
-      columnName: "оборот",
-      name: "suma",
-      format: "BGN",
+      columnName: 'оборот',
+      name: 'suma',
+      format: 'BGN',
       editable: true,
       tabIdx: [0]
     },
     {
-      columnName: "бележка",
-      name: "comment",
-      format: "number",
+      columnName: 'бележка',
+      name: 'comment',
+      format: 'number',
       editable: true,
       tabIdx: [1, 2, 3, 4, 5]
     }
@@ -68,7 +68,7 @@ export class CashRevSheetComponent extends SheetComponent {
   focus: any;
   nextFocus: any;
   viewList;
-  containerName = "cashData";
+  containerName = 'cashData';
   row = 3;
   diff: number = 0;
   constructor(public data: RevService, public el: ElementRef) {
@@ -80,7 +80,7 @@ export class CashRevSheetComponent extends SheetComponent {
     // console.log(this.tabName);
 
     if (!this.data.cashItems) {
-      //cashData[this.date]
+      // cashData[this.date]
       this.data.cashItems = [];
 
       // this.dat.fStore("cashItems");
@@ -104,16 +104,14 @@ export class CashRevSheetComponent extends SheetComponent {
     //   this.data.cashList[this.date] || this.dataList || [];
     // this.data.cashSheetView[this.date][this.tabName];
     this.diff =
-      this.data.cashSheetSum[this.date] +
-      this.data.cashSheetSuma[this.date] -
-      this.data[this.date + "Sum"];
+      this.data.cashSheetSuma[this.date] - this.data[this.date + 'Sum'];
   }
 
   addRow(ev) {
     // if (!this.data.cashList[this.data.areaID][this.date]) this.data.cashList[this.data.areaID][this.date] = [];
-    let cashList = this.data.cashList[this.date];
+    const cashList = this.data.cashList[this.date];
 
-    var rowIdx = cashList.push(new cashItem(Number(this.tabIdx), "", 0, 0));
+    const rowIdx = cashList.push(new cashItem(Number(this.tabIdx), '', 0, 0));
 
     this.data.calcDailyCashSheets(this.date);
     this.gridInit();

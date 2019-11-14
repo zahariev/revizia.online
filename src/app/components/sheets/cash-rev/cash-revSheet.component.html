@@ -64,13 +64,16 @@
           <!-- {{ data.cashSheetSuma[date] | BGN }} -->
           <!-- {{ data.spendSum[date] | BGN }} -->
           <div id="cashDaily">
-            <p>по ревизия: {{ data[date + "Sum"] | BGN }}</p>
+            <p>по ревизия: {{ data[date + 'Sum'] | BGN }}</p>
 
-            Оборот:
-            {{ data.cashSheetSum[date] + data.cashSheetSuma[date] | BGN }}
+            Оборот отчетен:
+            {{ data.cashSheetSuma[date] | BGN }}
 
             <p>разходи: {{ data.cashSheetSum[date] | BGN }}</p>
-            <p>cash: {{ data.cashSheetSuma[date] | BGN }}</p>
+            <p>
+              cash:
+              {{ data.cashSheetSuma[date] - data.cashSheetSum[date] | BGN }}
+            </p>
             <p [ngClass]="{ negative: diff < 0 }">
               разлика:
               {{ diff | hideZero | BGN }}
