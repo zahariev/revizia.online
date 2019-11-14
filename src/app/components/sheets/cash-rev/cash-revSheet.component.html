@@ -74,6 +74,7 @@
               cash:
               {{ data.cashSheetSuma[date] - data.cashSheetSum[date] | BGN }}
             </p>
+            - - - - - - - - -
             <p [ngClass]="{ negative: diff < 0 }">
               разлика:
               {{ diff | hideZero | BGN }}

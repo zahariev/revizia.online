@@ -217,10 +217,10 @@ span.negative {
   border-radius: 10em;
 }
 
-[type="reset"],
-[type="submit"],
+[type='reset'],
+[type='submit'],
 button,
-html [type="button"] {
+html [type='button'] {
   -webkit-appearance: none;
 }
 
@@ -317,9 +317,13 @@ th.DragHandle {
 }
 
 #cashDaily {
-  position: absolute;
+  /* position: absolute;
   top: 50px;
   right: 100px;
+  text-align: left; */
+  position: absolute;
+  top: 50px;
+  left: 580px;
   text-align: left;
 }
 
