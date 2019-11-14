@@ -1,12 +1,12 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
-import { RevService } from "app/shared/services/rev.service";
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { RevService } from 'app/shared/services/rev.service';
 
-import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
+import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 
 @Component({
-  selector: "tabs-cash-sheet",
-  templateUrl: "./cash-sheet.component.html",
-  styleUrls: ["./cash-sheet.component.css"]
+  selector: 'tabs-cash-sheet',
+  templateUrl: './cash-sheet.component.html',
+  styleUrls: ['./cash-sheet.component.css']
 })
 export class TabsCashSheetComponent implements OnInit {
   // viewList;
@@ -31,7 +31,7 @@ export class TabsCashSheetComponent implements OnInit {
     selection.removeAllRanges();
     // Maintain scroll position of the last scrolled tab idx
     this.data.tabSelectedIdx = tabChange.index;
-    var mlist = document.getElementById("cashTab" + tabChange.index);
+    var mlist = document.getElementById('cashTab' + tabChange.index);
 
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.data.tabScrollPos[tabChange.index]);
@@ -46,28 +46,28 @@ export class TabsCashSheetComponent implements OnInit {
   onBlur(idx, event) {
     // console.log("blur");
     var el = event.target;
-    el.contentEditable = "false";
+    el.contentEditable = 'false';
     this.activeEl = 0;
 
     var value = el.innerText;
-    value = value.replace(/\r?\n|\r\s/g, "");
+    value = value.replace(/\r?\n|\r\s/g, '');
 
     // console.log(this.data.menuList[idx].name);
 
-    if (value.trim() != "") this.data.cashList[idx].name = value;
-    else this.data.cashList[idx].name = " . . .";
+    if (value.trim() != '') this.data.cashList[idx].name = value;
+    else this.data.cashList[idx].name = ' . . .';
     //console.log(value);
     // this.viewList = this.data.menuList;
     this.data.fStore();
   }
 
   onClick(idx: any, event: any) {
-    if (this.activeEl == "select") {
+    if (this.activeEl == 'select') {
       this.makeEditable(event.target);
       // event.preventDefault();
     } else if (this.activeEl == event.target) {
       this.selectText(event.target);
-      this.activeEl = "select";
+      this.activeEl = 'select';
       event.preventDefault();
     } else {
       this.activeEl = event.target;
@@ -76,8 +76,8 @@ export class TabsCashSheetComponent implements OnInit {
 
   makeEditable(el) {
     if (!this.editable) return;
-    el.contentEditable = "true";
-    this.activeEl = "editable";
+    el.contentEditable = 'true';
+    this.activeEl = 'editable';
   }
 
   selectText(cell = document.activeElement) {
@@ -101,17 +101,17 @@ export class TabsCashSheetComponent implements OnInit {
     var selection;
     // console.log(event);
     switch (event.key) {
-      case "Enter":
-        if (el.contentEditable == "true") {
+      case 'Enter':
+        if (el.contentEditable == 'true') {
           selection = window.getSelection();
           selection.removeAllRanges();
-          el.contentEditable = "false";
+          el.contentEditable = 'false';
         }
 
         break;
 
-      case "ArrowLeft":
-        if (this.activeEl != "editable") break;
+      case 'ArrowLeft':
+        if (this.activeEl != 'editable') break;
         selection = window.getSelection();
         try {
           selection.collapse(el.firstChild, selection.focusOffset - 1);
@@ -119,8 +119,8 @@ export class TabsCashSheetComponent implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         break;
-      case "ArrowRight":
-        if (this.activeEl != "editable") break;
+      case 'ArrowRight':
+        if (this.activeEl != 'editable') break;
         selection = window.getSelection();
         try {
           selection.collapse(el.firstChild, selection.focusOffset + 1);
@@ -128,23 +128,23 @@ export class TabsCashSheetComponent implements OnInit {
         event.preventDefault();
         event.stopPropagation();
         break;
-      case "Escape":
+      case 'Escape':
         selection = window.getSelection();
         selection.removeAllRanges();
         event.target.innerText = this.data.menuList[idx].name;
         event.preventDefault();
 
-        el.contentEditable = "false";
+        el.contentEditable = 'false';
         //this.focusNextElement(el, 0);
         break;
 
-      case "Meta":
-      case "Control":
-      case "Shift":
-      case " ":
+      case 'Meta':
+      case 'Control':
+      case 'Shift':
+      case ' ':
         break;
       default:
-        if (this.activeEl != "editable") this.selectText();
+        if (this.activeEl != 'editable') this.selectText();
         this.makeEditable(el);
       // el.focus();
       // setTimeout(el.focus(), 100);

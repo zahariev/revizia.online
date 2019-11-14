@@ -1,30 +1,30 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   taraItem,
   reviziaItem,
   cashItem,
   Store
-} from "app/shared/models/item.model";
+} from 'app/shared/models/item.model';
 
-import { Router, ActivatedRoute } from "@angular/router";
-import * as firebase from "firebase/app";
+import { Router, ActivatedRoute } from '@angular/router';
+import * as firebase from 'firebase/app';
 
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "angularfire2/firestore";
+} from 'angularfire2/firestore';
 
-import { DataService } from "./data.service";
+import { DataService } from './data.service';
 
 @Injectable()
 export class RevService {
   cashItems = [
     {
-      name: "Заплати",
+      name: 'Заплати',
       data: [
         {
-          id: "",
-          name: "new",
+          id: '',
+          name: 'new',
           cost: 56,
           qty: 0.007,
           price: 2.2,
@@ -33,11 +33,11 @@ export class RevService {
       ]
     },
     {
-      name: "Стоки",
+      name: 'Стоки',
       data: [
         {
-          id: "",
-          name: "new",
+          id: '',
+          name: 'new',
           cost: 56,
           qty: 0.007,
           price: 2.2,
@@ -46,11 +46,11 @@ export class RevService {
       ]
     },
     {
-      name: "консумация",
+      name: 'консумация',
       data: [
         {
-          id: "",
-          name: "new",
+          id: '',
+          name: 'new',
           cost: 56,
           qty: 0.007,
           price: 2.2,
@@ -59,11 +59,11 @@ export class RevService {
       ]
     },
     {
-      name: "НПЛ",
+      name: 'НПЛ',
       data: [
         {
-          id: "",
-          name: "new",
+          id: '',
+          name: 'new',
           cost: 56,
           qty: 0.007,
           price: 2.2,
@@ -78,28 +78,28 @@ export class RevService {
   cashData = [];
 
   // view = [];
-  public menuList = [{ name: "", data: [] }];
+  public menuList = [{ name: '', data: [] }];
   public revData = [];
   public taraData = [];
   public taraList = [new taraItem()];
 
   sumData = {};
-  _simpleMode: boolean = false;
+  _simpleMode = false;
 
   public revSheetView = {};
-  public cashSheetView = {};
-  public sumSheetView = {};
+  public cashSheetView: any = {};
+  public sumSheetView: any = {};
   public taraSheetView = [];
 
   // store scroll offset for menu tab and idx
   public tabScrollPos = [];
-  public tabSelectedIdx: number = 0;
-  public tabCashSelectedIdx: number = 0;
+  public tabSelectedIdx = 0;
+  public tabCashSelectedIdx = 0;
   public activeDate;
   public activeDateIdx;
-  public activeTabIdx: number = 1;
+  public activeTabIdx = 1;
 
-  private tempSummary = {};
+  private tempSummary: any = {};
   private cashSummary = {};
 
   public cashSheetSuma = {};
@@ -110,22 +110,22 @@ export class RevService {
   public cashList = {};
   private revKeys = [];
   private newRevList = {};
-  public firstLoad: boolean = true;
+  public firstLoad = true;
   private afs;
   private DbData;
   private DbRevData;
-  public navigateToAreaID: number = 0;
+  public navigateToAreaID = 0;
   public containerName;
-  changedFrom = "Local";
+  changedFrom = 'Local';
   conn;
   conn2;
 
   /* Login credentials    */
   /*                      */
-  db_key: string = "test"; //"JulJuD8xEvE6sptbL3cT"
-  storeName: string = "";
-  areaID: number = 0;
-  areaName: string = "loading data.....";
+  db_key = 'test'; // "JulJuD8xEvE6sptbL3cT"
+  storeName = '';
+  areaID = 0;
+  areaName = 'loading data.....';
 
   testData;
 
@@ -146,21 +146,25 @@ export class RevService {
 
     this.db_key = localStorage.userID || 0;
 
-    this.DbData = afs.collection("databases").doc(this.db_key);
-    this.DbRevData = afs.collection("revSheets").doc(this.db_key);
+    this.DbData = afs.collection('databases').doc(this.db_key);
+    this.DbRevData = afs.collection('revSheets').doc(this.db_key);
 
     this.conn = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
-        ? "Local"
-        : "Server";
+        ? 'Local'
+        : 'Server';
 
       const data = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
 
       // ToDO ask if new or add credetial to existing db
-      if (!res.payload.exists) this.setNewStore();
-      if (changedFrom == "Server" && data) this.setChangesFromServer(data);
+      if (!res.payload.exists) {
+        this.setNewStore();
+      }
+      if (changedFrom == 'Server' && data) {
+        this.setChangesFromServer(data);
+      }
 
       if (
         this.navigateToAreaID &&
@@ -176,17 +180,19 @@ export class RevService {
     // return;
     this.conn2 = this.DbRevData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
-        ? "Local"
-        : "Server";
+        ? 'Local'
+        : 'Server';
 
       const data = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
       // ToDO ask if new or add credetial to existing db
-      if (!res.payload.exists) this.setNewRevSheet();
-      if (changedFrom == "Server" && data) {
+      if (!res.payload.exists) {
+        this.setNewRevSheet();
+      }
+      if (changedFrom === 'Server' && data) {
         this.revData = data.revData || this.revData;
-        this.revList = this.returnList("revData");
+        this.revList = this.returnList('revData');
         // console.log(this.revList);
       }
       // this.setNewRevSheet();
@@ -204,12 +210,12 @@ export class RevService {
   private setNewStore() {
     // console.log("newStore");
 
-    var data = {};
-    data["revData"] = this["revData"];
-    data["cashData"] = this["cashData"];
-    data["taraData"] = this["taraData"];
-    data["storeData"] = this["storeData"];
-    data["menuList"] = this["menuList"];
+    const data: any = {};
+    data.revData = this.revData;
+    data.cashData = this.cashData;
+    data.taraData = this.taraData;
+    data.storeData = this.storeData;
+    data.menuList = this.menuList;
     // }
 
     this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
@@ -220,25 +226,25 @@ export class RevService {
   private setNewRevSheet() {
     // console.log("newRevSheet");
 
-    var data = {};
-    data["revData"] = [];
-    data["revData"][0] = {};
-    data["revData"][0].data = this.revData[0].data; //[{ qerfg: "" }];
-    data["revData"][1] = {};
-    data["revData"][1].data = this.revData[1].data;
+    const data: any = {};
+    data.revData = [];
+    data.revData[0] = {};
+    data.revData[0].data = this.revData[0].data; // [{ qerfg: "" }];
+    // data.revData[1] = {};
+    // data.revData[1].data = this.revData[1].data;
     // }
 
-    this.DbRevData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
+    this.DbRevData.set(JSON.parse(JSON.stringify(data))).catch(error => {
       console.error(error);
     });
   }
 
   private revListSortByDate() {
-    var rev = {};
+    const rev = {};
     this.revKeys = Object.keys(this.revList || {});
     this.revKeys.sort();
 
-    this.cashSheetView["sum"] = {};
+    this.cashSheetView.sum = {};
     this.revKeys.forEach(day => {
       rev[day] = this.revList[day];
       this.revSheetView[day] = {};
@@ -250,29 +256,34 @@ export class RevService {
   public changeArea(areaID = this.areaID) {
     // url areaID
     if (this.navigateToAreaID) {
-      if (this.storeData.areas[areaID]) this.areaID = this.navigateToAreaID;
+      if (this.storeData.areas[areaID]) {
+        this.areaID = this.navigateToAreaID;
+      }
       delete this.navigateToAreaID;
     }
 
     // console.log(this.areaID);
-    if (this.storeData.areas[areaID]) this.areaID = areaID;
-    else return;
+    if (this.storeData.areas[areaID]) {
+      this.areaID = areaID;
+    } else {
+      return;
+    }
 
-    this.router.navigateByUrl("area/" + areaID).then(() => {
+    this.router.navigateByUrl('area/' + areaID).then(() => {
       // console.log(this.areaID);
 
       this.areaName = this.storeData.areas[this.areaID].name;
 
-      this.revList = this.returnList("revData");
+      this.revList = this.returnList('revData');
 
-      this.cashList = this.returnList("cashData");
+      this.cashList = this.returnList('cashData');
 
-      this.taraList = this.returnList("taraData");
-      //this.revData[this.areaID].data.filter = "";
+      this.taraList = this.returnList('taraData');
+      // this.revData[this.areaID].data.filter = "";
 
       // console.log(this.revKeys);
 
-      window.document.title = this.areaName + " " + this.storeData.name;
+      window.document.title = this.areaName + ' ' + this.storeData.name;
       // console.log(this.cashList);
 
       this.revListSortByDate();
@@ -285,7 +296,9 @@ export class RevService {
     if (!this[data][this.areaID]) {
       this[data][this.areaID] = {};
     }
-    if (!this[data][this.areaID].data) this[data][this.areaID].data = [];
+    if (!this[data][this.areaID].data) {
+      this[data][this.areaID].data = [];
+    }
     return this[data][this.areaID].data;
   }
 
@@ -293,45 +306,45 @@ export class RevService {
     // console.log(areaID);
 
     // if (this.revData[areaID]) this.areaID = areaID;
-    this.router.navigateByUrl("area/" + this.areaID);
+    this.router.navigateByUrl('area/' + this.areaID);
     this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
 
-    window.document.title = this.areaName + " " + this.storeData.name;
+    window.document.title = this.areaName + ' ' + this.storeData.name;
     this.revListSortByDate();
     this.calculateSheets();
   }
 
   public changeAreaName(name) {
     this.storeData.areas[this.areaID].name = name;
-    this.fStore("storeData");
+    this.fStore('storeData');
   }
 
   public changeStoreName(name) {
     this.storeData.name = name;
-    this.fStore("storeData");
+    this.fStore('storeData');
   }
 
   public areaNew(ev) {
-    var data = {};
-    data["revData"] = this.revData;
-    var id = data["revData"].push({
-      id: data["revData"].length,
-      name: "newArea"
+    const data: any = {};
+    data.revData = this.revData;
+    data.revData.push({
+      id: data.revData.length,
+      name: 'newArea'
     });
-    data["taraData"] = this.taraData;
-    var id = data["taraData"].push({
-      id: data["taraData"].length,
-      name: "newArea"
-    });
-
-    data["storeData"] = this.storeData;
-    var id = data["storeData"]["areas"].push({
-      id: data["storeData"]["areas"].length,
-      name: "newArea"
+    data.taraData = this.taraData;
+    data.taraData.push({
+      id: data.taraData.length,
+      name: 'newArea'
     });
 
-    //console.log(id);
+    data.storeData = this.storeData;
+    data.storeData.areas.push({
+      id: data.storeData.areas.length,
+      name: 'newArea'
+    });
+
+    // console.log(id);
 
     this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
       console.error(error);
@@ -347,58 +360,58 @@ export class RevService {
 
     this.menuList = data.menuList || this.menuList;
     this.cashData = data.cashData || this.cashData;
-    this.cashList = this.returnList("cashData");
+    this.cashList = this.returnList('cashData');
     this.storeData = data.storeData || this.storeData;
     this.taraData = data.taraData || this.taraData;
-    this.taraList = this.returnList("taraData");
+    this.taraList = this.returnList('taraData');
 
     this.areaName = this.storeData.areas[this.areaID]
       ? this.storeData.areas[this.areaID].name
-      : "set areaName";
+      : 'set areaName';
 
-    window.document.title = this.areaName + " " + this.storeData.name;
+    window.document.title = this.areaName + ' ' + this.storeData.name;
 
     this.revListSortByDate();
     this.calculateSheets();
   }
 
   private getDataFromLocalBackup() {
-    let localSt = this.getLocalSt("bar Kicks_");
+    const localSt = this.getLocalSt('bar Kicks_');
 
     // console.log(localSt);
 
     // return;
-    let data = {};
+    const data: any = {};
     // with Local Storage
-    this.menuList = localSt["menuList"] || this.menuList;
-    this.revData = localSt["revData"] || this.revData;
-    this.revList = this.returnList("revData");
-    this.cashData = localSt["cashData"] || this.cashData;
-    this.cashList = this.returnList("cashData");
-    this.taraData = localSt["taraData"];
-    this.taraList = this.returnList("taraData");
+    this.menuList = localSt.menuList || this.menuList;
+    this.revData = localSt.revData || this.revData;
+    this.revList = this.returnList('revData');
+    this.cashData = localSt.cashData || this.cashData;
+    this.cashList = this.returnList('cashData');
+    this.taraData = localSt.taraData;
+    this.taraList = this.returnList('taraData');
 
-    data["menuList"] = this["menuList"];
-    data["revData"] = this["revData"];
-    data["cashData"] = this["cashData"];
-    data["taraData"] = this["taraData"];
-    data["storeData"] = {
-      name: "bar Kicks",
-      areas: [{ name: "Old bar" }, { name: "New bar" }]
+    data.menuList = this.menuList;
+    data.revData = this.revData;
+    data.cashData = this.cashData;
+    data.taraData = this.taraData;
+    data.storeData = {
+      name: 'bar Kicks',
+      areas: [{ name: 'Old bar' }, { name: 'New bar' }]
     };
     // this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
     //   console.error(error);
     // });
   }
 
-  public fStore(name = "revData"): void {
-    var json: string;
+  public fStore(name = 'revData'): void {
+    // let json: string;
 
     this.calculateSheets();
-    let data = {};
+    const data: any = {};
     switch (name) {
-      case "revData":
-        data["revData"] = JSON.parse(JSON.stringify(this["revData"])) || [];
+      case 'revData':
+        data.revData = JSON.parse(JSON.stringify(this.revData)) || [];
         this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(function(
           error
         ) {
@@ -414,14 +427,14 @@ export class RevService {
 
         /// IMportant
         return;
-        return; ///xaxaxaxaxa !!!?@@?@?@?@PO@
+        return; /// xaxaxaxaxa !!!?@@?@?@?@PO@
         break;
-      case "cashData":
-        data["cashData"] = this["cashData"] || [];
+      case 'cashData':
+        data.cashData = this.cashData || [];
 
         break;
-      case "taraData":
-        data["taraData"] = this["taraData"] || [];
+      case 'taraData':
+        data.taraData = this.taraData || [];
         break;
       default:
         data[name] = this[name] || [];
@@ -432,26 +445,26 @@ export class RevService {
       console.error(error);
     });
 
-    //backup on localStore
+    // backup on localStore
     // this.localStore();
-    this.containerName = "";
+    this.containerName = '';
   }
 
   public localStore(): void {
-    var json: string;
+    let json: string;
 
     // this.calculateSheets();
 
-    var dataList = [
-      "menuList",
-      "revData",
-      "sumSheetView",
-      "taraData",
-      "cashData",
-      "storeData"
+    const dataList = [
+      'menuList',
+      'revData',
+      'sumSheetView',
+      'taraData',
+      'cashData',
+      'storeData'
     ];
-    var sumData = {};
-    this.containerName = "";
+    const sumData = {};
+    this.containerName = '';
     dataList.forEach((name, idx) => {
       sumData[name] = JSON.parse(JSON.stringify(this[name]));
 
@@ -459,14 +472,14 @@ export class RevService {
     });
     json = JSON.stringify(sumData);
     localStorage.setItem(
-      this.storeData.name + "_", //+ this.areaID
+      this.storeData.name + '_', // + this.areaID
       json
       // CryptoJS.AES.encrypt(json, "secret key 123").toString()
     );
   }
 
   public newDayTab(date): boolean {
-    var datestring = this.getNewDate(date);
+    const datestring = this.getNewDate(date);
 
     if (this.revKeys.indexOf(datestring) == -1) {
       // this.revKeys.push(datestring);
@@ -482,13 +495,13 @@ export class RevService {
       // show calendar controll
       return false;
     }
-    //this.fStore();
+    // this.fStore();
     return true;
   }
 
   public addMenuTab() {
-    var tab = {
-      name: "newTab",
+    const tab = {
+      name: 'newTab',
       data: []
     };
     this.menuList.push(tab);
@@ -496,23 +509,25 @@ export class RevService {
   }
 
   public removeMenuTab() {
-    if (this.revList) this.menuList.splice(this.tabSelectedIdx, 1);
+    if (this.revList) {
+      this.menuList.splice(this.tabSelectedIdx, 1);
+    }
   }
 
   public addCashTab() {
-    var tab = {
-      name: "newTab",
+    const tab = {
+      name: 'newTab',
       data: []
     };
     // this.cashList.push(tab);
   }
 
   private copyLastDayRevData() {
-    var lastDate = this.revKeys.slice(-1)[0];
+    const lastDate = this.revKeys.slice(-1)[0];
 
-    var tempList = [];
+    const tempList = [];
     this.revList[lastDate].forEach(revItem => {
-      var item = this.taraList.filter(taraItem => {
+      const item = this.taraList.filter(taraItem => {
         return taraItem.id == revItem.id;
       })[0];
 
@@ -524,14 +539,19 @@ export class RevService {
   }
 
   public removeRevSheet(date) {
-    if (!date) date = this.activeDate;
+    if (!date) {
+      date = this.activeDate;
+    }
 
-    if (this.revList[date]) delete this.revList[date];
+    if (this.revList[date]) {
+      delete this.revList[date];
+    }
     // console.log(Object.keys(this.revList)[this.activeDateIdx]);
 
     // if tab is last move active focus on last after deletion
-    if (!Object.keys(this.revList)[this.activeDateIdx])
+    if (!Object.keys(this.revList)[this.activeDateIdx]) {
       this.activeTabIdx = this.activeTabIdx - 1;
+    }
     this.revListSortByDate();
     this.fStore();
   }
@@ -545,7 +565,7 @@ export class RevService {
     this.revKeys = [];
     this.revKeys[0] = this.getNewDate(0);
 
-    var rev = {};
+    const rev = {};
     this.revKeys.forEach(day => {
       this.cashSummary[day] = [];
       this.cashSheetView[day] = {};
@@ -556,7 +576,7 @@ export class RevService {
     // console.log(this.taraList[0].startRev);
     this.revList = rev;
     this.fStore();
-    this.fStore("taraData");
+    this.fStore('taraData');
   }
 
   /* * * * * * * * * * * *
@@ -581,10 +601,10 @@ export class RevService {
   public calculateSheets() {
     this.tempSummary = {};
     // this.tempCashSummary = {};
-    this.tempSummary["sumTotal"] = 0;
+    this.tempSummary['sumTotal'] = 0;
     // this.tempCashSummary["sumTotal"] = 0;
     this.revKeys.forEach(date => {
-      this.cashSheetView["sum"] = {};
+      this.cashSheetView['sum'] = {};
       this.calcDailyCashSheets(date);
       this.calculateRevSheet(date);
     });
@@ -598,16 +618,16 @@ export class RevService {
 
     // console.log(date);
 
-    let cashList = this.cashData[this.areaID]
+    const cashList = this.cashData[this.areaID]
       ? this.cashData[this.areaID].data
       : [];
     // console.log(cashList[date]);
     let tempSuma = 0;
     let tempSum = 0;
-    let tempTabSuma = {};
+    const tempTabSuma = {};
     this.cashItems.forEach((tab, idx) => {
       this.cashTabSummary[date][tab.name] = 0;
-      var tempCashSheet: Array<any> = [];
+      let tempCashSheet: Array<any> = [];
       // var emptyRow = new cashItem(idx, "", 0, 0);
       // tab.data.forEach((cItem, id) => {
       tempCashSheet = [];
@@ -629,14 +649,14 @@ export class RevService {
       } else {
         cashList[date] = [];
         for (let j; j < 4; j++) {
-          tempCashSheet.push(new cashItem(idx, "", 0, 0, 0));
+          tempCashSheet.push(new cashItem(idx, '', 0, 0, 0));
         }
       }
 
       this.cashSheetSuma[date] = tempSuma;
       this.cashSheetSum[date] = tempSum;
 
-      //this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
+      // this.cashSummary[date]["sumTotal"] += Number(item.sum) || 0;
 
       //  this.cashTabSummary[date][tab.name]["suma"] += i.sum;
 
@@ -658,67 +678,73 @@ export class RevService {
   public calculateRevSheet(date) {
     // console.log(date);
 
-    this[date + "Sum"] = 0;
+    this[date + 'Sum'] = 0;
     this.menuList.forEach(tab => {
-      if (!this.tempSummary[tab.name]) this.tempSummary[tab.name] = [];
+      if (!this.tempSummary[tab.name]) {
+        this.tempSummary[tab.name] = [];
+      }
 
-      var tempRev: Array<any> = [];
-      var tempTara: Array<any> = [];
+      const tempRev: Array<any> = [];
+      const tempTara: Array<any> = [];
 
       tab.data.forEach((menuItem, id) => {
-        var item = JSON.parse(JSON.stringify(menuItem));
-        var prevDayIdx = this.revKeys.indexOf(date) - 1;
+        const item = JSON.parse(JSON.stringify(menuItem));
+        const prevDayIdx = this.revKeys.indexOf(date) - 1;
 
-        var itm = this.revItemCalculator(item, date, prevDayIdx);
+        const itm = this.revItemCalculator(item, date, prevDayIdx);
         if (itm) {
           tempRev[id] = itm;
 
-          this[date + "Sum"] += Number(itm.sum) || 0;
+          this[date + 'Sum'] += Number(itm.sum) || 0;
 
           this.tempSummary[tab.name][id] = this.sumProp(
             this.tempSummary[tab.name][id],
             itm
           );
-          if (date == this.revKeys[this.revKeys.length - 1])
+          if (date == this.revKeys[this.revKeys.length - 1]) {
             tempTara[id] = this.taraItemSums(
               this.tempSummary[tab.name][id],
               itm
             );
+          }
 
           // console.log(tempTara[id].netStart);
 
-          this.tempSummary["sumTotal"] += Number(itm.sum) || 0;
+          this.tempSummary.sumTotal += Number(itm.sum) || 0;
         }
         // end each tab
       });
       this.revSheetView[date][tab.name] = tempRev;
 
-      if (date == this.revKeys[this.revKeys.length - 1])
+      if (date === this.revKeys[this.revKeys.length - 1]) {
         this.taraSheetView[tab.name] = tempTara;
+      }
     });
     this.sumSheetView = this.tempSummary;
-    this.sumSheetView["sumTotal"] =
-      Math.round(this.sumSheetView["sumTotal"] * 1000) / 1000;
+    this.sumSheetView.sumTotal =
+      Math.round(this.sumSheetView.sumTotal * 1000) / 1000;
 
     return this[date];
   }
 
   private sumProp(a, b) {
-    if (!a) return b;
-    var obj = {};
+    if (!a) {
+      return b;
+    }
+    const obj = {};
     Object.keys(a).map(function(x) {
       switch (x) {
-        case "id":
-        case "name":
-        case "starts":
-        case "price":
-        case "qtyBruto":
-        case "qty":
-        case "cost":
-        case "round":
+        case 'id':
+        case 'name':
+        case 'starts':
+        case 'price':
+        case 'qtyBruto':
+        case 'qty':
+        case 'cost':
+        case 'round':
           obj[x] = a[x];
           break;
-        case "ends":
+        case 'ends':
           obj[x] = b[x];
           break;
         default:
@@ -731,42 +757,45 @@ export class RevService {
   }
 
   private taraItemSums(menuItm, itm, query = 0) {
-    var menuItem = JSON.parse(JSON.stringify(menuItm));
-    var revItem = JSON.parse(JSON.stringify(itm));
+    const menuItem = JSON.parse(JSON.stringify(menuItm));
+    const revItem = JSON.parse(JSON.stringify(itm));
 
-    var item = this.taraList.filter(i => {
-      //[this.areaID].data.
+    let item = this.taraList.filter(i => {
+      // [this.areaID].data.
       return i.id == menuItem.id;
     })[0];
 
     if (!item) {
       item = new taraItem(menuItem.id);
-      this.taraList.push(item); //[this.areaID].data
+      this.taraList.push(item); // [this.areaID].data
     }
     // item.start = item.start || item.netStart;
     // var item = taraItem[this.areaID].data;
     item.net =
-      Math.round((<number>item.bruto1 - <number>item.tara1) * 1000) / 1000;
-    if (!item.net)
+      Math.round((((item.bruto1 as number) - item.tara1) as number) * 1000) /
+      1000;
+    if (!item.net) {
       item.net =
-        Math.round(((<number>item.bruto - item.tara) / 0.7) * 1000) / 1000;
+        Math.round((((item.bruto as number) - item.tara) / 0.7) * 1000) / 1000;
+    }
     // 1;
     // console.log(item.net);
 
-    if (item.net <= 0) item.net = 1;
-    item.end =
-      revItem.ends -
-      <number>item.taraQty * item.tara -
-      <number>item.taraQty1 * <number>item.tara1;
+    if (item.net <= 0) {
+      item.net = 1;
+    }
+    item.end = (((((revItem.ends - item.taraQty) as number) * item.tara -
+      item.taraQty1) as number) * item.tara1) as number;
 
     item.end =
-      <number>Math.round((item.end * 100) / item.net) / 100 +
-      (<number>item.inStore || 0);
+      (Math.round((item.end * 100) / item.net) as number) / 100 +
+      ((item.inStore as number) || 0);
 
     item.name = menuItem.name;
-    item["netDiff"] =
+    item.netDiff =
       Math.round(
-        (<number>(item.start || item.netStart) + <number>item.buy - item.end) *
+        (((((item.start || item.netStart) as number) + item.buy) as number) -
+          item.end) *
           100
       ) / 100;
     // if (item.net != 1)
@@ -775,18 +804,18 @@ export class RevService {
     // console.log(menuItem);
     item.diff =
       Math.round(
-        (menuItem.roundSold / menuItem.qtyBruto - (item["netDiff"] || 0)) * 100
+        (menuItem.roundSold / menuItem.qtyBruto - (item.netDiff || 0)) * 100
       ) / 100;
-    item["diffCash"] =
-      Math.round(item.diff * menuItem.qtyBruto * menuItem["price"] * 100) / 100;
+    item.diffCash =
+      Math.round(item.diff * menuItem.qtyBruto * menuItem.price * 100) / 100;
     return item;
   }
 
   private revItemCalculator(menuItem, date, prevDayIdx) {
-    var prevDay = this.revKeys[prevDayIdx];
+    const prevDay = this.revKeys[prevDayIdx];
     // console.log(this.revList);
 
-    var revItem = this.revList[date].filter(i => {
+    let revItem = this.revList[date].filter(i => {
       return i.id == menuItem.id;
     })[0];
 
@@ -794,22 +823,21 @@ export class RevService {
       revItem = new reviziaItem(menuItem.id);
       this.revList[date].push(revItem);
     }
-    var prevEnds;
+    let prevEnds;
     if (prevDayIdx < 0) {
       prevEnds = this.taraList.filter(i => {
         return i.id == menuItem.id;
       })[0];
-      prevEnds = prevEnds ? prevEnds["startRev"] : 0;
-    } //prevDay = date;
-    else {
+      prevEnds = prevEnds ? prevEnds.startRev : 0;
+    } else {
       prevEnds =
         this.revList[prevDay].filter(i => {
           return i.id == menuItem.id;
-        })[0]["ends"] || 0;
+        })[0].ends || 0;
     }
 
     revItem.starts = prevEnds || 0;
-    var item = Object.assign(revItem, menuItem);
+    let item = Object.assign(revItem, menuItem);
     item = this.viewItemCalc(item);
 
     return item;
@@ -833,16 +861,16 @@ export class RevService {
   }
 
   private getNewDate(date) {
-    var d = date || new Date();
+    let d = date || new Date();
     if (d.getHours() < 9 && !date) {
       d = new Date(d.getTime() - (d.getHours() + 1) * 60 * 60 * 1000);
     }
-    var datestring =
+    const datestring =
       d.getFullYear() +
-      "-" +
-      ("0" + (d.getMonth() + 1)).slice(-2) +
-      "-" +
-      ("0" + d.getDate().toString()).slice(-2);
+      '-' +
+      ('0' + (d.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + d.getDate().toString()).slice(-2);
     return datestring;
   }
 

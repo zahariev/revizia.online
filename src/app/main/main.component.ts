@@ -1,32 +1,32 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
-import { MatTabChangeEvent } from "@angular/material/tabs";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
 
-import { RevService } from "app/shared/services/rev.service";
+import { RevService } from 'app/shared/services/rev.service';
 @Component({
-  selector: "app-main",
-  templateUrl: "./main.component.html",
-  styleUrls: ["./main.component.css"]
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  title = "rev";
-  editable: Boolean;
-  showDatePicker: Boolean;
+  title = 'rev';
+  editable: boolean;
+  showDatePicker: boolean;
   el;
   data;
   tabs = [];
-  buttonName = "CashOut";
+  buttonName = 'CashOut';
   activeEl;
   contentChange;
 
   areaName;
   storeName;
 
-  showMenuTab: boolean = true;
-  showCashTab: boolean = true;
-  showTaraTab: boolean = true;
-  showSummaryTab: boolean = true;
-  showAllTabs: boolean = true;
+  showMenuTab = true;
+  showCashTab = true;
+  showTaraTab = true;
+  showSummaryTab = true;
+  showAllTabs = true;
   // _simple: boolean = true;
 
   constructor(data: RevService, el: ElementRef, private route: ActivatedRoute) {
@@ -47,9 +47,9 @@ export class MainComponent {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      let areaID = params["params"]["id"][0];
-
-      //check if area exists
+      const areaID = params.get('id'); //  ["params"]["id"][0];
+      // console.log(areaID);
+      // check if area exists
       if (this.data.storeData.areas[areaID]) {
         // change Url
         this.data.changeArea(areaID);
@@ -81,16 +81,16 @@ export class MainComponent {
 
     // console.log(this.data.activeDate);
     // tab selector in place
-    window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event('resize'));
 
-    var scrollTab;
-    var scrollPos = this.data.tabScrollPos[this.data.tabSelectedIdx];
+    let scrollTab;
+    const scrollPos = this.data.tabScrollPos[this.data.tabSelectedIdx];
     // console.log(tabChange);
     scrollTab =
-      document.getElementById("revTab" + this.data.tabSelectedIdx) ||
-      document.getElementById("menuTab" + this.data.tabSelectedIdx) ||
-      document.getElementById("sumTab" + this.data.tabSelectedIdx) ||
-      document.getElementById("taraTab" + this.data.tabSelectedIdx);
+      document.getElementById('revTab' + this.data.tabSelectedIdx) ||
+      document.getElementById('menuTab' + this.data.tabSelectedIdx) ||
+      document.getElementById('sumTab' + this.data.tabSelectedIdx) ||
+      document.getElementById('taraTab' + this.data.tabSelectedIdx);
 
     if (scrollTab) {
       scrollTab.parentElement.scrollTo(0, scrollPos);
@@ -99,12 +99,12 @@ export class MainComponent {
   }
 
   onClick(event: any) {
-    if (this.activeEl == "select") {
+    if (this.activeEl == 'select') {
       this.makeEditable(event.target);
       // event.preventDefault();
     } else if (this.activeEl == event.target) {
       this.selectText(event.target);
-      this.activeEl = "select";
+      this.activeEl = 'select';
     } else {
       this.activeEl = event.target;
     }
@@ -112,10 +112,10 @@ export class MainComponent {
 
   keyDown(property: string, event: any) {
     // console.log(event);
-    var el = event.target;
+    const el = event.target;
     switch (event.key) {
-      case "Enter":
-        if (this.activeEl != "editable") {
+      case 'Enter':
+        if (this.activeEl != 'editable') {
           this.selectText();
 
           this.makeEditable(el);
@@ -124,20 +124,20 @@ export class MainComponent {
           event.target.blur();
         }
         break;
-      case "Escape":
+      case 'Escape':
         event.target.innerText = this[property];
         event.preventDefault();
         break;
 
-      case "Meta":
-      case "Control":
+      case 'Meta':
+      case 'Control':
 
-      case "Shift":
+      case 'Shift':
         break;
       default:
         // if (this.activeEl != "editable") this.selectText();
         this.makeEditable(el);
-      //setTimeout(el.focus(), 10);
+      // setTimeout(el.focus(), 10);
     }
   }
 
@@ -147,7 +147,7 @@ export class MainComponent {
 
   keyUp(event: any) {
     switch (event.key) {
-      case "Enter":
+      case 'Enter':
         event.preventDefault();
         return true;
         break;
@@ -162,8 +162,10 @@ export class MainComponent {
 
   selectText(cell = document.activeElement) {
     // if (!this.editable) return;
-    var range, selection;
-    if (this.activeEl == "select") this.activeEl = "editable";
+    let range, selection;
+    if (this.activeEl === 'select') {
+      this.activeEl = 'editable';
+    }
     // const input = window.document;
     if (window.getSelection) {
       selection = window.getSelection();
@@ -175,26 +177,30 @@ export class MainComponent {
   }
 
   changeAreaName(event) {
-    var name = event.target.innerText;
+    const name = event.target.innerText;
     // console.log(name);
-    if (this.contentChange) this.data.changeAreaName(name);
+    if (this.contentChange) {
+      this.data.changeAreaName(name);
+    }
 
-    event.target.contentEditable = "false";
+    event.target.contentEditable = 'false';
     event.preventDefault();
   }
 
   changeStoreName(event: any) {
-    var name = event.target.innerText;
+    const name = event.target.innerText;
     // console.log(name);
-    if (this.contentChange) this.data.changeStoreName(name);
-    event.target.contentEditable = "false";
+    if (this.contentChange) {
+      this.data.changeStoreName(name);
+    }
+    event.target.contentEditable = 'false';
     event.preventDefault();
   }
 
-  makeEditable(el) {
+  public makeEditable(el) {
     // if (!this.editable) return;
-    el.contentEditable = "true";
-    this.activeEl = "editable";
+    el.contentEditable = 'true';
+    this.activeEl = 'editable';
   }
 
   //
@@ -208,7 +214,9 @@ export class MainComponent {
 
   public dayOff(e): void {
     this.data.revList[this.data.activeDate].forEach(i => {
-      i.ends = <number>i.mplus * 1 + <number>i.minus * 1 + <number>i.starts * 1;
+      i.ends =
+        (((((i.mplus as number) * 1 + i.minus) as number) * 1 +
+          i.starts) as number) * 1;
     });
     // this.data.revListSortByDate();
     // this.data.calculateSheets();
@@ -217,7 +225,7 @@ export class MainComponent {
 
   public removeDayTab(e): void {
     confirm(
-      "You Are Going to DELETE this sheet!!! \n are you shure, please confirm"
+      'You Are Going to DELETE this sheet!!! \n are you shure, please confirm'
     )
       ? this.data.removeRevSheet()
       : 0;
@@ -241,7 +249,7 @@ export class MainComponent {
 
   removeMenuTab() {
     confirm(
-      "You Are Going to DELETE this tab! \n are you shure, please confirm \n"
+      'You Are Going to DELETE this tab! \n are you shure, please confirm \n'
     )
       ? this.data.removeMenuTab()
       : 0;
@@ -249,7 +257,7 @@ export class MainComponent {
 
   public newPeriod(e) {
     confirm(
-      "You Are Going to DELETE All Sheets!!! \n Are you shure, please confirm !"
+      'You Are Going to DELETE All Sheets!!! \n Are you shure, please confirm !'
     )
       ? this.data.newPeriod()
       : 0;
