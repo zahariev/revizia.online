@@ -1,4 +1,4 @@
-import { take } from "rxjs/operators";
+import {take} from 'rxjs/operators';
 
 import {
   AfterViewInit,
@@ -8,25 +8,25 @@ import {
   QueryList,
   OnDestroy,
   Optional
-} from "@angular/core";
+} from '@angular/core';
 import {
   CdkDropList,
   CdkDrag,
   CdkDragHandle,
   CDK_DROP_LIST_CONTAINER
-} from "@angular/cdk/drag-drop";
+} from '@angular/cdk/drag-drop';
 
 @Directive({
-  selector: "[cdkLazyDropList]",
-  exportAs: "cdkLazyDropList",
+  selector: '[cdkLazyDropList]',
+  exportAs: 'cdkLazyDropList',
   providers: [
-    { provide: CDK_DROP_LIST_CONTAINER, useExisting: CdkLazyDropList }
+    {provide: CDK_DROP_LIST_CONTAINER, useExisting: CdkLazyDropList}
   ],
   host: {
     // tslint:disable-line:use-host-property-decorator
-    class: "cdk-drop-list",
-    "[id]": "id",
-    "[class.cdk-drop-list-dragging]": "_dragging"
+    class: 'cdk-drop-list',
+    '[id]': 'id',
+    '[class.cdk-drop-list-dragging]': '_dragging'
   }
 })
 export class CdkLazyDropList<T = any> extends CdkDropList<T> {
@@ -36,8 +36,8 @@ export class CdkLazyDropList<T = any> extends CdkDropList<T> {
    * is useful when the `cdkDropList` is not the direct parent (i.e. ancestor but not father)
    * of the draggable elements.
    */
-  // tslint:disable-next-line:no-input-rename
-  @Input("cdkDropListDirectContainerElement") directContainerElement: string;
+    // tslint:disable-next-line:no-input-rename
+  @Input('cdkDropListDirectContainerElement') directContainerElement: string;
 
   _draggables: QueryList<CdkDrag> = new QueryList();
 
@@ -73,21 +73,20 @@ export class CdkLazyDropList<T = any> extends CdkDropList<T> {
 }
 
 @Directive({
-  selector: "[cdkLazyDrag]",
-  exportAs: "cdkLazyDrag",
+  selector: '[cdkLazyDrag]',
+  exportAs: 'cdkLazyDrag',
   host: {
     // tslint:disable-line:use-host-property-decorator
-    class: "cdk-drag",
-    "[class.cdk-drag-dragging]": "_hasStartedDragging && _isDragging()"
+    class: 'cdk-drag',
+    '[class.cdk-drag-dragging]': '_hasStartedDragging && _isDragging()'
   }
 })
-export class CdkLazyDrag<
-  T = any,
-  Z extends CdkLazyDropList<T> = CdkLazyDropList<T>
-> extends CdkDrag<T> implements AfterViewInit, OnDestroy {
+export class CdkLazyDrag<T = any,
+  Z extends CdkLazyDropList<T> = CdkLazyDropList<T>> extends CdkDrag<T> implements AfterViewInit, OnDestroy {
   @Input() get cdkDropList(): Z {
     return this.dropContainer as Z;
   }
+
   set cdkDropList(value: Z) {
     // TO SUPPORT `cdkDropList` via string input (ID) we need a reactive registry...
     if (this.cdkDropList) {

@@ -1,11 +1,12 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
+import {Component, OnInit, ElementRef} from '@angular/core';
 
-import { moveItemInArray } from "@angular/cdk/drag-drop";
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 
-import { RevService } from "app/shared/services/rev.service";
+import {RevService} from 'app/shared/services/rev.service';
+
 @Component({
-  selector: "app-sheet",
-  template: "NO UI TO BE FOUND HERE!"
+  selector: 'app-sheet',
+  template: 'NO UI TO BE FOUND HERE!'
 })
 export class SheetComponent implements OnInit {
   focussableElements: any;
@@ -17,11 +18,14 @@ export class SheetComponent implements OnInit {
   tabIdx;
   editable;
   contentChange: Boolean = false;
-  columnList = { length: 0 };
+  columnList = {length: 0};
   row: number = 0;
-  constructor(public dat: RevService, public el: ElementRef) {}
 
-  ngOnInit() {}
+  constructor(public dat: RevService, public el: ElementRef) {
+  }
+
+  ngOnInit() {
+  }
 
   updateList(itm, property: string, el: any) {
     this.gridInit();
@@ -34,9 +38,9 @@ export class SheetComponent implements OnInit {
     var item = itemExists || JSON.parse(JSON.stringify(itm));
 
     // format edited text field
-    var value = el.innerText + "";
-    el.innerText = "";
-    value = value.replace(/\r?\n|\r\s/g, "");
+    var value = el.innerText + '';
+    el.innerText = '';
+    value = value.replace(/\r?\n|\r\s/g, '');
 
     if (this.contentChange) {
       var oldItem = JSON.parse(JSON.stringify(item));
@@ -45,7 +49,7 @@ export class SheetComponent implements OnInit {
       el.innerText = value;
     } else {
       // not to double values in text filed on chrome
-      el.innerHTML = item[property] || "";
+      el.innerHTML = item[property] || '';
     }
     // console.log(item === oldItem);
 
@@ -57,7 +61,8 @@ export class SheetComponent implements OnInit {
     this.contentChange = false;
   }
 
-  gridInit() {}
+  gridInit() {
+  }
 
   onInput(item, elName, event) {
     this.contentChange = true;
@@ -66,14 +71,16 @@ export class SheetComponent implements OnInit {
   onBlur(item, colName, event) {
     var el = event.target;
     // console.log(el.innerText);
-    if (colName == "id") {
+    if (colName == 'id') {
       var oldID = item.id;
       // this.updateList(item, colName, el);
 
       // this.updateId(oldID, item.id);
-    } else if (this.contentChange) this.updateList(item, colName, el);
+    } else if (this.contentChange) {
+      this.updateList(item, colName, el);
+    }
     this.gridInit();
-    el.contentEditable = "false";
+    el.contentEditable = 'false';
     event.preventDefault();
   }
 
@@ -84,12 +91,12 @@ export class SheetComponent implements OnInit {
   }
 
   onClick(item: any, elName: string, event: any) {
-    if (this.activeEl == "select") {
+    if (this.activeEl == 'select') {
       this.makeEditable(event.target);
       // event.preventDefault();
     } else if (this.activeEl == event.target) {
       this.selectText(event.target);
-      this.activeEl = "select";
+      this.activeEl = 'select';
     } else {
       this.activeEl = event.target;
     }
@@ -101,8 +108,8 @@ export class SheetComponent implements OnInit {
     var row = this.row || this.columnList.length;
     // console.log(event.key);
     switch (event.key) {
-      case "Enter":
-        if (this.activeEl == "editable") {
+      case 'Enter':
+        if (this.activeEl == 'editable') {
           this.focusNextElement(el, row); //colummnList.length
 
           event.preventDefault();
@@ -115,18 +122,22 @@ export class SheetComponent implements OnInit {
 
         break;
 
-      case "ArrowUp":
+      case 'ArrowUp':
         this.focusNextElement(el, -row);
         break;
-      case "ArrowDown":
+      case 'ArrowDown':
         this.focusNextElement(el, row);
         break;
-      case "ArrowLeft":
-        if (this.activeEl != "editable") this.focusNextElement(el, -1);
+      case 'ArrowLeft':
+        if (this.activeEl != 'editable') {
+          this.focusNextElement(el, -1);
+        }
         break;
 
-      case "ArrowRight":
-        if (this.activeEl != "editable") this.focusNextElement(el, 1);
+      case 'ArrowRight':
+        if (this.activeEl != 'editable') {
+          this.focusNextElement(el, 1);
+        }
         break;
         // case " ":
         this.selectText(el);
@@ -134,34 +145,41 @@ export class SheetComponent implements OnInit {
 
         event.preventDefault();
         break;
-      case "Tab":
+      case 'Tab':
         el = this.focusNextElement(el, 1);
 
-        if (this.activeEl != "editable") this.selectText();
+        if (this.activeEl != 'editable') {
+          this.selectText();
+        }
         this.makeEditable(el);
         setTimeout(el.focus(), 10);
         event.preventDefault();
         break;
-      case "Escape":
+      case 'Escape':
         event.target.innerText = item[property];
         event.preventDefault();
         this.focusNextElement(el, 0);
         break;
-      case "z":
-        if (event.ctrlKey || event.metaKey) this.undoValue();
-        else {
-          if (this.activeEl != "editable") this.selectText();
+      case 'z':
+        if (event.ctrlKey || event.metaKey) {
+          this.undoValue();
+        } else {
+          if (this.activeEl != 'editable') {
+            this.selectText();
+          }
           this.makeEditable(el);
           setTimeout(el.focus(), 10);
         }
         break;
-      case "Meta":
-      case "Control":
+      case 'Meta':
+      case 'Control':
 
-      case "Shift":
+      case 'Shift':
 
       default:
-        if (this.activeEl != "editable") this.selectText();
+        if (this.activeEl != 'editable') {
+          this.selectText();
+        }
         this.makeEditable(el);
         setTimeout(el.focus(), 10);
     }
@@ -169,7 +187,7 @@ export class SheetComponent implements OnInit {
 
   keyUp(item, property: string, event: any) {
     switch (event.key) {
-      case "Enter":
+      case 'Enter':
         event.preventDefault();
         return true;
         break;
@@ -179,9 +197,13 @@ export class SheetComponent implements OnInit {
   }
 
   selectText(cell = document.activeElement) {
-    if (!this.editable) return;
+    if (!this.editable) {
+      return;
+    }
     var range, selection;
-    if (this.activeEl == "select") this.activeEl = "editable";
+    if (this.activeEl == 'select') {
+      this.activeEl = 'editable';
+    }
     // const input = window.document;
     if (window.getSelection) {
       selection = window.getSelection();
@@ -193,26 +215,32 @@ export class SheetComponent implements OnInit {
   }
 
   makeEditable(el) {
-    if (!this.editable) return;
-    el.contentEditable = "true";
-    this.activeEl = "editable";
+    if (!this.editable) {
+      return;
+    }
+    el.contentEditable = 'true';
+    this.activeEl = 'editable';
   }
 
   focusNextElement(el, step = 1) {
-    this.focussableElements = document.querySelectorAll("[tabindex]");
+    this.focussableElements = document.querySelectorAll('[tabindex]');
     var index = Array.from(this.focussableElements).indexOf(el);
 
-    if (index + step < 3) return;
+    if (index + step < 3) {
+      return;
+    }
     if (index > -1) {
       window.getSelection().removeAllRanges();
       var nextElement =
         this.focussableElements[index + step] || this.focussableElements[index];
 
-      if (index) el.contentEditable = "false";
+      if (index) {
+        el.contentEditable = 'false';
+      }
 
       this.activeEl = nextElement;
     } else {
-      this.focussableElements = document.querySelectorAll(".table td.name");
+      this.focussableElements = document.querySelectorAll('.table td.name');
 
       nextElement = this.focussableElements[0];
     }
@@ -234,7 +262,9 @@ export class SheetComponent implements OnInit {
     var item = this.history.pop();
 
     var idx: any;
-    if (!item) return;
+    if (!item) {
+      return;
+    }
     if (item.delPosition) {
       //delete
       var idx = item.delPosition;

@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { RevService } from 'app/shared/services/rev.service';
+import {Component, OnInit, ElementRef} from '@angular/core';
+import {RevService} from 'app/shared/services/rev.service';
 
-import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'tabs-cash-sheet',
@@ -54,8 +54,11 @@ export class TabsCashSheetComponent implements OnInit {
 
     // console.log(this.data.menuList[idx].name);
 
-    if (value.trim() != '') this.data.cashList[idx].name = value;
-    else this.data.cashList[idx].name = ' . . .';
+    if (value.trim() != '') {
+      this.data.cashList[idx].name = value;
+    } else {
+      this.data.cashList[idx].name = ' . . .';
+    }
     //console.log(value);
     // this.viewList = this.data.menuList;
     this.data.fStore();
@@ -75,14 +78,18 @@ export class TabsCashSheetComponent implements OnInit {
   }
 
   makeEditable(el) {
-    if (!this.editable) return;
+    if (!this.editable) {
+      return;
+    }
     el.contentEditable = 'true';
     this.activeEl = 'editable';
   }
 
   selectText(cell = document.activeElement) {
     // console.log("select text");
-    if (!this.editable) return;
+    if (!this.editable) {
+      return;
+    }
     var range, selection;
     // if (this.activeEl == "select") this.activeEl = "editable";
     if (window.getSelection) {
@@ -111,20 +118,26 @@ export class TabsCashSheetComponent implements OnInit {
         break;
 
       case 'ArrowLeft':
-        if (this.activeEl != 'editable') break;
+        if (this.activeEl != 'editable') {
+          break;
+        }
         selection = window.getSelection();
         try {
           selection.collapse(el.firstChild, selection.focusOffset - 1);
-        } catch (error) {}
+        } catch (error) {
+        }
         event.preventDefault();
         event.stopPropagation();
         break;
       case 'ArrowRight':
-        if (this.activeEl != 'editable') break;
+        if (this.activeEl != 'editable') {
+          break;
+        }
         selection = window.getSelection();
         try {
           selection.collapse(el.firstChild, selection.focusOffset + 1);
-        } catch (error) {}
+        } catch (error) {
+        }
         event.preventDefault();
         event.stopPropagation();
         break;
@@ -144,7 +157,9 @@ export class TabsCashSheetComponent implements OnInit {
       case ' ':
         break;
       default:
-        if (this.activeEl != 'editable') this.selectText();
+        if (this.activeEl != 'editable') {
+          this.selectText();
+        }
         this.makeEditable(el);
       // el.focus();
       // setTimeout(el.focus(), 100);

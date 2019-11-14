@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from '@angular/core';
 
-import { HttpService } from "./http.service";
-import { BehaviorSubject } from "rxjs";
+import {HttpService} from './http.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class DataService {
-  private tabsSource = new BehaviorSubject(new Array());
+  private tabsSource = new BehaviorSubject([]);
   tabs = this.tabsSource.asObservable();
 
-  private menuSource = new BehaviorSubject(new Array());
+  private menuSource = new BehaviorSubject([]);
   menu = this.menuSource.asObservable();
 
   // private usersSource = new BehaviorSubject(new Array());

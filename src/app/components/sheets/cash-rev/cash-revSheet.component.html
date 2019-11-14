@@ -12,52 +12,52 @@
               class="table table-bordered table-responsive-md table-striped text-center"
             >
               <thead class="headerRow">
-                <tr>
-                  <ng-container *ngFor="let col1 of columnList">
-                    <th
-                      *ngIf="
+              <tr>
+                <ng-container *ngFor="let col1 of columnList">
+                  <th
+                    *ngIf="
                         col1.tabIdx == 'all' || col1.tabIdx.indexOf(tabIdx) > -1
                       "
-                      class="text-center  {{ col1.name }}"
-                    >
-                      {{ col1.columnName }}
-                    </th>
-                  </ng-container>
-                  <!-- <th class="table-remove text-center">
-                    remove  col1.tabIdx == 'all' || col1.tabIdx.includes(tabIdx)
+                    class="text-center  {{ col1.name }}"
+                  >
+                    {{ col1.columnName }}
                   </th>
-                  <th class="DragHandleTH text-center">
-                    pos
-                  </th> -->
-                </tr>
+                </ng-container>
+                <!-- <th class="table-remove text-center">
+                  remove  col1.tabIdx == 'all' || col1.tabIdx.includes(tabIdx)
+                </th>
+                <th class="DragHandleTH text-center">
+                  pos
+                </th> -->
+              </tr>
               </thead>
 
               <tbody>
-                <tr
-                  *ngFor="
+              <tr
+                *ngFor="
                     let item of data.cashSheetView[date][tabName];
                     let id = index
                   "
-                  cdkDrag
-                >
-                  <ng-container *ngFor="let col of columnList; let idx = index">
-                    <td
-                      *ngIf="
+                cdkDrag
+              >
+                <ng-container *ngFor="let col of columnList; let idx = index">
+                  <td
+                    *ngIf="
                         col.tabIdx == 'all' || col.tabIdx.indexOf(tabIdx) > -1
                       "
-                      :inner-text.prop="value"
-                      class="{{ col.name }} cashData"
-                      tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
-                      (keyup)="keyUp(item, col.name, $event)"
-                      (keydown)="keyDown(item, col.name, $event)"
-                      (click)="onClick(item, col.name, $event)"
-                      (blur)="onBlur(item, col.name, $event)"
-                      (input)="onInput($event)"
-                    >
-                      {{ item[col.name] }}
-                    </td>
-                  </ng-container>
-                </tr>
+                    :inner-text.prop="value"
+                    class="{{ col.name }} cashData"
+                    tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
+                    (keyup)="keyUp(item, col.name, $event)"
+                    (keydown)="keyDown(item, col.name, $event)"
+                    (click)="onClick(item, col.name, $event)"
+                    (blur)="onBlur(item, col.name, $event)"
+                    (input)="onInput($event)"
+                  >
+                    {{ item[col.name] }}
+                  </td>
+                </ng-container>
+              </tr>
               </tbody>
             </table>
           </div>

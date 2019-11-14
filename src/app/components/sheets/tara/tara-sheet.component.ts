@@ -1,14 +1,14 @@
-import { Component, Input, ElementRef } from "@angular/core";
-import { Statement } from "@angular/compiler";
-import { Item } from "app/shared/models/item.model";
+import {Component, Input, ElementRef} from '@angular/core';
+import {Statement} from '@angular/compiler';
+import {Item} from 'app/shared/models/item.model';
 
-import { RevService } from "app/shared/services/rev.service";
-import { SheetComponent } from "../sheet.component";
+import {RevService} from 'app/shared/services/rev.service';
+import {SheetComponent} from '../sheet.component';
 
 @Component({
-  selector: "tara-sheet",
-  templateUrl: "./tara-sheet.component.html",
-  styleUrls: ["./tara-sheet.component.css"]
+  selector: 'tara-sheet',
+  templateUrl: './tara-sheet.component.html',
+  styleUrls: ['./tara-sheet.component.css']
 })
 export class TaraSheetComponent extends SheetComponent {
   @Input() editable: Boolean;
@@ -17,7 +17,7 @@ export class TaraSheetComponent extends SheetComponent {
 
   viewList;
 
-  containerName = "taraData";
+  containerName = 'taraData';
 
   constructor(public data: RevService, public el: ElementRef) {
     super(data, el);
@@ -64,9 +64,9 @@ export class TaraSheetComponent extends SheetComponent {
     var item = itemExists || JSON.parse(JSON.stringify(itm));
 
     // format edited text field
-    var value = el.innerText + "";
-    el.innerText = "";
-    value = value.replace(/\r?\n|\r\s/g, "");
+    var value = el.innerText + '';
+    el.innerText = '';
+    value = value.replace(/\r?\n|\r\s/g, '');
 
     if (this.contentChange) {
       var oldItem = JSON.parse(JSON.stringify(item));
@@ -75,7 +75,7 @@ export class TaraSheetComponent extends SheetComponent {
       el.innerText = value;
     } else {
       // not to double values in text filed on chrome
-      el.innerHTML = item[property] || "";
+      el.innerHTML = item[property] || '';
     }
     // console.log(item === oldItem);
 
@@ -85,7 +85,7 @@ export class TaraSheetComponent extends SheetComponent {
     this.data.containerName = this.containerName;
     this.data.fStore(this.dat.containerName);
 
-    this.data.fStore("menuList");
+    this.data.fStore('menuList');
     this.contentChange = false;
 
     // this.gridInit();

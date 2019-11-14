@@ -2,6 +2,7 @@
   tr td {
     vertical-align: middle !important;
   }
+
   /* span {
         &:not([class]) {
           padding: 1rem 1rem;
@@ -52,6 +53,7 @@ button.mat-menu-item {
   z-index: 9999;
   font-size: 1.5em;
 }
+
 #areaName {
   /* position: fixed; */
   top: 3px;

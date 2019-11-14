@@ -1,4 +1,5 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import {Pipe, PipeTransform} from '@angular/core';
+
 /*
  *
  * Usage:
@@ -6,18 +7,23 @@ import { Pipe, PipeTransform } from "@angular/core";
  * Example:
  *
  */
-@Pipe({ name: "hideZero" })
+@Pipe({name: 'hideZero'})
 export class CashPipe implements PipeTransform {
   transform(value: number): string {
-    if (value && Number(value)) return value.toString();
-    else return "";
+    if (value && Number(value)) {
+      return value.toString();
+    } else {
+      return '';
+    }
   }
 }
 
-@Pipe({ name: "BGN" })
+@Pipe({name: 'BGN'})
 export class BGNPipe implements PipeTransform {
   transform(value: string, item: any): string {
-    if (!value) return "";
+    if (!value) {
+      return '';
+    }
 
     return (
       Number(value)

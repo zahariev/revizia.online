@@ -1,24 +1,24 @@
-import { Component, Input, ElementRef } from "@angular/core";
-import { Statement } from "@angular/compiler";
-import { Item } from "app/shared/models/item.model";
+import {Component, Input, ElementRef} from '@angular/core';
+import {Statement} from '@angular/compiler';
+import {Item} from 'app/shared/models/item.model';
 
-import { RevService } from "app/shared/services/rev.service";
-import { SheetComponent } from "../sheet.component";
+import {RevService} from 'app/shared/services/rev.service';
+import {SheetComponent} from '../sheet.component';
 
 @Component({
-  selector: "revizia-sheet",
-  templateUrl: "./revizia-sheet.component.html",
-  styleUrls: ["./revizia-sheet.component.css"]
+  selector: 'revizia-sheet',
+  templateUrl: './revizia-sheet.component.html',
+  styleUrls: ['./revizia-sheet.component.css']
 })
 export class ReviziaSheetComponent extends SheetComponent {
   @Input() date: any;
-  @Input() editable: Boolean;
+  @Input() editable: boolean;
   @Input() tabIdx: string;
   @Input() tabName: string;
 
   dataList;
   viewList;
-  containerName = "revData";
+  containerName = 'revData';
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);

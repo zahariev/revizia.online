@@ -67,6 +67,7 @@ table.table th {
 
   font-weight: 400;
 }
+
 :focus {
   background-color: rgba(198, 198, 198, 0.756);
 }

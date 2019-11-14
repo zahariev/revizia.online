@@ -1,14 +1,14 @@
-import { Component, Input, ElementRef } from "@angular/core";
-import { Statement } from "@angular/compiler";
-import { Item } from "app/shared/models/item.model";
+import {Component, Input, ElementRef} from '@angular/core';
+import {Statement} from '@angular/compiler';
+import {Item} from 'app/shared/models/item.model';
 
-import { RevService } from "app/shared/services/rev.service";
-import { SheetComponent } from "../sheet.component";
+import {RevService} from 'app/shared/services/rev.service';
+import {SheetComponent} from '../sheet.component';
 
 @Component({
-  selector: "summary-sheet",
-  templateUrl: "./summary-sheet.component.html",
-  styleUrls: ["./summary-sheet.component.css"]
+  selector: 'summary-sheet',
+  templateUrl: './summary-sheet.component.html',
+  styleUrls: ['./summary-sheet.component.css']
 })
 export class SummarySheetComponent extends SheetComponent {
   @Input() editable: Boolean;
@@ -16,7 +16,7 @@ export class SummarySheetComponent extends SheetComponent {
   @Input() tabName: string;
 
   viewList;
-  containerName = "summaryList";
+  containerName = 'summaryList';
 
   constructor(public dat: RevService, public el: ElementRef) {
     super(dat, el);
@@ -24,5 +24,6 @@ export class SummarySheetComponent extends SheetComponent {
     this.columnList.length = 3;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

@@ -19,7 +19,7 @@
   </div>
 
   <!-- <mat-sidenav-container class="sidenav-container">
-     TABS    
+     TABS
 
     <mat-tab-group id="itemTabs" [@.disabled]="true" [selectedIndex]="0">
       <mat-tab label=" I "> -->
@@ -39,38 +39,38 @@
               class="table table-bordered table-responsive-md table-striped text-center"
             >
               <tbody>
-                <tr
-                  *ngFor="let item of viewList; let id = index"
-                  cdkDrag
-                  [cdkDragData]="item"
+              <tr
+                *ngFor="let item of viewList; let id = index"
+                cdkDrag
+                [cdkDragData]="item"
+              >
+                <td
+                  :inner-text.prop="value"
+                  class="{{ col.name }}"
+                  *ngFor="let col of columnList; let idx = index"
+                  tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
+                  (keyup)="keyUp(item, col.name, $event)"
+                  (keydown)="keyDown(item, col.name, $event)"
+                  (click)="onClick(item, col.name, $event)"
+                  (blur)="onBlur(item, col.name, $event)"
+                  (input)="onInput($event)"
                 >
-                  <td
-                    :inner-text.prop="value"
-                    class="{{ col.name }}"
-                    *ngFor="let col of columnList; let idx = index"
-                    tabIndex="{{ 30 * (id + 1) + idx + 1 }}"
-                    (keyup)="keyUp(item, col.name, $event)"
-                    (keydown)="keyDown(item, col.name, $event)"
-                    (click)="onClick(item, col.name, $event)"
-                    (blur)="onBlur(item, col.name, $event)"
-                    (input)="onInput($event)"
-                  >
-                    {{ item[col.name] }}
-                  </td>
-                  <td class=" unitPrice">
+                  {{ item[col.name] }}
+                </td>
+                <td class=" unitPrice">
                     <span contenteditable="false">
                       {{ item.qtyBruto * item.price | number }}
                     </span>
-                  </td>
-                  <td class=" markup">
+                </td>
+                <td class=" markup">
                     <span contenteditable="false">
                       {{
                         (item.qtyBruto * item.price - item.cost) / item.cost
-                          | percent
+                            | percent
                       }}
                     </span>
-                  </td>
-                  <td style="padding: 5px;">
+                </td>
+                <td style="padding: 5px;">
                     <span class="table-remove" contenteditable="false">
                       <button
                         class="my-0 btn btn-danger btn-rounded btn-sm"
@@ -79,18 +79,18 @@
                         Remove
                       </button>
                     </span>
-                  </td>
-                  <td class=" text-center">
-                    <div class="DragHandle" cdkDragHandle>
-                      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                        ></path>
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                      </svg>
-                    </div>
-                  </td>
-                </tr>
+                </td>
+                <td class=" text-center">
+                  <div class="DragHandle" cdkDragHandle>
+                    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                      ></path>
+                      <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg>
+                  </div>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>

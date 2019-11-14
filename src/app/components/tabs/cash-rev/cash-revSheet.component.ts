@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, ElementRef } from "@angular/core";
-import { RevService } from "app/shared/services/rev.service";
+import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {RevService} from 'app/shared/services/rev.service';
 
-import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
+import {MatTabChangeEvent, MatTabGroup} from '@angular/material/tabs';
 
 @Component({
-  selector: "tabs-cash-rev",
-  templateUrl: "./cash-revSheet.component.html",
-  styleUrls: ["./cash-revSheet.component.css"]
+  selector: 'tabs-cash-rev',
+  templateUrl: './cash-revSheet.component.html',
+  styleUrls: ['./cash-revSheet.component.css']
 })
 export class TabsCashRevComponent implements OnInit {
   // viewList;
@@ -18,6 +18,7 @@ export class TabsCashRevComponent implements OnInit {
   @Input() date: any;
 
   @Input() editable: boolean = true;
+
   constructor(public data: RevService) {
     // this.viewList = data.menuList;
     // this.editable = true;

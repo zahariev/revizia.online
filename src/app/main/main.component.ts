@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit, ElementRef} from '@angular/core';
+import {MatTabChangeEvent} from '@angular/material/tabs';
+import {ActivatedRoute} from '@angular/router';
 
-import { RevService } from 'app/shared/services/rev.service';
+import {RevService} from 'app/shared/services/rev.service';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -27,6 +28,7 @@ export class MainComponent {
   showTaraTab = true;
   showSummaryTab = true;
   showAllTabs = true;
+
   // _simple: boolean = true;
 
   constructor(data: RevService, el: ElementRef, private route: ActivatedRoute) {
@@ -76,7 +78,7 @@ export class MainComponent {
       : tabChange.index - 2;
     this.data.activeDate = Object.keys(this.data.revList)[
       this.data.activeDateIdx
-    ];
+      ];
     this.data.activeTabIdx = tabChange.index;
 
     // console.log(this.data.activeDate);
@@ -264,7 +266,9 @@ export class MainComponent {
 
     // this.data.newPeriod();
   }
-  public savePeriod(e) {}
+
+  public savePeriod(e) {
+  }
 
   //
   //

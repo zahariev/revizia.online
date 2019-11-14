@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import { cashItem } from 'app/shared/models/item.model';
+import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {cashItem} from 'app/shared/models/item.model';
 
 import {
   CdkDragDrop,
@@ -7,10 +7,10 @@ import {
   CdkDragHandle
 } from '@angular/cdk/drag-drop';
 
-import { MatIcon } from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 
-import { RevService } from 'app/shared/services/rev.service';
-import { SheetComponent } from '../sheet.component';
+import {RevService} from 'app/shared/services/rev.service';
+import {SheetComponent} from '../sheet.component';
 
 @Component({
   selector: 'cash-revSheet',
@@ -71,6 +71,7 @@ export class CashRevSheetComponent extends SheetComponent {
   containerName = 'cashData';
   row = 3;
   diff: number = 0;
+
   constructor(public data: RevService, public el: ElementRef) {
     super(data, el);
     // console.log(data.cashSheetView);
@@ -163,5 +164,6 @@ export class CashRevSheetComponent extends SheetComponent {
   //   this.gridInit();
   // }
 
-  drop(e) {}
+  drop(e) {
+  }
 }

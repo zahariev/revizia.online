@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { User } from "app/shared/models/user.model.ts"; // optional
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {User} from 'app/shared/models/user.model.ts'; // optional
 
-import { auth } from "firebase/app";
-import { AngularFireAuth } from "@angular/fire/auth";
+import {auth} from 'firebase/app';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument
-} from "@angular/fire/firestore";
+} from '@angular/fire/firestore';
 
-import { Observable, of } from "rxjs";
-import { switchMap } from "rxjs/operators";
-import { map, take, tap } from "rxjs/operators";
+import {Observable, of} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
+import {map, take, tap} from 'rxjs/operators';
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: 'root'})
 export class AuthService {
   user$: Observable<User>;
 
@@ -34,6 +34,7 @@ export class AuthService {
       })
     );
   }
+
   async googleSignin(returnUrl) {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
@@ -44,7 +45,7 @@ export class AuthService {
   private updateUserData(user, returnUrl) {
     //
 
-    localStorage.setItem("userID", user.uid);
+    localStorage.setItem('userID', user.uid);
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
@@ -52,7 +53,7 @@ export class AuthService {
 
     if (!user.managedDBs) {
       user.managedDBs = {};
-      user.managedDBs[user["uid"]] = "admin";
+      user.managedDBs[user['uid']] = 'admin';
     }
     const data = {
       uid: user.uid,
@@ -64,7 +65,7 @@ export class AuthService {
 
     this.router.navigateByUrl(returnUrl);
 
-    return userRef.set(data, { merge: true });
+    return userRef.set(data, {merge: true});
   }
 
   async signOut() {
@@ -78,7 +79,9 @@ export class AuthService {
       take(1),
       map(authState => !!authState),
       tap(authenticated => {
-        if (!authenticated) this.router.navigate(["/login"]);
+        if (!authenticated) {
+          this.router.navigate(['/login']);
+        }
       })
     );
   }

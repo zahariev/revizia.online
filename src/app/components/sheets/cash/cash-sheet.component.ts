@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import { Item } from 'app/shared/models/item.model';
+import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Item} from 'app/shared/models/item.model';
 
 import {
   CdkDragDrop,
@@ -7,10 +7,10 @@ import {
   CdkDragHandle
 } from '@angular/cdk/drag-drop';
 
-import { MatIcon } from '@angular/material/icon';
+import {MatIcon} from '@angular/material/icon';
 
-import { RevService } from 'app/shared/services/rev.service';
-import { SheetComponent } from '../sheet.component';
+import {RevService} from 'app/shared/services/rev.service';
+import {SheetComponent} from '../sheet.component';
 
 @Component({
   selector: 'cash-sheet',

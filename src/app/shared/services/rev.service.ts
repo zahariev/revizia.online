@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   taraItem,
   reviziaItem,
@@ -6,7 +6,7 @@ import {
   Store
 } from 'app/shared/models/item.model';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import * as firebase from 'firebase/app';
 
 import {
@@ -14,7 +14,7 @@ import {
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
 
-import { DataService } from './data.service';
+import {DataService} from './data.service';
 
 @Injectable()
 export class RevService {
@@ -78,7 +78,7 @@ export class RevService {
   cashData = [];
 
   // view = [];
-  public menuList = [{ name: '', data: [] }];
+  public menuList = [{name: '', data: []}];
   public revData = [];
   public taraData = [];
   public taraList = [new taraItem()];
@@ -218,7 +218,7 @@ export class RevService {
     data.menuList = this.menuList;
     // }
 
-    this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
+    this.DbData.set(JSON.parse(JSON.stringify(data))).catch(error => {
       console.error(error);
     });
   }
@@ -332,6 +332,7 @@ export class RevService {
       id: data.revData.length,
       name: 'newArea'
     });
+    // console.log(this.taraData);
     data.taraData = this.taraData;
     data.taraData.push({
       id: data.taraData.length,
@@ -397,7 +398,7 @@ export class RevService {
     data.taraData = this.taraData;
     data.storeData = {
       name: 'bar Kicks',
-      areas: [{ name: 'Old bar' }, { name: 'New bar' }]
+      areas: [{name: 'Old bar'}, {name: 'New bar'}]
     };
     // this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
     //   console.error(error);
@@ -796,7 +797,7 @@ export class RevService {
       Math.round(
         (((((item.start || item.netStart) as number) + item.buy) as number) -
           item.end) *
-          100
+        100
       ) / 100;
     // if (item.net != 1)
 
@@ -847,7 +848,7 @@ export class RevService {
     item.diff =
       Math.round(
         (item.starts * 1 - item.ends * 1 + item.mplus * 1 + item.minus * 1) *
-          1000
+        1000
       ) / 1000;
 
     item.qtySold = Math.round((item.diff / item.qty) * 1000) / 1000;

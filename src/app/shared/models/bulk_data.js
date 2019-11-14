@@ -1205,7 +1205,7 @@ cashItems = [
 
 storeData = {
   name: "Test",
-  areas: [{ id: "srg", name: "bar 1" }],
+  areas: [{id: "srg", name: "bar 1"}],
   managedDBs: {}
 };
 
