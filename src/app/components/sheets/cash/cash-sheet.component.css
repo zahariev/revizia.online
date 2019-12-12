@@ -15,8 +15,7 @@
 
 .card .card-body {
   flex: 1 1 auto;
-  padding: 1.25rem;
-  padding-top: 0px;
+  padding: 0 1.25rem 1.25rem;
 
   /* padding-bottom: 0px; */
   min-width: 805px;
@@ -89,7 +88,7 @@ td {
   width: 30%;
   bottom: 50px;
   z-index: 999;
-  right: 0px;
+  right: 0;
 }
 
 .total {

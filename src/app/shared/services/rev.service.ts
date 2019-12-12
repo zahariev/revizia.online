@@ -154,7 +154,7 @@ export class RevService {
         ? 'Local'
         : 'Server';
 
-      const data = res.payload.data();
+      const dt = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
 
@@ -162,8 +162,8 @@ export class RevService {
       if (!res.payload.exists) {
         this.setNewStore();
       }
-      if (changedFrom == 'Server' && data) {
-        this.setChangesFromServer(data);
+      if (changedFrom === 'Server' && dt) {
+        this.setChangesFromServer(dt);
       }
 
       if (
@@ -183,15 +183,15 @@ export class RevService {
         ? 'Local'
         : 'Server';
 
-      const data = res.payload.data();
+      const dt = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) {
         this.setNewRevSheet();
       }
-      if (changedFrom === 'Server' && data) {
-        this.revData = data.revData || this.revData;
+      if (changedFrom === 'Server' && dt) {
+        this.revData = dt.revData || this.revData;
         this.revList = this.returnList('revData');
         // console.log(this.revList);
       }
@@ -306,7 +306,7 @@ export class RevService {
     // console.log(areaID);
 
     // if (this.revData[areaID]) this.areaID = areaID;
-    this.router.navigateByUrl('area/' + this.areaID);
+    this.router.navigateByUrl('area/' + this.areaID).then();
     this.revList = this.revData[this.areaID].data;
     this.areaName = this.storeData.areas[this.areaID].name;
 
@@ -410,25 +410,14 @@ export class RevService {
 
     this.calculateSheets();
     const data: any = {};
+
     switch (name) {
       case 'revData':
         data.revData = JSON.parse(JSON.stringify(this.revData)) || [];
-        this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(function(
-          error
-        ) {
+        this.DbRevData.update(JSON.parse(JSON.stringify(data))).catch(error => {
           console.error(error);
         });
-        // clear old revData
-        // data["revData"] = {};
-        // this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(
-        //   error
-        // ) {
-        //   console.error(error);
-        // });
-
-        /// IMportant
         return;
-        return; /// xaxaxaxaxa !!!?@@?@?@?@PO@
         break;
       case 'cashData':
         data.cashData = this.cashData || [];
@@ -442,12 +431,9 @@ export class RevService {
     }
     // console.log(data);
 
-    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
+    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(error => {
       console.error(error);
     });
-
-    // backup on localStore
-    // this.localStore();
     this.containerName = '';
   }
 
@@ -576,6 +562,9 @@ export class RevService {
     });
     // console.log(this.taraList[0].startRev);
     this.revList = rev;
+    this.revData[this.areaID].data = this.revList;
+    this.cashData[this.areaID].data = {};
+
     this.fStore();
     this.fStore('taraData');
   }
@@ -772,6 +761,7 @@ export class RevService {
     }
     // item.start = item.start || item.netStart;
     // var item = taraItem[this.areaID].data;
+
     item.net =
       Math.round((((item.bruto1 as number) - item.tara1) as number) * 1000) /
       1000;
@@ -779,14 +769,16 @@ export class RevService {
       item.net =
         Math.round((((item.bruto as number) - item.tara) / 0.7) * 1000) / 1000;
     }
+    item.net = item.net || 1;
     // 1;
     // console.log(item.net);
 
     if (item.net <= 0) {
       item.net = 1;
     }
-    item.end = (((((revItem.ends - item.taraQty) as number) * item.tara -
-      item.taraQty1) as number) * item.tara1) as number;
+    item.end = (revItem.ends -
+      (item.taraQty as number) * item.tara -
+      (item.taraQty1 as number) * item.tara1) as number;
 
     item.end =
       (Math.round((item.end * 100) / item.net) as number) / 100 +

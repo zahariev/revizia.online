@@ -9,7 +9,7 @@ import {RevService} from 'app/shared/services/rev.service';
   template: 'NO UI TO BE FOUND HERE!'
 })
 export class SheetComponent implements OnInit {
-  focussableElements: any;
+  focusableElements: any;
   dataList;
   history: Array<any> = [];
   date;
@@ -17,7 +17,7 @@ export class SheetComponent implements OnInit {
   activeEl;
   tabIdx;
   editable;
-  contentChange: Boolean = false;
+  contentChange: boolean = false;
   columnList = {length: 0};
   row: number = 0;
 
@@ -32,18 +32,18 @@ export class SheetComponent implements OnInit {
     // console.log(this.dataList);
 
     this.dat.firstLoad = false;
-    var itemExists = this.dataList.filter(i => {
+    const itemExists = this.dataList.filter(i => {
       return i.id == itm.id;
     })[0];
-    var item = itemExists || JSON.parse(JSON.stringify(itm));
+    const item = itemExists || JSON.parse(JSON.stringify(itm));
 
     // format edited text field
-    var value = el.innerText + '';
+    let value = el.innerText + '';
     el.innerText = '';
     value = value.replace(/\r?\n|\r\s/g, '');
 
     if (this.contentChange) {
-      var oldItem = JSON.parse(JSON.stringify(item));
+      const oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
       item[property] = Number(value) || value;
       el.innerText = value;
@@ -51,28 +51,33 @@ export class SheetComponent implements OnInit {
       // not to double values in text filed on chrome
       el.innerHTML = item[property] || '';
     }
-    // console.log(item === oldItem);
+    //
+    console.log(item);
+    console.log(this.containerName);
+    // console.log(value);
 
     // this.dat.calculateSheets();
     // this.dat.localStore();
 
     this.dat.containerName = this.containerName;
     this.dat.fStore(this.dat.containerName);
+    // this.dat.pgStore(this.containerName, item, this.date)
     this.contentChange = false;
   }
 
   gridInit() {
   }
 
-  onInput(item, elName, event) {
+  onInput(event) {
+    // console.log(event);
     this.contentChange = true;
   }
 
   onBlur(item, colName, event) {
-    var el = event.target;
+    const el = event.target;
     // console.log(el.innerText);
     if (colName == 'id') {
-      var oldID = item.id;
+      const oldID = item.id;
       // this.updateList(item, colName, el);
 
       // this.updateId(oldID, item.id);
@@ -85,7 +90,7 @@ export class SheetComponent implements OnInit {
   }
 
   updateId(id, value) {
-    var db = localStorage.getItem(this.dat.storeName + this.dat.areaID);
+    const db = localStorage.getItem(this.dat.storeName + this.dat.areaID);
 
     // console.log(db.replace(/"id":" + id + "/g, '"id":"' + value + '"'));
   }
@@ -104,13 +109,13 @@ export class SheetComponent implements OnInit {
 
   keyDown(item, property: string, event: any) {
     // console.log(event);
-    var el = event.target;
-    var row = this.row || this.columnList.length;
+    let el = event.target;
+    const row = this.row || this.columnList.length;
     // console.log(event.key);
     switch (event.key) {
       case 'Enter':
         if (this.activeEl == 'editable') {
-          this.focusNextElement(el, row); //colummnList.length
+          this.focusNextElement(el, row); // colummnList.length
 
           event.preventDefault();
         } else {
@@ -186,11 +191,9 @@ export class SheetComponent implements OnInit {
   }
 
   keyUp(item, property: string, event: any) {
-    switch (event.key) {
-      case 'Enter':
-        event.preventDefault();
-        return true;
-        break;
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      return true;
     }
 
     return true;
@@ -200,7 +203,8 @@ export class SheetComponent implements OnInit {
     if (!this.editable) {
       return;
     }
-    var range, selection;
+    let range;
+    let selection;
     if (this.activeEl == 'select') {
       this.activeEl = 'editable';
     }
@@ -223,16 +227,16 @@ export class SheetComponent implements OnInit {
   }
 
   focusNextElement(el, step = 1) {
-    this.focussableElements = document.querySelectorAll('[tabindex]');
-    var index = Array.from(this.focussableElements).indexOf(el);
-
+    this.focusableElements = document.querySelectorAll('[tabindex]');
+    const index = Array.from(this.focusableElements).indexOf(el);
+    let nextElement;
     if (index + step < 3) {
       return;
     }
     if (index > -1) {
       window.getSelection().removeAllRanges();
-      var nextElement =
-        this.focussableElements[index + step] || this.focussableElements[index];
+      nextElement =
+        this.focusableElements[index + step] || this.focusableElements[index];
 
       if (index) {
         el.contentEditable = 'false';
@@ -240,9 +244,9 @@ export class SheetComponent implements OnInit {
 
       this.activeEl = nextElement;
     } else {
-      this.focussableElements = document.querySelectorAll('.table td.name');
+      this.focusableElements = document.querySelectorAll('.table td.name');
 
-      nextElement = this.focussableElements[0];
+      nextElement = this.focusableElements[0];
     }
     // console.log(nextElement);
     // window.localStorage.setItem("focus", nextElement);
@@ -254,20 +258,20 @@ export class SheetComponent implements OnInit {
   mousewheel(ev: Event) {
     // console.log(this.el.nativeElement.offsetParent.firstChild);
     // console.log(this.el.nativeElement.firstChild.scrollTop);
-    var scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
+    const scrollPos = this.el.nativeElement.offsetParent.firstChild.scrollTop;
     this.dat.tabScrollPos[this.tabIdx] = scrollPos;
   }
 
   undoValue() {
-    var item = this.history.pop();
+    const item = this.history.pop();
 
-    var idx: any;
+    let idx: any;
     if (!item) {
       return;
     }
     if (item.delPosition) {
-      //delete
-      var idx = item.delPosition;
+      // delete
+      idx = item.delPosition;
       delete item.delPosition;
       this.dataList.splice(idx, 0, item);
     }

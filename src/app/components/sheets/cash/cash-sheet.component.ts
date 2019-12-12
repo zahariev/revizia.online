@@ -18,7 +18,7 @@ import {SheetComponent} from '../sheet.component';
   styleUrls: ['./cash-sheet.component.css']
 })
 export class CashSheetComponent extends SheetComponent {
-  @Input() editable: Boolean;
+  @Input() editable: boolean;
   @Input() tabIdx: string;
 
   columnList = [
@@ -97,13 +97,13 @@ export class CashSheetComponent extends SheetComponent {
 
   addRow(ev) {
     // TODO scroll one row to bottom
-    var tabIdx = this.dat.tabSelectedIdx;
-    var mlist = document.getElementById('menuTab' + tabIdx);
+    const tabIdx = this.dat.tabSelectedIdx;
+    const mlist = document.getElementById('menuTab' + tabIdx);
     this.dat.tabScrollPos[tabIdx] = this.dat.tabScrollPos[tabIdx] + 2070;
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
     }
-    var rowIdx = this.dataList.push(
+    const rowIdx = this.dataList.push(
       new Item('new' + this.dataList.length.toString(), 'new', 0, 0, 0, 0)
     );
 

@@ -23,7 +23,7 @@ import {SheetComponent} from '../sheet.component';
   styleUrls: ['./menu-sheet.component.css']
 })
 export class MenuSheetComponent extends SheetComponent {
-  @Input() editable: Boolean;
+  @Input() editable: boolean;
   @Input() tabIdx: string;
 
   columnList = [
@@ -99,16 +99,16 @@ export class MenuSheetComponent extends SheetComponent {
 
   addRow(ev) {
     // TODO scroll one row to bottom
-    var tabIdx = this.dat.tabSelectedIdx;
-    var mlist = document.getElementById('menuTab' + tabIdx);
+    const tabIdx = this.dat.tabSelectedIdx;
+    const mlist = document.getElementById('menuTab' + tabIdx);
     this.dat.tabScrollPos[tabIdx] = this.dat.tabScrollPos[tabIdx] + 2070;
     if (mlist) {
       mlist.parentElement.scrollTo(0, this.dat.tabScrollPos[tabIdx] + 2070);
     }
-    var idx = Math.random()
+    const idx = Math.random()
       .toString(36)
       .substr(2, 9);
-    var rowIdx = this.dataList.push(new Item(idx, 'newItem', 0, 0, 0, 0));
+    const rowIdx = this.dataList.push(new Item(idx, 'newItem', 0, 0, 0, 0));
 
     this.gridInit();
     return rowIdx;
@@ -116,7 +116,7 @@ export class MenuSheetComponent extends SheetComponent {
 
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
-    var histItem = {prev: event.previousIndex, curr: event.currentIndex};
+    const histItem = {prev: event.previousIndex, curr: event.currentIndex};
     this.history.push(histItem);
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
 
@@ -127,7 +127,7 @@ export class MenuSheetComponent extends SheetComponent {
   dropToTab(event: CdkDragDrop<Item[]>) {
     // console.log(event);
     // reorder menu tabs
-    // var histItem = { prev: event.previousIndex, curr: event.currentIndex };
+    // let histItem = { prev: event.previousIndex, curr: event.currentIndex };
     // this.history.push(histItem);
     moveItemInArray(this.dat.menuList, event.previousIndex, event.currentIndex);
 
