@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   taraItem,
   reviziaItem,
@@ -6,7 +6,7 @@ import {
   Store
 } from 'app/shared/models/item.model';
 
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/app';
 
 import {
@@ -14,7 +14,7 @@ import {
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
 
-import {DataService} from './data.service';
+import { DataService } from './data.service';
 
 @Injectable()
 export class RevService {
@@ -78,7 +78,7 @@ export class RevService {
   cashData = [];
 
   // view = [];
-  public menuList = [{name: '', data: []}];
+  public menuList = [{ name: '', data: [] }];
   public revData = [];
   public taraData = [];
   public taraList = [new taraItem()];
@@ -347,7 +347,7 @@ export class RevService {
 
     // console.log(id);
 
-    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function(error) {
+    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function (error) {
       console.error(error);
     });
   }
@@ -398,7 +398,7 @@ export class RevService {
     data.taraData = this.taraData;
     data.storeData = {
       name: 'bar Kicks',
-      areas: [{name: 'Old bar'}, {name: 'New bar'}]
+      areas: [{ name: 'Old bar' }, { name: 'New bar' }]
     };
     // this.DbData.set(JSON.parse(JSON.stringify(data))).catch(function(error) {
     //   console.error(error);
@@ -722,7 +722,7 @@ export class RevService {
       return b;
     }
     const obj = {};
-    Object.keys(a).map(function(x) {
+    Object.keys(a).map(function (x) {
       switch (x) {
         case 'id':
         case 'name':
