@@ -8,6 +8,7 @@ import {
 
 import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/app';
+import * as Ably from 'ably';
 
 import {
   AngularFirestore,
@@ -119,22 +120,36 @@ export class RevService {
   changedFrom = 'Local';
   conn;
   conn2;
+  // tslint:disable-next-line: no-console
+  log = console.log;
 
   /* Login credentials    */
   /*                      */
-  db_key = 'test'; // "JulJuD8xEvE6sptbL3cT"
+  dbKey = 'test'; // "JulJuD8xEvE6sptbL3cT"
   storeName = '';
   areaID = 0;
   areaName = 'loading data.....';
-
+  ably;
   testData;
+  dbFire;
 
   constructor(
     public data: DataService,
     afs: AngularFirestore,
     private router: Router // private route: ActivatedRoute
   ) {
+
+    const options: Ably.Types.ClientOptions = { key: 'rn6d5g.qtu7ig:oOXK_23V3M8K3TY8' };
+    const msgClient = new Ably.Realtime('rn6d5g.qtu7ig:oOXK_23V3M8K3TY8');
+    this.ably = msgClient.channels.get('test');
+
+    // ably.subscribe('update_item', data4 => {
+
+    //   this.log(data4);
+    //   // this.smsNotifications.push(data.data);
+    // });
     this.revData[0] = {};
+
     this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       // if(e instanceof NavigationEnd)
@@ -144,26 +159,47 @@ export class RevService {
       // else this.areaID = 0;
     });
 
-    this.db_key = localStorage.userID || 0;
+    this.dbKey = localStorage.userID || 0;
 
-    this.DbData = afs.collection('databases').doc(this.db_key);
-    this.DbRevData = afs.collection('revSheets').doc(this.db_key);
+    this.DbData = afs.collection('databases').doc(this.dbKey);
+    this.DbRevData = afs.collection('revSheets').doc(this.dbKey);
+
+
+    this.dbFire = this.DbData.collection('menu');
+    this.dbFire.snapshotChanges().subscribe(
+      subCol => {
+        this.log(subCol);
+        subCol.forEach(doc => {
+          // this.log('Sub Document ID: ', doc);
+          // doc.name = 'pesho';
+
+          //this.dbFire.doc(doc.payload.doc.id).update({ name: 'asdfg' });
+          // this.log(doc.payload.doc.data());
+
+        });
+
+      });
+
+
+
 
     this.conn = this.DbData.snapshotChanges().subscribe(res => {
       const changedFrom = res.payload.metadata.hasPendingWrites
-        ? 'Local'
-        : 'Server';
+        ? 'Local' : 'Server';
 
       const dt = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
-
+      // ably.publish('init_item', dt.taraData);
+      this.log(dt.taraData);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) {
         this.setNewStore();
       }
       if (changedFrom === 'Server' && dt) {
         this.setChangesFromServer(dt);
+        // ably.publish('init_item', dt.menuList);
+
       }
 
       if (
@@ -185,7 +221,8 @@ export class RevService {
 
       const dt = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
-      // console.log(data);
+      // this.log(dt);
+      // ably.publish('init_item', dt.revData);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) {
         this.setNewRevSheet();
@@ -193,7 +230,8 @@ export class RevService {
       if (changedFrom === 'Server' && dt) {
         this.revData = dt.revData || this.revData;
         this.revList = this.returnList('revData');
-        // console.log(this.revList);
+
+        this.log(dt.revData);
       }
       // this.setNewRevSheet();
       if (
@@ -326,6 +364,8 @@ export class RevService {
   }
 
   public areaNew(ev) {
+    this.ably.publish('newArea', { timestamp: Date.now() });
+
     const data: any = {};
     data.revData = this.revData;
     data.revData.push({
@@ -347,7 +387,7 @@ export class RevService {
 
     // console.log(id);
 
-    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(function (error) {
+    this.DbData.update(JSON.parse(JSON.stringify(data))).catch(error => {
       console.error(error);
     });
   }
@@ -467,6 +507,7 @@ export class RevService {
 
   public newDayTab(date): boolean {
     const datestring = this.getNewDate(date);
+    this.ably.publish('newDayTab', { timestamp: Date.now() });
 
     if (this.revKeys.indexOf(datestring) == -1) {
       // this.revKeys.push(datestring);
