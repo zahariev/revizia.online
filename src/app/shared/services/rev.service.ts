@@ -17,8 +17,12 @@ import {
 
 import { DataService } from './data.service';
 
+// tslint:disable-next-line: no-console
+const log = console.log;
+
 @Injectable()
 export class RevService {
+
   cashItems = [
     {
       name: 'Заплати',
@@ -121,7 +125,7 @@ export class RevService {
   conn;
   conn2;
   // tslint:disable-next-line: no-console
-  log = console.log;
+
 
   /* Login credentials    */
   /*                      */
@@ -145,7 +149,7 @@ export class RevService {
 
     // ably.subscribe('update_item', data4 => {
 
-    //   this.log(data4);
+    //   log(data4);
     //   // this.smsNotifications.push(data.data);
     // });
     this.revData[0] = {};
@@ -165,20 +169,20 @@ export class RevService {
     this.DbRevData = afs.collection('revSheets').doc(this.dbKey);
 
 
-    this.dbFire = this.DbData.collection('menu');
-    this.dbFire.snapshotChanges().subscribe(
-      subCol => {
-        this.log(subCol);
-        subCol.forEach(doc => {
-          // this.log('Sub Document ID: ', doc);
-          // doc.name = 'pesho';
+    // this.dbFire = this.DbData.collection('menu');
+    // this.dbFire.snapshotChanges().subscribe(
+    //   subCol => {
+    //     //log(subCol);
+    //     subCol.forEach(doc => {
+    //       // log('Sub Document ID: ', doc);
+    //       // doc.name = 'pesho';
 
-          //this.dbFire.doc(doc.payload.doc.id).update({ name: 'asdfg' });
-          // this.log(doc.payload.doc.data());
+    //       //this.dbFire.doc(doc.payload.doc.id).update({ name: 'asdfg' });
+    //       log(doc.payload.doc.data());
 
-        });
+    //     });
 
-      });
+    //   });
 
 
 
@@ -191,7 +195,7 @@ export class RevService {
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
       // ably.publish('init_item', dt.taraData);
-      this.log(dt.taraData);
+      log(dt.taraData);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) {
         this.setNewStore();
@@ -221,7 +225,7 @@ export class RevService {
 
       const dt = res.payload.data();
       // console.log(res.payload.metadata.hasPendingWrites);
-      // this.log(dt);
+      // log(dt);
       // ably.publish('init_item', dt.revData);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) {
@@ -231,7 +235,7 @@ export class RevService {
         this.revData = dt.revData || this.revData;
         this.revList = this.returnList('revData');
 
-        this.log(dt.revData);
+        //log(dt.revData);
       }
       // this.setNewRevSheet();
       if (
@@ -244,6 +248,23 @@ export class RevService {
       }
     });
   }
+
+  send_msg(event: string, tName: string, id: string, field: string, value: any) {
+
+    log(id);
+    switch (event) {
+      case 'create':
+
+        break;
+      case 'update':
+
+        break;
+
+    }
+    // this.ably.publish(event);
+  }
+
+
 
   private setNewStore() {
     // console.log("newStore");
