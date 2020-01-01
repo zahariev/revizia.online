@@ -1,13 +1,18 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
-import {moveItemInArray} from '@angular/cdk/drag-drop';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
-import {RevService} from 'app/shared/services/rev.service';
+import { RevService } from 'app/shared/services/rev.service';
+
+// tslint:disable-next-line: no-console
+const log = console.log;
 
 @Component({
   selector: 'app-sheet',
   template: 'NO UI TO BE FOUND HERE!'
 })
+
+
 export class SheetComponent implements OnInit {
   focusableElements: any;
   dataList;
@@ -18,10 +23,12 @@ export class SheetComponent implements OnInit {
   tabIdx;
   editable;
   contentChange: boolean = false;
-  columnList = {length: 0};
+  columnList = { length: 0 };
   row: number = 0;
+  ably;
 
   constructor(public dat: RevService, public el: ElementRef) {
+    this.ably = dat.ably;
   }
 
   ngOnInit() {
@@ -29,7 +36,7 @@ export class SheetComponent implements OnInit {
 
   updateList(itm, property: string, el: any) {
     this.gridInit();
-    // console.log(this.dataList);
+
 
     this.dat.firstLoad = false;
     const itemExists = this.dataList.filter(i => {
@@ -42,6 +49,12 @@ export class SheetComponent implements OnInit {
     el.innerText = '';
     value = value.replace(/\r?\n|\r\s/g, '');
 
+    // log('prop:' + property);
+    // log('val:' + value);
+    // log('sheet:' + this.containerName);
+    const id: number = itm.id || 0;
+    this.dat.send_msg('update', this.containerName, itm.id, property, value)
+
     if (this.contentChange) {
       const oldItem = JSON.parse(JSON.stringify(item));
       this.history.push(oldItem);
@@ -52,8 +65,8 @@ export class SheetComponent implements OnInit {
       el.innerHTML = item[property] || '';
     }
     //
-    console.log(item);
-    console.log(this.containerName);
+    // console.log(item);
+    // console.log(this.containerName);
     // console.log(value);
 
     // this.dat.calculateSheets();
