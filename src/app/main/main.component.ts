@@ -1,14 +1,15 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
-import {MatTabChangeEvent} from '@angular/material/tabs';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
 
-import {RevService} from 'app/shared/services/rev.service';
+import { RevService } from 'app/shared/services/rev.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
 export class MainComponent {
   title = 'rev';
   editable: boolean;
@@ -32,6 +33,7 @@ export class MainComponent {
   // _simple: boolean = true;
 
   constructor(data: RevService, el: ElementRef, private route: ActivatedRoute) {
+
     this.el = el;
     this.data = data;
     this.tabs = this.data.revKeys;
@@ -42,9 +44,16 @@ export class MainComponent {
       this.data.revKeys = this.data.revKeys.slice(-2);
     }
 
+    // if (environment.production) {
+    //   enableProdMode();
+    //   if(window){
+    //     window.console.log=function(){};
+    //   }
+    // }
+
     this.areaName = data.areaName;
     this.storeName = data.storeName;
-    // console.log(this.data);
+    // log(this.data);
   }
 
   ngOnInit() {
@@ -78,7 +87,7 @@ export class MainComponent {
       : tabChange.index - 2;
     this.data.activeDate = Object.keys(this.data.revList)[
       this.data.activeDateIdx
-      ];
+    ];
     this.data.activeTabIdx = tabChange.index;
 
     // console.log(this.data.activeDate);
@@ -164,7 +173,8 @@ export class MainComponent {
 
   selectText(cell = document.activeElement) {
     // if (!this.editable) return;
-    let range, selection;
+    let range;
+    let selection;
     if (this.activeEl === 'select') {
       this.activeEl = 'editable';
     }
