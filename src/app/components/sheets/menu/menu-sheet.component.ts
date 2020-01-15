@@ -1,5 +1,5 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
-import {Item} from 'app/shared/models/item.model';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Item } from 'app/shared/models/item.model';
 
 import {
   CdkDragDrop,
@@ -12,10 +12,10 @@ import {
   CdkDrag
 } from '@angular/cdk/drag-drop';
 
-import {MatIcon} from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 
-import {RevService} from 'app/shared/services/rev.service';
-import {SheetComponent} from '../sheet.component';
+import { RevService } from 'app/shared/services/rev.service';
+import { SheetComponent } from '../sheet.component';
 
 @Component({
   selector: 'menu-sheet',
@@ -27,7 +27,7 @@ export class MenuSheetComponent extends SheetComponent {
   @Input() tabIdx: string;
 
   columnList = [
-    {columnName: 'id', name: 'id', format: 'number', editable: true},
+    { columnName: 'id', name: 'id', format: 'number', editable: true },
     {
       columnName: 'Име',
       name: 'name',
@@ -116,10 +116,11 @@ export class MenuSheetComponent extends SheetComponent {
 
   drop(event: CdkDragDrop<Item[]>) {
     // reorder menu list Items
-    const histItem = {prev: event.previousIndex, curr: event.currentIndex};
+    const histItem = { prev: event.previousIndex, curr: event.currentIndex };
     this.history.push(histItem);
     moveItemInArray(this.dataList, event.previousIndex, event.currentIndex);
-
+    console.log(event);
+    //this.dat.send_msg('reorder', 'menu', { 'from': event.previousIndex, 'to': event.currentIndex })
     this.dat.fStore(this.containerName);
     this.gridInit();
   }

@@ -195,14 +195,16 @@ export class RevService {
       // console.log(res.payload.metadata.hasPendingWrites);
       // console.log(data);
       // ably.publish('init_item', dt.taraData);
-      log(dt.taraData);
+      log(dt.menuList);
+      log(JSON.stringify(dt.menuList));
+      log(JSON.stringify(dt.menuList).length);
       // ToDO ask if new or add credetial to existing db
       if (!res.payload.exists) {
         this.setNewStore();
       }
       if (changedFrom === 'Server' && dt) {
         this.setChangesFromServer(dt);
-        // ably.publish('init_item', dt.menuList);
+        //this.ably.publish('init_item', dt);
 
       }
 
@@ -228,6 +230,11 @@ export class RevService {
       // log(dt);
       // ably.publish('init_item', dt.revData);
       // ToDO ask if new or add credetial to existing db
+
+      log(dt.revData);
+      // log(this.getByteLen(dt));
+      log(JSON.stringify(dt).length);
+
       if (!res.payload.exists) {
         this.setNewRevSheet();
       }
@@ -248,6 +255,7 @@ export class RevService {
       }
     });
   }
+
 
   send_msg(event: string, tName: string, id: string, field: string, value: any) {
 
