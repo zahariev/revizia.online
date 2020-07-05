@@ -29,7 +29,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [

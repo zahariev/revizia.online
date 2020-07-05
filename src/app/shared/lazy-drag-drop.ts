@@ -13,14 +13,14 @@ import {
   CdkDropList,
   CdkDrag,
   CdkDragHandle,
-  CDK_DROP_LIST_CONTAINER
+  CDK_DROP_LIST
 } from '@angular/cdk/drag-drop';
 
 @Directive({
   selector: '[cdkLazyDropList]',
   exportAs: 'cdkLazyDropList',
   providers: [
-    {provide: CDK_DROP_LIST_CONTAINER, useExisting: CdkLazyDropList}
+    {provide: CDK_DROP_LIST, useExisting: CdkLazyDropList}
   ],
   host: {
     // tslint:disable-line:use-host-property-decorator
