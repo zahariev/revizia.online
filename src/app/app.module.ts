@@ -42,7 +42,11 @@ import { SheetComponent } from "app/components/sheets/sheet.component";
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { MainComponent } from "./main/main.component";
 import { AuthGuard } from "./auth.guard";
-import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+  CommonModule,
+} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -69,6 +73,7 @@ import { HashLocationStrategy, LocationStrategy } from "@angular/common";
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppMaterialModule,
     HttpClientModule,
