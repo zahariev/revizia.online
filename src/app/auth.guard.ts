@@ -4,13 +4,13 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router
-} from '@angular/router';
-import {map, take, tap} from 'rxjs/operators';
+  Router,
+} from "@angular/router";
+import { map, take, tap } from "rxjs/operators";
 import {
   AngularFirestore,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+  AngularFirestoreDocument,
+} from "@angular/fire/firestore";
 
 import {AuthService} from 'app/shared/services/auth.service';
 // import { Observable } from "rxjs";

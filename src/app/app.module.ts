@@ -31,8 +31,8 @@ import { TabsTaraSheetComponent } from "./components/tabs/tara/tara-sheet.compon
 
 import { environment } from "../environments/environment";
 
-import { AngularFirestoreModule } from "angularfire2/firestore";
-import { AngularFireModule } from "angularfire2";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { CdkDropList, CdkDrag } from "@angular/cdk/drag-drop";
